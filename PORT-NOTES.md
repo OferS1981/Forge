@@ -57,7 +57,7 @@ listed deviation or a note for a later phase.
    second, unverified catalogue. The parser needs the model to refuse those. `PHASE-9-NOTES.md`
    has the rest.
 10. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
-   hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
+    hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
 
 ## Things in the prototype I think are wrong, left as they are
 

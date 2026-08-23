@@ -32,3 +32,4 @@ export * from './engine';
 export { arr, cap, deMeta, has, join, lc, stripBanned, stripDot, wordCount } from './compose/text';
 export { COMPOSERS } from './compose';
 export type { Composed, Composer } from './compose';
+export * from './refresh';

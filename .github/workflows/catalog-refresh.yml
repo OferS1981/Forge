@@ -1,0 +1,123 @@
+name: Catalogue refresh
+
+# Section 18: this is what decides whether Forge is alive in a year. Once a month, per category,
+# check what each model file claims against the vendor's own page and open one pull request with a
+# citation for every change. A human merges. Never auto-merge a catalogue change.
+on:
+  schedule:
+    # The first of the month, early, so the pull requests are waiting rather than interrupting.
+    - cron: '17 6 1 * *'
+  workflow_dispatch:
+    inputs:
+      category:
+        description: 'One category, or leave blank for every category'
+        required: false
+        default: ''
+        type: string
+
+concurrency:
+  group: catalog-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    name: Report and propose
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      # Enough to push a branch and open a pull request. Nothing here may merge one.
+      contents: write
+      pull-requests: write
+    env:
+      # `secrets` cannot be read in a step condition, so the one fact needed is lifted to the job.
+      HAS_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # Deterministic, needs no key, and is the useful half on its own. A run with no secret
+      # configured still produces this, rather than being a no-op that hides a missing secret.
+      - name: Build the report
+        id: report
+        run: |
+          node scripts/catalog-refresh.mjs ${{ inputs.category }}
+          {
+            echo '## Catalogue refresh'
+            echo
+            cat catalog-refresh/*.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Keep the report
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-refresh
+          path: catalog-refresh
+          retention-days: 30
+
+      - name: Say when there is no key, rather than failing quietly
+        if: env.HAS_KEY == 'false'
+        run: |
+          echo "No ANTHROPIC_API_KEY is configured, so nothing was checked against a vendor page." >> "$GITHUB_STEP_SUMMARY"
+          echo "The report above is still the full list of claims, and can be worked through by hand." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Check the claims against the sources
+        if: env.HAS_KEY == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          for report in catalog-refresh/*.md; do
+            category="$(basename "$report" .md)"
+            claude -p "$(cat <<PROMPT
+          Read $report. It lists every claim the $category model files in packages/catalog/src/models
+          make that a vendor page could prove wrong, with the sources that should settle each one.
+
+          For each model: fetch its sources, compare them against the file, and change only what the
+          page contradicts. Rules that are not negotiable:
+
+          - Cite the page you read, in the commit message, for every change you make.
+          - Change nothing you could not confirm on a vendor page. Leaving a value alone is correct.
+          - Bump verifiedOn to today only for a model you actually checked, and clear unverified
+            only when every claim in that model was confirmed.
+          - Do not edit reference/forge.html, and do not touch the golden files by hand.
+          - Run pnpm verify. If a golden file changed, that is the reviewable diff it exists to
+            produce: regenerate it and say in the pull request what moved and why.
+          PROMPT
+          )" --allowed-tools "Read,Edit,Bash,WebFetch" --permission-mode acceptEdits
+          done
+
+      - name: Open the pull request
+        if: env.HAS_KEY == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain -- packages/catalog)" ]; then
+            echo "Nothing in the catalogue changed. No pull request opened." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          branch="catalog-refresh/$(date -u +%Y-%m)"
+          git config user.name "forge-catalogue"
+          git config user.email "forge-catalogue@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add packages/catalog
+          git commit -m "Catalogue refresh: $(date -u +%Y-%m)"
+          git push --force origin "$branch"
+          gh pr create \
+            --title "Catalogue refresh: $(date -u +%Y-%m)" \
+            --body-file catalog-refresh/PR.md \
+            --base main --head "$branch" || \
+          gh pr edit "$branch" --body-file catalog-refresh/PR.md

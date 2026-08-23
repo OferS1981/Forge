@@ -12,6 +12,7 @@ current phases is `PLAN.md`. Read both before changing anything structural. The 
 
 ```
 pnpm --filter @forge/web dev       run the web app on port 4322
+node scripts/catalog-refresh.mjs <category>   the claims in a category, and the sources for each
 pnpm verify         typecheck + lint + test + golden + a11y + e2e. must exit 0 before any phase is done
 pnpm test -- --watch
 pnpm format         prettier --write
@@ -67,7 +68,7 @@ pnpm --filter @forge/ui gallery    the component gallery, which axe and the e2e 
 - No colour anywhere except the token file, `packages/ui/src/styles/tokens.css`. That includes
   scrims and the foreground painted on a filled control: add a token rather than a literal.
 - No `any`. No `!` without a comment saying why.
-- Never auto-merge a catalogue change.
+- Never auto-merge a catalogue change. The refresh workflow opens a pull request and stops.
 - Never ship a feature that only works when the AI layer is on, or when an account is signed in.
   A screen is written against `Library` and `PromptAssistant`, never against whether anybody is
   signed in or has a key.

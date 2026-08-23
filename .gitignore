@@ -12,3 +12,4 @@ test-results
 out
 next-env.d.ts
 *.tsbuildinfo
+catalog-refresh
