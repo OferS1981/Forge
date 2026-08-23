@@ -1,0 +1,190 @@
+/*
+ * Design tokens, ported verbatim from reference/forge.html. They are already tuned and
+ * contrast-tested, so the values are not to be adjusted without re-running the contrast checks.
+ *
+ * The palette is the real colour scale of heated steel: charred ground, iron lines, cherry, ember,
+ * yellow heat, welding white. The accent does one job at a time.
+ *
+ * Theming has three states, not two. The bare :root carries the complete light palette. The
+ * prefers-color-scheme block, guarded so an explicit light choice wins, redefines only the tokens.
+ * The [data-theme="dark"] block redefines them again so the toggle wins in both directions. No
+ * colour is ever defined only inside a media query or a [data-theme] block.
+ *
+ * This is the only file in the product allowed to contain a colour.
+ */
+
+:root {
+  /* light theme = cold steel / workshop daylight */
+  --ground: #e4e4e0;
+  --surface: #f2f2ef;
+  --surface-2: #eaeae5;
+  --surface-3: #deddd7;
+  --line: #cbcac3;
+  --line-strong: #aeaca3;
+  --ink: #191512;
+  --ink-2: #4a423a;
+  --ink-dim: #655c52;
+  --edge: #848377;
+  --ember: #c0430a;
+  --ember-text: #953405;
+  --strike-a: #d4611c;
+  --strike-b: #b03c08;
+  --ember-soft: #e2782f;
+  --cherry: #a32213;
+  --yellow: #b87a12;
+  --white-heat: #8a6a2e;
+  --good: #2f7a4c;
+  --warn: #9a6a0b;
+  --crit: #a83421;
+  --shadow: 0 1px 2px rgba(25, 21, 18, 0.08), 0 8px 24px -12px rgba(25, 21, 18, 0.24);
+  --glow: none;
+  --scan: rgba(25, 21, 18, 0.035);
+
+  /*
+   * Two tokens the prototype did not need, because it never painted text on an ember fill or drew
+   * a modal scrim. --on-ember is the foreground for anything filled with --ember: white over the
+   * light theme's #C0430A is 5.19:1, near-black over the dark theme's #FF6A1F is 6.71:1, and the
+   * near-black the prototype used over the light ember was 3.7:1, which fails.
+   */
+  --on-ember: #ffffff;
+  --scrim: rgba(25, 21, 18, 0.5);
+
+  --f-display:
+    'Big Shoulders Display', 'Arial Narrow', 'Helvetica Neue Condensed Bold', Impact,
+    'Haettenschweiler', sans-serif;
+  --f-body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --r: 3px;
+  --r-lg: 5px;
+  --rail: 264px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --ground: #0d0b0a;
+    --surface: #151210;
+    --surface-2: #1c1815;
+    --surface-3: #241f1a;
+    --line: #2e2721;
+    --line-strong: #463c32;
+    --ink: #f2ebe0;
+    --ink-2: #c3b7a8;
+    --ink-dim: #a2968a;
+    --edge: #7a6656;
+    --ember: #ff6a1f;
+    --ember-text: #ff8a45;
+    --strike-a: #ff9147;
+    --strike-b: #ff6a1f;
+    --ember-soft: #ff9147;
+    --cherry: #d6341c;
+    --yellow: #ffb03a;
+    --white-heat: #ffe6c0;
+    --good: #57b076;
+    --warn: #d9a227;
+    --crit: #e0523a;
+    --shadow: 0 1px 0 rgba(255, 255, 255, 0.03), 0 16px 40px -18px rgba(0, 0, 0, 0.9);
+    --glow: 0 0 24px -6px rgba(255, 106, 31, 0.45);
+    --scan: rgba(255, 255, 255, 0.02);
+
+    --on-ember: #120e0b;
+    --scrim: rgba(13, 11, 10, 0.62);
+  }
+}
+:root[data-theme='dark'] {
+  --ground: #0d0b0a;
+  --surface: #151210;
+  --surface-2: #1c1815;
+  --surface-3: #241f1a;
+  --line: #2e2721;
+  --line-strong: #463c32;
+  --ink: #f2ebe0;
+  --ink-2: #c3b7a8;
+  --ink-dim: #a2968a;
+  --edge: #7a6656;
+  --ember: #ff6a1f;
+  --ember-text: #ff8a45;
+  --strike-a: #ff9147;
+  --strike-b: #ff6a1f;
+  --ember-soft: #ff9147;
+  --cherry: #d6341c;
+  --yellow: #ffb03a;
+  --white-heat: #ffe6c0;
+  --good: #57b076;
+  --warn: #d9a227;
+  --crit: #e0523a;
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.03), 0 16px 40px -18px rgba(0, 0, 0, 0.9);
+  --glow: 0 0 24px -6px rgba(255, 106, 31, 0.45);
+  --scan: rgba(255, 255, 255, 0.02);
+
+  --on-ember: #120e0b;
+  --scrim: rgba(13, 11, 10, 0.62);
+}
+
+/* Category colours, moved here from the prototype's CATS array. packages/catalog stores the token
+   name, never the hex, so the catalogue carries no colour. */
+:root {
+  --cat-image: #ff6a1f;
+  --cat-video: #d6341c;
+  --cat-voice: #ffb03a;
+  --cat-sfx: #c08a3e;
+  --cat-music: #57b076;
+  --cat-text: #6e9fd1;
+  --cat-code: #8b7fd1;
+  --cat-app: #c77fd1;
+  --cat-research: #5fa8a0;
+
+  /* Type scale: eight steps, in rem so browser text sizing works. */
+  --t-xs: 0.75rem;
+  --t-sm: 0.8125rem;
+  --t-base: 0.9375rem;
+  --t-md: 1rem;
+  --t-lg: 1.25rem;
+  --t-xl: 1.5rem;
+  --t-2xl: 2rem;
+  --t-3xl: 2.75rem;
+
+  /* Spacing, and the two target sizes the accessibility bar fixes. */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --tap: 44px;
+  --hit: 28px;
+  --dot: 24px;
+  --z-pop: 60;
+  --z-modal: 80;
+  --z-toast: 90;
+}
+
+/* The light palette must also be reachable when the operating system is dark and the user has
+   chosen light. Every token above is redefined here, not a subset. */
+:root[data-theme='light'] {
+  --ground: #e4e4e0;
+  --surface: #f2f2ef;
+  --surface-2: #eaeae5;
+  --surface-3: #deddd7;
+  --line: #cbcac3;
+  --line-strong: #aeaca3;
+  --ink: #191512;
+  --ink-2: #4a423a;
+  --ink-dim: #655c52;
+  --edge: #848377;
+  --ember: #c0430a;
+  --ember-text: #953405;
+  --strike-a: #d4611c;
+  --strike-b: #b03c08;
+  --ember-soft: #e2782f;
+  --cherry: #a32213;
+  --yellow: #b87a12;
+  --white-heat: #8a6a2e;
+  --good: #2f7a4c;
+  --warn: #9a6a0b;
+  --crit: #a83421;
+  --shadow: 0 1px 2px rgba(25, 21, 18, 0.08), 0 8px 24px -12px rgba(25, 21, 18, 0.24);
+  --glow: none;
+  --scan: rgba(25, 21, 18, 0.035);
+  --on-ember: #ffffff;
+  --scrim: rgba(25, 21, 18, 0.5);
+}

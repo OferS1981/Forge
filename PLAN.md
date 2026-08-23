@@ -160,3 +160,85 @@ Must print each of the six steps and exit 0. Output is quoted in chat, not summa
 ## Out of scope for these two phases
 
 React, the component layer, the website, the extension, Supabase, the AI layer, the refresh workflow, filling the glossary. They are phases 2 onward and are not started here.
+
+---
+
+# Phase 2: The component layer
+
+Written at the start of phase 2, after phases 0 and 1 landed. Same rules: one phase per session,
+`pnpm verify` at 0 before it is called done.
+
+**Done when:** a component gallery route passes axe in both themes at three viewports, every control
+is fully operable by keyboard alone, and no native `<select>` exists in the rendered DOM.
+
+No product screens. The Anvil, the rail and the brief form are phase 3. This phase builds the parts
+they are assembled from.
+
+## What goes in `packages/ui`
+
+```
+packages/ui/
+├─ src/
+│  ├─ styles/
+│  │  ├─ tokens.css        ported verbatim from reference/forge.html, plus the nine --cat-* colours
+│  │  ├─ base.css          reset, body, focus ring, scrollbars, reduced motion
+│  │  ├─ components.css    one file per control, imported by index.css
+│  │  └─ index.css         the single stylesheet a consumer imports
+│  ├─ lib/                 tiny hooks: roving focus, dismiss, popover position, ids, a typed store
+│  ├─ components/          the twenty controls from section 7
+│  └─ index.ts
+├─ gallery/                a dev-only Vite page: every control, in both themes. Not shipped.
+└─ test/                   an interaction test and an axe check per control
+```
+
+Tokens are CSS custom properties, not Tailwind config values, so the extension consumes the same
+file. Three theme states exactly as section 15 requires: the complete light palette on bare `:root`,
+a `prefers-color-scheme: dark` block guarded as `:root:not([data-theme="light"])` that redefines only
+the tokens, and `:root[data-theme="dark"]` so the toggle wins in both directions.
+
+The nine category colours move out of the prototype and into `tokens.css` as `--cat-image` through
+`--cat-research`, which is the last part of the phase 1 port. After this, no colour lives outside the
+token file.
+
+## The controls
+
+All twenty from section 7: `Button`, `Combobox`, `Listbox`, `ChipGroup`, `Segmented`, `TextField`,
+`TextArea`, `Slider`, `Switch`, `Popover`, `Dialog`, `Tooltip`, `Tabs`, `Table`, `Toast`, `DropZone`,
+`Disclosure`, `CommandPalette`, `InfoDot`, `CoachMark`.
+
+The rule for every one of them is **custom appearance, native semantics**. Same roles, same states,
+same keyboard behaviour the native control would have. Where a native element can carry the
+semantics, it is used and styled: the slider is a real `input[type="range"]`, the switch a real
+checkbox, the drop zone a real file input. Where none exists, the ARIA pattern is implemented in
+full.
+
+`Combobox` is the important one, because it is the model picker: a command-style combobox, not a
+dropdown. Filter input, results grouped by category with a sticky header, a colour dot, a one-line
+strength, arrow keys, Home and End, Enter, Escape, type to filter. A compact variant serves aspect
+ratio, duration and every other option list. The keyboard contract is ported from the prototype's
+picker, which already gets it right.
+
+`packages/ui` must not name a model. It takes options and renders them. The catalogue stays the only
+place that knows what a model is, so the components take plain data and the tests use invented
+fixtures, not real model ids.
+
+## Tests
+
+- One Vitest interaction test per control, driven by keyboard only through `@testing-library/user-event`.
+- An axe-core check per control in jsdom, so a broken ARIA contract fails the unit run.
+- `e2e/a11y/gallery.spec.ts`: axe against the gallery in light and dark, at 1500px, 820px and 375px.
+- `e2e/smoke/gallery.spec.ts`: keyboard-only operation of the combobox, dialog, tabs and chips, plus
+  the assertions from section 17: no console errors, no horizontal overflow, and no `<select>` in the
+  DOM.
+- Coverage stays at the 90 percent threshold, now across both packages.
+
+## New dependencies, all free
+
+`react`, `react-dom`, `@types/react`, `@types/react-dom`, `vite`, `@vitejs/plugin-react`, `jsdom`,
+`@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `axe-core`,
+`@axe-core/playwright`. Every one is MIT or Apache, with no paid tier anywhere in the critical path.
+
+## Out of scope
+
+The web app, the rail, the brief form, the animated mark, the glossary copy, and anything that reads
+the catalogue. Phase 3 onwards.

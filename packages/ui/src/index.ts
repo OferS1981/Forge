@@ -1,2 +1,46 @@
-// Phase 0 placeholder. Phase 2 adds the tokens and the controls.
-export const UI_VERSION = '0.0.0';
+export const UI_VERSION = '1.0.0';
+
+export { Button } from './components/Button';
+export type { ButtonProps, ButtonSize, ButtonVariant } from './components/Button';
+export { ChipGroup } from './components/ChipGroup';
+export type { Chip, ChipGroupProps } from './components/ChipGroup';
+export { CoachMark } from './components/CoachMark';
+export type { CoachMarkProps } from './components/CoachMark';
+export { Combobox } from './components/Combobox';
+export type { ComboboxProps } from './components/Combobox';
+export { CommandPalette, isPaletteShortcut } from './components/CommandPalette';
+export type { Command, CommandPaletteProps } from './components/CommandPalette';
+export { Dialog } from './components/Dialog';
+export type { DialogProps } from './components/Dialog';
+export { Disclosure } from './components/Disclosure';
+export type { DisclosureProps } from './components/Disclosure';
+export { DropZone } from './components/DropZone';
+export type { DropZoneProps } from './components/DropZone';
+export { InfoDot } from './components/InfoDot';
+export type { Explanation, InfoDotProps } from './components/InfoDot';
+export { Listbox, optionId } from './components/Listbox';
+export type { ListOption, ListboxProps } from './components/Listbox';
+export { Popover } from './components/Popover';
+export type { PopoverProps } from './components/Popover';
+export { Segmented } from './components/Segmented';
+export type { SegmentedOption, SegmentedProps } from './components/Segmented';
+export { Slider } from './components/Slider';
+export type { SliderProps } from './components/Slider';
+export { Switch } from './components/Switch';
+export type { SwitchProps } from './components/Switch';
+export { Table } from './components/Table';
+export type { Column, TableProps } from './components/Table';
+export { Tabs } from './components/Tabs';
+export type { Tab, TabsProps } from './components/Tabs';
+export { TextArea } from './components/TextArea';
+export type { TextAreaProps } from './components/TextArea';
+export { TextField } from './components/TextField';
+export type { TextFieldProps } from './components/TextField';
+export { ToastRegion, clearToasts, dismissToast, toast, toastStore } from './components/Toast';
+export type { ToastItem, ToastTone } from './components/Toast';
+export { Tooltip } from './components/Tooltip';
+export type { TooltipProps } from './components/Tooltip';
+export { ThemeToggle, applyTheme, readTheme, useTheme } from './components/Theme';
+export type { Theme } from './components/Theme';
+
+export * from './lib';

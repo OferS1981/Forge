@@ -15,13 +15,16 @@ pnpm dev            run the web app (from phase 3)
 pnpm verify         typecheck + lint + test + golden + a11y + e2e. must exit 0 before any phase is done
 pnpm test -- --watch
 pnpm format         prettier --write
+pnpm --filter @forge/ui gallery    the component gallery, which axe and the e2e suite run against
 ```
 
 ## Where things live
 
 - `packages/catalog` is the product. Model data, brief fields, glossary, prompt engine. Pure
   TypeScript, zero runtime dependencies, no React, no DOM, no fetch.
-- `packages/ui` holds the design tokens and every control we draw ourselves.
+- `packages/ui` holds the design tokens and every control we draw ourselves. Its `gallery/` folder
+  is a development page showing every control, never shipped, and it is what the axe and e2e suites
+  run against.
 - `apps/web` and `apps/extension` are thin consumers of the two packages above. The website and
   the extension are the same product.
 
@@ -49,7 +52,8 @@ pnpm format         prettier --write
 - No chat interface. Forge is a catalogue and a form.
 - No billing, plans, pricing, paywalls or upsell copy anywhere. No analytics.
 - No dependency with a paid tier in the critical path. This runs on free tiers only.
-- No colour anywhere except the token file.
+- No colour anywhere except the token file, `packages/ui/src/styles/tokens.css`. That includes
+  scrims and the foreground painted on a filled control: add a token rather than a literal.
 - No `any`. No `!` without a comment saying why.
 - Never auto-merge a catalogue change.
 - Never ship a feature that only works when the AI layer is on.

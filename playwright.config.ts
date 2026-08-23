@@ -1,14 +1,31 @@
 import { defineConfig, devices } from '@playwright/test';
 
-// Phase 0: no app exists yet, so both projects point at empty folders and
-// run with --pass-with-no-tests. Phase 2 adds the component gallery and
-// real tests. The viewports come from the spec, section 17.
+/**
+ * Phase 2 adds the component gallery, which both projects run against. It is served from a static
+ * build so CI does not depend on a dev server staying up. The viewports come from section 17 of
+ * the spec: 1500px, 820px and 375px.
+ */
+const PORT = 4321;
+const BASE_URL = `http://localhost:${String(PORT)}`;
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? 'github' : 'list',
+  use: { baseURL: BASE_URL },
+  webServer: {
+    /*
+     * Built every run rather than reused. A stale gallery would let a broken component pass, which
+     * is the one failure mode this suite exists to prevent.
+     */
+    command:
+      'pnpm --filter @forge/ui run gallery:build && pnpm --filter @forge/ui run gallery:preview',
+    url: BASE_URL,
+    reuseExistingServer: false,
+    timeout: 120_000,
+  },
   projects: [
     {
       name: 'a11y',

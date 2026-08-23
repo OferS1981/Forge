@@ -3,7 +3,17 @@
   "compilerOptions": {
     "noEmit": true,
     "rootDir": ".",
-    "types": []
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["vitest/globals", "@testing-library/jest-dom/vitest"]
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "vitest.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "test/**/*.ts",
+    "test/**/*.tsx",
+    "gallery/**/*.ts",
+    "gallery/**/*.tsx",
+    "vitest.config.ts"
+  ]
 }
