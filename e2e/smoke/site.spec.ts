@@ -11,6 +11,18 @@ const VIEWPORTS = [
   { name: 'phone', width: 375, height: 720 },
 ];
 
+/**
+ * These tests are about the product, not the first run, so they arrive as someone who has been
+ * here before. The walkthrough itself is covered by e2e/smoke/tutorial.spec.ts, which arrives with
+ * nothing remembered on purpose.
+ */
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('forge.walkthrough', '"done"');
+    localStorage.setItem('forge.invite-dismissed', 'true');
+  });
+});
+
 function watchConsole(page: Page): string[] {
   const errors: string[] = [];
   page.on('console', (msg) => {
@@ -111,6 +123,55 @@ test('Simple mode says what it chose, and each choice opens its field in Advance
     'true',
   );
   await expect(page.locator('#field-lens')).toBeVisible();
+});
+
+test('the panel leads with the prompt you paste, not with a description of it', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await fillBrief(page);
+  await page.getByRole('button', { name: 'Strike' }).click();
+
+  // The pasteable version is on the page, not hidden behind a button.
+  const flat = page.locator('.prompt__flat');
+  await expect(flat).toBeVisible();
+  await expect(flat).toContainText(/retired boxer/i);
+  await expect(page.getByText('Paste this into')).toBeVisible();
+
+  // The named sections are the explanation, and start folded away.
+  const sections = page.getByRole('button', { name: 'How it is put together' });
+  await expect(sections).toHaveAttribute('aria-expanded', 'false');
+
+  // And the record says plainly that it is not the thing to paste.
+  await expect(page.getByRole('button', { name: 'Copy the whole record' })).toBeVisible();
+  await expect(page.locator('.output__footnote')).toContainText('not the thing to paste');
+});
+
+test('Simple mode genuinely gives fewer decisions than Advanced', async ({ page }) => {
+  await page.goto('/');
+  await fillBrief(page);
+
+  // Simple asks only what the person knows.
+  const simpleFields = await page.locator('#brief .brief__field').count();
+  await page.getByRole('button', { name: 'Strike' }).click();
+  const simpleSettings = await page.locator('.fg-table tbody tr').count();
+  const simpleVariations = await page.getByText('Three other directions').count();
+  const simplePrompt = await page.locator('.prompt__flat').textContent();
+
+  await page.getByRole('radio', { name: 'Advanced' }).click();
+  const advancedFields = await page.locator('#brief .brief__field').count();
+  await page.getByRole('button', { name: 'Strike' }).click();
+  const advancedSettings = await page.locator('.fg-table tbody tr').count();
+
+  expect(simpleFields, 'Simple asks fewer questions').toBeLessThan(advancedFields);
+  expect(simpleSettings, 'Simple shows fewer settings').toBeLessThan(advancedSettings);
+  expect(simpleVariations, 'Simple leaves out the other directions').toBe(0);
+  await expect(page.getByText('Three other directions')).toBeVisible();
+
+  // Fewer decisions, not a worse prompt: the rule from section 8. Simple fills the craft layer
+  // itself, so its prompt is at least as long as the one Advanced produces from a bare brief.
+  const advancedPrompt = await page.locator('.prompt__flat').textContent();
+  expect((simplePrompt ?? '').length).toBeGreaterThan((advancedPrompt ?? '').length);
 });
 
 test('Advanced mode shows the whole settings table and the other directions', async ({ page }) => {

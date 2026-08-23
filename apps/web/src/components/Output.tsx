@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  modelLabel,
   scoreLabel,
   settingTerm,
   type FieldId,
@@ -125,37 +126,58 @@ export function Output({
     <div className="output">
       {showScore && <ScoreMeter score={result.score} />}
 
-      <Billet
-        title="The prompt"
-        actions={
-          <div className="billet__actions">
-            <Button
-              size="sm"
-              onClick={() => {
-                void copy(result.flat, 'The prompt');
-              }}
-            >
-              Copy
-            </Button>
-            <Button
-              size="sm"
-              variant="quiet"
-              onClick={() => {
-                void copy(labelled(result), 'The prompt with labels');
-              }}
-            >
-              Copy with labels
-            </Button>
-          </div>
-        }
-      >
-        {result.blocks.map((b) => (
-          <div className="block" key={b.label}>
-            <h3 className="block__label">{b.label}</h3>
-            <p className={result.mono === true ? 'block__body fg-mono' : 'block__body'}>{b.body}</p>
-          </div>
-        ))}
-      </Billet>
+      <div data-tour="prompt">
+        <Billet
+          title="The prompt"
+          actions={
+            <div className="billet__actions">
+              <Button
+                size="sm"
+                variant="primary"
+                onClick={() => {
+                  void copy(result.flat, 'The prompt');
+                }}
+              >
+                Copy the prompt
+              </Button>
+            </div>
+          }
+        >
+          {/*
+           * The pasteable version comes first, and is what the primary button copies. The named
+           * sections go underneath, as the explanation of how it was built. Showing only the
+           * sections led people to think the sections were the prompt, which they are not.
+           */}
+          <p className="prompt__what">Paste this into {modelLabel(model)}.</p>
+          <pre className="prompt__flat fg-mono">{result.flat}</pre>
+
+          <Disclosure summary="How it is put together">
+            <p className="billet__note">
+              The same prompt, in the sections {modelLabel(model)} reads it in. Useful for changing
+              one part without rewriting the rest.
+            </p>
+            {result.blocks.map((b) => (
+              <div className="block" key={b.label}>
+                <h3 className="block__label">{b.label}</h3>
+                <p className={result.mono === true ? 'block__body fg-mono' : 'block__body'}>
+                  {b.body}
+                </p>
+              </div>
+            ))}
+            <div className="billet__actions">
+              <Button
+                size="sm"
+                variant="quiet"
+                onClick={() => {
+                  void copy(labelled(result), 'The prompt with labels');
+                }}
+              >
+                Copy with the labels
+              </Button>
+            </div>
+          </Disclosure>
+        </Billet>
+      </div>
 
       {result.autoFilled.length > 0 && (
         <Billet title="What Forge chose for you">
@@ -208,36 +230,41 @@ export function Output({
       )}
 
       {settings.length > 0 && (
-        <Billet
-          title="Settings to match it"
-          actions={
-            <Button
-              size="sm"
-              onClick={() => {
-                void copy(settings.map((r) => `${r.name}: ${r.value}`).join('\n'), 'The settings');
-              }}
-            >
-              Copy
-            </Button>
-          }
-        >
-          <Table<SettingRow>
-            caption={`Settings for ${model.name}`}
-            columns={[
-              { key: 'name', header: 'Setting', cell: (r) => <SettingName row={r} /> },
-              { key: 'value', header: 'Value', cell: (r) => r.value, mono: true },
-              { key: 'why', header: 'Why', cell: (r) => r.why },
-            ]}
-            rows={settings}
-            rowKey={(r) => r.name}
-          />
-          {!advanced && result.settings.length > settings.length && (
-            <p className="billet__note">
-              These are the rows that change the result most. Advanced mode shows all{' '}
-              {result.settings.length} with their real parameter names.
-            </p>
-          )}
-        </Billet>
+        <div data-tour="settings">
+          <Billet
+            title="Settings to match it"
+            actions={
+              <Button
+                size="sm"
+                onClick={() => {
+                  void copy(
+                    settings.map((r) => `${r.name}: ${r.value}`).join('\n'),
+                    'The settings',
+                  );
+                }}
+              >
+                Copy
+              </Button>
+            }
+          >
+            <Table<SettingRow>
+              caption={`Settings for ${model.name}`}
+              columns={[
+                { key: 'name', header: 'Setting', cell: (r) => <SettingName row={r} /> },
+                { key: 'value', header: 'Value', cell: (r) => r.value, mono: true },
+                { key: 'why', header: 'Why', cell: (r) => r.why },
+              ]}
+              rows={settings}
+              rowKey={(r) => r.name}
+            />
+            {!advanced && result.settings.length > settings.length && (
+              <p className="billet__note">
+                These are the rows that change the result most. Advanced mode shows all{' '}
+                {result.settings.length} with their real parameter names.
+              </p>
+            )}
+          </Billet>
+        </div>
       )}
 
       {result.notes.length > 0 && (
@@ -288,11 +315,15 @@ export function Output({
       <div className="output__foot">
         <Button
           onClick={() => {
-            void copy(everything(result, model, label.name), 'Everything');
+            void copy(everything(result, model, label.name), 'The whole record');
           }}
         >
-          Copy everything
+          Copy the whole record
         </Button>
+        <p className="output__footnote">
+          The record is the prompt, the settings and the score together, for your own notes. It is
+          not the thing to paste.
+        </p>
       </div>
     </div>
   );

@@ -9,10 +9,25 @@ const VIEWPORTS = [
   { name: 'phone', width: 375, height: 720 },
 ];
 
+/**
+ * These tests are about the product, not the first run, so they arrive as someone who has been
+ * here before. The walkthrough itself is covered by e2e/smoke/tutorial.spec.ts, which arrives with
+ * nothing remembered on purpose.
+ */
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('forge.walkthrough', '"done"');
+    localStorage.setItem('forge.invite-dismissed', 'true');
+  });
+});
+
 async function setTheme(page: Page, theme: string): Promise<void> {
   await page.evaluate((t) => {
     document.documentElement.setAttribute('data-theme', t);
   }, theme);
+  // Controls transition their background, so measure the settled palette, not a frame of the
+  // change. The product itself suppresses this transition: see applyTheme.
+  await page.waitForTimeout(200);
 }
 
 async function violations(page: Page): Promise<string[]> {

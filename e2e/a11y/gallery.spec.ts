@@ -21,6 +21,9 @@ async function setTheme(page: Page, theme: string): Promise<void> {
   await page.evaluate((t) => {
     document.documentElement.setAttribute('data-theme', t);
   }, theme);
+  // Controls transition their background, so measure the settled palette, not a frame of the
+  // change. The product itself suppresses this transition: see applyTheme.
+  await page.waitForTimeout(200);
 }
 
 /** Everything that only exists once a layer is open, opened so axe can see it. */

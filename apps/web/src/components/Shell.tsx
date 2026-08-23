@@ -152,6 +152,9 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
             ))}
           </nav>
           <div className="topbar__spacer" />
+          <a className="topbar__link" href="/learn">
+            Learn
+          </a>
           <a className="topbar__link" href="/glossary">
             Glossary
           </a>

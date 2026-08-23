@@ -10,6 +10,15 @@ const config: NextConfig = {
   // The workspace packages ship TypeScript source rather than a build step.
   transpilePackages: ['@forge/catalog', '@forge/ui'],
   images: { unoptimized: true },
+  /*
+   * Lessons are markdown files in the repository, imported as strings and rendered to React
+   * elements at runtime. Turbopack needs telling that .md is source rather than an asset.
+   */
+  turbopack: {
+    rules: {
+      '*.md': { loaders: ['raw-loader'], as: '*.js' },
+    },
+  },
 };
 
 export default config;

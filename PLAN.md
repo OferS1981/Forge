@@ -367,3 +367,67 @@ workspaces and any saved recipes alongside the models and glossary terms it alre
 
 The tutorial and Learn (phase 6), accounts and sharing (phase 7), the extension (phase 8), the AI
 layer (phase 9). Recipes are stored in the browser only until phase 7.
+
+---
+
+# Phase 6: Tutorial and Learn
+
+**Done when:** a new visitor with `localStorage` cleared can complete the walkthrough by keyboard,
+axe is clean on every route in both themes, and `pnpm verify` exits 0.
+
+Section 10 asks for two different things, and both are required.
+
+## The first run
+
+A five-step coach-mark walkthrough over the real interface, not a video and not a slideshow. It
+uses a real example brief, can be left at any point, resumes where it stopped, and keeps its state
+in `localStorage`.
+
+The five steps are the ones section 10 names: the rack, the brief, the strike, the prompt, the
+settings. **Built from a data file**, so the words can be rewritten without touching a component.
+The `CoachMark` component has existed since phase 2 and has never been used by a page: this is
+what it was built for.
+
+Two things the walkthrough must do that a tour usually does not:
+
+- **Fill the example brief itself**, so step three has something real to strike and step four has a
+  real prompt to point at. A tour that shows an empty form teaches nothing.
+- **Be operable by keyboard alone**, which is the phase's definition of done. Each mark traps
+  focus, `Next` advances, `Escape` and `Skip` both leave, and leaving is remembered.
+
+## The strongest onboarding move
+
+Section 10 is blunt about this: the Doctor's empty state should say **paste a prompt you already
+use**, because taking the visitor's own work apart and rebuilding it in ten seconds is more
+convincing than any tour. It asks for that to be the first thing a new visitor sees on the landing
+route, so the Build workspace carries a dismissible invitation to it until the visitor has forged
+something or dismissed it.
+
+## Learn
+
+Six short lessons, the ones section 10 lists, at `/learn` and `/learn/<slug>`:
+
+1. What a lens actually changes
+2. Why lighting is the highest-yield thing in an image prompt
+3. Why negative prompts work on some models and not others
+4. How to write motion for a video model instead of describing a photograph
+5. How to direct a voice with punctuation
+6. Why `masterpiece, 8k` stopped working
+
+Each lesson is a markdown file in the repo and ends with a **try it** button that loads that
+lesson's demo brief into the Build workspace, so the reader immediately does the thing rather than
+only reading about it.
+
+### One decision to flag
+
+Section 10 says markdown files. Rendering them needs either a markdown dependency or a small
+renderer. This phase writes a small one, about a hundred lines, in `packages/ui`, because the
+lessons are our own files rather than user input, and because rendering to React elements instead
+of an HTML string means there is no `dangerouslySetInnerHTML` and therefore no injection surface at
+all. It handles the subset the lessons use: headings, paragraphs, lists, code, emphasis, links and
+block quotes. If it ever needs to handle arbitrary markdown, swap it for a real parser then.
+
+## Out of scope
+
+Accounts and share pages (phase 7), the extension (phase 8), the AI layer (phase 9). Lesson
+progress is remembered in the browser only.

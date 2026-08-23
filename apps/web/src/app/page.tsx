@@ -17,7 +17,9 @@ import { Brief } from '../components/Brief';
 import { Mark } from '../components/Mark';
 import { ModelHead, ModelRail } from '../components/ModelRail';
 import { Output } from '../components/Output';
-import { useBriefs, useForgeCount, useMode, useModelId, usePins } from '../lib/store';
+import { useBriefs, useForgeCount, useInvite, useMode, useModelId, usePins } from '../lib/store';
+import { EXAMPLE_BRIEF } from '../lib/walkthrough';
+import { Walkthrough, WalkthroughRestart } from '../components/Walkthrough';
 
 const FIRST = CATEGORIES[0]?.defaultModel ?? 'midjourney';
 
@@ -26,7 +28,8 @@ export default function BuildPage(): React.ReactNode {
   const [modelId, setModelId] = useModelId(FIRST);
   const [pins, setPins] = usePins();
   const [forged, bumpForged] = useForgeCount();
-  const { briefFor, setField, clear } = useBriefs();
+  const [inviteDismissed, dismissInvite] = useInvite();
+  const { briefFor, setField, setFields, clear } = useBriefs();
 
   const [result, setResult] = useState<ForgeResult | null>(null);
   const [strikes, setStrikes] = useState(0);
@@ -91,6 +94,10 @@ export default function BuildPage(): React.ReactNode {
     };
   }, [focusField, mode]);
 
+  const fillExample = useCallback(() => {
+    setFields(model.id, EXAMPLE_BRIEF);
+  }, [model.id, setFields]);
+
   const advice = useMemo(() => recommend(brief, model), [brief, model]);
 
   return (
@@ -104,7 +111,32 @@ export default function BuildPage(): React.ReactNode {
           </div>
         </div>
 
-        <ModelRail value={model.id} onChange={setModelId} pins={pins} />
+        <div data-tour="rail">
+          {!inviteDismissed && forged === 0 && (
+            <aside className="invite" aria-label="A faster way to start">
+              <p className="invite__text">
+                Already have a prompt?{' '}
+                <a className="invite__link" href="/doctor">
+                  Paste it into the Doctor
+                </a>{' '}
+                and watch Forge take it apart.
+              </p>
+              <WalkthroughRestart />
+              <button
+                type="button"
+                className="invite__close"
+                aria-label="Dismiss this suggestion"
+                onClick={() => {
+                  dismissInvite(true);
+                }}
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </aside>
+          )}
+
+          <ModelRail value={model.id} onChange={setModelId} pins={pins} />
+        </div>
         <ModelHead
           model={model}
           pinned={pins.includes(model.id)}
@@ -139,7 +171,7 @@ export default function BuildPage(): React.ReactNode {
           )}
         </div>
 
-        <div id="brief">
+        <div id="brief" data-tour="brief">
           <Brief
             model={model}
             brief={brief}
@@ -175,7 +207,7 @@ export default function BuildPage(): React.ReactNode {
           </div>
         )}
 
-        <div className="strike-row">
+        <div className="strike-row" data-tour="strike">
           <Button variant="primary" size="lg" onClick={strike}>
             Strike
           </Button>
@@ -191,6 +223,8 @@ export default function BuildPage(): React.ReactNode {
           </Button>
         </div>
       </section>
+
+      <Walkthrough onFill={fillExample} onStrike={strike} />
 
       <section
         className="bay bay--billet"

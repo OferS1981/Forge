@@ -5,6 +5,18 @@ import { expect, test } from '@playwright/test';
  * same gesture as choosing. These tests hold that line.
  */
 
+/**
+ * These tests are about the product, not the first run, so they arrive as someone who has been
+ * here before. The walkthrough itself is covered by e2e/smoke/tutorial.spec.ts, which arrives with
+ * nothing remembered on purpose.
+ */
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('forge.walkthrough', '"done"');
+    localStorage.setItem('forge.invite-dismissed', 'true');
+  });
+});
+
 test('every field carries an info dot that explains it without selecting anything', async ({
   page,
 }) => {

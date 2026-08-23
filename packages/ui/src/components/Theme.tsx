@@ -19,10 +19,23 @@ export function readTheme(): Theme {
   }
 }
 
-/** System leaves the attribute off, so prefers-color-scheme decides. */
+/**
+ * System leaves the attribute off, so prefers-color-scheme decides.
+ *
+ * Every control transitions its background, which is right on hover and wrong here: without the
+ * guard, changing theme animates every surface on the page from one palette to the other and the
+ * whole thing smears for a tenth of a second. The attribute switches transitions off for one
+ * frame, so the new palette simply appears.
+ */
 export function applyTheme(theme: Theme, root: HTMLElement = document.documentElement): void {
+  root.setAttribute('data-theme-switching', '');
   if (theme === 'system') root.removeAttribute('data-theme');
   else root.setAttribute('data-theme', theme);
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      root.removeAttribute('data-theme-switching');
+    });
+  });
 }
 
 const listeners = new Set<() => void>();

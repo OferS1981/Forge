@@ -147,6 +147,7 @@ export function useForgeCount(): [number, () => void] {
 export function useBriefs(): {
   briefFor: (id: string) => Brief;
   setField: (id: string, field: FieldId, value: string | string[]) => void;
+  setFields: (id: string, patch: Brief) => void;
   clear: (id: string) => void;
 } {
   const [briefs, setBriefs] = usePersisted<Record<string, Brief>>(
@@ -165,6 +166,18 @@ export function useBriefs(): {
     [briefs, setBriefs],
   );
 
+  /*
+   * Several fields in one write. Calling setField in a loop would read the same stored map every
+   * time and keep only the last field, so anything filling a brief at once has to come through
+   * here: the walkthrough, and the try-it button on a lesson.
+   */
+  const setFields = useCallback(
+    (id: string, patch: Brief) => {
+      setBriefs({ ...briefs, [id]: { ...(briefs[id] ?? EMPTY_BRIEF), ...patch } });
+    },
+    [briefs, setBriefs],
+  );
+
   const clear = useCallback(
     (id: string) => {
       setBriefs({ ...briefs, [id]: {} });
@@ -172,7 +185,7 @@ export function useBriefs(): {
     [briefs, setBriefs],
   );
 
-  return { briefFor, setField, clear };
+  return { briefFor, setField, setFields, clear };
 }
 
 /**
@@ -207,3 +220,27 @@ export function useRecipes(): {
 
   return { recipes, save, remove };
 }
+
+/**
+ * Where the first run got to. Zero means it has not started, a number means that step is next, and
+ * `done` means it was finished or left. Resumable, because a walkthrough that restarts every visit
+ * is worse than none.
+ */
+export type WalkthroughState = { step: number } | 'done';
+
+const isWalkthrough = (v: unknown): v is WalkthroughState =>
+  v === 'done' ||
+  (typeof v === 'object' && v !== null && typeof (v as { step?: unknown }).step === 'number');
+
+export function useWalkthrough(): [WalkthroughState, (next: WalkthroughState) => void] {
+  return usePersisted<WalkthroughState>('walkthrough', START, isWalkthrough);
+}
+
+const START: WalkthroughState = { step: 0 };
+
+/** Whether the invitation to the Doctor has been dismissed. */
+export function useInvite(): [boolean, (next: boolean) => void] {
+  return usePersisted<boolean>('invite-dismissed', false, isBool);
+}
+
+const isBool = (v: unknown): v is boolean => typeof v === 'boolean';

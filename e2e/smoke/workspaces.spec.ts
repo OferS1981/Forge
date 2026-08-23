@@ -5,6 +5,18 @@ import { expect, test, type Page } from '@playwright/test';
  * person would and asserts the thing that workspace exists to do.
  */
 
+/**
+ * These tests are about the product, not the first run, so they arrive as someone who has been
+ * here before. The walkthrough itself is covered by e2e/smoke/tutorial.spec.ts, which arrives with
+ * nothing remembered on purpose.
+ */
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('forge.walkthrough', '"done"');
+    localStorage.setItem('forge.invite-dismissed', 'true');
+  });
+});
+
 /** Write a brief in the Build workspace, which four of these tools work from. */
 async function writeBrief(page: Page): Promise<void> {
   await page.goto('/');
