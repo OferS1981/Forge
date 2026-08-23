@@ -509,3 +509,106 @@
     min-height: var(--tap);
   }
 }
+
+/* ---------- Glossary ---------- */
+.glossary {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--sp-5) var(--sp-4) var(--sp-6);
+}
+.glossary__title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: var(--t-3xl);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.glossary__lede {
+  margin: var(--sp-3) 0 var(--sp-4);
+  max-width: 62ch;
+  color: var(--ink-2);
+  font-size: var(--t-sm);
+}
+.glossary__count {
+  margin: 0 0 var(--sp-5);
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.glossary__group {
+  margin-bottom: var(--sp-6);
+}
+.glossary__group-name {
+  margin: 0;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  font-family: var(--f-display);
+  font-size: var(--t-xl);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--ember-text);
+}
+.glossary__group-lede {
+  margin: var(--sp-1) 0 var(--sp-4);
+  max-width: 62ch;
+  color: var(--ink-dim);
+  font-size: var(--t-sm);
+}
+.terms {
+  display: grid;
+  gap: var(--sp-3);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.term {
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.term:target {
+  border-color: var(--ember);
+  box-shadow: var(--glow);
+}
+.term__label {
+  margin: 0 0 var(--sp-1);
+  font-family: var(--f-display);
+  font-size: var(--t-md);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.term__short {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--t-sm);
+}
+.term__list {
+  margin: 0;
+  font-size: var(--t-xs);
+}
+.term__list dt {
+  font-weight: 700;
+  color: var(--ember-text);
+}
+.term__list dd {
+  margin: 0 0 var(--sp-2);
+  color: var(--ink-2);
+}
+.term__id {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+}
+.glossary__empty {
+  color: var(--ink-dim);
+  font-size: var(--t-sm);
+}
+
+.setting__link {
+  color: var(--ember-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

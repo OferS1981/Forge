@@ -1,13 +1,16 @@
 import { FIELD_LIST } from './fields';
+import { FIELD_COPY } from './glossary/fields';
+import { SETTING_COPY } from './glossary/settings';
+import { VOCAB_COPY } from './glossary/vocab';
 import { VOCAB_BANKS } from './ids';
 import { MODELS } from './models';
 import { settingTerm } from './models/shared';
 import type { Explanation, Model, Term, TermId, VocabBank } from './types';
 
 /**
- * Phase 1 lays the skeleton: one entry per term id the product can reach, so the coverage test has
- * something to enforce and no control can exist without an explanation slot. Phase 4 writes the
- * real copy and removes `stub`, at which point the coverage test stops accepting stubs.
+ * Every control in Forge can say what it is, what it changes and when to reach for it. Phase 1 laid
+ * a stub per term id so the coverage test was real from the start; phase 4 wrote the copy. A stub
+ * that survives now fails the build, which is what stops the explain layer rotting.
  */
 const PLACEHOLDER = 'Not written yet.';
 
@@ -50,17 +53,42 @@ function stub(id: TermId, label: string): Term {
   };
 }
 
+interface Copy {
+  short: string;
+  what: string;
+  changes: string;
+  when: string;
+  range?: string;
+  example?: { low: string; high: string };
+}
+
+function term(id: TermId, label: string, copy: Copy | undefined): Term {
+  if (!copy) return stub(id, label);
+  const t: Term = {
+    id,
+    label,
+    short: copy.short,
+    what: copy.what,
+    changes: copy.changes,
+    when: copy.when,
+  };
+  if (copy.range !== undefined) t.range = copy.range;
+  if (copy.example !== undefined) t.example = copy.example;
+  return t;
+}
+
 function build(): Map<TermId, Term> {
   const terms = new Map<TermId, Term>();
-  for (const f of FIELD_LIST) terms.set(f.term, stub(f.term, f.label));
+  for (const f of FIELD_LIST) terms.set(f.term, term(f.term, f.label, FIELD_COPY[f.id]));
   for (const bank of VOCAB_BANKS) {
     const id: TermId = `vocab.${bank}`;
-    terms.set(id, stub(id, BANK_LABELS[bank]));
+    terms.set(id, term(id, BANK_LABELS[bank], VOCAB_COPY[bank]));
   }
   for (const m of MODELS) {
     for (const row of m.settings({}, 'advanced')) {
       const id = row.term ?? settingTerm(row.name);
-      if (!terms.has(id)) terms.set(id, stub(id, row.name));
+      if (terms.has(id)) continue;
+      terms.set(id, term(id, row.name, SETTING_COPY[id.replace('setting.', '')]));
     }
   }
   return terms;

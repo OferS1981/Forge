@@ -140,6 +140,9 @@ export default function BuildPage(): React.ReactNode {
             onChange={(field, value) => {
               setField(model.id, field, value);
             }}
+            onExplain={(term) => {
+              window.location.href = `/glossary#${term.replace(/\./g, '-')}`;
+            }}
           />
         </div>
 

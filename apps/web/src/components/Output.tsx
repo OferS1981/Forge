@@ -1,6 +1,14 @@
 'use client';
 
-import { scoreLabel, type FieldId, type ForgeResult, type Mode, type Model } from '@forge/catalog';
+import {
+  scoreLabel,
+  settingTerm,
+  type FieldId,
+  type ForgeResult,
+  type Mode,
+  type Model,
+  type SettingRow,
+} from '@forge/catalog';
 import { Button, Disclosure, Table, toast } from '@forge/ui';
 
 export interface OutputProps {
@@ -11,10 +19,14 @@ export interface OutputProps {
   onOpenField: (field: FieldId) => void;
 }
 
-interface Row {
-  name: string;
-  value: string;
-  why: string;
+/** A settings row links to the explanation of the real parameter, per section 9. */
+function SettingName({ row }: { row: SettingRow }): React.ReactNode {
+  const id = (row.term ?? settingTerm(row.name)).replace(/\./g, '-');
+  return (
+    <a className="setting__link fg-mono" href={`/glossary#${id}`}>
+      {row.name}
+    </a>
+  );
 }
 
 async function copy(text: string, what: string): Promise<void> {
@@ -201,10 +213,10 @@ export function Output({ result, model, mode, onOpenField }: OutputProps): React
             </Button>
           }
         >
-          <Table<Row>
+          <Table<SettingRow>
             caption={`Settings for ${model.name}`}
             columns={[
-              { key: 'name', header: 'Setting', cell: (r) => r.name, mono: true },
+              { key: 'name', header: 'Setting', cell: (r) => <SettingName row={r} /> },
               { key: 'value', header: 'Value', cell: (r) => r.value, mono: true },
               { key: 'why', header: 'Why', cell: (r) => r.why },
             ]}

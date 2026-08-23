@@ -8,13 +8,24 @@ import {
   type Mode,
   type Model,
 } from '@forge/catalog';
-import { ChipGroup, Combobox, Disclosure, Segmented, TextArea, TextField } from '@forge/ui';
+import {
+  ChipGroup,
+  Combobox,
+  Disclosure,
+  InfoDot,
+  Segmented,
+  TextArea,
+  TextField,
+} from '@forge/ui';
+import { explanationFor } from '../lib/explain';
 
 export interface BriefProps {
   model: Model;
   brief: BriefData;
   mode: Mode;
   onChange: (field: FieldId, value: string | string[]) => void;
+  /** Opens the glossary at one term, which is what the i key on a chip does. */
+  onExplain: (term: string) => void;
 }
 
 /**
@@ -40,15 +51,32 @@ function Control({
   model,
   brief,
   onChange,
+  onExplain,
 }: {
   field: Field;
   model: Model;
   brief: BriefData;
   onChange: (field: FieldId, value: string | string[]) => void;
+  onExplain: (term: string) => void;
 }): React.ReactNode {
   const raw = brief[field.id];
   const single = typeof raw === 'string' ? raw : '';
   const many = Array.isArray(raw) ? raw : [];
+
+  /*
+   * Explaining is never the same gesture as choosing. The dot is its own button beside the label,
+   * so pressing a chip still only presses the chip. The chip groups also answer the i key, which
+   * opens the same words without costing a tab stop.
+   */
+  const explanation = explanationFor(field.term, model);
+  const dot =
+    explanation === undefined ? undefined : (
+      <InfoDot term={field.label.toLowerCase()} explanation={explanation} />
+    );
+  const optionTerm = field.options?.[0]?.term;
+  const explainOptions = (): void => {
+    onExplain(optionTerm ?? field.term);
+  };
 
   switch (field.type) {
     case 'area':
@@ -58,6 +86,7 @@ function Control({
           hint={field.hint}
           placeholder={field.placeholder}
           value={single}
+          adornment={dot}
           rows={4}
           onChange={(e) => {
             onChange(field.id, e.currentTarget.value);
@@ -71,6 +100,7 @@ function Control({
           hint={field.hint}
           placeholder={field.placeholder}
           value={single}
+          adornment={dot}
           onChange={(e) => {
             onChange(field.id, e.currentTarget.value);
           }}
@@ -84,6 +114,8 @@ function Control({
           chips={optionsOf(field)}
           value={many}
           max={field.max}
+          adornment={dot}
+          onExplain={explainOptions}
           onChange={(v) => {
             onChange(field.id, v);
           }}
@@ -96,6 +128,8 @@ function Control({
           hint={field.hint}
           chips={optionsOf(field)}
           value={single}
+          adornment={dot}
+          onExplain={explainOptions}
           onChange={(v) => {
             onChange(field.id, v);
           }}
@@ -120,6 +154,7 @@ function Control({
           label={field.label}
           options={options}
           value={single}
+          adornment={dot}
           compact
           placeholder={`Choose ${field.label.toLowerCase()}`}
           onChange={(v) => {
@@ -135,6 +170,7 @@ function Control({
           hint={field.hint}
           placeholder={field.placeholder}
           value={single}
+          adornment={dot}
           inputMode="numeric"
           onChange={(e) => {
             onChange(field.id, e.currentTarget.value);
@@ -144,7 +180,7 @@ function Control({
   }
 }
 
-export function Brief({ model, brief, mode, onChange }: BriefProps): React.ReactNode {
+export function Brief({ model, brief, mode, onChange, onExplain }: BriefProps): React.ReactNode {
   /*
    * Every field is wrapped and given a stable id. That is what lets the auto-filled line in Simple
    * mode open one field: the wrapper is the same shape whatever control the field asks for, so
@@ -155,7 +191,13 @@ export function Brief({ model, brief, mode, onChange }: BriefProps): React.React
       .map((id) => FIELDS[id])
       .map((f) => (
         <div className="brief__field" id={`field-${f.id}`} key={f.id}>
-          <Control field={f} model={model} brief={brief} onChange={onChange} />
+          <Control
+            field={f}
+            model={model}
+            brief={brief}
+            onChange={onChange}
+            onExplain={onExplain}
+          />
         </div>
       ));
 

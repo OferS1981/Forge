@@ -4,9 +4,10 @@ import { GLOSSARY, TERM_LIST, explain, hasTerm } from '../src/glossary';
 import { MODELS, modelById } from '../src/models/registry';
 
 /**
- * There is no such thing as an unexplained control in Forge. Phase 1 lays a stub entry per term so
- * the coverage above is real. Phase 4 writes the copy: as each term is written its `stub` flag goes
- * and the assertion below tightens on its own, until no stub is left.
+ * There is no such thing as an unexplained control in Forge. Phase 1 laid a stub entry per term so
+ * the coverage below was real from the start. Phase 4 wrote the copy, and this suite now refuses a
+ * stub outright: adding a field, an option or a settings row without an explanation fails the
+ * build, which is what stops the explain layer rotting.
  */
 
 describe('glossary coverage', () => {
@@ -42,25 +43,28 @@ describe('glossary coverage', () => {
     if (!first) return;
     const e = explain(first.id);
     expect(e?.label).toBe(first.label);
-    expect(e?.stub).toBe(true);
+    expect(e?.stub).toBe(false);
     expect(explain('field.subject', { model: modelById('midjourney') })?.id).toBe('field.subject');
     expect(explain('setting.does-not-exist')).toBeUndefined();
   });
 
-  it('marks an entry as a stub exactly while its copy is unwritten', () => {
-    const all = [...GLOSSARY.values()];
-    const stubs = all.filter((t) => t.stub);
-    const written = all.filter((t) => t.stub !== true);
-    expect(stubs.length + written.length).toBe(GLOSSARY.size);
-    for (const t of stubs) {
-      expect(t.short, `${t.id} is marked a stub but has copy`).toBe('Not written yet.');
-      expect(t.label.length).toBeGreaterThan(0);
-    }
+  it('has no stubs left anywhere', () => {
+    const stubs = [...GLOSSARY.values()].filter((t) => t.stub === true);
+    expect(stubs.map((t) => t.id)).toEqual([]);
+  });
+
+  it('says what every term is, what it changes and when to use it', () => {
+    const written = [...GLOSSARY.values()];
+    expect(written.length).toBe(GLOSSARY.size);
     for (const t of written) {
-      expect(t.short, `${t.id} is not marked a stub but has no copy`).not.toBe('Not written yet.');
-      expect(t.what.length).toBeGreaterThan(0);
-      expect(t.changes.length).toBeGreaterThan(0);
-      expect(t.when.length).toBeGreaterThan(0);
+      expect(t.short, `${t.id} has no copy`).not.toBe('Not written yet.');
+      expect(t.label.length, `${t.id} has no label`).toBeGreaterThan(0);
+      expect(t.what.length, `${t.id} does not say what it is`).toBeGreaterThan(0);
+      expect(t.changes.length, `${t.id} does not say what it changes`).toBeGreaterThan(0);
+      expect(t.when.length, `${t.id} does not say when to use it`).toBeGreaterThan(0);
+      // The house voice: no em dashes anywhere a user can read.
+      for (const line of [t.short, t.what, t.changes, t.when])
+        expect(line, `${t.id} uses an em dash`).not.toMatch(/\u2014/);
     }
   });
 });
