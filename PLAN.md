@@ -242,3 +242,74 @@ fixtures, not real model ids.
 
 The web app, the rail, the brief form, the animated mark, the glossary copy, and anything that reads
 the catalogue. Phase 3 onwards.
+
+---
+
+# Phase 3: The Anvil, and phase 4: the explain layer
+
+Written at the start of this session. Alon asked for both phases in one sitting, so they are planned
+together and built in order, each ending at `pnpm verify` exit 0.
+
+## Phase 3: The Anvil
+
+**Done when:** axe is clean on every route in both themes, the e2e smoke passes at three viewports,
+and the mode-parity test from section 8 passes.
+
+This phase builds the **Build** workspace only. Doctor, Reverse and Match are phase 5. What lands is
+the app shell, the rail, the adaptive brief, the forged output, both themes, the animated mark, and
+Simple and Advanced modes.
+
+```
+apps/web/
+├─ next.config.ts          static export, so it serves from any free host
+├─ src/app/
+│  ├─ layout.tsx           the shell: skip link, top bar, toast region
+│  ├─ page.tsx             the Build workspace
+│  └─ styles.css           app layout over the same tokens
+└─ src/components/         Mark, TopBar, ModelRail, Brief, Output, ScoreMeter
+```
+
+- **The rail** is the command-style combobox from phase 2 in its full variant, plus a filterable
+  list of all 57 models grouped by category with the colour dot, the recommended marker on each
+  category default, and pins persisted locally.
+- **The brief** is generated from `FIELDS` and the chosen model's `core`, `craft` and `tech` lists.
+  Nothing in `apps/web` names a model or a field: it reads the registry and renders the control the
+  field's `type` asks for. Simple mode shows `core` and the simple tier only, Advanced opens the
+  craft layer in a disclosure.
+- **The output** carries the prompt in named sections, a flat copy, the negative block with the
+  model's own note, the settings table, why it is written this way, the traps, three other
+  directions, and in Simple mode the line naming what Forge chose and why, with each choice a
+  button that opens that one field in Advanced mode.
+- **Score**, not Heat, on the seven steel labels.
+- **The mark** is the hammer and anvil on a canvas, ported from the prototype, striking when a
+  prompt is forged, and still when `prefers-reduced-motion` is set.
+
+### One deviation from the stack table, to flag rather than bury
+
+Section 3 lists Tailwind v4 for styling. `packages/ui` already ships plain CSS over the token file,
+which the extension will reuse as is. Adding Tailwind would mean two styling systems in one product
+for no capability we lack, so `apps/web` uses plain CSS over the same tokens. The requirement that
+matters, "tokens must be real CSS variables so the extension reuses them", is met either way. Say so
+and it changes.
+
+## Phase 4: The explain layer
+
+**Done when:** the term-coverage test passes with zero exemptions, meaning `ALLOW_STUBS` is `false`
+and no stub is left.
+
+The glossary skeleton from phase 1 holds **251 term ids**: 69 fields, 24 vocabulary banks and 158
+settings rows. Every one gets `short`, `what`, `changes` and `when`, plus a range and a low and high
+example where the term is a dial.
+
+- Copy is written to the teaching voice in `CLAUDE.md`: what it is, what changes, when to use it.
+- Info dots on every field label, chip group and settings row, using the phase 2 component.
+- `i` on a focused chip opens the same explanation, which costs no tab stop.
+- A `/glossary` route: every term, grouped, searchable, deep-linkable at `/glossary#term-id`.
+- The command palette searches terms alongside models and workspaces.
+
+Then `ALLOW_STUBS` flips to `false` and the build fails the day someone adds a control without one.
+
+## Out of scope for both
+
+The other three workspaces, cross-forge, batch, recipes, compare, the tutorial, accounts, the
+extension, the AI layer and the refresh workflow.

@@ -1,6 +1,9 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
+/** The component gallery has its own server, separate from the site. */
+const GALLERY = 'http://localhost:4321/';
+
 /**
  * Section 16 is enforced here rather than aspired to. Every control on the gallery, in both
  * themes, at the three viewports the product supports. A violation fails the build.
@@ -36,7 +39,7 @@ for (const theme of THEMES) {
   for (const vp of VIEWPORTS) {
     test(`gallery has no axe violations: ${theme}, ${vp.name}`, async ({ page }) => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
-      await page.goto('/');
+      await page.goto(GALLERY);
       await setTheme(page, theme);
       await expect(page.getByRole('heading', { name: 'Forge components' })).toBeVisible();
 
@@ -49,7 +52,7 @@ for (const theme of THEMES) {
 
   test(`open layers have no axe violations: ${theme}`, async ({ page }) => {
     await page.setViewportSize({ width: 1500, height: 900 });
-    await page.goto('/');
+    await page.goto(GALLERY);
     await setTheme(page, theme);
     await openEveryLayer(page);
 
@@ -60,7 +63,7 @@ for (const theme of THEMES) {
   });
 
   test(`the modal dialog has no axe violations: ${theme}`, async ({ page }) => {
-    await page.goto('/');
+    await page.goto(GALLERY);
     await setTheme(page, theme);
     await page.getByRole('button', { name: 'Open a dialog' }).click();
     await expect(page.getByRole('dialog', { name: 'Delete this prompt' })).toBeVisible();
@@ -72,7 +75,7 @@ for (const theme of THEMES) {
   });
 
   test(`the command palette has no axe violations: ${theme}`, async ({ page }) => {
-    await page.goto('/');
+    await page.goto(GALLERY);
     await setTheme(page, theme);
     await page.getByRole('button', { name: 'Open the palette' }).click();
     await expect(page.getByRole('dialog', { name: 'Search Forge' })).toBeVisible();

@@ -12,6 +12,20 @@ export function modelById(id: ModelId): Model {
   return m;
 }
 
+/**
+ * A model id that came from somewhere untrusted: a saved preference, a share link, a browser
+ * extension reading a host. Anything outside this package holds a plain string, so it needs a way
+ * to ask whether that string is a model before it can look one up.
+ */
+export function isModelId(id: string): id is ModelId {
+  return BY_ID.has(id as ModelId);
+}
+
+/** Look up a model from an untrusted string. Undefined when there is no such model. */
+export function findModel(id: string): Model | undefined {
+  return isModelId(id) ? modelById(id) : undefined;
+}
+
 export function modelsIn(category: CategoryId): Model[] {
   return MODELS.filter((m) => m.category === category);
 }

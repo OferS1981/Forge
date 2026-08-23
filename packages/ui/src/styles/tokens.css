@@ -48,6 +48,14 @@
    */
   --on-ember: #ffffff;
   --scrim: rgba(25, 21, 18, 0.5);
+  /*
+   * --warn, --good and --crit are fills and rules. Text needs more contrast than a rule does, and
+   * the light theme's --warn measures 3.71 to 1 against the ground, which fails. These three are
+   * the text-safe pairs, all past 4.5 to 1 in daylight and past 7 to 1 in the dark.
+   */
+  --warn-text: #845a08;
+  --good-text: #256a41;
+  --crit-text: #922c1b;
 
   --f-display:
     'Big Shoulders Display', 'Arial Narrow', 'Helvetica Neue Condensed Bold', Impact,
@@ -88,6 +96,9 @@
 
     --on-ember: #120e0b;
     --scrim: rgba(13, 11, 10, 0.62);
+    --warn-text: #d9a227;
+    --good-text: #57b076;
+    --crit-text: #e0523a;
   }
 }
 :root[data-theme='dark'] {
@@ -118,6 +129,9 @@
 
   --on-ember: #120e0b;
   --scrim: rgba(13, 11, 10, 0.62);
+  --warn-text: #d9a227;
+  --good-text: #57b076;
+  --crit-text: #e0523a;
 }
 
 /* Category colours, moved here from the prototype's CATS array. packages/catalog stores the token
@@ -187,4 +201,12 @@
   --scan: rgba(25, 21, 18, 0.035);
   --on-ember: #ffffff;
   --scrim: rgba(25, 21, 18, 0.5);
+  /*
+   * --warn, --good and --crit are fills and rules. Text needs more contrast than a rule does, and
+   * the light theme's --warn measures 3.71 to 1 against the ground, which fails. These three are
+   * the text-safe pairs, all past 4.5 to 1 in daylight and past 7 to 1 in the dark.
+   */
+  --warn-text: #845a08;
+  --good-text: #256a41;
+  --crit-text: #922c1b;
 }

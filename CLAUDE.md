@@ -11,7 +11,7 @@ current phases is `PLAN.md`. Read both before changing anything structural. The 
 ## Commands
 
 ```
-pnpm dev            run the web app (from phase 3)
+pnpm --filter @forge/web dev       run the web app on port 4322
 pnpm verify         typecheck + lint + test + golden + a11y + e2e. must exit 0 before any phase is done
 pnpm test -- --watch
 pnpm format         prettier --write
@@ -25,8 +25,9 @@ pnpm --filter @forge/ui gallery    the component gallery, which axe and the e2e 
 - `packages/ui` holds the design tokens and every control we draw ourselves. Its `gallery/` folder
   is a development page showing every control, never shipped, and it is what the axe and e2e suites
   run against.
-- `apps/web` and `apps/extension` are thin consumers of the two packages above. The website and
-  the extension are the same product.
+- `apps/web` is the website: a Next.js static export that reads the catalogue and draws it with the
+  controls from `packages/ui`. It names no model and no field. `apps/extension` comes later. The
+  website and the extension are the same product.
 
 ## Names
 

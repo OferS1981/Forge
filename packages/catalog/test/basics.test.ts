@@ -3,7 +3,14 @@ import { CATALOG_VERSION } from '../src';
 import { CATEGORIES, JOB_NAMES, categoryById } from '../src/categories';
 import { fieldById, optionsFrom } from '../src/fields';
 import { SCORE_LABELS, scoreLabel } from '../src/score-labels';
-import { defaultModel, modelById, modelLabel, modelsIn } from '../src/models/registry';
+import {
+  defaultModel,
+  findModel,
+  isModelId,
+  modelById,
+  modelLabel,
+  modelsIn,
+} from '../src/models/registry';
 import { settingTerm, wantsVertical } from '../src/models/shared';
 import { arr, cap, deMeta, has, join, lc, stripDot, wordCount } from '../src/compose/text';
 import type { CategoryId } from '../src/types';
@@ -94,5 +101,20 @@ describe('model helpers', () => {
     expect(wantsVertical({ purpose: 'A TikTok reel' })).toBe(true);
     expect(wantsVertical({ aspect: '16:9' })).toBe(false);
     expect(wantsVertical({})).toBe(false);
+  });
+});
+
+describe('untrusted ids', () => {
+  it('recognises a real model id and refuses anything else', () => {
+    expect(isModelId('midjourney')).toBe(true);
+    expect(isModelId('not-a-model')).toBe(false);
+    expect(isModelId('')).toBe(false);
+    expect(isModelId('__proto__')).toBe(false);
+  });
+
+  it('looks a model up from a plain string, or gives back nothing', () => {
+    expect(findModel('veo')?.name).toBe('Veo');
+    expect(findModel('nonsense')).toBeUndefined();
+    expect(findModel('constructor')).toBeUndefined();
   });
 });

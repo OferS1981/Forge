@@ -1,0 +1,23 @@
+{
+  "name": "@forge/web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The Forge website. A thin consumer of @forge/catalog and @forge/ui.",
+  "scripts": {
+    "dev": "next dev --port 4322",
+    "build": "next build",
+    "start": "next start --port 4322",
+    "serve": "node ../../scripts/serve-static.mjs out 4322",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@forge/catalog": "workspace:*",
+    "@forge/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "next": "^16.3.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "typescript": "^5.7.2"
+  }
+}

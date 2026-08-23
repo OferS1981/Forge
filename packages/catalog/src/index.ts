@@ -18,7 +18,15 @@ export { BANNED, VOCAB } from './vocab';
 export { SCORE_LABELS, scoreLabel } from './score-labels';
 export { GLOSSARY, TERM_LIST, explain, hasTerm } from './glossary';
 export { HOSTS, modelForHost } from './hosts';
-export { MODELS, defaultModel, modelById, modelLabel, modelsIn } from './models/registry';
+export {
+  MODELS,
+  defaultModel,
+  findModel,
+  isModelId,
+  modelById,
+  modelLabel,
+  modelsIn,
+} from './models/registry';
 export { settingTerm } from './models/shared';
 export * from './engine';
 export { arr, cap, deMeta, has, join, lc, stripBanned, stripDot, wordCount } from './compose/text';

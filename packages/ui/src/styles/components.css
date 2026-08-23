@@ -461,9 +461,17 @@
 }
 .fg-combo__pop {
   width: min(92vw, 340px);
+  max-height: min(56vh, 380px);
   padding: var(--sp-1);
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
 }
+/* Stays put while the list moves under it, so the filter is always reachable. */
 .fg-combo__search {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   width: 100%;
   min-height: var(--hit);
   margin-bottom: var(--sp-1);
@@ -475,11 +483,11 @@
   font-size: var(--t-sm);
 }
 .fg-list {
-  max-height: min(52vh, 340px);
+  min-width: 0;
 }
 .fg-list__group {
   position: sticky;
-  top: 0;
+  top: 44px;
   z-index: 1;
   padding: var(--sp-1) var(--sp-2);
   background: var(--surface);
@@ -591,6 +599,9 @@
   padding: var(--sp-2);
 }
 .fg-palette__input {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   width: 100%;
   min-height: 40px;
   margin-bottom: var(--sp-2);

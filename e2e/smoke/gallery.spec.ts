@@ -1,5 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
 
+/** The component gallery has its own server, separate from the site. */
+const GALLERY = 'http://localhost:4321/';
+
 /**
  * The section 17 smoke assertions, plus proof that every control is operable by keyboard alone.
  * Nothing in this file uses the mouse except where a pointer is the thing being tested.
@@ -24,7 +27,7 @@ for (const vp of VIEWPORTS) {
   test(`no console errors and no sideways scroll at ${vp.name}`, async ({ page }) => {
     const errors = watchConsole(page);
     await page.setViewportSize({ width: vp.width, height: vp.height });
-    await page.goto('/');
+    await page.goto(GALLERY);
     await expect(page.getByRole('heading', { name: 'Forge components' })).toBeVisible();
 
     const overflow = await page.evaluate(
@@ -36,7 +39,7 @@ for (const vp of VIEWPORTS) {
 }
 
 test('there is no native select anywhere in the product', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   await page.getByRole('button', { name: /^Model/ }).click();
   await expect(page.getByRole('listbox')).toBeVisible();
   await page.getByRole('button', { name: 'Open the palette' }).click();
@@ -45,13 +48,13 @@ test('there is no native select anywhere in the product', async ({ page }) => {
 });
 
 test('the skip link is the first thing a keyboard reaches', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   await page.keyboard.press('Tab');
   await expect(page.getByRole('link', { name: 'Skip to the controls' })).toBeFocused();
 });
 
 test('the model picker is fully operable by keyboard', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   const trigger = page.getByRole('button', { name: /^Model/ });
   await trigger.focus();
   await page.keyboard.press('Enter');
@@ -68,7 +71,7 @@ test('the model picker is fully operable by keyboard', async ({ page }) => {
 });
 
 test('Escape closes the picker and chooses nothing', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   const trigger = page.getByRole('button', { name: /^Model/ });
   await trigger.focus();
   await page.keyboard.press('ArrowDown');
@@ -81,7 +84,7 @@ test('Escape closes the picker and chooses nothing', async ({ page }) => {
 });
 
 test('the dialog traps tab and returns focus when it closes', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   const open = page.getByRole('button', { name: 'Open a dialog' });
   await open.focus();
   await page.keyboard.press('Enter');
@@ -98,7 +101,7 @@ test('the dialog traps tab and returns focus when it closes', async ({ page }) =
 });
 
 test('the command palette opens on the shortcut and runs from the keyboard', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   await page.locator('body').click();
   await page.keyboard.press('ControlOrMeta+k');
 
@@ -111,7 +114,7 @@ test('the command palette opens on the shortcut and runs from the keyboard', asy
 });
 
 test('chips are one tab stop, and the arrows move inside them', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   const first = page.getByRole('button', { name: 'golden hour', exact: true }).first();
   await first.focus();
   await page.keyboard.press('ArrowRight');
@@ -124,7 +127,7 @@ test('chips are one tab stop, and the arrows move inside them', async ({ page })
 });
 
 test('the slider moves with the arrow keys', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   const slider = page.getByRole('slider', { name: 'Stylize' });
   await slider.focus();
   await expect(slider).toHaveValue('250');
@@ -135,7 +138,7 @@ test('the slider moves with the arrow keys', async ({ page }) => {
 });
 
 test('tabs move with the arrow keys and show the panel they name', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   await page.getByRole('tab', { name: 'Prompt' }).focus();
   await page.keyboard.press('ArrowRight');
   await expect(page.getByRole('tab', { name: 'Settings' })).toHaveAttribute(
@@ -146,7 +149,7 @@ test('tabs move with the arrow keys and show the panel they name', async ({ page
 });
 
 test('a message appears in a live region and can be dismissed', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   await page.getByRole('button', { name: 'Raise a message' }).click();
   const region = page.locator('.fg-toasts');
   await expect(region).toContainText('This is a message');
@@ -156,7 +159,7 @@ test('a message appears in a live region and can be dismissed', async ({ page })
 
 test('the theme toggle wins over the operating system in both directions', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' });
-  await page.goto('/');
+  await page.goto(GALLERY);
   const root = page.locator('html');
 
   await page.getByRole('radio', { name: 'Light' }).click();
@@ -177,7 +180,7 @@ test('the theme toggle wins over the operating system in both directions', async
 });
 
 test('the info dot explains without selecting', async ({ page }) => {
-  await page.goto('/');
+  await page.goto(GALLERY);
   const dot = page.getByRole('button', { name: 'What is the model?' });
   await dot.focus();
   await page.keyboard.press('Enter');
@@ -191,7 +194,7 @@ test('the info dot explains without selecting', async ({ page }) => {
 
 test('touch targets are at least 44px below 820px', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 720 });
-  await page.goto('/');
+  await page.goto(GALLERY);
   const heights = await page.evaluate(() => {
     const selectors = ['.fg-btn', '.fg-chip', '.fg-combo__trigger', '.fg-tabs__tab'];
     return selectors.flatMap((s) =>

@@ -10,6 +10,9 @@ export default tseslint.config(
     ignores: [
       '**/node_modules/**',
       '**/dist/**',
+      '**/.next/**',
+      'apps/web/out/**',
+      'apps/web/next-env.d.ts',
       '**/coverage/**',
       '**/.turbo/**',
       'reference/**',
@@ -36,7 +39,7 @@ export default tseslint.config(
   // The component layer. jsx-a11y catches a broken accessibility contract at lint time, which is
   // cheaper than catching it in axe, which is cheaper than a user finding it.
   {
-    files: ['packages/ui/**/*.tsx'],
+    files: ['packages/ui/**/*.tsx', 'apps/web/**/*.tsx'],
     plugins: { 'react-hooks': reactHooks, 'jsx-a11y': jsxA11y },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -59,9 +62,20 @@ export default tseslint.config(
       'jsx-a11y/no-noninteractive-tabindex': ['error', { roles: ['group', 'tabpanel'] }],
     },
   },
+  // The app's store is a .ts file that also uses hooks.
+  {
+    files: ['apps/web/src/lib/*.ts'],
+    plugins: { 'react-hooks': reactHooks },
+    rules: { ...reactHooks.configs.recommended.rules },
+  },
+  // Node scripts: no DOM, no type-aware linting, and Node's globals are real.
   {
     files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
     ...tseslint.configs.disableTypeChecked,
+    languageOptions: {
+      ...tseslint.configs.disableTypeChecked.languageOptions,
+      globals: { process: 'readonly', URL: 'readonly', console: 'readonly' },
+    },
   },
   prettier,
 );

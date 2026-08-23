@@ -27,8 +27,12 @@ export interface ListboxProps {
   id?: string | undefined;
   /** Rendered when nothing matches the filter. */
   empty?: string | undefined;
-  /** Shown against a pinned or recommended row. */
-  renderAction?: ((option: ListOption) => ReactNode) | undefined;
+  /**
+   * A marker drawn against a row, such as "pinned". It must never be focusable: an option may not
+   * contain a focusable element, and a control inside one is unreachable by the keyboard anyway,
+   * because the list is driven by aria-activedescendant rather than by focus.
+   */
+  renderBadge?: ((option: ListOption) => ReactNode) | undefined;
   /**
    * The list itself takes focus and drives the keyboard. Used when there is no filter input above
    * it to hold focus instead. Either way the active row is named by aria-activedescendant.
@@ -74,7 +78,7 @@ export function Listbox({
   labelledBy,
   id = 'fg-listbox',
   empty = 'Nothing matches',
-  renderAction,
+  renderBadge,
   focusable = false,
   onKeyDown,
   listRef,
@@ -124,12 +128,18 @@ export function Listbox({
         </span>
         {o.hint !== undefined && <span className="fg-list__hint">{o.hint}</span>}
       </span>
-      {renderAction?.(o)}
+      {renderBadge?.(o)}
     </div>
   );
 
+  /*
+   * The list does not scroll: the layer around it does. The rows are not focusable, because the
+   * pattern drives them with aria-activedescendant from whatever holds focus, so a scrolling list
+   * would be a region a keyboard could not reach. Scrolling the layer instead means the region
+   * contains the filter input, which a keyboard reaches on the way in.
+   */
   return (
-    <div ref={ref} className={cn('fg-list fg-scroll', className)}>
+    <div ref={ref} className={cn('fg-list', className)}>
       {options.length === 0 ? (
         /* An empty listbox holding a sentence is invalid ARIA, so the note sits outside it. */
         <p className="fg-list__empty">{empty}</p>

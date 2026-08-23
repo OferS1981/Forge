@@ -28,7 +28,8 @@ export interface ComboboxProps {
   compact?: boolean | undefined;
   disabled?: boolean | undefined;
   adornment?: ReactNode | undefined;
-  renderAction?: ((option: ListOption) => ReactNode) | undefined;
+  /** A non-interactive marker drawn against a row. See Listbox. */
+  renderBadge?: ((option: ListOption) => ReactNode) | undefined;
   className?: string | undefined;
 }
 
@@ -46,7 +47,7 @@ interface PanelProps {
   searchHint: string;
   onSelect: (value: string) => void;
   onClose: (returnFocus: boolean) => void;
-  renderAction?: ((option: ListOption) => ReactNode) | undefined;
+  renderBadge?: ((option: ListOption) => ReactNode) | undefined;
   style: { top: number; left: number };
   side: string;
   panelRef: React.RefObject<HTMLDivElement | null>;
@@ -67,7 +68,7 @@ function Panel({
   searchHint,
   onSelect,
   onClose,
-  renderAction,
+  renderBadge,
   style,
   side,
   panelRef,
@@ -154,7 +155,7 @@ function Panel({
         onActiveChange={setWanted}
         onSelect={onSelect}
         labelledBy={labelId}
-        renderAction={renderAction}
+        renderBadge={renderBadge}
         focusable={!showSearch}
         listRef={list}
         onKeyDown={showSearch ? undefined : onKeyDown}
@@ -187,7 +188,7 @@ export function Combobox({
   compact = false,
   disabled = false,
   adornment,
-  renderAction,
+  renderBadge,
   className,
 }: ComboboxProps): ReactNode {
   const id = useId();
@@ -252,7 +253,7 @@ export function Combobox({
           value={value}
           showSearch={showSearch}
           searchHint={searchHint}
-          renderAction={renderAction}
+          renderBadge={renderBadge}
           style={{ top: pos.top, left: pos.left }}
           side={pos.side}
           onClose={close}
