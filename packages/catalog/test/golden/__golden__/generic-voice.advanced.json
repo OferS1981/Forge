@@ -1,0 +1,85 @@
+{
+  "blocks": [
+    {
+      "label": "Voice",
+      "body": "British woman, late 30s, dry and unhurried, documentary narrator, wry, authoritative, husky texture, English, Received Pronunciation (not General American)."
+    },
+    {
+      "label": "Script: paste this into the text box",
+      "body": "[sarcastic] There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on"
+    },
+    {
+      "label": "Direction",
+      "body": "Read as: trailer / hype vo. Tone: wry, authoritative."
+    },
+    {
+      "label": "Length warning",
+      "body": "This script is under 250 characters. ElevenLabs document that short inputs give inconsistent output: pad it with a lead-in sentence you can trim afterwards."
+    }
+  ],
+  "flat": "[sarcastic] There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on",
+  "negative": "american vowels",
+  "settings": [
+    {
+      "name": "Stability / temperature",
+      "value": "mid",
+      "why": "",
+      "term": "setting.stability-temperature",
+      "tier": "simple"
+    },
+    {
+      "name": "Speed",
+      "value": "1.0",
+      "why": "",
+      "term": "setting.speed",
+      "tier": "simple"
+    },
+    {
+      "name": "Similarity",
+      "value": "high",
+      "why": "",
+      "term": "setting.similarity",
+      "tier": "simple"
+    },
+    {
+      "name": "Sample rate",
+      "value": "44.1kHz",
+      "why": "",
+      "term": "setting.sample-rate",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Punctuation is prosody on every modern engine. Ellipses hesitate, dashes clip, capitals stress."
+  ],
+  "warnings": [
+    "Bracketed audio tags are an ElevenLabs v3 convention. Strip them if your engine does not document them."
+  ],
+  "variations": [
+    {
+      "name": "Half a step slower",
+      "text": "Drop speed to 0.92 and raise stability by 0.1. Read for an audience of one, not a room."
+    },
+    {
+      "name": "Warmer, less formal",
+      "text": "Rewrite the script in contractions, add one ellipsis before the last clause, and lower stability to widen the range."
+    },
+    {
+      "name": "Cold read",
+      "text": "Strip every tag and let punctuation alone carry the prosody. Useful as a control to hear what the tags are really doing."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 77,
+  "axes": {
+    "specificity": 66,
+    "technical": 100,
+    "structure": 60,
+    "constraints": 85,
+    "format": 35,
+    "context": 85,
+    "modelfit": 98,
+    "noise": 100
+  }
+}

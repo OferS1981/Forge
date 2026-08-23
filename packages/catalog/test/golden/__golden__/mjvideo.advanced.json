@@ -1,0 +1,103 @@
+{
+  "blocks": [
+    {
+      "label": "Cinematography",
+      "body": "Slow dolly in, medium shot on a 35mm."
+    },
+    {
+      "label": "Subject",
+      "body": "A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Action",
+      "body": "He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout."
+    },
+    {
+      "label": "Style & ambiance",
+      "body": "Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate."
+    },
+    {
+      "label": "Audio",
+      "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+    },
+    {
+      "label": "Reference",
+      "body": "In the register of Roger Deakins night exteriors."
+    }
+  ],
+  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. --motion high --raw",
+  "negative": "crowds, modern signage",
+  "settings": [
+    {
+      "name": "--motion",
+      "value": "high",
+      "why": "low is the default and barely moves",
+      "term": "setting.motion",
+      "tier": "simple"
+    },
+    {
+      "name": "--raw",
+      "value": "on",
+      "why": "Turns off aesthetic auto-styling",
+      "term": "setting.raw",
+      "tier": "simple"
+    },
+    {
+      "name": "--loop",
+      "value": "off",
+      "why": "On for motion-graphic loops",
+      "term": "setting.loop",
+      "tier": "simple"
+    },
+    {
+      "name": "--end",
+      "value": "optional",
+      "why": "Custom end frame",
+      "term": "setting.end",
+      "tier": "advanced"
+    },
+    {
+      "name": "Resolution",
+      "value": "HD 720p",
+      "why": "Requires Pro or Mega in Fast Mode",
+      "term": "setting.resolution",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "This is not a cinematic-paragraph model. Describe only the motion, in a handful of words, and let the still carry the look.",
+    "Extend x4 at about four seconds each gets you to twenty-one seconds total."
+  ],
+  "warnings": [
+    "--motion low is the default and produces near-still results. If nothing moves, that is why.",
+    "--raw disables the house styling. Use it when you want the video to obey the prompt rather than Midjourney's taste.",
+    "HD 720p is plan-gated and Fast-Mode-gated. Free and Basic silently get 480p."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 91,
+  "axes": {
+    "specificity": 97,
+    "technical": 100,
+    "structure": 90,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 86,
+    "noise": 100
+  }
+}

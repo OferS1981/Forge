@@ -13,7 +13,7 @@
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "test": "vitest run --coverage",
-    "test:golden": "vitest run --project catalog --dir packages/catalog/test/golden --passWithNoTests",
+    "test:golden": "vitest run --project catalog packages/catalog/test/golden",
     "test:a11y": "playwright test --config playwright.config.ts --project a11y --pass-with-no-tests",
     "test:e2e": "playwright test --config playwright.config.ts --project smoke --pass-with-no-tests",
     "build": "turbo run build",

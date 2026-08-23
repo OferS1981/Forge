@@ -1,0 +1,83 @@
+{
+  "blocks": [
+    {
+      "label": "Voice",
+      "body": "British woman, late 30s, dry and unhurried, documentary narrator, wry, authoritative, husky texture, English, Received Pronunciation (not General American)."
+    },
+    {
+      "label": "Script: paste this into the text box",
+      "body": "[sarcastic] There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on"
+    },
+    {
+      "label": "Direction",
+      "body": "Read as: trailer / hype vo. Tone: wry, authoritative."
+    },
+    {
+      "label": "Length warning",
+      "body": "This script is under 250 characters. ElevenLabs document that short inputs give inconsistent output: pad it with a lead-in sentence you can trim afterwards."
+    }
+  ],
+  "flat": "[sarcastic] There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on",
+  "negative": "american vowels",
+  "settings": [
+    {
+      "name": "model_id",
+      "value": "eleven_v3 (Creative)",
+      "why": "v3 for expression, multilingual v2 for long-form stability, flash v2.5 for latency",
+      "term": "setting.model-id",
+      "tier": "simple"
+    },
+    {
+      "name": "Stability",
+      "value": "Creative",
+      "why": "Lower widens emotional range. v3 is a three-way enum, not a slider",
+      "term": "setting.stability",
+      "tier": "simple"
+    },
+    {
+      "name": "Similarity boost",
+      "value": "0.80",
+      "why": "Too high on a noisy clone reproduces the noise",
+      "term": "setting.similarity-boost",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "v3 takes inline audio tags like [whispers], [sighs], [sarcastic], and interprets natural-language direction inside brackets.",
+    "Ellipses add hesitation and weight, dashes make short pauses, CAPITALS carry stress. That is the real prosody control.",
+    "Under 250 characters gets inconsistent output. Give it a full paragraph even if you only need one line."
+  ],
+  "warnings": [
+    "v3 does not support break tags. Use tags, punctuation and line structure instead.",
+    "The phoneme tag only works on eleven_flash_v2: not on multilingual v2, not on v3. On v3 use inline IPA between forward slashes.",
+    "Flash mangles currency and numbers. Write out '£1,000,000' as words before sending it to Flash.",
+    "Turbo no longer exists. Any legacy eleven_turbo preset maps to eleven_flash_v2_5."
+  ],
+  "variations": [
+    {
+      "name": "Half a step slower",
+      "text": "Drop speed to 0.92 and raise stability by 0.1. Read for an audience of one, not a room."
+    },
+    {
+      "name": "Warmer, less formal",
+      "text": "Rewrite the script in contractions, add one ellipsis before the last clause, and lower stability to widen the range."
+    },
+    {
+      "name": "Cold read",
+      "text": "Strip every tag and let punctuation alone carry the prosody. Useful as a control to hear what the tags are really doing."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 77,
+  "axes": {
+    "specificity": 66,
+    "technical": 100,
+    "structure": 60,
+    "constraints": 85,
+    "format": 35,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

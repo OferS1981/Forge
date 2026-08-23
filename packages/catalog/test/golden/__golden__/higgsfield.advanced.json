@@ -1,0 +1,109 @@
+{
+  "blocks": [
+    {
+      "label": "Cinematography",
+      "body": "Slow dolly in, medium shot on a 35mm."
+    },
+    {
+      "label": "Subject",
+      "body": "A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Action",
+      "body": "He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout."
+    },
+    {
+      "label": "Style & ambiance",
+      "body": "Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate."
+    },
+    {
+      "label": "Audio",
+      "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+    },
+    {
+      "label": "Reference",
+      "body": "In the register of Roger Deakins night exteriors."
+    }
+  ],
+  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
+  "negative": "crowds, modern signage",
+  "settings": [
+    {
+      "name": "Model",
+      "value": "Cinema Studio 3.0",
+      "why": "",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "Camera preset",
+      "value": "nearest named preset",
+      "why": "63 named moves",
+      "term": "setting.camera-preset",
+      "tier": "simple"
+    },
+    {
+      "name": "cfg_scale",
+      "value": "0.6",
+      "why": "0.3 creative, 0.8 literal",
+      "term": "setting.cfg-scale",
+      "tier": "simple"
+    },
+    {
+      "name": "duration",
+      "value": "10s",
+      "why": "4–15s",
+      "term": "setting.duration",
+      "tier": "advanced"
+    },
+    {
+      "name": "genre",
+      "value": "auto",
+      "why": "action, horror, comedy, noir, drama, epic",
+      "term": "setting.genre",
+      "tier": "advanced"
+    },
+    {
+      "name": "generate_audio",
+      "value": "true",
+      "why": "",
+      "term": "setting.generate-audio",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "The preset library is the reason to be here: Bullet Time, Crash Zoom In, Snorricam, Super Dolly In, Through Object In, 360 Orbit, Whip Pan, YoYo Zoom and more.",
+    "cfg_scale is exposed here and almost nowhere else. Around 0.3 gives the model creative latitude, around 0.8 gives literal adherence and stiffer motion."
+  ],
+  "warnings": [
+    "It is an aggregator. The same prompt hits a different underlying model depending on what you selected: branch your prompt on the real model.",
+    "Camera presets generally need a start image."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 92,
+  "axes": {
+    "specificity": 95,
+    "technical": 100,
+    "structure": 90,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

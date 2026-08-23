@@ -1,0 +1,114 @@
+{
+  "blocks": [
+    {
+      "label": "Goal",
+      "body": "Instagram carousel, first slide."
+    },
+    {
+      "label": "Scene",
+      "body": "Photograph set in Basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Subject",
+      "body": "A retired boxer taping his hands in a basement gym."
+    },
+    {
+      "label": "Style",
+      "body": "Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white."
+    },
+    {
+      "label": "Details",
+      "body": "Rule of thirds, austere in feeling, in the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Text",
+      "body": "Render exactly: \"NORTHBOUND SUPPLY CO\". Correct spelling, high contrast, no other text anywhere in frame."
+    },
+    {
+      "label": "Constraints",
+      "body": "Do not include logos, watermarks, other people. No watermarks, no signatures, no borders."
+    }
+  ],
+  "flat": "Goal: Instagram carousel, first slide.\nScene: Photograph set in Basement gym at 6am, condensation on the windows.\nSubject: A retired boxer taping his hands in a basement gym.\nStyle: Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white.\nDetails: Rule of thirds, austere in feeling, in the register of Roger Deakins night exteriors.\nText: Render exactly: \"NORTHBOUND SUPPLY CO\". Correct spelling, high contrast, no other text anywhere in frame.\nConstraints: Do not include logos, watermarks, other people. No watermarks, no signatures, no borders.",
+  "negative": "logos, watermarks, other people",
+  "settings": [
+    {
+      "name": "model",
+      "value": "gpt-image-2",
+      "why": "Current snapshot: gpt-image-2-2026-04-21",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "size",
+      "value": "4:5",
+      "why": "Custom sizes must divide by 16, up to 3840x2160",
+      "term": "setting.size",
+      "tier": "simple"
+    },
+    {
+      "name": "quality",
+      "value": "high",
+      "why": "low for layout exploration, high only for the text-dense final",
+      "term": "setting.quality",
+      "tier": "simple"
+    },
+    {
+      "name": "background",
+      "value": "opaque",
+      "why": "transparent needs png or webp output",
+      "term": "setting.background",
+      "tier": "advanced"
+    },
+    {
+      "name": "output_format",
+      "value": "png",
+      "why": "jpeg if you need the file small",
+      "term": "setting.output-format",
+      "tier": "advanced"
+    },
+    {
+      "name": "n",
+      "value": "1",
+      "why": "Up to 10 per call",
+      "term": "setting.n",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "It reads a structured brief better than a paragraph, which is why Forge labels the sections.",
+    "Put literal on-image copy inside quotes and state placement and contrast separately.",
+    "Iterate in small layout nudges. A full re-prompt rerolls the whole composition."
+  ],
+  "warnings": [
+    "Every custom edge must be a multiple of 16, ceiling 3840x2160, or the call fails.",
+    "Draft at quality: low. A dense-text render at high quality is the single biggest latency sink."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 94,
+  "axes": {
+    "specificity": 100,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

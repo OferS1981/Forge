@@ -1,0 +1,97 @@
+{
+  "blocks": [
+    {
+      "label": "Task",
+      "body": "Add rate limiting to the public API, 100 requests per minute per key"
+    },
+    {
+      "label": "Context",
+      "body": "Node 22, Fastify, Postgres via Drizzle, tests in Vitest."
+    },
+    {
+      "label": "Follow this pattern",
+      "body": "Mirror src/routes/webhooks.ts."
+    },
+    {
+      "label": "Done means",
+      "body": "npm test passes and curl -I returns 429 on the 101st call. Run it yourself before you report back, and quote the output."
+    },
+    {
+      "label": "Do not touch",
+      "body": "Do not touch the auth middleware or any migration older than 0042."
+    },
+    {
+      "label": "Rules",
+      "body": "No new dependencies."
+    },
+    {
+      "label": "Working method",
+      "body": "Explore the relevant files first and tell me the plan before you edit anything. Implement in one pass, run the check, then report what changed and what you did not change."
+    }
+  ],
+  "flat": "TASK\nAdd rate limiting to the public API, 100 requests per minute per key CONTEXT\nNode 22, Fastify, Postgres via Drizzle, tests in Vitest. FOLLOW THIS PATTERN\nMirror src/routes/webhooks.ts. DONE MEANS\nnpm test passes and curl -I returns 429 on the 101st call. Run it yourself before you report back, and quote the output. DO NOT TOUCH\nDo not touch the auth middleware or any migration older than 0042. RULES\nNo new dependencies. WORKING METHOD\nExplore the relevant files first and tell me the plan before you edit anything. Implement in one pass, run the check, then report what changed and what you did not change.",
+  "negative": "",
+  "settings": [
+    {
+      "name": "Model",
+      "value": "gpt-5.6-sol",
+      "why": "terra for everyday, luna for repeatable",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "Effort",
+      "value": "High",
+      "why": "Light, Medium, High, Extra High, Max, Ultra",
+      "term": "setting.effort",
+      "tier": "simple"
+    },
+    {
+      "name": "Instructions",
+      "value": "AGENTS.md",
+      "why": "",
+      "term": "setting.instructions",
+      "tier": "simple"
+    },
+    {
+      "name": "Default model",
+      "value": "config.toml",
+      "why": "",
+      "term": "setting.default-model",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Codex will point at any model implementing Chat Completions or Responses, not only OpenAI's."
+  ],
+  "warnings": [
+    "Effort names differ between the API and the Codex UI. Do not map reasoning.effort to Light and Ultra one-to-one."
+  ],
+  "variations": [
+    {
+      "name": "Add one example",
+      "text": "Paste a short example of exactly the answer you want. One example outperforms a paragraph describing the format."
+    },
+    {
+      "name": "Name the reader",
+      "text": "Add who reads this and what they will do with it. It changes what the model chooses to include more than any other line."
+    },
+    {
+      "name": "Ask for the objections",
+      "text": "Add: end with the three strongest objections to your own answer, and say which one you find hardest to dismiss."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 85,
+  "axes": {
+    "specificity": 85,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 35,
+    "context": 85,
+    "modelfit": 86,
+    "noise": 100
+  }
+}

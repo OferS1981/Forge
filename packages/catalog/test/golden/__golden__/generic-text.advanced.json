@@ -1,0 +1,83 @@
+{
+  "blocks": [
+    {
+      "label": "System prompt",
+      "body": "You are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap."
+    },
+    {
+      "label": "## Context",
+      "body": "I will paste the current page copy below. Our buyer is a 20-person agency"
+    },
+    {
+      "label": "## Task",
+      "body": "Review this pricing page copy and tell me which claims a sceptical CFO would not believe"
+    },
+    {
+      "label": "## Example of a good answer",
+      "body": "Claim: \"cuts admin by half\". Not credible: no baseline, no sample, no source"
+    },
+    {
+      "label": "## Output",
+      "body": "Format: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer."
+    }
+  ],
+  "flat": "## System prompt\nYou are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap. ## Context\nI will paste the current page copy below. Our buyer is a 20-person agency ## Task\nReview this pricing page copy and tell me which claims a sceptical CFO would not believe ## Example of a good answer\nClaim: \"cuts admin by half\". Not credible: no baseline, no sample, no source ## Output\nFormat: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer.",
+  "negative": "marketing tone",
+  "settings": [
+    {
+      "name": "Reasoning",
+      "value": "High",
+      "why": "",
+      "term": "setting.reasoning",
+      "tier": "simple"
+    },
+    {
+      "name": "Temperature",
+      "value": "leave default",
+      "why": "",
+      "term": "setting.temperature",
+      "tier": "simple"
+    },
+    {
+      "name": "System prompt",
+      "value": "use it for role and rules",
+      "why": "",
+      "term": "setting.system-prompt",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "Output format specification is the single strongest lever across every vendor guide. Forge always emits it.",
+    "Delimiters separating instructions from data reduce misattribution and prompt-injection surface everywhere."
+  ],
+  "warnings": [
+    "Chain-of-thought instructions are largely obsolete on 2026 frontier models. Use the model's own reasoning control instead."
+  ],
+  "variations": [
+    {
+      "name": "Add one example",
+      "text": "Paste a short example of exactly the answer you want. One example outperforms a paragraph describing the format."
+    },
+    {
+      "name": "Name the reader",
+      "text": "Add who reads this and what they will do with it. It changes what the model chooses to include more than any other line."
+    },
+    {
+      "name": "Ask for the objections",
+      "text": "Add: end with the three strongest objections to your own answer, and say which one you find hardest to dismiss."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 88,
+  "axes": {
+    "specificity": 86,
+    "technical": 100,
+    "structure": 75,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

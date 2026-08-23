@@ -1,0 +1,54 @@
+# Port notes
+
+Phase 1 ported `reference/forge.html` into `packages/catalog`. The rule was: port the wording as
+written, do not rewrite it from my own knowledge, and put every disagreement here rather than into
+the data. The parity test in `packages/catalog/test/parity.test.ts` proves the ported engine
+reproduces the prototype exactly for all 57 models, so everything below is either a deliberate,
+listed deviation or a note for a later phase.
+
+## Deliberate deviations, and why
+
+1. **Two em dashes became "none".** Recraft's `substyle` row and Suno's `Exclude Styles` row used an
+   em dash as a placeholder value. `CLAUDE.md` bans em dashes in user-facing text. The parity test
+   allows exactly these two substitutions and asserts no other em dash survives anywhere.
+2. **Wildcards have no maker.** The prototype set `maker: "—"` on the nine wildcard entries. The
+   field is now optional and wildcards simply omit it.
+3. **`tags` is two to four entries, not always four.** The spec sketches a four-tuple. Four
+   prototype entries carry two tags and nine carry three. Inventing the missing tags would be new
+   copy with no source, so the type widened instead.
+4. **Model-id branches became typed flags.** The prototype's composers branched on
+   `m.id === "midjourney"`, `"mjvideo"`, `"hailuo"`, `"el-tts"`, `"hume"`, `"suno"` and `"claude"`.
+   Section 6 of the spec says model-specific behaviour lives in the data, so those became
+   `promptSuffix`, `inlineCameraTokens`, `audioTags`, `actingInstruction`, `flatStyleOnly`,
+   `delimiters` and `lengthWarningBelow`. The output is byte-identical; the composers no longer know
+   any model by name.
+5. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
+   hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
+
+## Things in the prototype I think are wrong, left as they are
+
+- **`el-tts` length warning names ElevenLabs by brand.** The under-250-character warning text says
+  "ElevenLabs document that..." and it is emitted for Cartesia, Hume and the voice wildcard too.
+  Ported as written. Worth rewording in phase 4 when the glossary copy is written.
+- **`--stylize` default.** The Midjourney settings row says "0–1000, default 100" but Forge emits
+  250 for non-photographic media. Both may be right, and the vendor page will settle it at the first
+  verification pass.
+- **Leonardo's negative prompt is marked "not confirmed".** The prototype's own note says to verify
+  it in your account. It is ported with that note intact and the model carries `unverified: true`.
+- **`generic-*` blurbs promise two grammars.** The image wildcard's blurb says Forge emits both a
+  prose and a tag version. The engine emits one. Either the blurb or the composer should change; I
+  did not decide that for Alon.
+
+## Verification status
+
+Every model file carries `unverified: true` and `verifiedOn: 2026-08-23`. The `sources` array holds
+the vendor's own documentation URL for that product, but nothing in this phase fetched those pages,
+so the honest state is unverified across the board. The staleness test turns the build red 120 days
+from that date. The refresh workflow in section 18 of the spec (phase 8) is what clears the flags,
+one reviewed pull request per category.
+
+## Not done in this phase, by design
+
+The glossary holds one stub entry per term id so the coverage test is real, but no term has its copy
+written yet. `packages/catalog/test/terms.test.ts` has `ALLOW_STUBS = true`; phase 4 writes the copy
+and flips it to `false`, at which point a stub fails the build.

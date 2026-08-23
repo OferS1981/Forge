@@ -1,0 +1,88 @@
+{
+  "blocks": [
+    {
+      "label": "Cinematography",
+      "body": "Slow dolly in, medium shot on a 35mm."
+    },
+    {
+      "label": "Subject",
+      "body": "A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Action",
+      "body": "He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout."
+    },
+    {
+      "label": "Style & ambiance",
+      "body": "Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate."
+    },
+    {
+      "label": "Audio",
+      "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+    },
+    {
+      "label": "Reference",
+      "body": "In the register of Roger Deakins night exteriors."
+    }
+  ],
+  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
+  "negative": "crowds, modern signage",
+  "settings": [
+    {
+      "name": "Duration",
+      "value": "10s",
+      "why": "",
+      "term": "setting.duration",
+      "tier": "simple"
+    },
+    {
+      "name": "Aspect",
+      "value": "16:9",
+      "why": "",
+      "term": "setting.aspect",
+      "tier": "simple"
+    },
+    {
+      "name": "Resolution",
+      "value": "highest your plan allows",
+      "why": "",
+      "term": "setting.resolution",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "Describe motion over time, not a photograph. This is the number one failure mode on every model.",
+    "One camera move per shot. Stacking dolly, orbit and tilt produces mush everywhere.",
+    "Cinematic is a null token in 2026. Name the shot instead."
+  ],
+  "warnings": [
+    "If your model is image-to-video, delete everything that re-describes the source still and keep only what changes."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 92,
+  "axes": {
+    "specificity": 95,
+    "technical": 100,
+    "structure": 90,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

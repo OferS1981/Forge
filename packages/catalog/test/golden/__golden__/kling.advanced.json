@@ -1,0 +1,102 @@
+{
+  "blocks": [
+    {
+      "label": "Shot 1",
+      "body": "Medium shot, slow dolly in. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. practical lamps only. crushed blacks, high contrast grade. 3 seconds."
+    },
+    {
+      "label": "Shot 2",
+      "body": "Medium shot, arc around subject. looks up at the camera. 3 seconds."
+    },
+    {
+      "label": "Shot 3",
+      "body": "Medium shot, handheld follow. looks up at the camera. 3 seconds."
+    },
+    {
+      "label": "Audio",
+      "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+    }
+  ],
+  "flat": "Shot 1: Medium shot, slow dolly in. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. practical lamps only. crushed blacks, high contrast grade. 3 seconds.\nShot 2: Medium shot, arc around subject. looks up at the camera. 3 seconds.\nShot 3: Medium shot, handheld follow. looks up at the camera. 3 seconds.\nAudio: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic.",
+  "negative": "crowds, modern signage",
+  "settings": [
+    {
+      "name": "Model",
+      "value": "Kling 3.0",
+      "why": "O1 for unified generate-and-edit, Turbo for drafts",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "Mode",
+      "value": "pro",
+      "why": "std, pro or 4k",
+      "term": "setting.mode",
+      "tier": "simple"
+    },
+    {
+      "name": "Duration",
+      "value": "10s",
+      "why": "3–15 seconds",
+      "term": "setting.duration",
+      "tier": "simple"
+    },
+    {
+      "name": "Aspect",
+      "value": "16:9",
+      "why": "",
+      "term": "setting.aspect",
+      "tier": "advanced"
+    },
+    {
+      "name": "Sound",
+      "value": "on",
+      "why": "On by default and billed per second",
+      "term": "setting.sound",
+      "tier": "advanced"
+    },
+    {
+      "name": "Elements",
+      "value": "bind the subject",
+      "why": "5–30s of reference for voice binding",
+      "term": "setting.elements",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Kling's own formula is shot type, movement direction, duration or speed descriptor, then style elements. Forge writes one block per shot in that order.",
+    "Master Shots camera presets are more stable than prompted camera language. When the move matters, use the preset.",
+    "Bind elements. Without them, identity drifts badly past about eight seconds."
+  ],
+  "warnings": [
+    "Multi-shot auto-planning is on by default in some modes. If you want one continuous take you must say so explicitly.",
+    "Audio is billed per second and on by default. Turn it off for silent b-roll or you burn about a third extra."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 88,
+  "axes": {
+    "specificity": 94,
+    "technical": 100,
+    "structure": 60,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

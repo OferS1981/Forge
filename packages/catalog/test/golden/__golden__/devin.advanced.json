@@ -1,0 +1,98 @@
+{
+  "blocks": [
+    {
+      "label": "Task",
+      "body": "Add rate limiting to the public API, 100 requests per minute per key"
+    },
+    {
+      "label": "Context",
+      "body": "Node 22, Fastify, Postgres via Drizzle, tests in Vitest."
+    },
+    {
+      "label": "Follow this pattern",
+      "body": "Mirror src/routes/webhooks.ts."
+    },
+    {
+      "label": "Done means",
+      "body": "npm test passes and curl -I returns 429 on the 101st call. Run it yourself before you report back, and quote the output."
+    },
+    {
+      "label": "Do not touch",
+      "body": "Do not touch the auth middleware or any migration older than 0042."
+    },
+    {
+      "label": "Rules",
+      "body": "No new dependencies."
+    },
+    {
+      "label": "Working method",
+      "body": "Explore the relevant files first and tell me the plan before you edit anything. Implement in one pass, run the check, then report what changed and what you did not change."
+    }
+  ],
+  "flat": "TASK\nAdd rate limiting to the public API, 100 requests per minute per key CONTEXT\nNode 22, Fastify, Postgres via Drizzle, tests in Vitest. FOLLOW THIS PATTERN\nMirror src/routes/webhooks.ts. DONE MEANS\nnpm test passes and curl -I returns 429 on the 101st call. Run it yourself before you report back, and quote the output. DO NOT TOUCH\nDo not touch the auth middleware or any migration older than 0042. RULES\nNo new dependencies. WORKING METHOD\nExplore the relevant files first and tell me the plan before you edit anything. Implement in one pass, run the check, then report what changed and what you did not change.",
+  "negative": "",
+  "settings": [
+    {
+      "name": "Rules",
+      "value": ".devin/rules/*.md",
+      "why": "",
+      "term": "setting.rules",
+      "tier": "simple"
+    },
+    {
+      "name": "Trigger",
+      "value": "always_on, model_decision, glob, manual",
+      "why": "",
+      "term": "setting.trigger",
+      "tier": "simple"
+    },
+    {
+      "name": "Caps",
+      "value": "6k global / 12k workspace",
+      "why": "Enforced",
+      "term": "setting.caps",
+      "tier": "simple"
+    },
+    {
+      "name": "Success criteria",
+      "value": "measurable, not 'make it work'",
+      "why": "",
+      "term": "setting.success-criteria",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Break work into verified checkpoints. Use Playbooks for procedures and Knowledge for standards that persist."
+  ],
+  "warnings": [
+    "Rules files are hard-capped: 6,000 characters global, 12,000 per workspace file. A longer file silently truncates.",
+    "Windsurf is now Devin Desktop. .devin/ beats .windsurf/, and leftover Windsurf configs can be shadowed."
+  ],
+  "variations": [
+    {
+      "name": "Add one example",
+      "text": "Paste a short example of exactly the answer you want. One example outperforms a paragraph describing the format."
+    },
+    {
+      "name": "Name the reader",
+      "text": "Add who reads this and what they will do with it. It changes what the model chooses to include more than any other line."
+    },
+    {
+      "name": "Ask for the objections",
+      "text": "Add: end with the three strongest objections to your own answer, and say which one you find hardest to dismiss."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 85,
+  "axes": {
+    "specificity": 85,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 35,
+    "context": 85,
+    "modelfit": 86,
+    "noise": 100
+  }
+}

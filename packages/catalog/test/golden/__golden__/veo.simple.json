@@ -1,0 +1,89 @@
+{
+  "blocks": [
+    {
+      "label": "Cinematography",
+      "body": "Slow dolly in, medium shot on a 35mm."
+    },
+    {
+      "label": "Subject",
+      "body": "A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Action",
+      "body": "He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout."
+    },
+    {
+      "label": "Style & ambiance",
+      "body": "Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate."
+    },
+    {
+      "label": "Audio",
+      "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+    },
+    {
+      "label": "Reference",
+      "body": "In the register of Roger Deakins night exteriors."
+    }
+  ],
+  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
+  "negative": "crowds, modern signage",
+  "settings": [
+    {
+      "name": "model",
+      "value": "veo-3.1-generate-preview",
+      "why": "fast and lite variants exist for drafts",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "aspectRatio",
+      "value": "16:9",
+      "why": "16:9 or 9:16, nothing else",
+      "term": "setting.aspectratio",
+      "tier": "simple"
+    },
+    {
+      "name": "durationSeconds",
+      "value": "10",
+      "why": "4, 6 or 8",
+      "term": "setting.durationseconds",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "Google's official order is cinematography, subject, action, context, style and ambiance. Forge writes exactly that order.",
+    "Dialogue goes in quotes. SFX and ambience get their own labelled lines: that is the documented syntax."
+  ],
+  "warnings": [
+    "1080p and 4K are eight-second-only. Requesting them at 4s or 6s fails or silently downgrades. Extending drops you to 720p.",
+    "The prompt rewriter is on by default and will silently rewrite engineered wording. Turn it off for deterministic work.",
+    "Keep dialogue under about fifteen words per eight-second clip or lip-sync drifts."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 92,
+  "axes": {
+    "specificity": 95,
+    "technical": 100,
+    "structure": 90,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

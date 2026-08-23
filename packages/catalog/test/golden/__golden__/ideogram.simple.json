@@ -1,0 +1,69 @@
+{
+  "blocks": [
+    {
+      "label": "JSON prompt",
+      "body": "{\n  \"high_level_description\": \"A retired boxer taping his hands in a basement gym, Basement gym at 6am, condensation on the windows\",\n  \"style_description\": \"photograph. Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white\",\n  \"compositional_deconstruction\": \"rule of thirds, austere in feeling\",\n  \"photo\": {\n    \"lens\": \"85mm portrait\",\n    \"lighting\": \"Softbox key camera-left\"\n  },\n  \"text_elements\": [\n    {\n      \"content\": \"NORTHBOUND SUPPLY CO\",\n      \"placement\": \"primary focal area\",\n      \"box\": [\n        300,\n        150,\n        520,\n        850\n      ]\n    }\n  ],\n  \"color_palette\": {\n    \"description\": \"#0B3D2E deep green, warm brass, bone white\"\n  }\n}"
+    }
+  ],
+  "flat": "{ \"high_level_description\": \"A retired boxer taping his hands in a basement gym, Basement gym at 6am, condensation on the windows\", \"style_description\": \"photograph. Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white\", \"compositional_deconstruction\": \"rule of thirds, austere in feeling\", \"photo\": { \"lens\": \"85mm portrait\", \"lighting\": \"Softbox key camera-left\" }, \"text_elements\": [ { \"content\": \"NORTHBOUND SUPPLY CO\", \"placement\": \"primary focal area\", \"box\": [ 300, 150, 520, 850 ] } ], \"color_palette\": { \"description\": \"#0B3D2E deep green, warm brass, bone white\" }\n}",
+  "negative": "logos, watermarks, other people",
+  "settings": [
+    {
+      "name": "resolution",
+      "value": "4:5",
+      "why": "1K and 2K enums",
+      "term": "setting.resolution",
+      "tier": "simple"
+    },
+    {
+      "name": "rendering_speed",
+      "value": "DEFAULT",
+      "why": "TURBO for drafts, QUALITY for finals",
+      "term": "setting.rendering-speed",
+      "tier": "simple"
+    },
+    {
+      "name": "magic_prompt",
+      "value": "OFF",
+      "why": "Leave ON only for one-line prompts",
+      "term": "setting.magic-prompt",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "Prose prompts get rewritten by Magic Prompt before generation, which is a train/inference gap. JSON does not.",
+    "Bounding boxes are normalised [y_min, x_min, y_max, x_max] on a 0–1000 canvas."
+  ],
+  "warnings": [
+    "Set magic_prompt to OFF once you are sending engineered JSON, or it rewrites your work.",
+    "style_codes and style_reference_images are mutually exclusive: sending both errors."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 82,
+  "axes": {
+    "specificity": 100,
+    "technical": 100,
+    "structure": 15,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  },
+  "mono": true
+}

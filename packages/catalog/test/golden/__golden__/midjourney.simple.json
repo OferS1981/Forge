@@ -1,0 +1,98 @@
+{
+  "blocks": [
+    {
+      "label": "Subject",
+      "body": "Photograph of a retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Camera",
+      "body": "Medium close-up, 85mm portrait, f/2.8."
+    },
+    {
+      "label": "Light",
+      "body": "Softbox key camera-left."
+    },
+    {
+      "label": "Finish",
+      "body": "Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white."
+    },
+    {
+      "label": "Composition & mood",
+      "body": "Rule of thirds, austere in feeling."
+    },
+    {
+      "label": "In-image text",
+      "body": "The words \"NORTHBOUND SUPPLY CO\" rendered cleanly, high contrast against the background, correctly spelled."
+    },
+    {
+      "label": "Reference",
+      "body": "In the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Intended use",
+      "body": "Instagram carousel, first slide: keep the focal subject clear of the outer eighth of the frame."
+    }
+  ],
+  "flat": "Photograph of a retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white. Rule of thirds, austere in feeling. The words \"NORTHBOUND SUPPLY CO\" rendered cleanly, high contrast against the background, correctly spelled. In the register of Roger Deakins night exteriors. Instagram carousel, first slide: keep the focal subject clear of the outer eighth of the frame. --no logos, watermarks, other people --ar 4:5 --v 8.2 --stylize 100 --raw",
+  "negative": "logos, watermarks, other people",
+  "settings": [
+    {
+      "name": "--ar",
+      "value": "4:5",
+      "why": "Aspect ratio. No decimals: use 139:100, not 1.39:1",
+      "term": "setting.ar",
+      "tier": "simple"
+    },
+    {
+      "name": "--stylize",
+      "value": "100",
+      "why": "0–1000, default 100. Higher gives Midjourney more artistic licence",
+      "term": "setting.stylize",
+      "tier": "simple"
+    },
+    {
+      "name": "--chaos",
+      "value": "0",
+      "why": "0–100. Raise to 15–25 only when you want four genuinely different directions",
+      "term": "setting.chaos",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "V8 parses the prompt as language, so the sentence order is the emphasis order. The first clause gets the most weight.",
+    "One lighting description and one lens do more than five stacked adjectives. Midjourney reads extra style words as noise.",
+    "--sref locks the look across a whole set. Get one image you like, then reuse its style code for everything else in the campaign."
+  ],
+  "warnings": [
+    "Adjective spam (masterpiece, 8k, hyper detailed) is a V5-era habit that actively hurts V7/V8. Forge strips it.",
+    "--stylize and --exp fight each other. If you are using --sref or a personalization profile, keep --exp at or below 25.",
+    "Omni Reference (--oref) is documented against V7 and can silently downgrade a V8.2 render. Check the version stamp before batching."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 94,
+  "axes": {
+    "specificity": 100,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

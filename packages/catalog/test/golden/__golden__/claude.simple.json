@@ -1,0 +1,87 @@
+{
+  "blocks": [
+    {
+      "label": "System prompt",
+      "body": "You are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap."
+    },
+    {
+      "label": "<context>",
+      "body": "I will paste the current page copy below. Our buyer is a 20-person agency"
+    },
+    {
+      "label": "<instructions>",
+      "body": "Review this pricing page copy and tell me which claims a sceptical CFO would not believe"
+    },
+    {
+      "label": "<example>",
+      "body": "Claim: \"cuts admin by half\". Not credible: no baseline, no sample, no source"
+    },
+    {
+      "label": "<output_format>",
+      "body": "Format: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer."
+    }
+  ],
+  "flat": "<!-- system prompt -->\nYou are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap. <context>\nI will paste the current page copy below. Our buyer is a 20-person agency\n</context> <example>\nClaim: \"cuts admin by half\". Not credible: no baseline, no sample, no source\n</example> <instructions>\nReview this pricing page copy and tell me which claims a sceptical CFO would not believe\n</instructions> <output_format>\nFormat: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer.\n</output_format>",
+  "negative": "marketing tone",
+  "settings": [
+    {
+      "name": "model",
+      "value": "claude-opus-5",
+      "why": "Sonnet 5 for volume, Opus 5 for hard work",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "output_config.effort",
+      "value": "high",
+      "why": "low, medium, high, xhigh, max",
+      "term": "setting.output-config-effort",
+      "tier": "simple"
+    },
+    {
+      "name": "thinking",
+      "value": "adaptive",
+      "why": "On by default on the 5-series",
+      "term": "setting.thinking",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "XML tags are the documented structure: <instructions>, <context>, <document>, <example>. Forge writes them.",
+    "Put long context at the top and the question at the end. Anthropic measure up to a 30% improvement on complex multi-document inputs.",
+    "Tell it what to do, not what not to do. 'Do not use markdown' works worse than 'compose flowing prose paragraphs'.",
+    "Three to five examples wrapped in <example> tags, diverse and including an edge case."
+  ],
+  "warnings": [
+    "Effort does not shorten the visible answer. If you want it short, say so in words.",
+    "Remove legacy 'verify your work' instructions on Opus 5: they cause over-verification with no quality gain.",
+    "Assistant prefill is gone on the 5-series and returns a 400. Use a structured output format instead."
+  ],
+  "variations": [
+    {
+      "name": "Add one example",
+      "text": "Paste a short example of exactly the answer you want. One example outperforms a paragraph describing the format."
+    },
+    {
+      "name": "Name the reader",
+      "text": "Add who reads this and what they will do with it. It changes what the model chooses to include more than any other line."
+    },
+    {
+      "name": "Ask for the objections",
+      "text": "Add: end with the three strongest objections to your own answer, and say which one you find hardest to dismiss."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 88,
+  "axes": {
+    "specificity": 86,
+    "technical": 100,
+    "structure": 75,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

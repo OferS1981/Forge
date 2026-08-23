@@ -1,0 +1,284 @@
+import type {
+  AXIS_IDS,
+  CATEGORY_IDS,
+  CHIP_FIELD_IDS,
+  FIELD_IDS,
+  GRAMMAR_IDS,
+  MODEL_IDS,
+  STRENGTH_TAGS,
+  VOCAB_BANKS,
+} from './ids';
+
+export type CategoryId = (typeof CATEGORY_IDS)[number];
+export type GrammarId = (typeof GRAMMAR_IDS)[number];
+export type AxisId = (typeof AXIS_IDS)[number];
+export type StrengthTag = (typeof STRENGTH_TAGS)[number];
+export type VocabBank = (typeof VOCAB_BANKS)[number];
+export type FieldId = (typeof FIELD_IDS)[number];
+export type ChipFieldId = (typeof CHIP_FIELD_IDS)[number];
+export type ModelId = (typeof MODEL_IDS)[number];
+
+export type Mode = 'simple' | 'advanced';
+
+/**
+ * Glossary term ids. Fields and vocabulary banks get fixed ids so a typo fails `tsc`.
+ * Settings rows derive their id from the row name; the term-coverage test checks those.
+ */
+export type TermId = `field.${FieldId}` | `vocab.${VocabBank}` | `setting.${string}`;
+
+/** What the user typed or picked. Chip fields hold a list, everything else one string. */
+export type Brief = {
+  [K in FieldId]?: K extends ChipFieldId ? string[] : string;
+};
+export type BriefValue = string | string[];
+
+export interface Option {
+  value: string;
+  label: string;
+  hint?: string;
+  term?: TermId;
+  tier: Mode;
+}
+
+export type FieldType = 'text' | 'area' | 'chips' | 'chip1' | 'select' | 'seg' | 'number';
+
+export interface AutoFill {
+  value: string | string[];
+  why: string;
+}
+
+export interface Field {
+  id: FieldId;
+  label: string;
+  hint?: string;
+  type: FieldType;
+  options?: Option[];
+  max?: number;
+  placeholder?: string;
+  tier: Mode;
+  term: TermId;
+  autoFill?: (brief: Brief, model: Model) => AutoFill | undefined;
+}
+
+export interface Term {
+  id: TermId;
+  label: string;
+  short: string;
+  what: string;
+  changes: string;
+  when: string;
+  range?: string;
+  example?: { low: string; high: string };
+  seeAlso?: TermId[];
+  models?: ModelId[];
+  /** True while the entry is a placeholder waiting for real copy. Phase 4 removes the flag. */
+  stub?: true;
+}
+
+export interface SettingRow {
+  name: string;
+  value: string;
+  why: string;
+  term?: TermId;
+  tier: Mode;
+}
+
+export interface Source {
+  url: string;
+  title: string;
+  publisher: string;
+}
+
+export interface Category {
+  id: CategoryId;
+  name: string;
+  /** Name of the colour token in packages/ui. No hexes live here. */
+  colour: `--cat-${CategoryId}`;
+  /** The pick a newcomer should start with. */
+  defaultModel: ModelId;
+}
+
+export type NegativeMode = 'flag' | 'field' | 'prose' | 'none';
+
+export interface Negative {
+  mode: NegativeMode;
+  label?: string;
+  note: string;
+}
+
+export type BriefPredicate = (brief: Brief) => boolean;
+
+export interface Model {
+  id: ModelId;
+  name: string;
+  sub?: string;
+  version: string;
+  /** Wildcards have no maker. */
+  maker?: string;
+  category: CategoryId;
+  wildcard?: true;
+
+  blurb: string;
+  /**
+   * Two to four short capability tags. The spec sketches four; four prototype entries carry two
+   * and nine carry three, and inventing the missing ones would be new unsourced copy.
+   */
+  tags: [string, string] | [string, string, string] | [string, string, string, string];
+
+  grammar: GrammarId;
+  /** Productive prompt length in words. [0, 0] means length is not the lever. */
+  length: [number, number];
+  core: FieldId[];
+  craft: FieldId[];
+  tech: FieldId[];
+
+  aspects?: Option[];
+  durations?: Option[];
+
+  negative: Negative;
+
+  best: string;
+  worst: string;
+  notes: string[];
+  warnings: string[];
+
+  settings: (brief: Brief, mode: Mode) => SettingRow[];
+
+  // Composer flags. These replace model-id branches so composers stay model-agnostic.
+  /** Appended to the flat prompt after the negative flag. Midjourney's `--ar ... --v`. */
+  promptSuffix?: (brief: Brief) => string;
+  /** Emit `[pan]` `[zoom]` `[static]` tokens in the video prompt. */
+  inlineCameraTokens?: true;
+  /** Whether bracketed audio tags go into the script. */
+  audioTags?: 'always' | 'creative-only' | 'never';
+  /** Add an under-100-character acting instruction line. */
+  actingInstruction?: true;
+  /** Music: the flat prompt is the Style line alone, and the exclude block names the field. */
+  flatStyleOnly?: true;
+  /** Chat models: which delimiter system the prompt is written in. */
+  delimiters?: 'xml' | 'markdown';
+  /** Warn when the spoken script is shorter than this many characters. */
+  lengthWarningBelow?: number;
+  /** Match: how this model does on vertical video. */
+  vertical?: 'weak' | 'strong';
+
+  pairsWith: { model: ModelId; why: string }[];
+  betterFor: { when: BriefPredicate; model: ModelId; why: string }[];
+  strengthTags: { tag: StrengthTag; weight: 1 | 2 | 3 }[];
+
+  sources: Source[];
+  verifiedOn: string;
+  unverified?: true;
+}
+
+export interface Block {
+  label: string;
+  body: string;
+  term?: TermId;
+}
+
+export interface Variation {
+  name: string;
+  text: string;
+}
+
+export interface AutoFilled {
+  field: FieldId;
+  value: string;
+  why: string;
+}
+
+export type Axes = Record<AxisId, number>;
+
+export interface ForgeResult {
+  blocks: Block[];
+  flat: string;
+  negative: string | null;
+  settings: SettingRow[];
+  notes: string[];
+  warnings: string[];
+  variations: Variation[];
+  stripped: string[];
+  autoFilled: AutoFilled[];
+  score: number;
+  axes: Axes;
+  /** The composer wrote code or JSON: show it in a monospace block. */
+  mono?: true;
+}
+
+export interface Score {
+  total: number;
+  axes: Axes;
+  filled: number;
+}
+
+export interface ScoreLabel {
+  min: number;
+  name: string;
+  meaning: string;
+}
+
+export interface Diagnosis {
+  axes: Axes;
+  score: number;
+  findings: string[];
+  working: string[];
+  words: number;
+  stripped: string[];
+  cleaned: string;
+}
+
+export interface MatchEntry {
+  model: Model;
+  score: number;
+}
+
+export interface MatchGroup {
+  category: CategoryId;
+  job: string;
+  models: MatchEntry[];
+}
+
+export interface MatchResult {
+  groups: MatchGroup[];
+  multi: boolean;
+}
+
+export interface Recommendation {
+  kind: 'better' | 'pairs';
+  model: Model;
+  why: string;
+}
+
+export interface Lost {
+  field: FieldId;
+  reason: string;
+}
+
+export interface TranslateResult {
+  from: ForgeResult;
+  to: ForgeResult;
+  brief: Brief;
+  lost: Lost[];
+}
+
+export interface Explanation extends Omit<Term, 'stub'> {
+  /** True while the glossary entry is still a placeholder. */
+  stub: boolean;
+}
+
+export interface ImageStats {
+  width: number;
+  height: number;
+  ratio: string;
+  mean: number;
+  sd: number;
+  sat: number;
+  dens: number;
+  top: string[];
+  key: string;
+  contrast: string;
+  satWord: string;
+  temp: string;
+  detail: string;
+}

@@ -1,0 +1,91 @@
+{
+  "blocks": [
+    {
+      "label": "What we are building",
+      "body": "A shared shopping list where two people tick items off in real time"
+    },
+    {
+      "label": "Data model",
+      "body": "List has many Items. Item: name, quantity, done, addedBy."
+    },
+    {
+      "label": "This pass only",
+      "body": "Just the list screen and the add-item sheet. Do not build anything else yet."
+    },
+    {
+      "label": "Look",
+      "body": "Dense, 14px base, 8px radius, one accent colour, no gradients."
+    },
+    {
+      "label": "Leave alone",
+      "body": "The auth screens, which already work."
+    },
+    {
+      "label": "Rules",
+      "body": "No new dependencies."
+    },
+    {
+      "label": "Before you build",
+      "body": "Restate what you are about to build in three bullets and wait for me to confirm."
+    }
+  ],
+  "flat": "What we are building: A shared shopping list where two people tick items off in real time Data model: List has many Items. Item: name, quantity, done, addedBy. This pass only: Just the list screen and the add-item sheet. Do not build anything else yet. Look: Dense, 14px base, 8px radius, one accent colour, no gradients. Leave alone: The auth screens, which already work. Rules: No new dependencies. Before you build: Restate what you are about to build in three bullets and wait for me to confirm.",
+  "negative": "",
+  "settings": [
+    {
+      "name": "Mode",
+      "value": "Plan first, then Agent",
+      "why": "",
+      "term": "setting.mode",
+      "tier": "simple"
+    },
+    {
+      "name": "Scope",
+      "value": "one screen per prompt",
+      "why": "",
+      "term": "setting.scope",
+      "tier": "simple"
+    },
+    {
+      "name": "Cosmetics",
+      "value": "Visual Edits, not re-prompting",
+      "why": "",
+      "term": "setting.cosmetics",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "Three modes: Plan for concepts, Agent for development, Visual Edits for cosmetic refinement.",
+    "Visual Edits is cheaper than re-prompting for anything cosmetic."
+  ],
+  "warnings": [
+    "Always include the leave-alone clause. Omit it and it will rewrite parts that already worked."
+  ],
+  "variations": [
+    {
+      "name": "Add one example",
+      "text": "Paste a short example of exactly the answer you want. One example outperforms a paragraph describing the format."
+    },
+    {
+      "name": "Name the reader",
+      "text": "Add who reads this and what they will do with it. It changes what the model chooses to include more than any other line."
+    },
+    {
+      "name": "Ask for the objections",
+      "text": "Add: end with the three strongest objections to your own answer, and say which one you find hardest to dismiss."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 78,
+  "axes": {
+    "specificity": 79,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 35,
+    "context": 30,
+    "modelfit": 86,
+    "noise": 100
+  }
+}

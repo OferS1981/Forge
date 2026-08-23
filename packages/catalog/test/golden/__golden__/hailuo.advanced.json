@@ -1,0 +1,106 @@
+{
+  "blocks": [
+    {
+      "label": "Cinematography",
+      "body": "Slow dolly in, medium shot on a 35mm."
+    },
+    {
+      "label": "Subject",
+      "body": "A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Action",
+      "body": "He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout."
+    },
+    {
+      "label": "Style & ambiance",
+      "body": "Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate."
+    },
+    {
+      "label": "Audio",
+      "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+    },
+    {
+      "label": "Reference",
+      "body": "In the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Inline camera token",
+      "body": "[zoom]: Hailuo reads this bracket syntax. Strip it before pasting into any other model."
+    }
+  ],
+  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. [zoom]: Hailuo reads this bracket syntax. Strip it before pasting into any other model.",
+  "negative": "crowds, modern signage",
+  "settings": [
+    {
+      "name": "model",
+      "value": "MiniMax-H3",
+      "why": "",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "duration",
+      "value": "10",
+      "why": "Integers only, 4–15",
+      "term": "setting.duration",
+      "tier": "simple"
+    },
+    {
+      "name": "resolution",
+      "value": "2K",
+      "why": "768P or 2K",
+      "term": "setting.resolution",
+      "tier": "simple"
+    },
+    {
+      "name": "aspect",
+      "value": "16:9",
+      "why": "Bounded 2:5 to 5:2",
+      "term": "setting.aspect",
+      "tier": "advanced"
+    },
+    {
+      "name": "prompt_optimizer",
+      "value": "off",
+      "why": "H3-Context-IR rewrites your prompt when on",
+      "term": "setting.prompt-optimizer",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "H3 accepts inline bracketed camera instructions: [pan], [zoom], [static]. Forge only emits those for this model.",
+    "Voice, SFX and music are jointly modelled, so the audio is cohesive but inseparable. Generate silent and dub if you need stems."
+  ],
+  "warnings": [
+    "Duration must be an integer. Sending 7.5 fails.",
+    "The bracket syntax is model-specific. Do not paste a Hailuo prompt into another model: the brackets become literal noise."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 94,
+  "axes": {
+    "specificity": 100,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

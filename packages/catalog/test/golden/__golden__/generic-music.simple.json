@@ -1,0 +1,74 @@
+{
+  "blocks": [
+    {
+      "label": "Style",
+      "body": "noir jazz, 92 BPM, in A minor, upright bass, muted trumpet, brush kit, instrumental, tape saturation, melancholic"
+    },
+    {
+      "label": "Arrangement",
+      "body": "Start with just brushed drums and upright bass, bring in the trumpet at 0:20."
+    },
+    {
+      "label": "Exclude",
+      "body": "electric guitar, heavy drums"
+    }
+  ],
+  "flat": "noir jazz, 92 BPM, in A minor, upright bass, muted trumpet, brush kit, instrumental, tape saturation, melancholic Start with just brushed drums and upright bass, bring in the trumpet at 0:20.",
+  "negative": "electric guitar, heavy drums",
+  "settings": [
+    {
+      "name": "Duration",
+      "value": "as needed",
+      "why": "",
+      "term": "setting.duration",
+      "tier": "simple"
+    },
+    {
+      "name": "Instrumental",
+      "value": "on",
+      "why": "",
+      "term": "setting.instrumental",
+      "tier": "simple"
+    },
+    {
+      "name": "Style adherence",
+      "value": "high",
+      "why": "",
+      "term": "setting.style-adherence",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "BPM and key both work on the major models. State them as numbers and letters, not as 'fast' and 'sad'."
+  ],
+  "warnings": [
+    "Section metatags like [Chorus] are a Suno and ElevenLabs convention. Check your tool before pasting them."
+  ],
+  "variations": [
+    {
+      "name": "Strip it back",
+      "text": "Same genre and tempo, half the instrumentation. Name only two instruments and let the arrangement breathe."
+    },
+    {
+      "name": "Change the era",
+      "text": "Keep everything, add one era marker: 80s gated reverb, or 90s tape saturation. Era markers do a lot of work."
+    },
+    {
+      "name": "Loop version",
+      "text": "Ask for the negative space explicitly: no melody, just the rhythm section, eight bars, seamless."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 66,
+  "axes": {
+    "specificity": 64,
+    "technical": 83,
+    "structure": 45,
+    "constraints": 85,
+    "format": 35,
+    "context": 30,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

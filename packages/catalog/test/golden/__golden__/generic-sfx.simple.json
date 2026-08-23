@@ -1,0 +1,70 @@
+{
+  "blocks": [
+    {
+      "label": "Prompt",
+      "body": "Heavy wooden door creaking open on rusted hinges, foley, shotgun mic, stairwell, menacing, high-quality, professionally recorded, sound effects foley"
+    },
+    {
+      "label": "Why this shape",
+      "body": "One event per generation. Layer sequential sounds in an editor rather than asking for a sequence: that is the documented workflow, not a workaround."
+    }
+  ],
+  "flat": "Heavy wooden door creaking open on rusted hinges, foley, shotgun mic, stairwell, menacing, high-quality, professionally recorded, sound effects foley",
+  "negative": "",
+  "settings": [
+    {
+      "name": "Duration",
+      "value": "3",
+      "why": "",
+      "term": "setting.duration",
+      "tier": "simple"
+    },
+    {
+      "name": "Prompt adherence",
+      "value": "high",
+      "why": "",
+      "term": "setting.prompt-adherence",
+      "tier": "simple"
+    },
+    {
+      "name": "Sample rate",
+      "value": "48kHz",
+      "why": "",
+      "term": "setting.sample-rate",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "Name the source, the material it hits, the space it happens in, and how the tail behaves. That is the whole craft."
+  ],
+  "warnings": [
+    "One event per generation, everywhere. Layer in a DAW."
+  ],
+  "variations": [
+    {
+      "name": "Bigger space",
+      "text": "Same source, change the room to a stairwell or warehouse and let the tail run longer."
+    },
+    {
+      "name": "Closer and drier",
+      "text": "Close-mic'd, bone-dry, no room at all. This is the version you layer under something else."
+    },
+    {
+      "name": "Just the tail",
+      "text": "Ask only for the decay, not the impact. Layering the transient separately gives you control over both."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 63,
+  "axes": {
+    "specificity": 60,
+    "technical": 100,
+    "structure": 30,
+    "constraints": 20,
+    "format": 80,
+    "context": 30,
+    "modelfit": 86,
+    "noise": 100
+  }
+}

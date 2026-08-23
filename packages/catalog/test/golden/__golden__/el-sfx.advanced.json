@@ -1,0 +1,87 @@
+{
+  "blocks": [
+    {
+      "label": "Prompt",
+      "body": "Heavy wooden door creaking open on rusted hinges, foley, shotgun mic, stairwell, menacing, high-quality, professionally recorded, sound effects foley"
+    },
+    {
+      "label": "Why this shape",
+      "body": "One event per generation. Layer sequential sounds in an editor rather than asking for a sequence: that is the documented workflow, not a workaround."
+    }
+  ],
+  "flat": "Heavy wooden door creaking open on rusted hinges, foley, shotgun mic, stairwell, menacing, high-quality, professionally recorded, sound effects foley",
+  "negative": "",
+  "settings": [
+    {
+      "name": "model_id",
+      "value": "eleven_text_to_sound_v2",
+      "why": "",
+      "term": "setting.model-id",
+      "tier": "simple"
+    },
+    {
+      "name": "duration_seconds",
+      "value": "3",
+      "why": "0.5–30. Unset lets the model infer it",
+      "term": "setting.duration-seconds",
+      "tier": "simple"
+    },
+    {
+      "name": "prompt_influence",
+      "value": "0.45",
+      "why": "0.3 is default and loose. Higher is literal",
+      "term": "setting.prompt-influence",
+      "tier": "simple"
+    },
+    {
+      "name": "loop",
+      "value": "false",
+      "why": "v2 only",
+      "term": "setting.loop",
+      "tier": "advanced"
+    },
+    {
+      "name": "output_format",
+      "value": "wav 48kHz",
+      "why": "WAV is non-looping only",
+      "term": "setting.output-format",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Production language earns its place here: 'high-quality, professionally recorded footsteps on grass, sound effects foley'.",
+    "The terms the model knows are impact, whoosh, ambience, braam, glitch, drone, one-shot, loop, stem, foley.",
+    "Musical one-shots work well: '90s hip-hop drum loop, 90 BPM', 'vintage brass stabs in F minor'."
+  ],
+  "warnings": [
+    "prompt_influence defaults to 0.3, which is deliberately loose. Raise it toward 0.8 when you need literal.",
+    "Loop only works on eleven_text_to_sound_v2, and WAV at 48kHz is non-looping only."
+  ],
+  "variations": [
+    {
+      "name": "Bigger space",
+      "text": "Same source, change the room to a stairwell or warehouse and let the tail run longer."
+    },
+    {
+      "name": "Closer and drier",
+      "text": "Close-mic'd, bone-dry, no room at all. This is the version you layer under something else."
+    },
+    {
+      "name": "Just the tail",
+      "text": "Ask only for the decay, not the impact. Layering the transient separately gives you control over both."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 63,
+  "axes": {
+    "specificity": 60,
+    "technical": 100,
+    "structure": 30,
+    "constraints": 20,
+    "format": 80,
+    "context": 30,
+    "modelfit": 86,
+    "noise": 100
+  }
+}

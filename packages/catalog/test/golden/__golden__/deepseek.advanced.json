@@ -1,0 +1,97 @@
+{
+  "blocks": [
+    {
+      "label": "System prompt",
+      "body": "You are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap."
+    },
+    {
+      "label": "## Context",
+      "body": "I will paste the current page copy below. Our buyer is a 20-person agency"
+    },
+    {
+      "label": "## Task",
+      "body": "Review this pricing page copy and tell me which claims a sceptical CFO would not believe"
+    },
+    {
+      "label": "## Example of a good answer",
+      "body": "Claim: \"cuts admin by half\". Not credible: no baseline, no sample, no source"
+    },
+    {
+      "label": "## Output",
+      "body": "Format: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer."
+    }
+  ],
+  "flat": "## System prompt\nYou are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap. ## Context\nI will paste the current page copy below. Our buyer is a 20-person agency ## Task\nReview this pricing page copy and tell me which claims a sceptical CFO would not believe ## Example of a good answer\nClaim: \"cuts admin by half\". Not credible: no baseline, no sample, no source ## Output\nFormat: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer.",
+  "negative": "marketing tone",
+  "settings": [
+    {
+      "name": "model",
+      "value": "deepseek-v4-pro",
+      "why": "flash for volume",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "thinking",
+      "value": "enabled",
+      "why": "On by default",
+      "term": "setting.thinking",
+      "tier": "simple"
+    },
+    {
+      "name": "reasoning_effort",
+      "value": "high",
+      "why": "",
+      "term": "setting.reasoning-effort",
+      "tier": "simple"
+    },
+    {
+      "name": "max_tokens",
+      "value": "up to 384000",
+      "why": "",
+      "term": "setting.max-tokens",
+      "tier": "advanced"
+    },
+    {
+      "name": "Schedule",
+      "value": "off-peak if batchable",
+      "why": "Half price",
+      "term": "setting.schedule",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Prefilling still works here and nowhere else at the frontier: hit the beta base URL and send the last message as an assistant turn with prefix true."
+  ],
+  "warnings": [
+    "The vision variant's vision is incompatible with thinking mode. Pick one.",
+    "Off-peak is half price at 01:00–04:00 and 06:00–10:00 UTC. Batch scheduling is a real 50% lever."
+  ],
+  "variations": [
+    {
+      "name": "Add one example",
+      "text": "Paste a short example of exactly the answer you want. One example outperforms a paragraph describing the format."
+    },
+    {
+      "name": "Name the reader",
+      "text": "Add who reads this and what they will do with it. It changes what the model chooses to include more than any other line."
+    },
+    {
+      "name": "Ask for the objections",
+      "text": "Add: end with the three strongest objections to your own answer, and say which one you find hardest to dismiss."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 88,
+  "axes": {
+    "specificity": 86,
+    "technical": 100,
+    "structure": 75,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

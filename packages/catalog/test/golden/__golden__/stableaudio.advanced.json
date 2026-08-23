@@ -1,0 +1,83 @@
+{
+  "blocks": [
+    {
+      "label": "Style",
+      "body": "noir jazz, 92 BPM, in A minor, upright bass, muted trumpet, brush kit, instrumental, tape saturation, melancholic"
+    },
+    {
+      "label": "Arrangement",
+      "body": "Start with just brushed drums and upright bass, bring in the trumpet at 0:20."
+    },
+    {
+      "label": "Exclude",
+      "body": "electric guitar, heavy drums"
+    }
+  ],
+  "flat": "noir jazz, 92 BPM, in A minor, upright bass, muted trumpet, brush kit, instrumental, tape saturation, melancholic Start with just brushed drums and upright bass, bring in the trumpet at 0:20.",
+  "negative": "electric guitar, heavy drums",
+  "settings": [
+    {
+      "name": "Model",
+      "value": "Stable Audio 2.5",
+      "why": "",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "Duration",
+      "value": "up to 3 min",
+      "why": "",
+      "term": "setting.duration",
+      "tier": "simple"
+    },
+    {
+      "name": "Steps",
+      "value": "default",
+      "why": "",
+      "term": "setting.steps",
+      "tier": "simple"
+    },
+    {
+      "name": "Inpaint range",
+      "value": "set start and end",
+      "why": "How you fix one bad span",
+      "term": "setting.inpaint-range",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Stability's own prompt order is core style, key instruments, mood, specific details, then additional instructions.",
+    "They publish tempo bands: 60–80 ballads, 80–100 R&B and house, 100–120 pop-rock and jazz, 120–140 disco and techno, 140–160 dubstep and metal.",
+    "Their guidance asks for sophisticated mood words: euphoric not happy, melancholic not sad, soaring not energetic."
+  ],
+  "warnings": [
+    "Naming an era does real work here: '80s gated reverb', '90s grunge distortion'."
+  ],
+  "variations": [
+    {
+      "name": "Strip it back",
+      "text": "Same genre and tempo, half the instrumentation. Name only two instruments and let the arrangement breathe."
+    },
+    {
+      "name": "Change the era",
+      "text": "Keep everything, add one era marker: 80s gated reverb, or 90s tape saturation. Era markers do a lot of work."
+    },
+    {
+      "name": "Loop version",
+      "text": "Ask for the negative space explicitly: no melody, just the rhythm section, eight bars, seamless."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 69,
+  "axes": {
+    "specificity": 64,
+    "technical": 100,
+    "structure": 45,
+    "constraints": 85,
+    "format": 35,
+    "context": 30,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

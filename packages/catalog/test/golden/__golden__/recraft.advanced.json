@@ -1,0 +1,114 @@
+{
+  "blocks": [
+    {
+      "label": "Goal",
+      "body": "Instagram carousel, first slide."
+    },
+    {
+      "label": "Scene",
+      "body": "Photograph set in Basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Subject",
+      "body": "A retired boxer taping his hands in a basement gym."
+    },
+    {
+      "label": "Style",
+      "body": "Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white."
+    },
+    {
+      "label": "Details",
+      "body": "Rule of thirds, austere in feeling, in the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Text",
+      "body": "Render exactly: \"NORTHBOUND SUPPLY CO\". Correct spelling, high contrast, no other text anywhere in frame."
+    },
+    {
+      "label": "Constraints",
+      "body": "Do not include logos, watermarks, other people. No watermarks, no signatures, no borders."
+    }
+  ],
+  "flat": "Goal: Instagram carousel, first slide.\nScene: Photograph set in Basement gym at 6am, condensation on the windows.\nSubject: A retired boxer taping his hands in a basement gym.\nStyle: Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white.\nDetails: Rule of thirds, austere in feeling, in the register of Roger Deakins night exteriors.\nText: Render exactly: \"NORTHBOUND SUPPLY CO\". Correct spelling, high contrast, no other text anywhere in frame.\nConstraints: Do not include logos, watermarks, other people. No watermarks, no signatures, no borders.",
+  "negative": "logos, watermarks, other people",
+  "settings": [
+    {
+      "name": "style",
+      "value": "realistic_image",
+      "why": "realistic_image, digital_illustration, vector_illustration, icon, logo_raster",
+      "term": "setting.style",
+      "tier": "simple"
+    },
+    {
+      "name": "substyle",
+      "value": "none",
+      "why": "natural_light, studio_portrait, hdr, line_art, flat, engraving, pictogram…",
+      "term": "setting.substyle",
+      "tier": "simple"
+    },
+    {
+      "name": "size",
+      "value": "4:5",
+      "why": "2048x2048 on Pro",
+      "term": "setting.size",
+      "tier": "simple"
+    },
+    {
+      "name": "controls.artistic_level",
+      "value": "2",
+      "why": "0–5",
+      "term": "setting.controls-artistic-level",
+      "tier": "advanced"
+    },
+    {
+      "name": "controls.no_text",
+      "value": "false",
+      "why": "Set true when text must not appear anywhere",
+      "term": "setting.controls-no-text",
+      "tier": "advanced"
+    },
+    {
+      "name": "response_format",
+      "value": "url",
+      "why": "SVG, PNG, JPG, PDF, TIFF and Lottie all available",
+      "term": "setting.response-format",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Recraft's own framing: short prompts mean the model designs with you, long prompts mean it executes your architecture.",
+    "Order matters and runs global to local: core concept, background, subject framing, attributes, spatial relations, lighting, camera, mood.",
+    "controls.colors with explicit RGB is far more accurate for brand colours than naming them in prose."
+  ],
+  "warnings": [
+    "The prompt cap is 1000 bytes, not characters. Accented and CJK text eats it fast.",
+    "V4 is not a strict superset of V3. Route style-creation jobs back to V3."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 94,
+  "axes": {
+    "specificity": 100,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "blocks": [
+    {
+      "label": "Style",
+      "body": "noir jazz, 92 BPM, in A minor, upright bass, muted trumpet, brush kit, instrumental, tape saturation, melancholic"
+    },
+    {
+      "label": "Arrangement",
+      "body": "Start with just brushed drums and upright bass, bring in the trumpet at 0:20."
+    },
+    {
+      "label": "Exclude Styles field",
+      "body": "electric guitar, heavy drums"
+    }
+  ],
+  "flat": "noir jazz, 92 BPM, in A minor, upright bass, muted trumpet, brush kit, instrumental, tape saturation, melancholic",
+  "negative": "electric guitar, heavy drums",
+  "settings": [
+    {
+      "name": "Style field",
+      "value": "the composed style line",
+      "why": "Keep it to 4–7 descriptors",
+      "term": "setting.style-field",
+      "tier": "simple"
+    },
+    {
+      "name": "Exclude Styles",
+      "value": "electric guitar, heavy drums",
+      "why": "The only working negative",
+      "term": "setting.exclude-styles",
+      "tier": "simple"
+    },
+    {
+      "name": "Weirdness",
+      "value": "50%",
+      "why": "Right is experimental and less coherent",
+      "term": "setting.weirdness",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "The Style field wants four to seven descriptors, no more: genre, subgenre, tempo, key instruments, vocal style, production, mood.",
+    "Metatags go in the Lyrics field: [Intro] [Verse 1] [Pre-Chorus] [Chorus] [Bridge] [Breakdown] [Outro]. Parameterised sections work too: [Chorus: full band, soaring vocals].",
+    "Weirdness sits at 50% by default. Style Influence controls how strictly it obeys your descriptors."
+  ],
+  "warnings": [
+    "Never put negatives in the Style box. They go in Exclude Styles or they are ignored.",
+    "Download caps take effect from 3 September 2026: 20 a month on Pro, 60 on Premier. Check before you plan a release."
+  ],
+  "variations": [
+    {
+      "name": "Strip it back",
+      "text": "Same genre and tempo, half the instrumentation. Name only two instruments and let the arrangement breathe."
+    },
+    {
+      "name": "Change the era",
+      "text": "Keep everything, add one era marker: 80s gated reverb, or 90s tape saturation. Era markers do a lot of work."
+    },
+    {
+      "name": "Loop version",
+      "text": "Ask for the negative space explicitly: no melody, just the rhythm section, eight bars, seamless."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 65,
+  "axes": {
+    "specificity": 60,
+    "technical": 83,
+    "structure": 45,
+    "constraints": 85,
+    "format": 35,
+    "context": 30,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

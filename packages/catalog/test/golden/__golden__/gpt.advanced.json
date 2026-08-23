@@ -1,0 +1,107 @@
+{
+  "blocks": [
+    {
+      "label": "System prompt",
+      "body": "You are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap."
+    },
+    {
+      "label": "## Context",
+      "body": "I will paste the current page copy below. Our buyer is a 20-person agency"
+    },
+    {
+      "label": "## Task",
+      "body": "Review this pricing page copy and tell me which claims a sceptical CFO would not believe"
+    },
+    {
+      "label": "## Example of a good answer",
+      "body": "Claim: \"cuts admin by half\". Not credible: no baseline, no sample, no source"
+    },
+    {
+      "label": "## Output",
+      "body": "Format: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer."
+    }
+  ],
+  "flat": "## System prompt\nYou are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap. ## Context\nI will paste the current page copy below. Our buyer is a 20-person agency ## Task\nReview this pricing page copy and tell me which claims a sceptical CFO would not believe ## Example of a good answer\nClaim: \"cuts admin by half\". Not credible: no baseline, no sample, no source ## Output\nFormat: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer.",
+  "negative": "marketing tone",
+  "settings": [
+    {
+      "name": "model",
+      "value": "gpt-5.6-sol",
+      "why": "terra for everyday, luna for cheap repeatable work",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "reasoning.effort",
+      "value": "high",
+      "why": "none, minimal, low, medium, high, xhigh, max",
+      "term": "setting.reasoning-effort",
+      "tier": "simple"
+    },
+    {
+      "name": "reasoning.mode",
+      "value": "standard",
+      "why": "pro for more model work at higher latency",
+      "term": "setting.reasoning-mode",
+      "tier": "simple"
+    },
+    {
+      "name": "text.verbosity",
+      "value": "low",
+      "why": "",
+      "term": "setting.text-verbosity",
+      "tier": "advanced"
+    },
+    {
+      "name": "reasoning.context",
+      "value": "current_turn",
+      "why": "Default all_turns is a hidden cost",
+      "term": "setting.reasoning-context",
+      "tier": "advanced"
+    },
+    {
+      "name": "instructions",
+      "value": "use the developer block",
+      "why": "Outranks user messages",
+      "term": "setting.instructions",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "The documented section order is Identity, Instructions, Examples, Context. Put reused content first so it caches.",
+    "State each instruction exactly once. Repetition measurably lowers scores.",
+    "Reasoning models want goals, not steps. OpenAI frame it as briefing a senior co-worker rather than a junior one."
+  ],
+  "warnings": [
+    "reasoning.context defaults to all_turns on 5.6, which silently re-renders prior reasoning and bills for it.",
+    "Above 272k input tokens you pay 2x input and 1.5x output. The 1.05M window is not uniformly priced.",
+    "When migrating, benchmark one effort level lower than your old baseline."
+  ],
+  "variations": [
+    {
+      "name": "Add one example",
+      "text": "Paste a short example of exactly the answer you want. One example outperforms a paragraph describing the format."
+    },
+    {
+      "name": "Name the reader",
+      "text": "Add who reads this and what they will do with it. It changes what the model chooses to include more than any other line."
+    },
+    {
+      "name": "Ask for the objections",
+      "text": "Add: end with the three strongest objections to your own answer, and say which one you find hardest to dismiss."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 88,
+  "axes": {
+    "specificity": 86,
+    "technical": 100,
+    "structure": 75,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

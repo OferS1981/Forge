@@ -1,0 +1,98 @@
+{
+  "blocks": [
+    {
+      "label": "Style",
+      "body": "noir jazz, 92 BPM, in A minor, upright bass, muted trumpet, brush kit, instrumental, tape saturation, melancholic"
+    },
+    {
+      "label": "Arrangement",
+      "body": "Start with just brushed drums and upright bass, bring in the trumpet at 0:20."
+    },
+    {
+      "label": "Exclude",
+      "body": "electric guitar, heavy drums"
+    }
+  ],
+  "flat": "noir jazz, 92 BPM, in A minor, upright bass, muted trumpet, brush kit, instrumental, tape saturation, melancholic Start with just brushed drums and upright bass, bring in the trumpet at 0:20.",
+  "negative": "electric guitar, heavy drums",
+  "settings": [
+    {
+      "name": "model_id",
+      "value": "music_v2",
+      "why": "",
+      "term": "setting.model-id",
+      "tier": "simple"
+    },
+    {
+      "name": "music_length_ms",
+      "value": "e.g. 90000",
+      "why": "3000–600000",
+      "term": "setting.music-length-ms",
+      "tier": "simple"
+    },
+    {
+      "name": "force_instrumental",
+      "value": "true",
+      "why": "",
+      "term": "setting.force-instrumental",
+      "tier": "simple"
+    },
+    {
+      "name": "seed",
+      "value": "fix once you like one",
+      "why": "",
+      "term": "setting.seed",
+      "tier": "advanced"
+    },
+    {
+      "name": "output_format",
+      "value": "wav",
+      "why": "MP3 44.1kHz otherwise",
+      "term": "setting.output-format",
+      "tier": "advanced"
+    },
+    {
+      "name": "sign_with_c2pa",
+      "value": "true if provenance matters",
+      "why": "",
+      "term": "setting.sign-with-c2pa",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "The five dimensions to decide up front are genre, mood, instrumentation, tempo in BPM, and era.",
+    "Narrate the arrangement sequentially. 'Start with… just… then… bring in…' are load-bearing words.",
+    "Negative space is the prompt for loops: 'no melody, just drums'. Timing directives work too: 'lyrics begin at 15 seconds'."
+  ],
+  "warnings": [
+    "music_length_ms only applies when you use prompt, not composition_plan.",
+    "Prompt cap is 4100 characters."
+  ],
+  "variations": [
+    {
+      "name": "Strip it back",
+      "text": "Same genre and tempo, half the instrumentation. Name only two instruments and let the arrangement breathe."
+    },
+    {
+      "name": "Change the era",
+      "text": "Keep everything, add one era marker: 80s gated reverb, or 90s tape saturation. Era markers do a lot of work."
+    },
+    {
+      "name": "Loop version",
+      "text": "Ask for the negative space explicitly: no melody, just the rhythm section, eight bars, seamless."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 66,
+  "axes": {
+    "specificity": 64,
+    "technical": 83,
+    "structure": 45,
+    "constraints": 85,
+    "format": 35,
+    "context": 30,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

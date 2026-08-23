@@ -1,0 +1,106 @@
+{
+  "blocks": [
+    {
+      "label": "Goal",
+      "body": "Instagram carousel, first slide."
+    },
+    {
+      "label": "Scene",
+      "body": "Photograph set in Basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Subject",
+      "body": "A retired boxer taping his hands in a basement gym."
+    },
+    {
+      "label": "Style",
+      "body": "Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white."
+    },
+    {
+      "label": "Details",
+      "body": "Rule of thirds, austere in feeling, in the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Text",
+      "body": "Render exactly: \"NORTHBOUND SUPPLY CO\". Correct spelling, high contrast, no other text anywhere in frame."
+    },
+    {
+      "label": "Constraints",
+      "body": "Do not include logos, watermarks, other people. No watermarks, no signatures, no borders."
+    }
+  ],
+  "flat": "Goal: Instagram carousel, first slide.\nScene: Photograph set in Basement gym at 6am, condensation on the windows.\nSubject: A retired boxer taping his hands in a basement gym.\nStyle: Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white.\nDetails: Rule of thirds, austere in feeling, in the register of Roger Deakins night exteriors.\nText: Render exactly: \"NORTHBOUND SUPPLY CO\". Correct spelling, high contrast, no other text anywhere in frame.\nConstraints: Do not include logos, watermarks, other people. No watermarks, no signatures, no borders.",
+  "negative": "logos, watermarks, other people",
+  "settings": [
+    {
+      "name": "Model",
+      "value": "Firefly Image 5",
+      "why": "Image 4 Ultra if you need 9:16",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "Aspect ratio",
+      "value": "4:5",
+      "why": "",
+      "term": "setting.aspect-ratio",
+      "tier": "simple"
+    },
+    {
+      "name": "Content type",
+      "value": "Photo",
+      "why": "",
+      "term": "setting.content-type",
+      "tier": "simple"
+    },
+    {
+      "name": "Visual intensity",
+      "value": "Medium",
+      "why": "Firefly's substitute for a stylize dial",
+      "term": "setting.visual-intensity",
+      "tier": "advanced"
+    },
+    {
+      "name": "Effects",
+      "value": "none",
+      "why": "Only if it agrees with the prose style",
+      "term": "setting.effects",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Adobe's own recommended order is image type, subject, action, angle, lighting, background, palette, style. Forge writes that order.",
+    "Firefly is the right default when the deliverable is for a client and Content Credentials are part of the deliverable."
+  ],
+  "warnings": [
+    "9:16 is not available on Image 5. If you need vertical social you must fall back to Image 4 or 4 Ultra.",
+    "A prose style description that contradicts a chosen Effect preset produces mush. Pick one or the other."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 94,
+  "axes": {
+    "specificity": 100,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

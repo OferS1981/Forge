@@ -1,0 +1,95 @@
+{
+  "blocks": [
+    {
+      "label": "Shot 1",
+      "body": "Medium shot, slow dolly in. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. practical lamps only. crushed blacks, high contrast grade. 3 seconds."
+    },
+    {
+      "label": "Shot 2",
+      "body": "Medium shot, arc around subject. looks up at the camera. 3 seconds."
+    },
+    {
+      "label": "Shot 3",
+      "body": "Medium shot, handheld follow. looks up at the camera. 3 seconds."
+    },
+    {
+      "label": "Audio",
+      "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+    }
+  ],
+  "flat": "Shot 1: Medium shot, slow dolly in. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. practical lamps only. crushed blacks, high contrast grade. 3 seconds.\nShot 2: Medium shot, arc around subject. looks up at the camera. 3 seconds.\nShot 3: Medium shot, handheld follow. looks up at the camera. 3 seconds.\nAudio: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic.",
+  "negative": "crowds, modern signage",
+  "settings": [
+    {
+      "name": "Model",
+      "value": "LTX-2.3",
+      "why": "",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "Resolution",
+      "value": "4K",
+      "why": "Native, not upscaled",
+      "term": "setting.resolution",
+      "tier": "simple"
+    },
+    {
+      "name": "Frame rate",
+      "value": "24",
+      "why": "48 or 50 for high motion and PAL",
+      "term": "setting.frame-rate",
+      "tier": "simple"
+    },
+    {
+      "name": "Duration",
+      "value": "10s",
+      "why": "Up to 20s",
+      "term": "setting.duration",
+      "tier": "advanced"
+    },
+    {
+      "name": "Audio",
+      "value": "24kHz stereo, single pass",
+      "why": "Generated with the video, not dubbed after",
+      "term": "setting.audio",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "LTX Studio is built around a shot list and @Element references, so Forge writes per-shot rather than one paragraph.",
+    "Retake regenerates a 2–16 second segment without a full reshoot. It is the correct fix for one bad beat.",
+    "The 48 and 50fps options are a real differentiator for sports and for PAL broadcast conform."
+  ],
+  "warnings": [
+    "@Element tags only resolve inside LTX Studio projects. They are meaningless in a raw LTX-2 API call.",
+    "Free use is capped by a revenue threshold, not by feature. Check it before commercial deployment."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 88,
+  "axes": {
+    "specificity": 94,
+    "technical": 100,
+    "structure": 60,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

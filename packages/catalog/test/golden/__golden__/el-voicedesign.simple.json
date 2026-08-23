@@ -1,0 +1,77 @@
+{
+  "blocks": [
+    {
+      "label": "Voice description",
+      "body": "English, Received Pronunciation (not General American). British woman, late 30s, dry and unhurried. Documentary narrator. Wry, authoritative. Husky in texture, with an even, unhurried delivery and clean articulation. Broadcast quality recording."
+    },
+    {
+      "label": "Preview text: must agree with the description",
+      "body": "There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on"
+    },
+    {
+      "label": "Do not include",
+      "body": "No reverb, echo, delay or any other acoustic or effects language. Voice Design models the voice, not the room."
+    }
+  ],
+  "flat": "English, Received Pronunciation (not General American). British woman, late 30s, dry and unhurried. Documentary narrator. Wry, authoritative. Husky in texture, with an even, unhurried delivery and clean articulation. Broadcast quality recording.",
+  "negative": "american vowels",
+  "settings": [
+    {
+      "name": "model_id",
+      "value": "eleven_ttv_v3",
+      "why": "eleven_multilingual_ttv_v2 for the 29-language v2 path",
+      "term": "setting.model-id",
+      "tier": "simple"
+    },
+    {
+      "name": "guidance_scale",
+      "value": "higher for adherence",
+      "why": "Lower gives the model more creative freedom",
+      "term": "setting.guidance-scale",
+      "tier": "simple"
+    },
+    {
+      "name": "loudness",
+      "value": "default",
+      "why": "",
+      "term": "setting.loudness",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "Order that works: native language and locale, gender and age, quality descriptor, persona in two to five words, two or three emotion adjectives, then timbre and pacing.",
+    "The official quality ladder is Ok, Good, Very good, Excellent, Studio, Broadcast. Naming a rung genuinely changes the output.",
+    "Longer preview text gives more stable and expressive results, and it must agree with the description."
+  ],
+  "warnings": [
+    "Never use audio-FX words like reverb, echo or delay here. Voice Design models the voice, not the acoustics. This is the opposite of Sound Effects and Music.",
+    "Do not write 'accent' when you mean intonation. Name the actual dialect."
+  ],
+  "variations": [
+    {
+      "name": "Half a step slower",
+      "text": "Drop speed to 0.92 and raise stability by 0.1. Read for an audience of one, not a room."
+    },
+    {
+      "name": "Warmer, less formal",
+      "text": "Rewrite the script in contractions, add one ellipsis before the last clause, and lower stability to widen the range."
+    },
+    {
+      "name": "Cold read",
+      "text": "Strip every tag and let punctuation alone carry the prosody. Useful as a control to hear what the tags are really doing."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 73,
+  "axes": {
+    "specificity": 64,
+    "technical": 100,
+    "structure": 45,
+    "constraints": 85,
+    "format": 35,
+    "context": 85,
+    "modelfit": 86,
+    "noise": 100
+  }
+}

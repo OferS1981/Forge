@@ -1,0 +1,89 @@
+{
+  "blocks": [
+    {
+      "label": "Style",
+      "body": "noir jazz, 92 BPM, in A minor, upright bass, muted trumpet, brush kit, instrumental, tape saturation, melancholic"
+    },
+    {
+      "label": "Arrangement",
+      "body": "Start with just brushed drums and upright bass, bring in the trumpet at 0:20."
+    },
+    {
+      "label": "Exclude",
+      "body": "electric guitar, heavy drums"
+    }
+  ],
+  "flat": "noir jazz, 92 BPM, in A minor, upright bass, muted trumpet, brush kit, instrumental, tape saturation, melancholic Start with just brushed drums and upright bass, bring in the trumpet at 0:20.",
+  "negative": "electric guitar, heavy drums",
+  "settings": [
+    {
+      "name": "model",
+      "value": "lyria-3-pro",
+      "why": "Lyria 3 for 30s, 3 Pro for full structure",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "Duration",
+      "value": "up to 3 min",
+      "why": "",
+      "term": "setting.duration",
+      "tier": "simple"
+    },
+    {
+      "name": "Vocals",
+      "value": "instrumental",
+      "why": "8 vocal languages",
+      "term": "setting.vocals",
+      "tier": "simple"
+    },
+    {
+      "name": "Lyrics",
+      "value": "prefix with 'Lyrics:'",
+      "why": "",
+      "term": "setting.lyrics",
+      "tier": "advanced"
+    },
+    {
+      "name": "Watermark",
+      "value": "SynthID, always on",
+      "why": "",
+      "term": "setting.watermark",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Google's formula is genre and style, mood, instrumentation, tempo and rhythm, vocal style and language, then lyrics.",
+    "Timestamp prompting with [MM:SS] tags assigns actions to timed segments. That is how you score to a cut."
+  ],
+  "warnings": [
+    "Every output carries SynthID watermarking and C2PA credentials. That is a feature for provenance and a constraint if you need a clean asset."
+  ],
+  "variations": [
+    {
+      "name": "Strip it back",
+      "text": "Same genre and tempo, half the instrumentation. Name only two instruments and let the arrangement breathe."
+    },
+    {
+      "name": "Change the era",
+      "text": "Keep everything, add one era marker: 80s gated reverb, or 90s tape saturation. Era markers do a lot of work."
+    },
+    {
+      "name": "Loop version",
+      "text": "Ask for the negative space explicitly: no melody, just the rhythm section, eight bars, seamless."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 65,
+  "axes": {
+    "specificity": 64,
+    "technical": 80,
+    "structure": 45,
+    "constraints": 85,
+    "format": 35,
+    "context": 30,
+    "modelfit": 98,
+    "noise": 100
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "blocks": [
+    {
+      "label": "Subject",
+      "body": "Photograph of a retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Camera",
+      "body": "Medium close-up, 85mm portrait, f/2.8."
+    },
+    {
+      "label": "Light",
+      "body": "Softbox key camera-left."
+    },
+    {
+      "label": "Finish",
+      "body": "Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white."
+    },
+    {
+      "label": "Composition & mood",
+      "body": "Rule of thirds, austere in feeling."
+    },
+    {
+      "label": "In-image text",
+      "body": "The words \"NORTHBOUND SUPPLY CO\" rendered cleanly, high contrast against the background, correctly spelled."
+    },
+    {
+      "label": "Reference",
+      "body": "In the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Intended use",
+      "body": "Instagram carousel, first slide: keep the focal subject clear of the outer eighth of the frame."
+    }
+  ],
+  "flat": "Photograph of a retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white. Rule of thirds, austere in feeling. The words \"NORTHBOUND SUPPLY CO\" rendered cleanly, high contrast against the background, correctly spelled. In the register of Roger Deakins night exteriors. Instagram carousel, first slide: keep the focal subject clear of the outer eighth of the frame.",
+  "negative": "logos, watermarks, other people",
+  "settings": [
+    {
+      "name": "Aspect",
+      "value": "4:5",
+      "why": "",
+      "term": "setting.aspect",
+      "tier": "simple"
+    },
+    {
+      "name": "Guidance / CFG",
+      "value": "5–7",
+      "why": "Lower for distilled and turbo models, 1–2",
+      "term": "setting.guidance-cfg",
+      "tier": "simple"
+    },
+    {
+      "name": "Steps",
+      "value": "28",
+      "why": "8–12 on turbo variants",
+      "term": "setting.steps",
+      "tier": "simple"
+    },
+    {
+      "name": "Seed",
+      "value": "fix it once you like a result",
+      "why": "The only way to iterate on one composition",
+      "term": "setting.seed",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Two grammars are produced: prose for modern language-encoder models, comma tags for older CLIP-based ones.",
+    "Every 2026 model rewards a lens, a light and a grade. Almost none of them reward the word masterpiece."
+  ],
+  "warnings": [
+    "Check whether your model has a negative field before pasting the negative block into the main prompt."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 94,
+  "axes": {
+    "specificity": 100,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

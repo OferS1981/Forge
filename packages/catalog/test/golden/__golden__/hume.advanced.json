@@ -1,0 +1,95 @@
+{
+  "blocks": [
+    {
+      "label": "Voice",
+      "body": "British woman, late 30s, dry and unhurried, documentary narrator, wry, authoritative, husky texture, English, Received Pronunciation (not General American)."
+    },
+    {
+      "label": "Script: paste this into the text box",
+      "body": "[sarcastic] There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on"
+    },
+    {
+      "label": "Direction",
+      "body": "Read as: trailer / hype vo. Tone: wry, authoritative. Acting instruction (keep under 100 characters): wry, authoritative."
+    },
+    {
+      "label": "Length warning",
+      "body": "This script is under 250 characters. ElevenLabs document that short inputs give inconsistent output: pad it with a lead-in sentence you can trim afterwards."
+    }
+  ],
+  "flat": "[sarcastic] There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on",
+  "negative": "american vowels",
+  "settings": [
+    {
+      "name": "model",
+      "value": "octave-2",
+      "why": "",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "speed",
+      "value": "1.0",
+      "why": "0.5–2.0, non-linear",
+      "term": "setting.speed",
+      "tier": "simple"
+    },
+    {
+      "name": "trailing_silence",
+      "value": "0.3s",
+      "why": "",
+      "term": "setting.trailing-silence",
+      "tier": "simple"
+    },
+    {
+      "name": "num_generations",
+      "value": "3",
+      "why": "Up to 5, then pick",
+      "term": "setting.num-generations",
+      "tier": "advanced"
+    },
+    {
+      "name": "instant_mode",
+      "value": "on for preset voices",
+      "why": "",
+      "term": "setting.instant-mode",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Hume's own guidance: keep acting instructions under about 100 characters. 'Frightened, rushed' beats a paragraph.",
+    "Precise emotions beat generic ones: melancholy and frustrated, not sad.",
+    "Audience context shapes delivery: 'speaking to a child', 'addressing a large crowd'."
+  ],
+  "warnings": [
+    "Speed runs 0.5 to 2.0 and is non-linear. 2.0 does not double the rate.",
+    "Limits are 5000 characters of text and 1000 characters of description per utterance."
+  ],
+  "variations": [
+    {
+      "name": "Half a step slower",
+      "text": "Drop speed to 0.92 and raise stability by 0.1. Read for an audience of one, not a room."
+    },
+    {
+      "name": "Warmer, less formal",
+      "text": "Rewrite the script in contractions, add one ellipsis before the last clause, and lower stability to widen the range."
+    },
+    {
+      "name": "Cold read",
+      "text": "Strip every tag and let punctuation alone carry the prosody. Useful as a control to hear what the tags are really doing."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 76,
+  "axes": {
+    "specificity": 66,
+    "technical": 100,
+    "structure": 60,
+    "constraints": 85,
+    "format": 35,
+    "context": 85,
+    "modelfit": 86,
+    "noise": 100
+  }
+}

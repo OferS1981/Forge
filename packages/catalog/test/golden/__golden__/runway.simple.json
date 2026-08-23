@@ -1,0 +1,89 @@
+{
+  "blocks": [
+    {
+      "label": "Cinematography",
+      "body": "Slow dolly in, medium shot on a 35mm."
+    },
+    {
+      "label": "Subject",
+      "body": "A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Action",
+      "body": "He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout."
+    },
+    {
+      "label": "Style & ambiance",
+      "body": "Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate."
+    },
+    {
+      "label": "Audio",
+      "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+    },
+    {
+      "label": "Reference",
+      "body": "In the register of Roger Deakins night exteriors."
+    }
+  ],
+  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling. Deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
+  "negative": "crowds, modern signage",
+  "settings": [
+    {
+      "name": "Model",
+      "value": "gen4.5",
+      "why": "aleph2 for video-to-video, act_two for performance capture",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "Duration",
+      "value": "10s",
+      "why": "2–10 seconds",
+      "term": "setting.duration",
+      "tier": "simple"
+    },
+    {
+      "name": "Ratio",
+      "value": "16:9",
+      "why": "T2V is 16:9 only",
+      "term": "setting.ratio",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "Runway's own template for text-to-video is: [camera] shot of [subject] [action] in [environment], then supporting description.",
+    "For image-to-video, describe only what changes. Re-describing what is already in the image creates conflict and burns credits.",
+    "Runway states element order does not matter and there is no ideal length. Clarity beats word count."
+  ],
+  "warnings": [
+    "Text-to-video is locked to 16:9. For vertical you must generate a still first and go image-to-video.",
+    "Prompting motion that contradicts implied motion in the source image massively increases iteration count."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 92,
+  "axes": {
+    "specificity": 95,
+    "technical": 100,
+    "structure": 90,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

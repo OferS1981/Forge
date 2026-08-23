@@ -1,0 +1,91 @@
+{
+  "blocks": [
+    {
+      "label": "Task",
+      "body": "Add rate limiting to the public API, 100 requests per minute per key"
+    },
+    {
+      "label": "Context",
+      "body": "Node 22, Fastify, Postgres via Drizzle, tests in Vitest."
+    },
+    {
+      "label": "Follow this pattern",
+      "body": "Mirror src/routes/webhooks.ts."
+    },
+    {
+      "label": "Done means",
+      "body": "npm test passes and curl -I returns 429 on the 101st call. Run it yourself before you report back, and quote the output."
+    },
+    {
+      "label": "Do not touch",
+      "body": "Do not touch the auth middleware or any migration older than 0042."
+    },
+    {
+      "label": "Rules",
+      "body": "No new dependencies."
+    },
+    {
+      "label": "Working method",
+      "body": "Explore the relevant files first and tell me the plan before you edit anything. Implement in one pass, run the check, then report what changed and what you did not change."
+    }
+  ],
+  "flat": "TASK\nAdd rate limiting to the public API, 100 requests per minute per key CONTEXT\nNode 22, Fastify, Postgres via Drizzle, tests in Vitest. FOLLOW THIS PATTERN\nMirror src/routes/webhooks.ts. DONE MEANS\nnpm test passes and curl -I returns 429 on the 101st call. Run it yourself before you report back, and quote the output. DO NOT TOUCH\nDo not touch the auth middleware or any migration older than 0042. RULES\nNo new dependencies. WORKING METHOD\nExplore the relevant files first and tell me the plan before you edit anything. Implement in one pass, run the check, then report what changed and what you did not change.",
+  "negative": "",
+  "settings": [
+    {
+      "name": "Repo file",
+      "value": ".github/copilot-instructions.md",
+      "why": "",
+      "term": "setting.repo-file",
+      "tier": "simple"
+    },
+    {
+      "name": "Path-scoped",
+      "value": ".github/instructions/NAME.instructions.md",
+      "why": "With applyTo frontmatter",
+      "term": "setting.path-scoped",
+      "tier": "simple"
+    },
+    {
+      "name": "Precedence",
+      "value": "Personal → Repo → Org",
+      "why": "",
+      "term": "setting.precedence",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "Effective instructions are short, self-contained and broadly applicable. Path-scoped .instructions.md files with applyTo frontmatter are the escape valve."
+  ],
+  "warnings": [
+    "Do not write instructions that require looking something up externally, mandate tone, or set word limits.",
+    "Agent-file support varies by Copilot feature. Do not assume AGENTS.md is read everywhere."
+  ],
+  "variations": [
+    {
+      "name": "Add one example",
+      "text": "Paste a short example of exactly the answer you want. One example outperforms a paragraph describing the format."
+    },
+    {
+      "name": "Name the reader",
+      "text": "Add who reads this and what they will do with it. It changes what the model chooses to include more than any other line."
+    },
+    {
+      "name": "Ask for the objections",
+      "text": "Add: end with the three strongest objections to your own answer, and say which one you find hardest to dismiss."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 85,
+  "axes": {
+    "specificity": 85,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 35,
+    "context": 85,
+    "modelfit": 86,
+    "noise": 100
+  }
+}

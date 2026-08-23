@@ -1,0 +1,216 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`the Doctor > a good image prompt: diagnosis is stable 1`] = `
+{
+  "axes": {
+    "constraints": 25,
+    "context": 80,
+    "format": 55,
+    "modelfit": 100,
+    "noise": 100,
+    "specificity": 72,
+    "structure": 30,
+    "technical": 72,
+  },
+  "cleaned": "Photograph of a retired boxer taping his hands, basement gym at 6am. 85mm portrait, f/2.8. Softbox key camera-left. Desaturated earth tones, rule of thirds. For an Instagram carousel. --no logos",
+  "findings": [
+    "No colour direction. Naming a grade or giving hex codes is how you stop getting the model's default palette.",
+    "Nothing is excluded. This model takes --no.",
+  ],
+  "score": 64,
+  "stripped": [],
+  "words": 30,
+  "working": [
+    "Length is in the productive band for this model.",
+    "Has a camera and lens layer.",
+    "Has a lighting layer.",
+    "Has a composition layer.",
+    "No filler tokens.",
+  ],
+}
+`;
+
+exports[`the Doctor > adjective spam: diagnosis is stable 1`] = `
+{
+  "axes": {
+    "constraints": 25,
+    "context": 30,
+    "format": 55,
+    "modelfit": 50,
+    "noise": 0,
+    "specificity": 31,
+    "structure": 30,
+    "technical": 0,
+  },
+  "cleaned": ", a dog",
+  "findings": [
+    "No lens or shot size. One focal length and one aperture do more work than any adjective you could add.",
+    "No lighting description. This is the single highest-yield thing missing from most image prompts.",
+    "No colour direction. Naming a grade or giving hex codes is how you stop getting the model's default palette.",
+    "Nothing is excluded. This model takes --no.",
+    "No stated purpose. Where the output will be used changes framing, length and tone more than any style word.",
+    "Dead weight: masterpiece, best quality, 8k, ultra detailed, trending on artstation, hyper realistic. These steer nothing on any 2026 model, and on Midjourney they add style noise.",
+  ],
+  "score": 27,
+  "stripped": [
+    "masterpiece",
+    "best quality",
+    "8k",
+    "ultra detailed",
+    "trending on artstation",
+    "hyper realistic",
+  ],
+  "words": 13,
+  "working": [
+    "Length is in the productive band for this model.",
+  ],
+}
+`;
+
+exports[`the Doctor > empty: diagnosis is stable 1`] = `
+{
+  "axes": {
+    "constraints": 25,
+    "context": 30,
+    "format": 55,
+    "modelfit": 50,
+    "noise": 100,
+    "specificity": 0,
+    "structure": 30,
+    "technical": 0,
+  },
+  "cleaned": "",
+  "findings": [
+    "At 0 words there is almost nothing to steer with. Every model fills the gaps you leave, and it fills them with the average of its training data.",
+    "No lens or shot size. One focal length and one aperture do more work than any adjective you could add.",
+    "No lighting description. This is the single highest-yield thing missing from most image prompts.",
+    "No colour direction. Naming a grade or giving hex codes is how you stop getting the model's default palette.",
+    "No stated purpose. Where the output will be used changes framing, length and tone more than any style word.",
+  ],
+  "score": 28,
+  "stripped": [],
+  "words": 0,
+  "working": [
+    "No filler tokens.",
+  ],
+}
+`;
+
+exports[`the Doctor > no format or delimiters: diagnosis is stable 1`] = `
+{
+  "axes": {
+    "constraints": 25,
+    "context": 80,
+    "format": 22,
+    "modelfit": 50,
+    "noise": 100,
+    "specificity": 14,
+    "structure": 30,
+    "technical": 0,
+  },
+  "cleaned": "summarise this document for me and tell me what you think about it",
+  "findings": [
+    "No delimiters. Separating instructions from data with tags or headings reduces misattribution and prompt-injection surface on every model tested.",
+    "Nothing is excluded. This model has a Constraints field and you are not using it.",
+    "No output format. This is the strongest single lever in every vendor prompting guide, and it is missing.",
+  ],
+  "score": 31,
+  "stripped": [],
+  "words": 13,
+  "working": [
+    "Length is in the productive band for this model.",
+    "No filler tokens.",
+  ],
+}
+`;
+
+exports[`the Doctor > prose on a tag model: diagnosis is stable 1`] = `
+{
+  "axes": {
+    "constraints": 25,
+    "context": 30,
+    "format": 55,
+    "modelfit": 50,
+    "noise": 100,
+    "specificity": 46,
+    "structure": 30,
+    "technical": 0,
+  },
+  "cleaned": "A golden retriever running through a park on a bright summer morning while the light comes through the trees",
+  "findings": [
+    "No lens or shot size. One focal length and one aperture do more work than any adjective you could add.",
+    "No lighting description. This is the single highest-yield thing missing from most image prompts.",
+    "No colour direction. Naming a grade or giving hex codes is how you stop getting the model's default palette.",
+    "Nothing is excluded. This model has a Negative prompt field and you are not using it.",
+    "No stated purpose. Where the output will be used changes framing, length and tone more than any style word.",
+    "This is a Stable Diffusion target and the prompt is prose. SDXL is the one family where comma-separated tags genuinely perform better.",
+  ],
+  "score": 36,
+  "stripped": [],
+  "words": 19,
+  "working": [
+    "Length is in the productive band for this model.",
+    "No filler tokens.",
+  ],
+}
+`;
+
+exports[`the Doctor > tag soup on a language model: diagnosis is stable 1`] = `
+{
+  "axes": {
+    "constraints": 25,
+    "context": 30,
+    "format": 55,
+    "modelfit": 50,
+    "noise": 100,
+    "specificity": 36,
+    "structure": 30,
+    "technical": 0,
+  },
+  "cleaned": "dog, park, sunny, grass, trees, blue sky, happy, running, fur, detailed, wide, morning, warm, bright",
+  "findings": [
+    "No lens or shot size. One focal length and one aperture do more work than any adjective you could add.",
+    "No lighting description. This is the single highest-yield thing missing from most image prompts.",
+    "No colour direction. Naming a grade or giving hex codes is how you stop getting the model's default palette.",
+    "No stated purpose. Where the output will be used changes framing, length and tone more than any style word.",
+    "Heavy comma-tag style on a model that reads language. Tag soup is an SD-era habit; Nano Banana Pro parses sentences.",
+  ],
+  "score": 34,
+  "stripped": [],
+  "words": 15,
+  "working": [
+    "Length is in the productive band for this model.",
+    "No filler tokens.",
+  ],
+}
+`;
+
+exports[`the Doctor > too short: diagnosis is stable 1`] = `
+{
+  "axes": {
+    "constraints": 25,
+    "context": 30,
+    "format": 55,
+    "modelfit": 50,
+    "noise": 100,
+    "specificity": 4,
+    "structure": 30,
+    "technical": 0,
+  },
+  "cleaned": "a cool dog",
+  "findings": [
+    "At 3 words there is almost nothing to steer with. Every model fills the gaps you leave, and it fills them with the average of its training data.",
+    "No lens or shot size. One focal length and one aperture do more work than any adjective you could add.",
+    "No lighting description. This is the single highest-yield thing missing from most image prompts.",
+    "No colour direction. Naming a grade or giving hex codes is how you stop getting the model's default palette.",
+    "Nothing is excluded. This model takes --no.",
+    "No stated purpose. Where the output will be used changes framing, length and tone more than any style word.",
+  ],
+  "score": 29,
+  "stripped": [],
+  "words": 3,
+  "working": [
+    "No filler tokens.",
+  ],
+}
+`;

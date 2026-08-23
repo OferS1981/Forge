@@ -1,0 +1,100 @@
+{
+  "blocks": [
+    {
+      "label": "System prompt",
+      "body": "You are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap."
+    },
+    {
+      "label": "## Context",
+      "body": "I will paste the current page copy below. Our buyer is a 20-person agency"
+    },
+    {
+      "label": "## Task",
+      "body": "Review this pricing page copy and tell me which claims a sceptical CFO would not believe"
+    },
+    {
+      "label": "## Example of a good answer",
+      "body": "Claim: \"cuts admin by half\". Not credible: no baseline, no sample, no source"
+    },
+    {
+      "label": "## Output",
+      "body": "Format: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer."
+    }
+  ],
+  "flat": "## System prompt\nYou are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap. ## Context\nI will paste the current page copy below. Our buyer is a 20-person agency ## Task\nReview this pricing page copy and tell me which claims a sceptical CFO would not believe ## Example of a good answer\nClaim: \"cuts admin by half\". Not credible: no baseline, no sample, no source ## Output\nFormat: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer.",
+  "negative": "marketing tone",
+  "settings": [
+    {
+      "name": "model",
+      "value": "gemini-3.7-flash",
+      "why": "3.1 Pro (preview) for the Pro tier",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "thinking_level",
+      "value": "high",
+      "why": "minimal, low, medium, high",
+      "term": "setting.thinking-level",
+      "tier": "simple"
+    },
+    {
+      "name": "temperature",
+      "value": "do not set",
+      "why": "Google advise against changing it",
+      "term": "setting.temperature",
+      "tier": "simple"
+    },
+    {
+      "name": "system_instruction",
+      "value": "state the year and cutoff",
+      "why": "",
+      "term": "setting.system-instruction",
+      "tier": "advanced"
+    },
+    {
+      "name": "media_resolution",
+      "value": "medium",
+      "why": "low, medium, high, ultra_high",
+      "term": "setting.media-resolution",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "Pick one delimiter system, XML tags or markdown headings, and stay on it. Mixing them costs quality.",
+    "Large data blocks at the top, the specific ask at the very end.",
+    "Default output is terse. If you want it conversational or detailed you must say so explicitly."
+  ],
+  "warnings": [
+    "Do not set temperature, top_p or top_k. Google strongly recommend the defaults, and low temperature specifically causes looping.",
+    "Thought signatures must round-trip across calls or multi-turn reasoning continuity breaks.",
+    "For grounded work, add: rely only on facts directly mentioned in the provided context."
+  ],
+  "variations": [
+    {
+      "name": "Add one example",
+      "text": "Paste a short example of exactly the answer you want. One example outperforms a paragraph describing the format."
+    },
+    {
+      "name": "Name the reader",
+      "text": "Add who reads this and what they will do with it. It changes what the model chooses to include more than any other line."
+    },
+    {
+      "name": "Ask for the objections",
+      "text": "Add: end with the three strongest objections to your own answer, and say which one you find hardest to dismiss."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 88,
+  "axes": {
+    "specificity": 86,
+    "technical": 100,
+    "structure": 75,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

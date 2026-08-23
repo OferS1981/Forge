@@ -1,0 +1,73 @@
+{
+  "blocks": [
+    {
+      "label": "Positive prompt",
+      "body": "photograph, A retired boxer taping his hands in a basement gym, Basement gym at 6am, condensation on the windows, medium close-up, 85mm portrait, f/2.8, (softbox key camera-left:1.2), Kodak Portra 400, desaturated earth tones, rule of thirds, austere, #0B3D2E deep green, warm brass, bone white, Roger Deakins night exteriors"
+    },
+    {
+      "label": "Negative prompt",
+      "body": "logos, watermarks, other people, worst quality, low quality, jpeg artifacts, watermark, signature, text, bad anatomy, extra fingers, deformed hands, blurry, oversaturated"
+    }
+  ],
+  "flat": "photograph, A retired boxer taping his hands in a basement gym, Basement gym at 6am, condensation on the windows, medium close-up, 85mm portrait, f/2.8, (softbox key camera-left:1.2), Kodak Portra 400, desaturated earth tones, rule of thirds, austere, #0B3D2E deep green, warm brass, bone white, Roger Deakins night exteriors",
+  "negative": "logos, watermarks, other people, worst quality, low quality, jpeg artifacts, watermark, signature, text, bad anatomy, extra fingers, deformed hands, blurry, oversaturated",
+  "settings": [
+    {
+      "name": "Resolution",
+      "value": "4:5",
+      "why": "Stay on the native bucket, then upscale",
+      "term": "setting.resolution",
+      "tier": "simple"
+    },
+    {
+      "name": "Sampler",
+      "value": "DPM++ 2M Karras",
+      "why": "The workhorse. DPM++ SDE Karras for more texture",
+      "term": "setting.sampler",
+      "tier": "simple"
+    },
+    {
+      "name": "CFG scale",
+      "value": "7",
+      "why": "SDXL 5–8. SD 3.5 around 4–5. Turbo and Lightning 1–2",
+      "term": "setting.cfg-scale",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "This is the one major family where comma-separated tags are correct rather than lazy. Forge writes tags here and prose everywhere else.",
+    "Weight syntax: (word) is x1.1, (word:1.4) is explicit, BREAK forces a new 75-token chunk.",
+    "Stack two (word:1.2) terms rather than one (word:1.8). Above about 1.5 you stop strengthening a concept and start frying the image."
+  ],
+  "warnings": [
+    "Respect the resolution buckets. Generating SDXL at 1920x1080 directly is the number one amateur mistake: render at 1344x768 and upscale.",
+    "Boilerplate negatives help SDXL and genuinely hurt SD 3.5 and the Flux family. Forge only emits them for SDXL."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 81,
+  "axes": {
+    "specificity": 81,
+    "technical": 100,
+    "structure": 30,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

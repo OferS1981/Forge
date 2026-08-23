@@ -1,0 +1,96 @@
+{
+  "blocks": [
+    {
+      "label": "Subject",
+      "body": "Photograph of a retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Camera",
+      "body": "Medium close-up, 85mm portrait, f/2.8."
+    },
+    {
+      "label": "Light",
+      "body": "Softbox key camera-left."
+    },
+    {
+      "label": "Finish",
+      "body": "Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white."
+    },
+    {
+      "label": "Composition & mood",
+      "body": "Rule of thirds, austere in feeling."
+    },
+    {
+      "label": "In-image text",
+      "body": "The words \"NORTHBOUND SUPPLY CO\" rendered cleanly, high contrast against the background, correctly spelled."
+    },
+    {
+      "label": "Reference",
+      "body": "In the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Intended use",
+      "body": "Instagram carousel, first slide: keep the focal subject clear of the outer eighth of the frame."
+    }
+  ],
+  "flat": "Photograph of a retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white. Rule of thirds, austere in feeling. The words \"NORTHBOUND SUPPLY CO\" rendered cleanly, high contrast against the background, correctly spelled. In the register of Roger Deakins night exteriors. Instagram carousel, first slide: keep the focal subject clear of the outer eighth of the frame.",
+  "negative": "logos, watermarks, other people",
+  "settings": [
+    {
+      "name": "endpoint",
+      "value": "flux-2/flex",
+      "why": "[pro] for default quality, [flex] when you need steps and guidance",
+      "term": "setting.endpoint",
+      "tier": "simple"
+    },
+    {
+      "name": "image_size",
+      "value": "4:5",
+      "why": "",
+      "term": "setting.image-size",
+      "tier": "simple"
+    },
+    {
+      "name": "num_inference_steps",
+      "value": "28",
+      "why": "[flex] only. Default 28",
+      "term": "setting.num-inference-steps",
+      "tier": "simple"
+    }
+  ],
+  "notes": [
+    "The text encoder is a Mistral-3 VLM, so it follows structured multi-part instructions well. Detail is rewarded, not diluted.",
+    "[klein] at 4B is Apache 2.0 and runs in about 8GB of VRAM: the right free local recommendation now, ahead of SDXL."
+  ],
+  "warnings": [
+    "[pro] and [max] deliberately expose no steps and no guidance. If you need those dials you must switch to [flex].",
+    "prompt_upsampling rewrites your prompt with an LLM. Leave it off once the prompt is engineered."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 94,
+  "axes": {
+    "specificity": 100,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}

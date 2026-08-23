@@ -1,0 +1,107 @@
+{
+  "blocks": [
+    {
+      "label": "Goal",
+      "body": "Instagram carousel, first slide."
+    },
+    {
+      "label": "Scene",
+      "body": "Photograph set in Basement gym at 6am, condensation on the windows."
+    },
+    {
+      "label": "Subject",
+      "body": "A retired boxer taping his hands in a basement gym."
+    },
+    {
+      "label": "Style",
+      "body": "Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white."
+    },
+    {
+      "label": "Details",
+      "body": "Rule of thirds, austere in feeling, in the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Text",
+      "body": "Render exactly: \"NORTHBOUND SUPPLY CO\". Correct spelling, high contrast, no other text anywhere in frame."
+    },
+    {
+      "label": "Constraints",
+      "body": "Do not include logos, watermarks, other people. No watermarks, no signatures, no borders."
+    }
+  ],
+  "flat": "Goal: Instagram carousel, first slide.\nScene: Photograph set in Basement gym at 6am, condensation on the windows.\nSubject: A retired boxer taping his hands in a basement gym.\nStyle: Medium close-up, 85mm portrait, f/2.8. Softbox key camera-left. Kodak Portra 400, desaturated earth tones grade, palette: #0B3D2E deep green, warm brass, bone white.\nDetails: Rule of thirds, austere in feeling, in the register of Roger Deakins night exteriors.\nText: Render exactly: \"NORTHBOUND SUPPLY CO\". Correct spelling, high contrast, no other text anywhere in frame.\nConstraints: Do not include logos, watermarks, other people. No watermarks, no signatures, no borders.",
+  "negative": "logos, watermarks, other people",
+  "settings": [
+    {
+      "name": "model",
+      "value": "qwen-image-3.0-pro",
+      "why": "",
+      "term": "setting.model",
+      "tier": "simple"
+    },
+    {
+      "name": "size",
+      "value": "4:5",
+      "why": "Asterisk, not x. 512 to 2048 per side",
+      "term": "setting.size",
+      "tier": "simple"
+    },
+    {
+      "name": "prompt_extend",
+      "value": "false",
+      "why": "Defaults true: turn it off for engineered prompts",
+      "term": "setting.prompt-extend",
+      "tier": "simple"
+    },
+    {
+      "name": "enable_thinking",
+      "value": "true",
+      "why": "",
+      "term": "setting.enable-thinking",
+      "tier": "advanced"
+    },
+    {
+      "name": "n",
+      "value": "1",
+      "why": "1–6, but the Pro tier allows only 5 requests per minute",
+      "term": "setting.n",
+      "tier": "advanced"
+    }
+  ],
+  "notes": [
+    "This is the model where a very long, layout-explicit prompt is the point. Describe every region and its contents.",
+    "Twelve languages natively, and it is the strongest option for dense Chinese text."
+  ],
+  "warnings": [
+    "size uses an asterisk: 1024*1024, not 1024x1024. Silent-failure class bug.",
+    "prompt_extend defaults to true and will rewrite an engineered prompt. Turn it off.",
+    "prompt_extend_mode agent hard-fails with a 400 on image-to-image."
+  ],
+  "variations": [
+    {
+      "name": "Colder, more documentary",
+      "text": "Swap the grade for desaturated earth tones, drop to available light only, and shoot it on a 35mm at f/2.8. Same subject, no styling."
+    },
+    {
+      "name": "Tighter and more graphic",
+      "text": "Go to an extreme close-up on the single most telling detail. Hard directional light, deep shadow, generous negative space around it."
+    },
+    {
+      "name": "Wider, with context",
+      "text": "Pull back to an establishing wide. Put the subject small in the frame and let the setting carry the story. Keep the same light and grade."
+    }
+  ],
+  "stripped": [],
+  "autoFilled": [],
+  "score": 94,
+  "axes": {
+    "specificity": 100,
+    "technical": 100,
+    "structure": 100,
+    "constraints": 85,
+    "format": 80,
+    "context": 85,
+    "modelfit": 100,
+    "noise": 100
+  }
+}
