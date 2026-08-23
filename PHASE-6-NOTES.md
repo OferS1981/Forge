@@ -90,3 +90,49 @@ this phase arrives as a returning visitor by seeding `localStorage`. Only
 
 Accounts and share pages (phase 7), the extension (phase 8), the AI layer (phase 9). Lesson
 progress is not tracked at all: there is nothing to track until there is an account to track it in.
+
+## After the first CI run
+
+The first CI run for this phase failed, on Linux, where the fonts are wider than they are here:
+the top bar overflowed the page by 20 pixels at 375px. Adding the **Learn** link had pushed it past
+the width, and because the tabs strip would not shrink, the whole page gained a sideways scrollbar.
+That is a real bug for anyone on a phone, not only for the test.
+
+The bar now wraps, the tabs strip is allowed to shrink and scroll inside itself, and below 820px
+the secondary links take their own row. Measured at 375px with text forced 25 percent wider than
+ours: zero overflow on every route.
+
+## The prompt Forge writes, after Alon compared it with Gemini's own
+
+Alon put the same brief through Nano Banana Pro and asked the model to write the prompt itself. The
+model's version wrote every clause as a sentence. Forge's wrote a token list:
+
+```
+Medium shot, 35mm, f/5.6. Softbox key camera-left. Teal and orange grade.
+```
+
+And the catalogue's own note on that model reads: _"Google's own docs ask for narrative descriptive
+paragraphs, not keyword lists. Forge writes it that way."_ It did not. That is worse than a thin
+prompt: it is a claim the product does not keep.
+
+Two models carry documentation asking for descriptive prose, and both say so in their own notes:
+Nano Banana Pro, and FLUX.2 with "Detail is rewarded, not diluted". They now carry
+`prose: 'narrative'` and their clauses are written as sentences:
+
+```
+Framed as a medium shot on a 35mm lens at f/5.6. Lit by softbox key camera-left.
+Captured on Kodak Portra 400 and graded teal and orange. Composed using rule of
+thirds. The mood is calm.
+```
+
+The narrative form also keeps the descriptive half of a vocabulary entry that the terse form throws
+away: `f/1.4, creamy bokeh` stays whole rather than being cut to `f/1.4`.
+
+**Nothing is invented.** A test asserts that every value in the output came from the brief, and
+that the words a model would reach for on its own, `majestic`, `serene`, `vast`, `barren`, never
+appear. Forge is not competing with the model at writing; it is giving the model what its own
+documentation asks for. Where a vendor documents that terse token lists work better, the terse form
+stays, and a test asserts the other prose models did not change.
+
+The parity test excludes exactly those two models and asserts the flag is the reason. Four golden
+files changed, which is the reviewable diff they exist to produce.

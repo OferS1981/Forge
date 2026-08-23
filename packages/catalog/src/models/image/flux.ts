@@ -60,6 +60,8 @@ export const flux: Model = {
       ['safety_tolerance', '2', '1–5, default 2'],
       ['output_format', 'png', ''],
     ]),
+  // Its own notes, above, ask for descriptive paragraphs rather than keyword lists.
+  prose: 'narrative',
   pairsWith: [],
   betterFor: [],
   strengthTags: [

@@ -12,7 +12,12 @@ import { PROTOTYPE, protoModel } from './fixtures/prototype';
  *    "none".
  * 2. The prototype's Claude entry predates Fable 5. The catalogue names the current family, so the
  *    `why` on that row differs from the prototype's.
+ * 3. Two models document that they want descriptive paragraphs rather than keyword lists, and say
+ *    so in their own notes. The prototype wrote them as token lists anyway, which made the note a
+ *    claim the product did not keep. Those two are excluded from the composed-output comparison
+ *    and covered by narrative.test.ts instead. Every other model is still compared byte for byte.
  */
+const NARRATIVE = new Set(['nanobanana', 'flux']);
 const EM_DASH_ROWS: Record<string, string> = { recraft: 'substyle', suno: 'Exclude Styles' };
 
 const REWRITTEN_WHY: Record<string, string> = { claude: 'model' };
@@ -47,6 +52,11 @@ describe('parity with the prototype', () => {
 
       for (const { name, brief } of briefsFor(m.category)) {
         it(`forges the ${name} brief identically`, () => {
+          if (NARRATIVE.has(m.id)) {
+            // Deliberately different. See the note above and narrative.test.ts.
+            expect(m.prose).toBe('narrative');
+            return;
+          }
           const mine = forge(brief, m, 'advanced');
           const theirs = PROTOTYPE.forge({ ...brief }, p);
 

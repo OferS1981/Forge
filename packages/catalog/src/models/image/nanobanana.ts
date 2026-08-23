@@ -59,6 +59,8 @@ export const nanobanana: Model = {
       ],
       ['mime_type', 'image/png', ''],
     ]),
+  // Its own notes, above, ask for descriptive paragraphs rather than keyword lists.
+  prose: 'narrative',
   pairsWith: [],
   betterFor: [],
   strengthTags: [

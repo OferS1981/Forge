@@ -16,13 +16,14 @@
   z-index: 30;
   display: flex;
   align-items: center;
-  gap: var(--sp-3);
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-3);
   padding: var(--sp-2) var(--sp-4);
   border-bottom: 1px solid var(--line);
   background: var(--surface);
 }
 .topbar__spacer {
-  flex: 1;
+  flex: 1 1 auto;
 }
 .topbar__link {
   color: var(--ink-2);
@@ -37,8 +38,15 @@
 .topbar__link:hover {
   color: var(--ember-text);
 }
+/*
+ * The workspace tabs scroll inside themselves rather than widening the bar. Without min-width the
+ * flex item refuses to shrink below its content, and the whole page gains a sideways scrollbar on
+ * a narrow screen or wherever the fonts are a little wider than they are here.
+ */
 .tabs {
   display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
   gap: var(--sp-1);
   overflow-x: auto;
   scrollbar-width: none;
@@ -491,6 +499,14 @@
   }
 }
 @media (max-width: 819px) {
+  /* The secondary links and the theme control take their own row rather than squeezing the tabs. */
+  .topbar {
+    padding: var(--sp-1) var(--sp-3);
+  }
+  .topbar__spacer {
+    flex-basis: 100%;
+    height: 0;
+  }
   .bay {
     padding: var(--sp-4) var(--sp-3) var(--sp-6);
   }

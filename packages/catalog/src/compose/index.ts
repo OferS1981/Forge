@@ -27,7 +27,7 @@ function flatten(S: Block[], sep: string, fmt: (s: Block) => string): string {
 }
 
 const prose: Composer = (b, m) => {
-  const S = m.category === 'video' ? videoSections(b, m) : imageSections(b);
+  const S = m.category === 'video' ? videoSections(b, m) : imageSections(b, m);
   let flat = S.map((s) => s.body).join(' ');
   const negs = arr(b.avoid);
   if (m.negative.mode === 'flag' && negs.length) flat += ' --no ' + join(negs);

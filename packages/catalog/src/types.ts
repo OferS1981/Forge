@@ -157,6 +157,13 @@ export interface Model {
   flatStyleOnly?: true;
   /** Chat models: which delimiter system the prompt is written in. */
   delimiters?: 'xml' | 'markdown';
+  /**
+   * How the prose composer writes each clause. `terse` is the default and produces the token lists
+   * most image models were trained on. `narrative` writes full sentences and keeps the descriptive
+   * half of a vocabulary entry, for the models whose own documentation asks for descriptive
+   * paragraphs rather than keyword lists. Set it only where a source says so.
+   */
+  prose?: 'narrative';
   /** Warn when the spoken script is shorter than this many characters. */
   lengthWarningBelow?: number;
   /** Match: how this model does on vertical video. */

@@ -5,11 +5,63 @@ export function block(label: string, body: string): Block {
   return { label, body };
 }
 
+/**
+ * The vocabulary carries its own descriptive half: "f/1.4, creamy bokeh" says what the number
+ * means. The terse composer throws that away, because the models it writes for were trained on
+ * token lists. A narrative model gets to keep it.
+ */
+function aperture(b: Brief, narrative: boolean): string {
+  const value = b.aperture ?? '';
+  if (!has(value)) return '';
+  if (narrative) return value;
+  const beforeColon = value.split(': ')[0] ?? value;
+  return beforeColon.split(',')[0] ?? beforeColon;
+}
+
+/**
+ * The same facts, written as a sentence rather than a list. Nothing is added that the brief does
+ * not already say: a model that asks for paragraphs gets paragraphs, not inventions.
+ */
+export function narrativeCamera(b: Brief): string {
+  const shot = has(b.shot) ? join(b.shot) : '';
+  // Several entries already end in the word, and "probe lens lens" is not a sentence.
+  const raw = has(b.lens) ? (b.lens ?? '') : '';
+  const lens = raw.length > 0 && !/lens$/i.test(raw) ? raw + ' lens' : raw;
+  const stop = aperture(b, true);
+  if (!shot && !lens && !stop) return '';
+  const parts: string[] = [];
+  if (shot) parts.push('Framed as ' + artic(shot) + ' ' + shot);
+  if (lens) parts.push((parts.length ? 'on ' : 'Shot on ') + artic(lens) + ' ' + lens);
+  if (stop) parts.push((parts.length ? 'at ' : 'At ') + stop);
+  return cap(parts.join(' '));
+}
+
+export function narrativeLight(b: Brief): string {
+  return has(b.light) ? 'Lit by ' + join(b.light, ' and ') : '';
+}
+
+export function narrativeFinish(b: Brief): string {
+  const bits: string[] = [];
+  if (has(b.film)) bits.push('Captured on ' + (b.film ?? ''));
+  if (has(b.grade)) bits.push((bits.length ? 'and graded ' : 'Graded ') + (b.grade ?? ''));
+  if (has(b.palette))
+    bits.push((bits.length ? 'in a palette of ' : 'In a palette of ') + (b.palette ?? ''));
+  return bits.length ? cap(bits.join(' ')) : '';
+}
+
+export function narrativeComposition(b: Brief): string {
+  // Two sentences rather than one clause with a comma in it, because the two say different things.
+  const bits: string[] = [];
+  if (has(b.comp)) bits.push('Composed using ' + lc(b.comp ?? ''));
+  if (has(b.mood)) bits.push('The mood is ' + join(b.mood, ' and '));
+  return bits.length ? bits.map(cap).join('. ') : '';
+}
+
 export function camClause(b: Brief): string {
   const bits: string[] = [];
   if (has(b.shot)) bits.push(join(b.shot));
   if (has(b.lens)) bits.push(b.lens ?? '');
-  if (has(b.aperture)) bits.push(String(b.aperture).split(': ')[0] ?? '');
+  if (has(b.aperture)) bits.push(aperture(b, false));
   if (!bits.length) return '';
   const out = bits.join(', ');
   // never capitalise a leading f-stop
@@ -32,7 +84,8 @@ export function moodClause(b: Brief): string {
   return has(b.mood) ? cap(join(b.mood)) + ' in feeling' : '';
 }
 
-export function imageSections(b: Brief): Block[] {
+export function imageSections(b: Brief, m?: Model): Block[] {
+  const narrative = m?.prose === 'narrative';
   const S: Block[] = [];
   const med = has(b.medium) ? (b.medium ?? '') : 'photograph';
   const subj = stripDot(b.subject) || 'the subject';
@@ -42,16 +95,21 @@ export function imageSections(b: Brief): Block[] {
       cap(med) + ' of ' + lc(subj) + (has(b.setting) ? ', ' + lc(stripDot(b.setting)) : '') + '.',
     ),
   );
-  const cam = camClause(b);
+  const cam = narrative ? narrativeCamera(b) : camClause(b);
   if (cam) S.push(block('Camera', cam + '.'));
-  const li = lightClause(b);
+  const li = narrative ? narrativeLight(b) : lightClause(b);
   if (li) S.push(block('Light', li + '.'));
-  const fin = finishClause(b);
+  const fin = narrative ? narrativeFinish(b) : finishClause(b);
   if (fin) S.push(block('Finish', fin + '.'));
-  const comp: string[] = [];
-  if (has(b.comp)) comp.push(b.comp ?? '');
-  if (has(b.mood)) comp.push(join(b.mood) + ' in feeling');
-  if (comp.length) S.push(block('Composition & mood', cap(comp.join(', ')) + '.'));
+  if (narrative) {
+    const comp = narrativeComposition(b);
+    if (comp) S.push(block('Composition & mood', comp + '.'));
+  } else {
+    const comp: string[] = [];
+    if (has(b.comp)) comp.push(b.comp ?? '');
+    if (has(b.mood)) comp.push(join(b.mood) + ' in feeling');
+    if (comp.length) S.push(block('Composition & mood', cap(comp.join(', ')) + '.'));
+  }
   if (has(b.imgtext))
     S.push(
       block(

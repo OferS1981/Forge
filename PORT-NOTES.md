@@ -27,7 +27,16 @@ listed deviation or a note for a later phase.
    "Opus 5 / Sonnet 5 / Fable 5" and the `model` settings row says which is for what. The parity
    test allows exactly this one `why` line to differ and still asserts the parameter and the value
    match, so nothing else can drift under cover of it.
-6. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
+6. **Two models now get narrative prose, because their own notes ask for it.** Nano Banana Pro's
+   note reads "Google's own docs ask for narrative descriptive paragraphs, not keyword lists. Forge
+   writes it that way", and FLUX.2's reads "Detail is rewarded, not diluted". The prototype wrote
+   both as terse token lists anyway, so the note was a claim the product did not keep. Those two
+   carry `prose: 'narrative'` and their clauses are written as sentences, keeping the descriptive
+   half of a vocabulary entry that the terse form throws away. The parity test excludes exactly
+   these two from the composed-output comparison and asserts the flag is why;
+   `packages/catalog/test/narrative.test.ts` covers them instead, including that nothing is
+   invented that the brief did not say.
+7. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
    hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
 
 ## Things in the prototype I think are wrong, left as they are
