@@ -210,8 +210,9 @@ export function Brief({ model, brief, mode, onChange, onExplain }: BriefProps): 
         {render(model.core)}
         {render(simpleTech)}
         <p className="brief__note">
-          Simple mode asks for what only you know. Forge chooses the craft layer itself and tells
-          you what it chose after the strike. Switch to Advanced to choose it yourself.
+          These are the questions only you can answer. Forge chooses the lens, the light, the grade
+          and the settings itself, and tells you what it chose after the strike. Advanced mode hands
+          all of that back to you.
         </p>
       </div>
     );

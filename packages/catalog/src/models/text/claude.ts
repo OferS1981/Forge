@@ -4,7 +4,7 @@ import { or, rows } from '../shared';
 export const claude: Model = {
   id: 'claude',
   name: 'Claude',
-  version: 'Opus 5 / Sonnet 5',
+  version: 'Opus 5 / Sonnet 5 / Fable 5',
   maker: 'Anthropic',
   category: 'text',
   blurb:
@@ -36,7 +36,11 @@ export const claude: Model = {
   ],
   settings: (b) =>
     rows([
-      ['model', 'claude-opus-5', 'Sonnet 5 for volume, Opus 5 for hard work'],
+      [
+        'model',
+        'claude-opus-5',
+        'Opus 5 for hard work, Sonnet 5 for volume, Fable 5 for writing and voice',
+      ],
       ['output_config.effort', or(b.effort, 'High').toLowerCase(), 'low, medium, high, xhigh, max'],
       ['thinking', 'adaptive', 'On by default on the 5-series'],
       ['temperature', 'leave default', 'Non-default values return a 400 on Sonnet 5'],

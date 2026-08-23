@@ -1022,3 +1022,16 @@
     min-height: var(--tap);
   }
 }
+
+.modebar__what {
+  margin: 0;
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+  max-width: 44ch;
+}
+
+.doctor__lede {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}

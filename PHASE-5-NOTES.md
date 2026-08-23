@@ -57,3 +57,22 @@ writing its own version is how they drift apart.
 
 The tutorial and Learn (phase 6), accounts and share pages (phase 7), the extension (phase 8) and
 the AI layer (phase 9). Recipes live in this browser until phase 7 gives them somewhere better.
+
+## Four things Alon caught while this phase was landing
+
+1. **The model picker was not clean.** The filter input was sticky inside the layer's padding, so
+   rows showed through above and beside it, and the group headers stuck at a hard-coded offset that
+   no longer matched. The layer now has no padding, the filter is a solid square band across its
+   full width, and the headers stick to a token the input's height is set from, so the two cannot
+   drift apart. Every row also carried an empty circle whether or not it was chosen, which read as
+   a control that did nothing. The marker now appears only on the chosen row, which is also given a
+   raised background.
+2. **The Doctor buried the thing it was for.** The re-smithed prompt was below the diagnosis, the
+   findings and what was working. It now sits directly under the before and after, with a line
+   saying to copy it and use it in place of what was pasted. A test asserts the prompt comes before
+   the diagnosis, so it cannot drift back down.
+3. **The two modes did not say what they did.** The toggle now carries one line that changes with
+   it: Simple says Forge makes most of the choices and you give it the subject; Advanced says you
+   make most of the choices and Forge fills in nothing you have not asked for.
+4. **The Claude entry predated Fable 5.** Recorded in `PORT-NOTES.md` as a deliberate deviation
+   from the prototype, with the parity test allowing that one line and nothing else.

@@ -27,7 +27,7 @@
     {
       "name": "model",
       "value": "claude-opus-5",
-      "why": "Sonnet 5 for volume, Opus 5 for hard work",
+      "why": "Opus 5 for hard work, Sonnet 5 for volume, Fable 5 for writing and voice",
       "term": "setting.model",
       "tier": "simple"
     },

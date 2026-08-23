@@ -22,7 +22,12 @@ listed deviation or a note for a later phase.
    `promptSuffix`, `inlineCameraTokens`, `audioTags`, `actingInstruction`, `flatStyleOnly`,
    `delimiters` and `lengthWarningBelow`. The output is byte-identical; the composers no longer know
    any model by name.
-5. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
+5. **The Claude entry names the current family.** The prototype's version line read
+   "Opus 5 / Sonnet 5", which predates Fable 5. The catalogue now reads
+   "Opus 5 / Sonnet 5 / Fable 5" and the `model` settings row says which is for what. The parity
+   test allows exactly this one `why` line to differ and still asserts the parameter and the value
+   match, so nothing else can drift under cover of it.
+6. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
    hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
 
 ## Things in the prototype I think are wrong, left as they are

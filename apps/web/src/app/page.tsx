@@ -127,6 +127,11 @@ export default function BuildPage(): React.ReactNode {
               { value: 'advanced', label: 'Advanced' },
             ]}
           />
+          <p className="modebar__what">
+            {mode === 'simple'
+              ? 'Forge makes most of the choices. You give it the subject.'
+              : 'You make most of the choices. Forge fills in nothing you have not asked for.'}
+          </p>
           {mode === 'simple' && forged >= 10 && (
             <p className="modebar__offer" role="status">
               You have forged {forged} prompts. Advanced mode opens the craft layer if you want it.

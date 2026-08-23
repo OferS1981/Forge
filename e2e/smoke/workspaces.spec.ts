@@ -34,8 +34,12 @@ test('Doctor: scores a bad prompt, names what is missing, and re-smiths it', asy
     /\/glossary#/,
   );
 
-  // And it produces a real prompt, not just a critique.
+  // The improved prompt is the point, so it comes before the diagnosis, not after it.
+  await expect(out).toContainText('re-smithed for');
   await expect(out).toContainText('The prompt');
+  const promptTop = await out.getByRole('region', { name: 'The prompt' }).boundingBox();
+  const diagnosisTop = await out.getByRole('region', { name: 'Diagnosis' }).boundingBox();
+  expect(promptTop?.y ?? 0).toBeLessThan(diagnosisTop?.y ?? 0);
 });
 
 test('Doctor: the re-smithed prompt scores higher than the one that was pasted', async ({

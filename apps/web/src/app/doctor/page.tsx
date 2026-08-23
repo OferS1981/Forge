@@ -134,11 +134,20 @@ export default function DoctorPage(): React.ReactNode {
               </div>
             </div>
 
+            <p className="doctor__lede">
+              This is the same brief, re-smithed for {modelLabel(seen.model)}. Copy it and use it in
+              place of what you pasted.
+            </p>
+            <Result result={seen.result} model={seen.model} showScore={false} />
+
             <section className="billet" aria-label="Diagnosis">
               <div className="billet__head">
                 <h2 className="billet__title">Diagnosis</h2>
               </div>
               <div className="billet__body">
+                <p className="billet__note">
+                  How the prompt you pasted scored {seen.diagnosis.score}, axis by axis.
+                </p>
                 <Axes axes={seen.diagnosis.axes} />
               </div>
             </section>
@@ -185,8 +194,6 @@ export default function DoctorPage(): React.ReactNode {
                 </div>
               </section>
             )}
-
-            <Result result={seen.result} model={seen.model} showScore={false} />
           </>
         )
       }
