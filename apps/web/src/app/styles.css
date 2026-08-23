@@ -1557,3 +1557,50 @@ a {
   font-weight: 600;
   color: var(--ink);
 }
+
+/* The label every piece of assistant output wears. Phase 9. */
+.ai-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-2);
+  margin: 0 0 var(--sp-3);
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+}
+.ai-label__tag {
+  padding: 0 var(--sp-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r);
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.ai-block {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+}
+.ai-block__title {
+  margin: 0 0 var(--sp-2);
+  font-family: var(--f-display);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.ai-block__note {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+  max-width: 60ch;
+}
+.ai-block__problem {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--t-sm);
+  color: var(--warn-text);
+}

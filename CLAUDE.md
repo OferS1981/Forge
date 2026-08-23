@@ -30,6 +30,8 @@ pnpm --filter @forge/ui gallery    the component gallery, which axe and the e2e 
   the vendor client lives at the edge in `apps/web`, behind `RemotePort`.
 - `packages/workbench` holds the product components the website and the extension both draw, which
   today is the generated brief. A component that belongs to one surface stays in that surface.
+- `packages/ai` is the optional AI layer. One interface, three implementations, and a transport the
+  app supplies. Zero runtime dependencies: the vendor client lives at the edge in `apps/web`.
 - `packages/extension` is the extension's testable core: the manifest, generated from the
   catalogue's host map, and the per-site paste adapters as pure functions over a `Document`.
 - `apps/web` is the website: a Next.js static export that reads the catalogue and draws it with the
@@ -67,7 +69,10 @@ pnpm --filter @forge/ui gallery    the component gallery, which axe and the e2e 
 - No `any`. No `!` without a comment saying why.
 - Never auto-merge a catalogue change.
 - Never ship a feature that only works when the AI layer is on, or when an account is signed in.
-  A screen is written against `Library`, never against whether anybody is signed in.
+  A screen is written against `Library` and `PromptAssistant`, never against whether anybody is
+  signed in or has a key.
+- The assistant may describe and criticise. It never writes a prompt, and nothing it says reaches a
+  brief unless the catalogue already knows that field and that value.
 - Simple mode produces fewer decisions, never a worse prompt.
 
 ## Copy voice

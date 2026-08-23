@@ -77,6 +77,12 @@ export const TOOLS = [
     href: '/library',
     what: 'Everything you have saved: folders, prompts, pinned models and recipes.',
   },
+  {
+    id: 'assistant',
+    label: 'Assistant',
+    href: '/assistant',
+    what: 'Optional. A second opinion in Reverse and the Doctor, on a key that stays here.',
+  },
 ];
 
 export function Shell({ children }: { children: ReactNode }): ReactNode {

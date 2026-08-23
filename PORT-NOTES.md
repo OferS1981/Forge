@@ -51,7 +51,12 @@ listed deviation or a note for a later phase.
    function, which is stronger than rewriting one by hand, and two small Vite configs plus one
    script replace a long-running beta dependency in the build path. Everything else in section 14
    is as written.
-9. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
+9. **`describeImage` takes the model as well as the file.** Section 12 writes it as
+   `describeImage(file)`. Without the model there is no field menu, so the assistant is free to
+   answer with a field or a value the catalogue does not know, and a described brief becomes a
+   second, unverified catalogue. The parser needs the model to refuse those. `PHASE-9-NOTES.md`
+   has the rest.
+10. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
    hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
 
 ## Things in the prototype I think are wrong, left as they are

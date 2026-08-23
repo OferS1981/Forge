@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import '@forge/ui/styles.css';
 import './styles.css';
+import { AssistantProvider } from '../lib/assistant';
 import { LibraryProvider } from '../lib/library';
 import { Shell } from '../components/Shell';
 
@@ -25,7 +26,9 @@ export default function RootLayout({ children }: { children: ReactNode }): React
       </head>
       <body>
         <LibraryProvider>
-          <Shell>{children}</Shell>
+          <AssistantProvider>
+            <Shell>{children}</Shell>
+          </AssistantProvider>
         </LibraryProvider>
       </body>
     </html>

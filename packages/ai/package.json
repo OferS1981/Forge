@@ -1,0 +1,23 @@
+{
+  "name": "@forge/ai",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The optional AI layer. One interface, three implementations, and a transport the app supplies. Zero runtime dependencies: the vendor client lives at the edge.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "echo 'ai: nothing to build, consumed as source'",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@forge/catalog": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

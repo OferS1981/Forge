@@ -14,6 +14,7 @@ import {
 } from '@forge/catalog';
 import { Button, DropZone, Table, TextArea, TextField, toast } from '@forge/ui';
 import { Empty, ModelPicker, VISUAL, Workspace } from '../../components/Workspace';
+import { Described } from '../../components/Described';
 import { Result } from '../../components/Result';
 import { IMAGE_TYPES, TEXT_TYPES, measureImage, readText } from '../../lib/measure';
 
@@ -21,6 +22,8 @@ interface Reference {
   name: string;
   url: string;
   stats: ImageStats;
+  /** Kept so the assistant, if there is one, can be shown the picture rather than the URL. */
+  file: File;
 }
 
 interface TextReference {
@@ -33,6 +36,8 @@ export default function ReversePage(): React.ReactNode {
   const [image, setImage] = useState<Reference | null>(null);
   const [texts, setTexts] = useState<TextReference[]>([]);
   const [subject, setSubject] = useState('');
+  /** What the assistant described, if anybody took it. Merged under whatever was typed. */
+  const [described, setDescribed] = useState<Brief>({});
   const [change, setChange] = useState('');
   const [status, setStatus] = useState('');
   const [seen, setSeen] = useState<{
@@ -50,7 +55,7 @@ export default function ReversePage(): React.ReactNode {
         if (file.type.startsWith('image/')) {
           try {
             const { stats, url } = await measureImage(file);
-            setImage({ name: file.name, url, stats });
+            setImage({ name: file.name, url, stats, file });
             setStatus(
               `Measured ${file.name}: ${String(stats.width)} by ${String(stats.height)} px.`,
             );
@@ -69,7 +74,8 @@ export default function ReversePage(): React.ReactNode {
   }, []);
 
   const run = useCallback(() => {
-    const base: Brief = {};
+    // What was described sits underneath, so anything typed by hand wins.
+    const base: Brief = { ...described };
     if (subject.trim().length > 0) base.subject = subject.trim();
     else if (texts[0])
       base.subject = (texts[0].body.split('\n').find((l) => l.trim().length > 0) ?? '').slice(
@@ -83,7 +89,7 @@ export default function ReversePage(): React.ReactNode {
     if (image) next.stats = image.stats;
     setSeen(next);
     outputRef.current?.focus();
-  }, [subject, change, texts, model, image]);
+  }, [subject, change, texts, model, image, described]);
 
   const nothing = image === null && texts.length === 0;
 
@@ -156,6 +162,20 @@ export default function ReversePage(): React.ReactNode {
           </figcaption>
         </figure>
       )}
+
+      <Described
+        file={image?.file ?? null}
+        model={model}
+        onTake={(brief) => {
+          setDescribed(brief);
+          if (typeof brief.subject === 'string' && subject.trim().length === 0)
+            setSubject(brief.subject);
+          toast(
+            'Taken into the brief. Change anything you disagree with, then reverse it.',
+            'good',
+          );
+        }}
+      />
 
       {texts.length > 0 && (
         <ul className="reftexts">

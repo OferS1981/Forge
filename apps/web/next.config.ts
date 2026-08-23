@@ -8,7 +8,13 @@ const config: NextConfig = {
   output: 'export',
   reactStrictMode: true,
   // The workspace packages ship TypeScript source rather than a build step.
-  transpilePackages: ['@forge/catalog', '@forge/data', '@forge/ui', '@forge/workbench'],
+  transpilePackages: [
+    '@forge/ai',
+    '@forge/catalog',
+    '@forge/data',
+    '@forge/ui',
+    '@forge/workbench',
+  ],
   images: { unoptimized: true },
   /*
    * Lessons are markdown files in the repository, imported as strings and rendered to React

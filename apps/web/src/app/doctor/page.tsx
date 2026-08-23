@@ -17,6 +17,7 @@ import {
 import { Button, TextArea } from '@forge/ui';
 import { Empty, ModelPicker, Workspace } from '../../components/Workspace';
 import { Result } from '../../components/Result';
+import { SecondOpinion } from '../../components/SecondOpinion';
 import { useModelId } from '../../lib/store';
 
 /** A finding names something missing, and the glossary explains what it does. */
@@ -73,6 +74,7 @@ export default function DoctorPage(): React.ReactNode {
     diagnosis: Diagnosis;
     result: ForgeResult;
     model: Model;
+    pasted: string;
   } | null>(null);
   const outputRef = useRef<HTMLElement>(null);
 
@@ -83,7 +85,7 @@ export default function DoctorPage(): React.ReactNode {
     if (trimmed.length === 0) return;
     const diagnosis = diagnose(trimmed, model);
     const result = forge(rebuild(trimmed, model), model);
-    setSeen({ diagnosis, result, model });
+    setSeen({ diagnosis, result, model, pasted: trimmed });
     outputRef.current?.focus();
   }, [text, model]);
 
@@ -149,6 +151,8 @@ export default function DoctorPage(): React.ReactNode {
                   How the prompt you pasted scored {seen.diagnosis.score}, axis by axis.
                 </p>
                 <Axes axes={seen.diagnosis.axes} />
+                {/* Beside the diagnosis, never instead of it. The diagnosis is a lexicon. */}
+                <SecondOpinion prompt={seen.pasted} model={seen.model} />
               </div>
             </section>
 

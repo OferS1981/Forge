@@ -11,6 +11,8 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.0",
+    "@forge/ai": "workspace:*",
     "@forge/catalog": "workspace:*",
     "@forge/data": "workspace:*",
     "@forge/ui": "workspace:*",
