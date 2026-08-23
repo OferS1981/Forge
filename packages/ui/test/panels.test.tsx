@@ -1,5 +1,6 @@
 import { act } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { rank } from '../src/components/CommandPalette';
 import { Disclosure } from '../src/components/Disclosure';
 import { DropZone } from '../src/components/DropZone';
 import { Table } from '../src/components/Table';
@@ -186,5 +187,38 @@ describe('Toast', () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+});
+
+describe('the command palette ranks a name above a description', () => {
+  const commands = [
+    { value: 'bolt', label: 'Bolt', hint: 'Bills by token, so the library is a cost control.' },
+    { value: 'library', label: 'Library', hint: 'Everything you have saved.' },
+    { value: 'lib-old', label: 'Old library', hint: 'Somewhere else.' },
+  ];
+
+  it('puts an exact name first, then a name that contains it, then a description', () => {
+    expect(rank(commands, 'library').map((c) => c.value)).toEqual(['library', 'lib-old', 'bolt']);
+  });
+
+  it('leaves the given order alone when nothing is typed', () => {
+    expect(rank(commands, '  ')).toEqual(commands);
+  });
+
+  it('drops what does not match at all', () => {
+    expect(rank(commands, 'nothing here')).toEqual([]);
+  });
+
+  it('keeps a group together, in the order of its best match', () => {
+    const mixed = [
+      { value: 'm1', label: 'Stable Diffusion', hint: 'Tag syntax', group: 'Models' },
+      { value: 't1', label: 'Style guidance', group: 'Glossary' },
+      { value: 'm2', label: 'Style transfer model', group: 'Models' },
+      { value: 't2', label: 'Stylize', group: 'Glossary' },
+    ];
+    // Glossary holds the best match, so it leads, and each group appears once.
+    expect(rank(mixed, 'styl').map((c) => c.group)).toEqual(['Glossary', 'Glossary', 'Models']);
+    // Both glossary entries begin with the query, so the given order decides between them.
+    expect(rank(mixed, 'styl').map((c) => c.value)).toEqual(['t1', 't2', 'm2']);
   });
 });

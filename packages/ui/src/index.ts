@@ -8,7 +8,7 @@ export { CoachMark } from './components/CoachMark';
 export type { CoachMarkProps } from './components/CoachMark';
 export { Combobox } from './components/Combobox';
 export type { ComboboxProps } from './components/Combobox';
-export { CommandPalette, isPaletteShortcut } from './components/CommandPalette';
+export { CommandPalette, isPaletteShortcut, rank } from './components/CommandPalette';
 export type { Command, CommandPaletteProps } from './components/CommandPalette';
 export { Dialog } from './components/Dialog';
 export type { DialogProps } from './components/Dialog';

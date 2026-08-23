@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import '@forge/ui/styles.css';
 import './styles.css';
+import { LibraryProvider } from '../lib/library';
 import { Shell } from '../components/Shell';
 
 export const metadata: Metadata = {
@@ -23,7 +24,9 @@ export default function RootLayout({ children }: { children: ReactNode }): React
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
       <body>
-        <Shell>{children}</Shell>
+        <LibraryProvider>
+          <Shell>{children}</Shell>
+        </LibraryProvider>
       </body>
     </html>
   );

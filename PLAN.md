@@ -431,3 +431,90 @@ block quotes. If it ever needs to handle arbitrary markdown, swap it for a real 
 
 Accounts and share pages (phase 7), the extension (phase 8), the AI layer (phase 9). Lesson
 progress is remembered in the browser only.
+
+---
+
+# Phase 7: Accounts and library
+
+**Done when:** the row level security policy tests pass against real Postgres, a signed-out visitor
+still has every feature including sharing, axe is clean on the new routes in both themes, and
+`pnpm verify` exits 0.
+
+Section 13 asks for Supabase, RLS on every table with the policies written before the tables are
+used, folders, saved prompts, recipes, pins, shares at a public read-only page, and a one-click
+import of local work on first sign-in. Two rules constrain how that can be built:
+
+- **A signed-out user has the whole app.** So the library is a local library first, and an account
+  is a place to sync it to. Not a gate in front of it.
+- **`pnpm verify` has to prove it.** There is no hosted project to test against, and there never
+  will be one inside `verify`, so the parts that can be proven have to be separated from the part
+  that cannot.
+
+## What can be proven, and how
+
+The policies are the security boundary, so they are the thing that must be tested rather than
+assumed. `@electric-sql/pglite` is Postgres 16 compiled to WebAssembly: the real planner, the real
+row level security, running in Node with no server, no Docker and no account. The test harness
+creates the `anon` and `authenticated` roles and the `auth.uid()` function exactly as Supabase
+defines them, runs the migration files unedited, and then attacks the tables as two different
+signed-in users and as an anonymous visitor.
+
+Every policy gets a test that it lets the owner through and a test that it stops everyone else. A
+table with row level security left off fails a test that reads `pg_class` directly, so a table
+added later without policies cannot pass quietly.
+
+## The shape
+
+`packages/data`, a new package with **zero runtime dependencies**, the same rule as the catalogue.
+
+```
+sql/001_library.sql     tables, policies, the share function. Run by the test, not by the app.
+src/types.ts            the row types and the Library interface
+src/local.ts            the local library, over an injected storage
+src/remote.ts           the account library, over an injected RemotePort
+src/share.ts            encode and decode a share to a URL fragment
+src/merge.ts            local work into an account, once, on first sign-in
+src/store.ts            the snapshot the app subscribes to, framework free
+```
+
+`RemotePort` is six methods. `apps/web` implements it over `@supabase/supabase-js`, which is
+loaded only when a project is configured. Keeping the port narrow means `remote.ts` is unit tested
+against a fake and the untestable surface is about forty lines at the edge, rather than the whole
+library layer.
+
+## The routes
+
+- **`/library`** folders, saved prompts, pinned models and recipes in one place. Works signed out.
+- **`/account`** sign in by magic link or Google, what is synced, the import of local work, sign
+  out. With no project configured it says that plainly and points at the local library.
+- **`/p`** the public read-only share: the prompt, the settings and the score, and a button that
+  opens it in Build.
+
+Saving and sharing are added to the Build output, which is where a prompt worth keeping appears.
+
+## Shares without a server
+
+The spec writes shares as `/p/<slug>` backed by a row. A static export has no server to resolve an
+arbitrary slug, and an anonymous visitor has no row to make. So a share carries its brief in the
+URL fragment: `/p/#<encoded>`. The fragment is never sent to a host, the link needs no database,
+and it works for signed-out users, which the spec's own "anonymous users get everything except
+cloud sync" requires. An account additionally mints a short slug, `/p/#s=<slug>`, resolved by a
+`security definer` function so that anonymous readers can resolve one share they hold the slug for
+and cannot list anybody's prompts.
+
+What is stored is the brief, never the rendered string, so a share re-forges on the reader's
+machine against today's catalogue.
+
+## Deliberate departures from the section 13 sketch, with reasons
+
+- **No `view_count`.** It is per-share analytics, and `CLAUDE.md` says no analytics. The rule wins.
+- **No `result jsonb` on `prompts`.** Section 13's own next line says a stored string is dead and a
+  stored brief can be re-forged. The column would be the dead thing.
+- **`heat` is `score`**, matching the name the product uses.
+- **`shares` carries `user_id`.** Ownership through a subquery on the prompt is slower and is a
+  recursion hazard in a policy. One column removes both.
+
+## Out of scope
+
+The extension (phase 8), the AI layer (phase 9), realtime, avatars, file storage. No billing table,
+no plan column, no Stripe, per section 2 and `CLAUDE.md`.

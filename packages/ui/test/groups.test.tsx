@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
+import { screen } from '@testing-library/react';
 import { ChipGroup } from '../src/components/ChipGroup';
+import { Listbox } from '../src/components/Listbox';
 import { Segmented } from '../src/components/Segmented';
 import { Tabs } from '../src/components/Tabs';
 import { expectNoViolations, must, setup } from './helpers';
@@ -202,5 +204,36 @@ describe('Tabs', () => {
       </Tabs>,
     );
     await expectNoViolations(container);
+  });
+});
+
+describe('a listbox whose groups repeat', () => {
+  const options = [
+    { value: 'a', label: 'A', group: 'One' },
+    { value: 'b', label: 'B', group: 'Two' },
+    { value: 'c', label: 'C', group: 'One' },
+  ];
+
+  it('draws every run, and drawing a shorter list afterwards removes what went', () => {
+    /*
+     * A group is a run of adjacent options, so the same name can start a second run. Keying the
+     * runs by name gave React two children with one key, which left the whole previous list on the
+     * page under the new one. This is that bug, as a test.
+     */
+    const { rerender } = setup(
+      <Listbox options={options} value="a" onSelect={() => undefined} label="Things" />,
+    );
+    expect(screen.getAllByRole('option')).toHaveLength(3);
+    expect(screen.getAllByRole('group')).toHaveLength(3);
+
+    rerender(
+      <Listbox
+        options={[{ value: 'c', label: 'C', group: 'One' }]}
+        value="c"
+        onSelect={() => undefined}
+        label="Things"
+      />,
+    );
+    expect(screen.getAllByRole('option')).toHaveLength(1);
   });
 });

@@ -36,7 +36,17 @@ listed deviation or a note for a later phase.
    these two from the composed-output comparison and asserts the flag is why;
    `packages/catalog/test/narrative.test.ts` covers them instead, including that nothing is
    invented that the brief did not say.
-7. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
+7. **The library schema departs from the section 13 sketch in five places.** No `view_count`,
+   because it is per-share analytics and `CLAUDE.md` says no analytics: that is a genuine conflict
+   between the spec and the rules, resolved in favour of the rules, and worth Alon knowing about.
+   No `result jsonb` on `prompts`, because section 13's own next line says a stored brief can be
+   re-forged and a stored string is dead. `heat` is `score`, the word the product uses. `shares`
+   carries `user_id`, because deriving ownership through the prompt makes two policies depend on
+   each other. And a share is `/p#<brief>` rather than `/p/<slug>`, because a static export has no
+   server to resolve a slug and an anonymous visitor has no row to make, while the same section
+   says anonymous users get everything except cloud sync. An account still mints a short slug.
+   `PHASE-7-NOTES.md` has the reasoning for each.
+8. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
    hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
 
 ## Things in the prototype I think are wrong, left as they are

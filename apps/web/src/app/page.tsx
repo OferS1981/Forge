@@ -17,7 +17,9 @@ import { Brief } from '../components/Brief';
 import { Mark } from '../components/Mark';
 import { ModelHead, ModelRail } from '../components/ModelRail';
 import { Output } from '../components/Output';
-import { useBriefs, useForgeCount, useInvite, useMode, useModelId, usePins } from '../lib/store';
+import { useBriefs, useForgeCount, useInvite, useMode, useModelId } from '../lib/store';
+import { usePinnedModels } from '../lib/library';
+import { Keep } from '../components/Keep';
 import { EXAMPLE_BRIEF } from '../lib/walkthrough';
 import { Walkthrough, WalkthroughRestart } from '../components/Walkthrough';
 
@@ -26,7 +28,7 @@ const FIRST = CATEGORIES[0]?.defaultModel ?? 'midjourney';
 export default function BuildPage(): React.ReactNode {
   const [mode, setMode] = useMode();
   const [modelId, setModelId] = useModelId(FIRST);
-  const [pins, setPins] = usePins();
+  const { pins, toggle: togglePin } = usePinnedModels();
   const [forged, bumpForged] = useForgeCount();
   const [inviteDismissed, dismissInvite] = useInvite();
   const { briefFor, setField, setFields, clear } = useBriefs();
@@ -141,9 +143,7 @@ export default function BuildPage(): React.ReactNode {
           model={model}
           pinned={pins.includes(model.id)}
           onTogglePin={() => {
-            setPins(
-              pins.includes(model.id) ? pins.filter((p) => p !== model.id) : [...pins, model.id],
-            );
+            togglePin(model.id);
           }}
         />
 
@@ -242,7 +242,13 @@ export default function BuildPage(): React.ReactNode {
             </p>
           </div>
         ) : (
-          <Output result={result} model={model} mode={mode} onOpenField={openField} />
+          <Output
+            result={result}
+            model={model}
+            mode={mode}
+            onOpenField={openField}
+            keep={<Keep brief={brief} model={model} mode={mode} result={result} />}
+          />
         )}
       </section>
     </main>

@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@forge/catalog": "workspace:*",
-    "@forge/ui": "workspace:*"
+    "@forge/data": "workspace:*",
+    "@forge/ui": "workspace:*",
+    "@supabase/supabase-js": "^2.112.3"
   },
   "devDependencies": {
     "next": "^16.3.2",

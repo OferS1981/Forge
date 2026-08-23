@@ -8,13 +8,16 @@ import {
   findModel,
   modelById,
   modelLabel,
+  type Brief,
   type FieldId,
 } from '@forge/catalog';
 import { Button, ChipGroup, Dialog, TextField, toast } from '@forge/ui';
 import { Empty, Workspace } from '../../components/Workspace';
-import { useBriefs, useModelId, useRecipes, type Recipe } from '../../lib/store';
+import type { SavedRecipe } from '@forge/data';
+import { useBriefs, useModelId } from '../../lib/store';
+import { useLibrary } from '../../lib/library';
 
-function summarise(recipe: Recipe): string {
+function summarise(recipe: SavedRecipe): string {
   const values = recipe.locked
     .map((id) => recipe.brief[id])
     .map((v) => (Array.isArray(v) ? v.join(', ') : (v ?? '')))
@@ -28,23 +31,26 @@ function summarise(recipe: Recipe): string {
  */
 export default function RecipesPage(): React.ReactNode {
   const [modelId, setModelId] = useModelId('midjourney');
-  const { briefFor, setField } = useBriefs();
-  const { recipes, save, remove } = useRecipes();
+  const { briefFor, setFields } = useBriefs();
+  const { store, state } = useLibrary();
+  const recipes = state.data.recipes;
   const [name, setName] = useState('');
   const [locked, setLocked] = useState<string[]>([]);
-  const [confirming, setConfirming] = useState<Recipe | null>(null);
+  const [confirming, setConfirming] = useState<SavedRecipe | null>(null);
   const router = useRouter();
 
   const model = findModel(modelId) ?? modelById('midjourney');
   const brief = briefFor(model.id);
   const available = filledFields(brief);
 
-  const apply = (recipe: Recipe): void => {
-    setModelId(recipe.model);
+  const apply = (recipe: SavedRecipe): void => {
+    setModelId(recipe.modelId);
+    let patch: Brief = {};
     for (const id of recipe.locked) {
       const value = recipe.brief[id];
-      if (value !== undefined) setField(recipe.model, id, value);
+      if (value !== undefined) patch = { ...patch, [id]: value };
     }
+    setFields(recipe.modelId, patch);
     toast(`Loaded ${recipe.name}. The locked fields are filled in, the rest are yours.`, 'good');
     router.push('/');
   };
@@ -52,7 +58,7 @@ export default function RecipesPage(): React.ReactNode {
   return (
     <Workspace
       title="Recipes"
-      lede="Save a brief as a template with the fields that make the look locked, and the rest left open. Then reuse it as often as you like with a different subject. Recipes live in this browser until Forge has accounts."
+      lede="Save a brief as a template with the fields that make the look locked, and the rest left open. Then reuse it as often as you like with a different subject. Recipes live in your library, which is this browser until you sign in."
       outputLabel="Saved recipes"
       output={
         recipes.length === 0 ? (
@@ -63,13 +69,13 @@ export default function RecipesPage(): React.ReactNode {
         ) : (
           <ul className="recipes">
             {recipes.map((r) => {
-              const recipeModel = findModel(r.model);
+              const recipeModel = findModel(r.modelId);
               return (
                 <li className="recipe" key={r.id}>
                   <div className="recipe__head">
                     <h2 className="recipe__name">{r.name}</h2>
                     <span className="recipe__model fg-mono">
-                      {recipeModel === undefined ? r.model : modelLabel(recipeModel)}
+                      {recipeModel === undefined ? r.modelId : modelLabel(recipeModel)}
                     </span>
                   </div>
                   <p className="recipe__locked">
@@ -140,12 +146,14 @@ export default function RecipesPage(): React.ReactNode {
               size="lg"
               disabled={name.trim().length === 0 || locked.length === 0}
               onClick={() => {
-                save({
-                  name: name.trim(),
-                  model: model.id,
-                  brief,
-                  locked: locked as FieldId[],
-                });
+                void store.run((library) =>
+                  library.saveRecipe({
+                    name: name.trim(),
+                    modelId: model.id,
+                    brief,
+                    locked: locked as FieldId[],
+                  }),
+                );
                 toast(`Saved ${name.trim()}.`, 'good');
                 setName('');
                 setLocked([]);
@@ -166,7 +174,7 @@ export default function RecipesPage(): React.ReactNode {
         description={
           confirming === null
             ? ''
-            : `${confirming.name} goes from this browser. The brief in the Build workspace is not touched.`
+            : `${confirming.name} goes from the library. The brief in the Build workspace is not touched.`
         }
         footer={
           <>
@@ -182,7 +190,8 @@ export default function RecipesPage(): React.ReactNode {
               variant="danger"
               onClick={() => {
                 if (confirming) {
-                  remove(confirming.id);
+                  const id = confirming.id;
+                  void store.run((library) => library.removeRecipe(id));
                   toast(`Deleted ${confirming.name}.`);
                 }
                 setConfirming(null);

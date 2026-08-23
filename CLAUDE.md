@@ -25,6 +25,9 @@ pnpm --filter @forge/ui gallery    the component gallery, which axe and the e2e 
 - `packages/ui` holds the design tokens and every control we draw ourselves. Its `gallery/` folder
   is a development page showing every control, never shipped, and it is what the axe and e2e suites
   run against.
+- `packages/data` is the library: folders, saved prompts, recipes, pins and shares. Zero runtime
+  dependencies, like the catalogue. The SQL in `sql/` is tested against real Postgres in Node, and
+  the vendor client lives at the edge in `apps/web`, behind `RemotePort`.
 - `apps/web` is the website: a Next.js static export that reads the catalogue and draws it with the
   controls from `packages/ui`. It names no model and no field. `apps/extension` comes later. The
   website and the extension are the same product.
@@ -57,7 +60,8 @@ pnpm --filter @forge/ui gallery    the component gallery, which axe and the e2e 
   scrims and the foreground painted on a filled control: add a token rather than a literal.
 - No `any`. No `!` without a comment saying why.
 - Never auto-merge a catalogue change.
-- Never ship a feature that only works when the AI layer is on.
+- Never ship a feature that only works when the AI layer is on, or when an account is signed in.
+  A screen is written against `Library`, never against whether anybody is signed in.
 - Simple mode produces fewer decisions, never a worse prompt.
 
 ## Copy voice

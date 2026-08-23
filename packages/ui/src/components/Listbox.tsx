@@ -1,4 +1,11 @@
-import { useEffect, useRef, type KeyboardEvent, type ReactNode, type RefObject } from 'react';
+import {
+  Fragment,
+  useEffect,
+  useRef,
+  type KeyboardEvent,
+  type ReactNode,
+  type RefObject,
+} from 'react';
 import { cn } from '../lib/cn';
 
 export interface ListOption {
@@ -154,11 +161,17 @@ export function Listbox({
           aria-activedescendant={focusable && active.length > 0 ? optionId(id, active) : undefined}
           onKeyDown={onKeyDown}
         >
-          {group(options).map((g) =>
+          {/*
+           * Keyed by position, not by name. A group is a run of adjacent options, so the same name
+           * can begin a second run, and keying by the name would give React two children with one
+           * key: it renders both and then stops removing either, which leaves the whole previous
+           * list on the page underneath the new one.
+           */}
+          {group(options).map((g, i) =>
             g.name === undefined ? (
-              g.options.map(row)
+              <Fragment key={`run-${String(i)}`}>{g.options.map(row)}</Fragment>
             ) : (
-              <div key={g.name} role="group" aria-label={g.name}>
+              <div key={`run-${String(i)}`} role="group" aria-label={g.name}>
                 <div className="fg-list__group" aria-hidden="true">
                   {g.name}
                 </div>

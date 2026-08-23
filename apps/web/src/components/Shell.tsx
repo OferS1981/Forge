@@ -71,6 +71,12 @@ export const TOOLS = [
     href: '/recipes',
     what: 'Save a brief as a template and reuse it.',
   },
+  {
+    id: 'library',
+    label: 'Library',
+    href: '/library',
+    what: 'Everything you have saved: folders, prompts, pinned models and recipes.',
+  },
 ];
 
 export function Shell({ children }: { children: ReactNode }): ReactNode {
@@ -108,6 +114,13 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
       group: 'Workspaces',
       keywords: w.id,
     })),
+    {
+      value: 'go:/account',
+      label: 'Account',
+      hint: 'Sign in to sync the library, or see where the work is kept.',
+      group: 'Workspaces',
+      keywords: 'sign in sign out sync',
+    },
     ...TERM_LIST.map((t) => ({
       value: `term:${t.id}`,
       label: t.label,
@@ -157,6 +170,9 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
           </a>
           <a className="topbar__link" href="/glossary">
             Glossary
+          </a>
+          <a className="topbar__link" href="/account">
+            Account
           </a>
           <ThemeToggle />
         </div>

@@ -18,8 +18,14 @@ export interface OutputProps {
   mode: Mode;
   /** Off where the workspace has already shown a score, such as the Doctor's before and after. */
   showScore?: boolean | undefined;
-  /** Opens one field from the auto-filled line, which is how Simple mode teaches the craft layer. */
-  onOpenField: (field: FieldId) => void;
+  /**
+   * Opens one field from the auto-filled line, which is how Simple mode teaches the craft layer.
+   * Left out where there is no brief to open, such as a shared prompt: the values are then plain
+   * text rather than controls that look like they do something and do not.
+   */
+  onOpenField?: ((field: FieldId) => void) | undefined;
+  /** Keeping and sharing, where a workspace has a brief behind the result to keep. */
+  keep?: React.ReactNode | undefined;
 }
 
 /** A settings row links to the explanation of the real parameter, per section 9. */
@@ -117,6 +123,7 @@ export function Output({
   mode,
   showScore = true,
   onOpenField,
+  keep,
 }: OutputProps): React.ReactNode {
   const advanced = mode === 'advanced';
   const label = scoreLabel(result.score);
@@ -176,27 +183,33 @@ export function Output({
               </Button>
             </div>
           </Disclosure>
+          {keep}
         </Billet>
       </div>
 
       {result.autoFilled.length > 0 && (
         <Billet title="What Forge chose for you">
           <p className="autofilled__lede">
-            You said what only you know. Forge chose the rest. Open any of them to change it, and
-            the prompt is rebuilt around your choice.
+            {onOpenField === undefined
+              ? 'They said what only they knew. Forge chose the rest, and says why.'
+              : 'You said what only you know. Forge chose the rest. Open any of them to change it, and the prompt is rebuilt around your choice.'}
           </p>
           <ul className="autofilled">
             {result.autoFilled.map((a) => (
               <li key={a.field}>
-                <button
-                  type="button"
-                  className="autofilled__open"
-                  onClick={() => {
-                    onOpenField(a.field);
-                  }}
-                >
-                  {a.value}
-                </button>
+                {onOpenField === undefined ? (
+                  <span className="autofilled__value">{a.value}</span>
+                ) : (
+                  <button
+                    type="button"
+                    className="autofilled__open"
+                    onClick={() => {
+                      onOpenField(a.field);
+                    }}
+                  >
+                    {a.value}
+                  </button>
+                )}
                 <span className="autofilled__why">, because {a.why}.</span>
               </li>
             ))}

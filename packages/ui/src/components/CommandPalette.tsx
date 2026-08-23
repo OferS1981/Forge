@@ -18,6 +18,41 @@ export interface CommandPaletteProps {
   empty?: string | undefined;
 }
 
+/**
+ * What someone typed almost always names the thing they want, so a match in the name comes before
+ * a match in a description. Without this, typing a workspace's exact name can put a model whose
+ * blurb happens to use the word above it, and Enter goes somewhere else entirely.
+ *
+ * Three bands, and the original order holds inside each, so the catalogue's own ordering still
+ * decides between two equally good matches. Groups are then kept together, in the order of their
+ * best match, because the list draws a heading per run and scattering a group would draw its
+ * heading several times.
+ */
+export function rank(commands: Command[], query: string): Command[] {
+  const q = query.toLowerCase().trim();
+  if (q.length === 0) return commands;
+  const banded: { command: Command; band: number; at: number }[] = [];
+  for (const [at, command] of commands.entries()) {
+    const label = command.label.toLowerCase();
+    const rest =
+      `${command.hint ?? ''} ${command.group ?? ''} ${command.keywords ?? ''}`.toLowerCase();
+    const band = label.startsWith(q) ? 0 : label.includes(q) ? 1 : rest.includes(q) ? 2 : 3;
+    if (band < 3) banded.push({ command, band, at });
+  }
+  banded.sort((a, b) => a.band - b.band || a.at - b.at);
+  const groupOrder = new Map<string, number>();
+  for (const b of banded) {
+    const name = b.command.group ?? '';
+    if (!groupOrder.has(name)) groupOrder.set(name, groupOrder.size);
+  }
+  // Sort is stable, so this reorders the groups without disturbing the ranking inside one.
+  banded.sort(
+    (a, b) =>
+      (groupOrder.get(a.command.group ?? '') ?? 0) - (groupOrder.get(b.command.group ?? '') ?? 0),
+  );
+  return banded.map((b) => b.command);
+}
+
 /** True when the event is the palette shortcut, on either platform. */
 export function isPaletteShortcut(e: KeyboardEvent): boolean {
   return (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k';
@@ -44,13 +79,7 @@ function Body({
   useFocusTrap(true, ref);
   useDismiss(true, ref, onClose);
 
-  const filtered = useMemo(() => {
-    const q = query.toLowerCase().trim();
-    if (q.length === 0) return commands;
-    return commands.filter((c) =>
-      `${c.label} ${c.hint ?? ''} ${c.group ?? ''} ${c.keywords ?? ''}`.toLowerCase().includes(q),
-    );
-  }, [commands, query]);
+  const filtered = useMemo(() => rank(commands, query), [commands, query]);
 
   // Derived: filtering moves the list, so the active row follows without an effect to correct it.
   const active = filtered.some((c) => c.value === wanted) ? wanted : (filtered[0]?.value ?? '');
