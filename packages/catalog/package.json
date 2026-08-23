@@ -1,0 +1,21 @@
+{
+  "name": "@forge/catalog",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Model catalogue, brief fields, glossary and the prompt engine. Pure TypeScript, zero runtime dependencies.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "echo 'catalog: nothing to build, consumed as source'",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
