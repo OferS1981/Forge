@@ -1,0 +1,128 @@
+/*
+ * The panel's own layout. Everything visual comes from the token file and the controls in
+ * packages/ui, so there is not a colour here: only the shape of a four hundred pixel column.
+ */
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--f-body);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-3) var(--sp-6);
+  min-width: 0;
+}
+
+.panel__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.panel__name {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.panel__where {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+  max-width: 40ch;
+}
+
+.panel__brief {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+.panel__strike {
+  display: flex;
+}
+
+.panel__out {
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+}
+.panel__score {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+}
+.panel__prompt {
+  margin: 0 0 var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r);
+  background: var(--surface-2);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+  font-size: var(--t-sm);
+}
+.panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+.panel__settings {
+  list-style: none;
+  margin: var(--sp-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-1);
+  font-size: var(--t-xs);
+}
+.panel__settings li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  color: var(--ink-2);
+}
+.panel__warn {
+  margin: var(--sp-3) 0 0;
+  padding-left: var(--sp-4);
+  font-size: var(--t-xs);
+  color: var(--warn-text);
+}
+
+.panel__foot {
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+}
+.panel__link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ember-text);
+  font: inherit;
+  font-size: var(--t-sm);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.panel__fine {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+}
+
+/* The brief's own field wrapper, which the website styles in its own sheet. */
+.brief__field {
+  min-width: 0;
+}
+.brief__note {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+}

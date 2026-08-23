@@ -1,0 +1,27 @@
+{
+  "name": "@forge/extension-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The Forge browser extension. MV3 for Chrome, Edge and Firefox: a side panel, a content script and a service worker, all thin.",
+  "type": "module",
+  "scripts": {
+    "build": "vite build --config vite.config.ts && vite build --config vite.content.config.ts && node scripts/write-manifest.mjs",
+    "serve": "node ../../scripts/serve-static.mjs dist 4323",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@forge/catalog": "workspace:*",
+    "@forge/data": "workspace:*",
+    "@forge/extension": "workspace:*",
+    "@forge/ui": "workspace:*",
+    "@forge/workbench": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11"
+  }
+}

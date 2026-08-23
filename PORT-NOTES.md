@@ -46,7 +46,12 @@ listed deviation or a note for a later phase.
    server to resolve a slug and an anonymous visitor has no row to make, while the same section
    says anonymous users get everything except cloud sync. An account still mints a short slug.
    `PHASE-7-NOTES.md` has the reasoning for each.
-8. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
+8. **The extension does not use `@crxjs/vite-plugin`.** Section 14 names it. Its job is manifest
+   rewriting and hot reload; Forge's manifest is generated from the catalogue by a unit-tested
+   function, which is stronger than rewriting one by hand, and two small Vite configs plus one
+   script replace a long-running beta dependency in the build path. Everything else in section 14
+   is as written.
+9. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
    hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
 
 ## Things in the prototype I think are wrong, left as they are

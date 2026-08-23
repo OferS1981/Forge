@@ -518,3 +518,99 @@ machine against today's catalogue.
 
 The extension (phase 8), the AI layer (phase 9), realtime, avatars, file storage. No billing table,
 no plan column, no Stripe, per section 2 and `CLAUDE.md`.
+
+---
+
+# Phase 8: The extension
+
+**Done when:** the extension builds, loads unpacked, opens the right anvil for the site you are on,
+and pastes into Midjourney, ElevenLabs and Suno with a clipboard fallback everywhere else. Plus the
+standing bar: axe clean, `pnpm verify` at 0.
+
+Section 14 says the extension consumes `packages/catalog` and `packages/ui` directly, which is the
+whole reason for the monorepo. It is also the least testable thing in the product: a browser
+extension needs a browser, and the paste adapters depend on other people's markup, which changes.
+
+So the split is the same one phase 7 used. **`packages/extension`** holds everything that can be
+tested in Node: the manifest, built from `HOSTS` so it can never drift from the catalogue, and the
+per-site paste adapters, written as pure functions over a `Document` and tested in jsdom against
+fabricated markup. **`apps/extension`** is the wiring: a service worker, a content script and the
+side panel, all thin.
+
+The side panel is an ordinary web page that happens to run inside a side panel. Every browser API
+it needs goes through one small bridge that falls back when `chrome` is not there, so the panel can
+be served and driven by Playwright like any other page, which is how it gets a real end-to-end test
+rather than a mocked one.
+
+## Adapters
+
+Three to start, as section 14 says. Each one is `find` and `write`, and each degrades quietly:
+
+- **Midjourney**, **ElevenLabs** and **Suno**, matched by host through the catalogue's own map.
+- Everything else falls back to the clipboard, which is not a failure and does not say it is.
+- An adapter that cannot find its field says so in one line and offers the clipboard.
+
+Writing into a React-controlled field needs the native value setter and an `input` event, or React
+overwrites it on the next render. That is the part that actually breaks, so it is the part with the
+most tests.
+
+## Out of scope
+
+Publishing to a store, which is a registration fee and a decision, not code. Firefox packaging
+beyond the manifest being valid for it.
+
+---
+
+# Phase 9: The AI layer
+
+**Done when:** every test still passes with the assistant forced to null, which is section 19's
+own bar, and the key never leaves the device.
+
+`packages/ai`, exporting section 12's interface and three implementations.
+
+- **`NullAssistant`** is the default, `available: false`, every method rejects with a typed
+  `AssistantUnavailable`. The whole app works on it, and every control that could use the assistant
+  renders a sensible state rather than an error. This is the state the entire existing test suite
+  runs in, and it stays that way.
+- **`BrowserKeyAssistant`** uses a key the person pastes. It is kept in `localStorage` on their
+  machine, never sent to our server, never logged, never put in a URL. The request goes from their
+  browser straight to the vendor.
+- **`ServerAssistant`** is a stub behind the same interface, so funding one later is a swap.
+
+The rules from section 12 are the tests: a panel that says where the key is kept with a one-click
+delete, client-side rate limiting so a mistyped loop cannot burn someone's credit, and every piece
+of AI output labelled as AI-assisted.
+
+Where it shows up: describing a dropped image in Reverse, and a second opinion in the Doctor. Both
+are additions to a screen that already works without them, never replacements.
+
+`packages/ai` takes an injected `fetch`, so the request shape, the headers, the rate limiter and
+the error handling are all tested in Node without a key and without a network.
+
+---
+
+# Phase 10: The refresh pipeline
+
+**Done when:** a manual run produces a per-category report with a citation for every claim, and the
+workflow that opens the pull request is in the repository and valid.
+
+Section 18 is what decides whether Forge is alive in a year. The catalogue carries `sources` and
+`verifiedOn` on all fifty-seven models, and the staleness test turns the build red 120 days after
+that date. What is missing is the thing that clears it.
+
+`scripts/catalog-refresh.mjs` and `.github/workflows/catalog-refresh.yml`, monthly and manually
+triggerable, one run per category.
+
+The script has two halves, and only one of them needs a model:
+
+- **The report is deterministic.** For a category it reads every model file and emits, per model,
+  every claim the file makes that a vendor page could contradict, with the `sources` URL that
+  should settle it. That runs anywhere, needs no key, and is unit tested.
+- **The agent fills it in.** With a key configured, the workflow runs an agent over that report,
+  fetches each source, and proposes a diff with a citation per change and a bumped `verifiedOn`.
+
+A human merges. Never auto-merge a catalogue change: the workflow has no write permission on
+`main`, it opens a pull request, and the pull request template says what to check.
+
+Without a key the workflow still runs and publishes the report as the job summary, so a manual run
+is useful on its own rather than being a no-op that hides a missing secret.

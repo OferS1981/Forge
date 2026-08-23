@@ -1,5 +1,3 @@
-'use client';
-
 import {
   FIELDS,
   type Brief as BriefData,
@@ -17,7 +15,7 @@ import {
   TextArea,
   TextField,
 } from '@forge/ui';
-import { explanationFor } from '../lib/explain';
+import { explanationFor } from './explain';
 
 export interface BriefProps {
   model: Model;

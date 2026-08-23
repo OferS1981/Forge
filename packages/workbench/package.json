@@ -1,0 +1,28 @@
+{
+  "name": "@forge/workbench",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The product components the website and the extension both draw: the generated brief, and the join between the glossary and the popover.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "echo 'workbench: source is consumed directly by apps, nothing to build'",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@forge/catalog": "workspace:*",
+    "@forge/ui": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

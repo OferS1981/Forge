@@ -74,7 +74,12 @@ export default tseslint.config(
     ...tseslint.configs.disableTypeChecked,
     languageOptions: {
       ...tseslint.configs.disableTypeChecked.languageOptions,
-      globals: { process: 'readonly', URL: 'readonly', console: 'readonly' },
+      globals: {
+        process: 'readonly',
+        URL: 'readonly',
+        console: 'readonly',
+        Buffer: 'readonly',
+      },
     },
   },
   prettier,

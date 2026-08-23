@@ -13,7 +13,7 @@ import {
   type ForgeResult,
 } from '@forge/catalog';
 import { Button, Segmented, toast } from '@forge/ui';
-import { Brief } from '../components/Brief';
+import { Brief } from '@forge/workbench';
 import { Mark } from '../components/Mark';
 import { ModelHead, ModelRail } from '../components/ModelRail';
 import { Output } from '../components/Output';

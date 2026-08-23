@@ -1,0 +1,25 @@
+{
+  "name": "@forge/extension",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The extension's testable core: the manifest, built from the catalogue, and the per-site paste adapters. No browser APIs, no build step.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./adapters": "./src/adapters.ts"
+  },
+  "scripts": {
+    "build": "echo 'extension core: nothing to build, consumed as source'",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@forge/catalog": "workspace:*"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

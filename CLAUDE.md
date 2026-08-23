@@ -28,9 +28,15 @@ pnpm --filter @forge/ui gallery    the component gallery, which axe and the e2e 
 - `packages/data` is the library: folders, saved prompts, recipes, pins and shares. Zero runtime
   dependencies, like the catalogue. The SQL in `sql/` is tested against real Postgres in Node, and
   the vendor client lives at the edge in `apps/web`, behind `RemotePort`.
+- `packages/workbench` holds the product components the website and the extension both draw, which
+  today is the generated brief. A component that belongs to one surface stays in that surface.
+- `packages/extension` is the extension's testable core: the manifest, generated from the
+  catalogue's host map, and the per-site paste adapters as pure functions over a `Document`.
 - `apps/web` is the website: a Next.js static export that reads the catalogue and draws it with the
-  controls from `packages/ui`. It names no model and no field. `apps/extension` comes later. The
-  website and the extension are the same product.
+  controls from `packages/ui`. It names no model and no field.
+- `apps/extension` is the browser extension: a service worker, a content script and a side panel,
+  all thin. The panel is an ordinary page and stays one, so it can be tested like one. The website
+  and the extension are the same product.
 
 ## Names
 
