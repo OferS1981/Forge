@@ -27,7 +27,7 @@
   --edge: #848377;
   --ember: #c0430a;
   --ember-text: #953405;
-  --strike-a: #d4611c;
+  --strike-a: #ae4a0c;
   --strike-b: #b03c08;
   --ember-soft: #e2782f;
   --cherry: #a32213;
@@ -56,6 +56,9 @@
   --warn-text: #845a08;
   --good-text: #256a41;
   --crit-text: #922c1b;
+  --warn-on-raised: #6f4b06;
+  --good-on-raised: #1f5c38;
+  --crit-on-raised: #7d2517;
 
   --f-display:
     'Big Shoulders Display', 'Arial Narrow', 'Helvetica Neue Condensed Bold', Impact,
@@ -99,6 +102,9 @@
     --warn-text: #d9a227;
     --good-text: #57b076;
     --crit-text: #e0523a;
+    --warn-on-raised: #e3b04a;
+    --good-on-raised: #6bbf87;
+    --crit-on-raised: #ee7a64;
   }
 }
 :root[data-theme='dark'] {
@@ -132,6 +138,9 @@
   --warn-text: #d9a227;
   --good-text: #57b076;
   --crit-text: #e0523a;
+  --warn-on-raised: #e3b04a;
+  --good-on-raised: #6bbf87;
+  --crit-on-raised: #ee7a64;
 }
 
 /* Category colours, moved here from the prototype's CATS array. packages/catalog stores the token
@@ -187,7 +196,7 @@
   --edge: #848377;
   --ember: #c0430a;
   --ember-text: #953405;
-  --strike-a: #d4611c;
+  --strike-a: #ae4a0c;
   --strike-b: #b03c08;
   --ember-soft: #e2782f;
   --cherry: #a32213;
@@ -209,4 +218,7 @@
   --warn-text: #845a08;
   --good-text: #256a41;
   --crit-text: #922c1b;
+  --warn-on-raised: #6f4b06;
+  --good-on-raised: #1f5c38;
+  --crit-on-raised: #7d2517;
 }

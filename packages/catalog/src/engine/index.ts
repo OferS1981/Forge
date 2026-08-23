@@ -1,4 +1,7 @@
-export { applyAutoFill, forge } from './forge';
+export { diffPrompts } from './diff';
+export type { DiffKind, DiffPart, PromptDiff } from './diff';
+export { applyAutoFill, filledFields, forge, isBriefEmpty } from './forge';
+export { analysePixels, briefFromStats, measurementRows, nearestRatio } from './image';
 export { diagnose, LEX, rebuild } from './doctor';
 export { match, MATCH_KEYWORDS, PRIORITIES, seedBrief } from './match';
 export { recommend, translate } from './recommend';

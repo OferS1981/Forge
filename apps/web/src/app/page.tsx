@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   CATEGORIES,
@@ -31,6 +32,7 @@ export default function BuildPage(): React.ReactNode {
   const [strikes, setStrikes] = useState(0);
   const [focusField, setFocusField] = useState<FieldId | undefined>(undefined);
   const outputRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const model = useMemo(() => findModel(modelId) ?? modelById(FIRST), [modelId]);
   const brief = briefFor(model.id);
@@ -141,7 +143,7 @@ export default function BuildPage(): React.ReactNode {
               setField(model.id, field, value);
             }}
             onExplain={(term) => {
-              window.location.href = `/glossary#${term.replace(/\./g, '-')}`;
+              router.push(`/glossary#${term.replace(/\./g, '-')}`);
             }}
           />
         </div>

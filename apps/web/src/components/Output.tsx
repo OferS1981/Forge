@@ -15,6 +15,8 @@ export interface OutputProps {
   result: ForgeResult;
   model: Model;
   mode: Mode;
+  /** Off where the workspace has already shown a score, such as the Doctor's before and after. */
+  showScore?: boolean | undefined;
   /** Opens one field from the auto-filled line, which is how Simple mode teaches the craft layer. */
   onOpenField: (field: FieldId) => void;
 }
@@ -108,14 +110,20 @@ function Billet({
   );
 }
 
-export function Output({ result, model, mode, onOpenField }: OutputProps): React.ReactNode {
+export function Output({
+  result,
+  model,
+  mode,
+  showScore = true,
+  onOpenField,
+}: OutputProps): React.ReactNode {
   const advanced = mode === 'advanced';
   const label = scoreLabel(result.score);
   const settings = advanced ? result.settings : result.settings.filter((r) => r.tier === 'simple');
 
   return (
     <div className="output">
-      <ScoreMeter score={result.score} />
+      {showScore && <ScoreMeter score={result.score} />}
 
       <Billet
         title="The prompt"

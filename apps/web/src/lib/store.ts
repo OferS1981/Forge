@@ -3,6 +3,16 @@
 import { useCallback, useSyncExternalStore } from 'react';
 import type { Brief, FieldId, Mode, ModelId } from '@forge/catalog';
 
+/** A brief saved as a template: some fields locked to the look, the rest open each time. */
+export interface Recipe {
+  id: string;
+  name: string;
+  model: string;
+  brief: Brief;
+  /** The fields the recipe fixes. Everything else is asked for again. */
+  locked: FieldId[];
+}
+
 /**
  * Everything the app remembers between visits, in one place. It is a small typed wrapper over
  * localStorage: no state library, per section 3, and no analytics of any kind.
@@ -75,6 +85,18 @@ const isStringList = (v: unknown): v is string[] => Array.isArray(v) && v.every(
 const isBriefMap = (v: unknown): v is Record<string, Brief> =>
   typeof v === 'object' && v !== null && !Array.isArray(v);
 const isCount = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
+const isRecipe = (v: unknown): v is Recipe => {
+  if (typeof v !== 'object' || v === null) return false;
+  const r = v as Partial<Recipe>;
+  return (
+    typeof r.id === 'string' &&
+    typeof r.name === 'string' &&
+    typeof r.model === 'string' &&
+    typeof r.brief === 'object' &&
+    Array.isArray(r.locked)
+  );
+};
+const isRecipeList = (v: unknown): v is Recipe[] => Array.isArray(v) && v.every(isRecipe);
 
 function usePersisted<T>(
   key: string,
@@ -108,6 +130,7 @@ export function usePins(): [string[], (next: string[]) => void] {
 }
 
 const EMPTY_PINS: string[] = [];
+const EMPTY_RECIPES: Recipe[] = [];
 const EMPTY_BRIEFS: Record<string, Brief> = {};
 const EMPTY_BRIEF: Brief = {};
 
@@ -150,4 +173,37 @@ export function useBriefs(): {
   );
 
   return { briefFor, setField, clear };
+}
+
+/**
+ * Recipes: a brief kept as a reusable template. Stored in the browser until phase 7 gives them an
+ * account to live in.
+ */
+export function useRecipes(): {
+  recipes: Recipe[];
+  save: (recipe: Omit<Recipe, 'id'>) => void;
+  remove: (id: string) => void;
+} {
+  const [recipes, setRecipes] = usePersisted<Recipe[]>('recipes', EMPTY_RECIPES, isRecipeList);
+
+  const save = useCallback(
+    (recipe: Omit<Recipe, 'id'>) => {
+      // The name is the identity, so saving twice under one name replaces rather than duplicates.
+      const id = recipe.name
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-');
+      setRecipes([...recipes.filter((r) => r.id !== id), { ...recipe, id }]);
+    },
+    [recipes, setRecipes],
+  );
+
+  const remove = useCallback(
+    (id: string) => {
+      setRecipes(recipes.filter((r) => r.id !== id));
+    },
+    [recipes, setRecipes],
+  );
+
+  return { recipes, save, remove };
 }

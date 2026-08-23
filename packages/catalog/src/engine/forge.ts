@@ -1,7 +1,7 @@
 import { COMPOSERS } from '../compose';
 import { has, stripBanned } from '../compose/text';
 import { FIELDS } from '../fields';
-import type { AutoFilled, Brief, ForgeResult, Mode, Model } from '../types';
+import type { AutoFilled, Brief, FieldId, ForgeResult, Mode, Model } from '../types';
 import { score } from './score';
 import { variations } from './variations';
 
@@ -30,6 +30,21 @@ export function applyAutoFill(
     });
   }
   return { brief, autoFilled };
+}
+
+/**
+ * True when nothing has been filled in. Every workspace that works from a saved brief needs this,
+ * and each writing its own version is how they drift apart.
+ */
+export function isBriefEmpty(brief: Brief): boolean {
+  return Object.values(brief).every((v) => !has(v));
+}
+
+/** The fields a brief actually carries a value for. */
+export function filledFields(brief: Brief): FieldId[] {
+  return Object.entries(brief)
+    .filter(([, v]) => has(v))
+    .map(([k]) => k as FieldId);
 }
 
 const STRIPPED_WARNING =

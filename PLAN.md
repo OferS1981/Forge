@@ -313,3 +313,57 @@ Then `ALLOW_STUBS` flips to `false` and the build fails the day someone adds a c
 
 The other three workspaces, cross-forge, batch, recipes, compare, the tutorial, accounts, the
 extension, the AI layer and the refresh workflow.
+
+---
+
+# Phase 5: The other workspaces
+
+**Done when:** every workspace has an e2e test, axe is clean on every route in both themes, and
+`pnpm verify` exits 0.
+
+Phase 3 built the Build workspace and phase 4 the explain layer. The engine for everything below
+already exists and is tested: `diagnose`, `rebuild`, `match`, `seedBrief`, `translate` and
+`recommend` all landed in phase 1. This phase is mostly screens over functions that already work.
+
+## What is missing from the engine, and goes in first
+
+Three pure additions to `packages/catalog`, each with tests, because they are product logic rather
+than page logic:
+
+- `analysePixels()` and `nearestRatio()`. The prototype measures an image on a canvas. The canvas
+  belongs to the browser, but the arithmetic does not, so the app hands over raw pixels and the
+  catalogue turns them into an `ImageStats`. That keeps the measurement testable without a browser.
+- `briefFromStats()`. The mapping from measurements to a brief: exposure key to a lighting choice,
+  edge density to a shot size, warm and cool balance to a grade. Ported from the prototype's
+  `runReverse`.
+- `diffPrompts()`. Word-level difference between two prompts, for Compare.
+
+## The routes
+
+Each is a thin consumer of the engine, sharing one bench layout with the Build workspace.
+
+| Route          | What it does                                                                                                                                                                                   |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/doctor`      | Paste a prompt that under-performed. Eight axes, what is doing no work, the re-smithed version, and the score before and after. Every finding links into the glossary.                         |
+| `/reverse`     | Drop an image or a text file. Report honestly what a browser can measure, say plainly that it cannot see what the picture is _of_, ask for that, and build the prompt around the measurements. |
+| `/match`       | Describe the job. When it needs more than one kind of model, split the answer by job with a first choice and an alternative for each.                                                          |
+| `/cross-forge` | The same brief in two models' grammars, side by side, with what was lost and why.                                                                                                              |
+| `/batch`       | One brief, several models, results in a row.                                                                                                                                                   |
+| `/compare`     | Two prompts, with what actually changed marked, so an edit can be traced to its effect.                                                                                                        |
+| `/recipes`     | Save a brief as a template with some fields locked and others open, then reuse it. Stored locally now; phase 7 moves it to an account.                                                         |
+
+`recommend()` was already wired into the Build workspace in phase 3. The command palette gains the
+workspaces and any saved recipes alongside the models and glossary terms it already searches.
+
+## Honesty rules this phase has to hold
+
+- Reverse Forge measures geometry, exposure, contrast, chroma, warm and cool balance, edge density
+  and a quantised palette. It says in the interface that it cannot see the subject, rather than
+  guessing one. That line goes when the AI layer arrives in phase 9, not before.
+- The Doctor rebuilds a prompt from a lexicon, not from a model call. Its findings say what is
+  missing, never that the prompt is bad.
+
+## Out of scope
+
+The tutorial and Learn (phase 6), accounts and sharing (phase 7), the extension (phase 8), the AI
+layer (phase 9). Recipes are stored in the browser only until phase 7.

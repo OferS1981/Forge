@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CATALOG_VERSION } from '../src';
+import { CATALOG_VERSION, filledFields, isBriefEmpty } from '../src';
 import { CATEGORIES, JOB_NAMES, categoryById } from '../src/categories';
 import { fieldById, optionsFrom } from '../src/fields';
 import { SCORE_LABELS, scoreLabel } from '../src/score-labels';
@@ -116,5 +116,24 @@ describe('untrusted ids', () => {
     expect(findModel('veo')?.name).toBe('Veo');
     expect(findModel('nonsense')).toBeUndefined();
     expect(findModel('constructor')).toBeUndefined();
+  });
+});
+
+describe('brief emptiness', () => {
+  it('knows an empty brief from a filled one', () => {
+    expect(isBriefEmpty({})).toBe(true);
+    expect(isBriefEmpty({ subject: '' })).toBe(true);
+    expect(isBriefEmpty({ subject: '   ' })).toBe(true);
+    expect(isBriefEmpty({ light: [] })).toBe(true);
+    expect(isBriefEmpty({ subject: 'A boxer' })).toBe(false);
+    expect(isBriefEmpty({ light: ['golden hour'] })).toBe(false);
+  });
+
+  it('lists only the fields that carry a value', () => {
+    expect(filledFields({ subject: 'A boxer', setting: '', light: ['golden hour'] })).toEqual([
+      'subject',
+      'light',
+    ]);
+    expect(filledFields({})).toEqual([]);
   });
 });

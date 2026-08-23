@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, type ReactNode } from 'react';
 import { MODELS, TERM_LIST } from '@forge/catalog';
 import {
@@ -22,15 +23,60 @@ function termAnchor(id: string): string {
   return id.replace(/\./g, '-');
 }
 
-const WORKSPACES = [
-  { id: 'build', label: 'Build', href: '/', ready: true },
-  { id: 'doctor', label: 'Doctor', href: '/', ready: false },
-  { id: 'reverse', label: 'Reverse', href: '/', ready: false },
-  { id: 'match', label: 'Match', href: '/', ready: false },
+export const WORKSPACES = [
+  { id: 'build', label: 'Build', href: '/', what: 'Write a prompt for a model you have chosen.' },
+  {
+    id: 'doctor',
+    label: 'Doctor',
+    href: '/doctor',
+    what: 'Paste a prompt that under-performed and see what is doing no work.',
+  },
+  {
+    id: 'reverse',
+    label: 'Reverse',
+    href: '/reverse',
+    what: 'Drop a reference and get the prompt that would produce it.',
+  },
+  {
+    id: 'match',
+    label: 'Match',
+    href: '/match',
+    what: 'Describe the job and find the models that are good at it.',
+  },
+];
+
+/** The workspaces that are not tabs: reachable from the palette and from each other. */
+export const TOOLS = [
+  {
+    id: 'cross-forge',
+    label: 'Cross-forge',
+    href: '/cross-forge',
+    what: 'The same brief in two models, side by side, with what was lost.',
+  },
+  {
+    id: 'batch',
+    label: 'Batch',
+    href: '/batch',
+    what: 'One brief, several models, results in a row.',
+  },
+  {
+    id: 'compare',
+    label: 'Compare',
+    href: '/compare',
+    what: 'Two prompts, with what actually changed marked.',
+  },
+  {
+    id: 'recipes',
+    label: 'Recipes',
+    href: '/recipes',
+    what: 'Save a brief as a template and reuse it.',
+  },
 ];
 
 export function Shell({ children }: { children: ReactNode }): ReactNode {
   const [palette, setPalette] = useState(false);
+  const path = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent): void => {
@@ -55,6 +101,13 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
       group: 'Models',
       keywords: `${m.maker ?? ''} ${m.tags.join(' ')} ${m.grammar}`,
     })),
+    ...[...WORKSPACES, ...TOOLS].map((w) => ({
+      value: `go:${w.href}`,
+      label: w.label,
+      hint: w.what,
+      group: 'Workspaces',
+      keywords: w.id,
+    })),
     ...TERM_LIST.map((t) => ({
       value: `term:${t.id}`,
       label: t.label,
@@ -71,8 +124,12 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
       );
       return;
     }
+    if (value.startsWith('go:')) {
+      router.push(value.slice('go:'.length));
+      return;
+    }
     if (value.startsWith('term:'))
-      window.location.href = `/glossary#${termAnchor(value.slice('term:'.length))}`;
+      router.push(`/glossary#${termAnchor(value.slice('term:'.length))}`);
   };
 
   return (
@@ -88,12 +145,9 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
                 key={w.id}
                 className="tab"
                 href={w.href}
-                aria-current={w.ready ? 'page' : undefined}
-                aria-disabled={w.ready ? undefined : true}
-                data-ready={w.ready ? '1' : '0'}
+                aria-current={w.href === path ? 'page' : undefined}
               >
                 {w.label}
-                {!w.ready && <span className="tab__soon">soon</span>}
               </a>
             ))}
           </nav>
@@ -103,6 +157,18 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
           </a>
           <ThemeToggle />
         </div>
+        <nav className="tools" aria-label="Tools">
+          {TOOLS.map((t) => (
+            <a
+              key={t.id}
+              className="tools__link"
+              href={t.href}
+              aria-current={t.href === path ? 'page' : undefined}
+            >
+              {t.label}
+            </a>
+          ))}
+        </nav>
         {children}
       </div>
       <CommandPalette
