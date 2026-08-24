@@ -117,6 +117,7 @@ create trigger prompts_folder_is_own_trigger
 
 create or replace function public.touch_updated_at() returns trigger
   language plpgsql
+  set search_path = public
 as $$
 begin
   new.updated_at = now();
@@ -260,3 +261,46 @@ revoke all on function public.share_by_slug(text) from public;
 grant execute on function public.share_by_slug(text) to anon, authenticated;
 
 grant usage on schema public to anon, authenticated;
+
+-- ---------------------------------------------------------------------------------------------
+-- What may be called over the API
+-- ---------------------------------------------------------------------------------------------
+--
+-- PostgREST exposes every function in `public` as an endpoint under /rest/v1/rpc/. The three
+-- trigger functions above exist only to fire on a write and have no business being callable, so
+-- their execute rights are taken away by name. `share_by_slug` keeps its grant: that one is the
+-- single thing an anonymous reader is meant to be able to call, and `rls.test.ts` asserts that the
+-- list is exactly these three revoked and that one granted.
+--
+-- This is here because Supabase's own linter found it and the policy tests could not: PGlite has no
+-- REST layer, so nothing in Node can see which functions the API would publish.
+
+revoke execute on function public.prompts_folder_is_own() from public, anon, authenticated;
+revoke execute on function public.shares_prompt_is_own() from public, anon, authenticated;
+revoke execute on function public.touch_updated_at() from public, anon, authenticated;
+
+-- ---------------------------------------------------------------------------------------------
+-- What an anonymous visitor may reach
+-- ---------------------------------------------------------------------------------------------
+--
+-- Supabase grants every new table in `public` to `anon` by default, so without these lines an
+-- anonymous request reaches the table and is turned back by row level security alone: it comes back
+-- as an empty list rather than a refusal. That is the correct outcome from one layer of defence,
+-- and these tables want two.
+--
+-- An anonymous visitor has exactly one thing to do, which is exchange a share slug for the brief
+-- behind it, and `share_by_slug` is security definer, so it needs no table rights of its own.
+--
+-- Found by probing the deployed API, not by the tests: PGlite has no default privileges to grant,
+-- so the test database was stricter than production. The test below now asserts the state these
+-- lines create, which makes it true of both.
+
+revoke all on public.profiles from anon;
+revoke all on public.folders from anon;
+revoke all on public.prompts from anon;
+revoke all on public.recipes from anon;
+revoke all on public.pins from anon;
+revoke all on public.shares from anon;
+
+-- And for anything added later, so a new table does not quietly arrive readable.
+alter default privileges in schema public revoke all on tables from anon;

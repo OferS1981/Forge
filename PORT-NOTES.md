@@ -56,7 +56,31 @@ listed deviation or a note for a later phase.
    answer with a field or a value the catalogue does not know, and a described brief becomes a
    second, unverified catalogue. The parser needs the model to refuse those. `PHASE-9-NOTES.md`
    has the rest.
-10. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
+10. **Four defects in the prototype's composers, fixed rather than ported.** These are not wording
+    disagreements, which is why they are fixed here rather than only listed below. Each is scoped in
+    `parity.test.ts` so nothing else could drift under cover of them, and each has a test in
+    `packages/catalog/test/shape.test.ts`.
+
+    a. **`stripBanned` flattened every prompt.** It collapsed `\s{2,}` to a single space, and a
+    newline is whitespace, so the blank line between two sections became a space and the next
+    heading ran onto the end of the previous sentence: `...filling the gap. ## Context`, and
+    `Add rate limiting to the public API CONTEXT`. It reached **22 of the 57 models** and only
+    `flat`, which is the one thing anybody pastes: the blocks underneath were always correct, which
+    is why it survived. Tidying is now done a line at a time, so indentation and blank lines live.
+
+    b. **The shot-list grammar dropped the subject.** It used `subject` only as a fallback for a
+    missing `action`, so a brief with both described the room, the light and the grade and never
+    said who was in the shot. Kling and LTX-2.
+
+    c. **`splitBeats` discarded beats past the shot count.** "he wraps one hand, then looks up at
+    the camera" in a one-shot brief became "he wraps one hand" and the rest was lost. The last shot
+    now takes everything still unspoken.
+
+    d. **The JSON grammar named two different media.** Ideogram's `style_description` defaulted to
+    `photograph` while its `art_style.medium` defaulted to `illustration`, so one object carried two
+    contradictory instructions, and it sent `palette` as an empty string. The medium is decided once
+    now, and an empty key is left out.
+11. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
     hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
 
 ## Things in the prototype I think are wrong, left as they are

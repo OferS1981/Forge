@@ -21,7 +21,7 @@
       "body": "Format: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer."
     }
   ],
-  "flat": "<!-- system prompt -->\nYou are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap. <context>\nI will paste the current page copy below. Our buyer is a 20-person agency\n</context> <example>\nClaim: \"cuts admin by half\". Not credible: no baseline, no sample, no source\n</example> <instructions>\nReview this pricing page copy and tell me which claims a sceptical CFO would not believe\n</instructions> <output_format>\nFormat: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer.\n</output_format>",
+  "flat": "<!-- system prompt -->\nYou are a sceptical reviewer. Never invent a statistic. Quote the source line before each claim. Answer from the material provided. If something is not in it, say so rather than filling the gap.\n\n<context>\nI will paste the current page copy below. Our buyer is a 20-person agency\n</context>\n\n<example>\nClaim: \"cuts admin by half\". Not credible: no baseline, no sample, no source\n</example>\n\n<instructions>\nReview this pricing page copy and tell me which claims a sceptical CFO would not believe\n</instructions>\n\n<output_format>\nFormat: Markdown with headings. Length: Under 400 words. No preamble and no summary of the request: start with the answer.\n</output_format>",
   "negative": "marketing tone",
   "settings": [
     {

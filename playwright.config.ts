@@ -35,6 +35,17 @@ export default defineConfig({
       url: WEB,
       reuseExistingServer: false,
       timeout: 180_000,
+      /*
+       * Built with no account service on purpose, whatever is in the developer's `.env.local`.
+       * These suites are written for the state phase 7 is judged by, which is that a signed-out
+       * visitor has the whole product, and a suite that passes in CI and fails on the machine of
+       * whoever configured a project is worse than no suite. An explicit empty value wins over the
+       * dotfile, so this is the one place that decides it.
+       *
+       * The configured path is exercised against the real project by hand, and its policies are
+       * covered by packages/data/test/rls.test.ts.
+       */
+      env: { NEXT_PUBLIC_SUPABASE_URL: '', NEXT_PUBLIC_SUPABASE_ANON_KEY: '' },
     },
     {
       command:

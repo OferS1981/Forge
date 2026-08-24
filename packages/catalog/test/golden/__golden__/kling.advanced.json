@@ -2,22 +2,22 @@
   "blocks": [
     {
       "label": "Shot 1",
-      "body": "Medium shot, slow dolly in. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. practical lamps only. crushed blacks, high contrast grade. 3 seconds."
+      "body": "Medium shot, slow dolly in. A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Practical lamps only. Crushed blacks, high contrast grade. 3 seconds."
     },
     {
       "label": "Shot 2",
-      "body": "Medium shot, arc around subject. looks up at the camera. 3 seconds."
+      "body": "Medium shot, arc around subject. Looks up at the camera. 3 seconds."
     },
     {
       "label": "Shot 3",
-      "body": "Medium shot, handheld follow. looks up at the camera. 3 seconds."
+      "body": "Medium shot, handheld follow. Looks up at the camera. 3 seconds."
     },
     {
       "label": "Audio",
       "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
     }
   ],
-  "flat": "Shot 1: Medium shot, slow dolly in. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. practical lamps only. crushed blacks, high contrast grade. 3 seconds.\nShot 2: Medium shot, arc around subject. looks up at the camera. 3 seconds.\nShot 3: Medium shot, handheld follow. looks up at the camera. 3 seconds.\nAudio: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic.",
+  "flat": "Shot 1: Medium shot, slow dolly in. A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Practical lamps only. Crushed blacks, high contrast grade. 3 seconds.\nShot 2: Medium shot, arc around subject. Looks up at the camera. 3 seconds.\nShot 3: Medium shot, handheld follow. Looks up at the camera. 3 seconds.\nAudio: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic.",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -88,9 +88,9 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 88,
+  "score": 89,
   "axes": {
-    "specificity": 94,
+    "specificity": 100,
     "technical": 100,
     "structure": 60,
     "constraints": 85,

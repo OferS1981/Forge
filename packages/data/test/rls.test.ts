@@ -56,12 +56,84 @@ describe('every table is protected', () => {
     }
   });
 
+  /*
+   * PostgREST publishes every function in `public` as an endpoint, which is a surface these tests
+   * cannot see: PGlite has no REST layer. What they can see is the grant behind it, which is what
+   * decides whether the endpoint answers. Supabase's own linter found this on the live project and
+   * this is the test that stops it returning.
+   */
+  it('publishes exactly one function, and it is the one an anonymous reader is meant to call', async () => {
+    const callable = await db.admin<{ proname: string; who: string }>(
+      `select p.proname, r.rolname as who
+       from pg_proc p
+       join pg_namespace n on n.oid = p.pronamespace
+       cross join (select unnest(array['anon', 'authenticated']) as rolname) r
+       where n.nspname = 'public'
+         and has_function_privilege(r.rolname, p.oid, 'execute')
+       order by p.proname, r.rolname`,
+    );
+    expect(callable.map((row) => `${row.proname}:${row.who}`)).toEqual([
+      'share_by_slug:anon',
+      'share_by_slug:authenticated',
+    ]);
+  });
+
+  it('pins the search path on every function, so none can be aimed at another schema', async () => {
+    const loose = await db.admin<{ proname: string }>(
+      `select proname from pg_proc p
+       join pg_namespace n on n.oid = p.pronamespace
+       where n.nspname = 'public'
+         and not exists (
+           select 1 from unnest(coalesce(p.proconfig, '{}')) c where c like 'search_path=%'
+         )`,
+    );
+    expect(loose.map((row) => row.proname)).toEqual([]);
+  });
+
+  /*
+   * Two layers, not one. Row level security already returns no rows to an anonymous reader, but a
+   * table it can reach comes back as an empty list rather than a refusal, and a policy edited
+   * wrongly one day would then leak instead of erroring. Taking the grant away means the request is
+   * refused at the door.
+   *
+   * This is asserted rather than assumed because Supabase grants new tables to `anon` by default
+   * and PGlite does not, so for a while the test database was stricter than the deployment and this
+   * test passed while production disagreed with it. The migration now revokes them by name.
+   */
   it('gives an anonymous visitor no table privileges at all', async () => {
     const rows = await db.admin<{ table_name: string }>(
       `select distinct table_name from information_schema.role_table_grants
        where grantee = 'anon' and table_schema = 'public'`,
     );
     expect(rows).toEqual([]);
+  });
+
+  it('leaves signed-in users the four verbs on every table, and nothing more', async () => {
+    const rows = await db.admin<{ table_name: string; privilege_type: string }>(
+      `select table_name, privilege_type from information_schema.role_table_grants
+       where grantee = 'authenticated' and table_schema = 'public'
+       order by table_name, privilege_type`,
+    );
+    const byTable = new Map<string, string[]>();
+    for (const row of rows) {
+      byTable.set(row.table_name, [...(byTable.get(row.table_name) ?? []), row.privilege_type]);
+    }
+    expect([...byTable.keys()].sort()).toEqual([
+      'folders',
+      'pins',
+      'profiles',
+      'prompts',
+      'recipes',
+      'shares',
+    ]);
+    for (const [table, verbs] of byTable) {
+      expect([...verbs].sort(), `${table} has the wrong verbs`).toEqual([
+        'DELETE',
+        'INSERT',
+        'SELECT',
+        'UPDATE',
+      ]);
+    }
   });
 });
 

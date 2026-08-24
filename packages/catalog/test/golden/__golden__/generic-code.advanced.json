@@ -29,7 +29,7 @@
       "body": "Explore the relevant files first and tell me the plan before you edit anything. Implement in one pass, run the check, then report what changed and what you did not change."
     }
   ],
-  "flat": "TASK\nAdd rate limiting to the public API, 100 requests per minute per key CONTEXT\nNode 22, Fastify, Postgres via Drizzle, tests in Vitest. FOLLOW THIS PATTERN\nMirror src/routes/webhooks.ts. DONE MEANS\nnpm test passes and curl -I returns 429 on the 101st call. Run it yourself before you report back, and quote the output. DO NOT TOUCH\nDo not touch the auth middleware or any migration older than 0042. RULES\nNo new dependencies. WORKING METHOD\nExplore the relevant files first and tell me the plan before you edit anything. Implement in one pass, run the check, then report what changed and what you did not change.",
+  "flat": "TASK\nAdd rate limiting to the public API, 100 requests per minute per key\n\nCONTEXT\nNode 22, Fastify, Postgres via Drizzle, tests in Vitest.\n\nFOLLOW THIS PATTERN\nMirror src/routes/webhooks.ts.\n\nDONE MEANS\nnpm test passes and curl -I returns 429 on the 101st call. Run it yourself before you report back, and quote the output.\n\nDO NOT TOUCH\nDo not touch the auth middleware or any migration older than 0042.\n\nRULES\nNo new dependencies.\n\nWORKING METHOD\nExplore the relevant files first and tell me the plan before you edit anything. Implement in one pass, run the check, then report what changed and what you did not change.",
   "negative": "",
   "settings": [
     {

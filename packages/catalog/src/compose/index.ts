@@ -104,16 +104,18 @@ const tags: Composer = (b) => {
 };
 
 const json: Composer = (b) => {
+  /*
+   * One medium, decided once. This used to be worked out twice with two different defaults, so a
+   * brief that named no medium produced an object whose style_description said "photograph" and
+   * whose art_style said "illustration". Ideogram reads this structurally, so that is not a wording
+   * slip: it is two contradictory instructions in one prompt.
+   */
+  const medium = has(b.medium) ? (b.medium ?? '') : 'photograph';
   const o: Record<string, unknown> = {
     high_level_description: [stripDot(b.subject), has(b.setting) ? stripDot(b.setting) : '']
       .filter(has)
       .join(', '),
-    style_description: [
-      has(b.medium) ? (b.medium ?? '') : 'photograph',
-      camClause(b),
-      lightClause(b),
-      finishClause(b),
-    ]
+    style_description: [medium, camClause(b), lightClause(b), finishClause(b)]
       .filter(has)
       .join('. '),
     compositional_deconstruction: [
@@ -123,9 +125,13 @@ const json: Composer = (b) => {
       .filter(has)
       .join(', '),
   };
-  if (has(b.medium) && /photo|cinematic/i.test(b.medium ?? ''))
+  if (/photo|cinematic/i.test(medium)) {
     o.photo = { lens: or(b.lens, '50mm normal'), lighting: or(lightClause(b), 'natural light') };
-  else o.art_style = { medium: or(b.medium, 'illustration'), palette: b.palette ?? '' };
+  } else {
+    // An empty palette is left out rather than sent as an empty string: a key with nothing in it
+    // is not a description, and Ideogram has to decide what to do with it.
+    o.art_style = has(b.palette) ? { medium, palette: b.palette } : { medium };
+  }
   if (has(b.imgtext))
     o.text_elements = [
       { content: stripDot(b.imgtext), placement: 'primary focal area', box: [300, 150, 520, 850] },
@@ -153,12 +159,21 @@ const shotlist: Composer = (b) => {
     const mv = i === 0 ? (moves[0] ?? '') : (alt[(i * 2) % alt.length] ?? '');
     const parts: string[] = [];
     parts.push((has(b.shot) ? first(b.shot) : 'medium shot') + ', ' + mv);
+    /*
+     * The subject, first, in the shot that establishes it. It used to appear only as a fallback for
+     * a missing action, so a brief with both described the room, the light and the grade and never
+     * said who was in it. It is the one field nobody would think to check for.
+     */
+    if (i === 0 && has(b.subject) && stripDot(b.subject) !== beats[0]) {
+      parts.push(stripDot(b.subject));
+    }
     parts.push(beats[i] ?? 'the action continues');
     if (i === 0 && has(b.setting)) parts.push(stripDot(b.setting));
     if (i === 0 && lightClause(b)) parts.push(lightClause(b).toLowerCase());
     if (i === 0 && finishClause(b)) parts.push(finishClause(b).toLowerCase());
     parts.push(String(per) + ' seconds');
-    S.push(block('Shot ' + String(i + 1), cap(parts.join('. ')) + '.'));
+    // Each sentence, not only the first: these are full stops, so what follows one is a new sentence.
+    S.push(block('Shot ' + String(i + 1), parts.map((part) => cap(part)).join('. ') + '.'));
   }
   if (has(b.vaudio)) S.push(block('Audio', stripDot(b.vaudio) + '.'));
   if (n === 1) S.push(block('Continuity', 'Single continuous shot, no cuts.'));

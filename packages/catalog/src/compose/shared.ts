@@ -193,8 +193,18 @@ export function splitBeats(text: string, n: number): string[] {
     .map((s) => s.trim())
     .filter(Boolean);
   const out: string[] = [];
-  for (let i = 0; i < n; i++)
-    out.push(parts[i] ?? parts[parts.length - 1] ?? 'the action continues');
+  for (let i = 0; i < n; i++) {
+    /*
+     * The last shot takes everything still unspoken. This used to be `parts[i]`, which quietly
+     * threw away every beat past the shot count: asking for one shot from "he wraps one hand, then
+     * looks up at the camera" produced a prompt about wrapping a hand and nothing else. Describing
+     * more than you asked for is not a reason to lose what you described.
+     */
+    const rest = i === n - 1 ? parts.slice(i) : parts.slice(i, i + 1);
+    out.push(
+      rest.length > 0 ? rest.join(', then ') : (parts[parts.length - 1] ?? 'the action continues'),
+    );
+  }
   return out;
 }
 

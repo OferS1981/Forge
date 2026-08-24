@@ -82,12 +82,35 @@ export function stripBanned(t: string | null | undefined): Stripped {
       out = out.replace(re, '$1');
     }
   }
+  /*
+   * Tidying, without flattening.
+   *
+   * This used to collapse `\s{2,}` to a single space. `\s` matches a newline, so the blank line
+   * between two sections became a space and the next heading ran onto the end of the previous
+   * sentence: "...filling the gap. ## Context". It reached twenty-two of the fifty-seven models,
+   * and only the flat prompt, which is the one thing people actually paste.
+   *
+   * So it is done a line at a time. Inside a line, a run of spaces is noise and is collapsed. The
+   * newline between lines and the indentation at the start of one are structure: the JSON grammar
+   * is indented, and flattening that would be the same mistake one level down.
+   */
   out = out
-    .replace(/\s*,\s*,+/g, ', ')
-    .replace(/\s{2,}/g, ' ')
-    .replace(/^\s*,\s*/, '')
-    .replace(/,\s*$/, '')
+    .split('\n')
+    .map((line) => {
+      const indent = /^[^\S\r\n]*/.exec(line)?.[0] ?? '';
+      const body = line
+        .slice(indent.length)
+        .replace(/[^\S\r\n]*,[^\S\r\n]*,+/g, ', ')
+        .replace(/[^\S\r\n]{2,}/g, ' ')
+        .replace(/[^\S\r\n]+$/, '');
+      return body.length === 0 ? '' : indent + body;
+    })
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/^[^\S\r\n]*,[^\S\r\n]*/, '')
+    .replace(/,[^\S\r\n]*$/, '')
     .trim();
+
   return { text: out, removed: [...new Set(removed)] };
 }
 
