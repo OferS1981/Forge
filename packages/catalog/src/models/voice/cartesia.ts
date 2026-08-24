@@ -32,7 +32,8 @@ export const cartesia: Model = {
       ['sample_rate', '44100', '8k–44.8k supported'],
       ['Pronunciation dictionary', 'add brand names', 'IPA overrides'],
     ]),
-  audioTags: 'always',
+  // No inline bracket tags: its own note, below, says emotion, speed and volume are API
+  // parameters here rather than prompt text. Tags in the transcript would be spoken aloud.
   lengthWarningBelow: 250,
   pairsWith: [],
   betterFor: [],

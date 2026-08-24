@@ -29,11 +29,19 @@ function flatten(S: Block[], sep: string, fmt: (s: Block) => string): string {
 
 const prose: Composer = (b, m) => {
   const S = m.category === 'video' ? videoSections(b, m) : imageSections(b, m);
+  const negs = arr(b.avoid);
+  /*
+   * A model with no negative parameter still has to honour the avoid list, or the words are lost:
+   * the judge caught exactly that. The catalogue's own guidance for these models is to phrase
+   * exclusions in the prompt itself, so they go in as a plain sentence.
+   */
+  if (m.negative.mode === 'none' && negs.length) {
+    S.push(block('Leave out', 'Without ' + join(negs, ' or ') + '.'));
+  }
   // A block whose label says the still carries it is the record, not part of the paste.
   let flat = S.filter((s) => !s.label.startsWith('Start frame'))
     .map((s) => s.body)
     .join(' ');
-  const negs = arr(b.avoid);
   if (m.negative.mode === 'flag' && negs.length) flat += ' --no ' + join(negs);
   if (m.promptSuffix) flat += m.promptSuffix(b);
   return { blocks: S, flat };
@@ -89,6 +97,7 @@ const tags: Composer = (b) => {
   for (const x of arr(b.mood)) t.push(x);
   if (has(b.palette)) t.push(b.palette ?? '');
   if (has(b.ref)) t.push(stripDot(b.ref));
+  if (has(b.imgtext)) t.push('text "' + stripDot(b.imgtext) + '"');
   // The intended use is content like everything else. The invariant suite caught it being dropped.
   if (has(b.purpose)) t.push('for ' + stripDot(b.purpose));
   const pos = t.join(', ');
@@ -149,8 +158,10 @@ const json: Composer = (b) => {
       { content: stripDot(b.imgtext), placement: 'primary focal area', box: [300, 150, 520, 850] },
     ];
   if (has(b.palette)) o.color_palette = { description: b.palette };
-  // The intended use is content. The invariant suite caught the JSON grammar dropping it.
+  // The intended use, the reference and the avoid list are content. All three were being dropped.
   if (has(b.purpose)) o.intended_use = stripDot(b.purpose);
+  if (has(b.ref)) o.style_reference = 'in the register of ' + stripDot(b.ref);
+  if (arr(b.avoid).length) o.avoid = arr(b.avoid);
   const flat = JSON.stringify(o, null, 2);
   return { blocks: [block('JSON prompt', flat)], flat, mono: true };
 };
@@ -185,11 +196,21 @@ const shotlist: Composer = (b) => {
     parts.push('Camera: ' + (has(b.shot) ? first(b.shot) : 'medium shot') + ', ' + mv);
     if (i === 0 && lightClause(b)) parts.push(lightClause(b).toLowerCase());
     if (i === 0 && finishClause(b)) parts.push(finishClause(b).toLowerCase());
+    // The formula's last element is atmosphere, which is the mood. It was being dropped.
+    if (i === 0 && has(b.mood)) parts.push(join(b.mood) + ' atmosphere');
     parts.push(String(per) + ' seconds');
     // Each sentence, not only the first: these are full stops, so what follows one is a new sentence.
     S.push(block('Shot ' + String(i + 1), parts.map((part) => cap(part)).join('. ') + '.'));
   }
   if (has(b.vaudio)) S.push(block('Audio', stripDot(b.vaudio) + '.'));
+  // The purpose survives here as it does in every other grammar. The judge caught it dropped.
+  if (has(b.purpose))
+    S.push(
+      block(
+        'Intended use',
+        'For ' + stripDot(b.purpose) + ', keep the subject clear of the frame edges.',
+      ),
+    );
   if (n === 1) S.push(block('Continuity', 'Single continuous shot, no cuts.'));
   return { blocks: S, flat: flatten(S, '\n', (s) => s.label + ': ' + s.body) };
 };
@@ -316,7 +337,40 @@ const music: Composer = (b, m) => {
   const style = order.map((key) => token[key]).filter((v): v is string => v !== undefined);
   const styleLine = style.join(', ');
   const S = [block('Style', styleLine)];
-  if (has(b.mStruct)) S.push(block('Arrangement', stripDot(b.mStruct) + '.'));
+  if (has(b.mStruct)) {
+    if (m.structureTags === true) {
+      /*
+       * The vendor's own syntax: section metatags in the lyrics field, parameterised with the
+       * user's own descriptor for that section. "quiet verse, building pre-chorus, huge chorus"
+       * becomes [Verse: quiet] [Pre-Chorus: building] [Chorus: huge]. Only sections the user
+       * actually named are emitted, and their words ride along untouched.
+       */
+      const SECTIONS = ['intro', 'verse', 'pre-chorus', 'chorus', 'bridge', 'breakdown', 'outro'];
+      const tags: string[] = [];
+      for (const clause of stripDot(b.mStruct).split(/,\s*|\.\s+/)) {
+        const lower = clause.toLowerCase();
+        const found = SECTIONS.find(
+          (section) =>
+            lower.includes(section) && !(section === 'chorus' && lower.includes('pre-chorus')),
+        );
+        if (found === undefined) continue;
+        const name = found
+          .split('-')
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join('-');
+        const detail = clause.replace(new RegExp(found, 'i'), '').replace(/\s+/g, ' ').trim();
+        tags.push(detail.length > 0 ? `[${name}: ${detail}]` : `[${name}]`);
+      }
+      S.push(
+        block(
+          'Lyrics field metatags',
+          tags.length > 0 ? tags.join(' ') : stripDot(b.mStruct) + '.',
+        ),
+      );
+    } else {
+      S.push(block('Arrangement', stripDot(b.mStruct) + '.'));
+    }
+  }
   if (has(b.mLyrics)) S.push(block('Lyrics', b.mLyrics ?? ''));
   if (has(b.mExclude))
     S.push(block(m.flatStyleOnly ? 'Exclude Styles field' : 'Exclude', b.mExclude ?? ''));
@@ -385,21 +439,40 @@ const code: Composer = (b) => {
   S.push(block('Task', stripDot(b.cTask) || 'Describe the change.'));
   if (has(b.cStack)) S.push(block('Context', stripDot(b.cStack) + '.'));
   if (has(b.cPattern)) S.push(block('Follow this pattern', stripDot(b.cPattern) + '.'));
+  /*
+   * The task's shape decides the working method, the way a senior's does. A bug is reproduced
+   * before anything is touched, because a fix for an unreproduced bug is a guess. A migration or
+   * an upgrade gets a rollback path, because the plan for being wrong is part of the plan. And a
+   * task with no stated check makes the agent ask before implementing, which is the question a
+   * senior asks first: how will we know this worked?
+   */
+  const task = (b.cTask ?? '').toLowerCase();
+  const bug = /\b(fix|flaky|failing|bug|broken|crash|regression)\b/.test(task);
+  const risky = /\b(migrat\w*|upgrade|zero downtime|monorepo|rewrite|across every)\b/.test(task);
   S.push(
     block(
       'Done means',
-      (stripDot(b.cCheck) || 'a command that exits 0') +
-        '. Run it yourself before you report back, and quote the output.',
+      has(b.cCheck)
+        ? stripDot(b.cCheck) + '. Run it yourself before you report back, and quote the output.'
+        : 'Not stated. Propose the check you will run to prove it and wait for my yes before implementing.',
     ),
   );
   if (has(b.cScope)) S.push(block('Do not touch', stripDot(b.cScope) + '.'));
   if (has(b.rules)) S.push(block('Rules', stripDot(b.rules) + '.'));
-  S.push(
-    block(
-      'Working method',
-      'Explore the relevant files first and tell me the plan before you edit anything. Implement in one pass, run the check, then report what changed and what you did not change.',
-    ),
+  const method: string[] = [];
+  if (bug) {
+    method.push(
+      'Reproduce the failure first and paste it, before changing anything: a fix for an unreproduced bug is a guess.',
+    );
+  }
+  method.push(
+    'Explore the relevant files first and tell me the plan before you edit anything.',
+    'Implement in one pass, run the check, then report what changed and what you did not change.',
   );
+  if (risky) {
+    method.push('Keep a tested rollback path: say in the report exactly how to revert this.');
+  }
+  S.push(block('Working method', method.join(' ')));
   return { blocks: S, flat: flatten(S, '\n\n', (s) => s.label.toUpperCase() + '\n' + s.body) };
 };
 

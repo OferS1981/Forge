@@ -40,6 +40,7 @@ export const ltx: Model = {
       ['Resolution', '4K', 'Native, not upscaled'],
       ['Frame rate', '24', '48 or 50 for high motion and PAL'],
       ['Duration', or(b.duration, '10s'), 'Up to 20s'],
+      ['Aspect ratio', or(b.aspect, '16:9'), ''],
       ['Audio', '24kHz stereo, single pass', 'Generated with the video, not dubbed after'],
     ]),
   pairsWith: [],

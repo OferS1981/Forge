@@ -2,7 +2,7 @@
   "blocks": [
     {
       "label": "Shot 1",
-      "body": "A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Camera: medium shot, slow dolly in. Practical lamps only. Crushed blacks, high contrast grade. 3 seconds."
+      "body": "A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Camera: medium shot, slow dolly in. Practical lamps only. Crushed blacks, high contrast grade. Tense atmosphere. 3 seconds."
     },
     {
       "label": "Shot 2",
@@ -15,9 +15,13 @@
     {
       "label": "Audio",
       "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+    },
+    {
+      "label": "Intended use",
+      "body": "For Pre-roll ad, sixty second cut, keep the subject clear of the frame edges."
     }
   ],
-  "flat": "Shot 1: A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Camera: medium shot, slow dolly in. Practical lamps only. Crushed blacks, high contrast grade. 3 seconds.\nShot 2: Looks up at the camera. Camera: medium shot, arc around subject. 3 seconds.\nShot 3: Looks up at the camera. Camera: medium shot, handheld follow. 3 seconds.\nAudio: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic.",
+  "flat": "Shot 1: A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Camera: medium shot, slow dolly in. Practical lamps only. Crushed blacks, high contrast grade. Tense atmosphere. 3 seconds.\nShot 2: Looks up at the camera. Camera: medium shot, arc around subject. 3 seconds.\nShot 3: Looks up at the camera. Camera: medium shot, handheld follow. 3 seconds.\nAudio: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic.\nIntended use: For Pre-roll ad, sixty second cut, keep the subject clear of the frame edges.",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -68,11 +72,11 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 89,
+  "score": 91,
   "axes": {
     "specificity": 100,
     "technical": 100,
-    "structure": 60,
+    "structure": 75,
     "constraints": 85,
     "format": 80,
     "context": 85,

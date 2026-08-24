@@ -25,11 +25,15 @@
       "body": "In the register of Roger Deakins night exteriors."
     },
     {
+      "label": "Intended use",
+      "body": "For Pre-roll ad, sixty second cut, keep the focal subject clear of the frame edges."
+    },
+    {
       "label": "Inline camera token",
       "body": "[zoom]"
     }
   ],
-  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. [zoom]",
+  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. For Pre-roll ad, sixty second cut, keep the focal subject clear of the frame edges. [zoom]",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -80,7 +84,7 @@
   "autoFilled": [],
   "score": 94,
   "axes": {
-    "specificity": 96,
+    "specificity": 100,
     "technical": 100,
     "structure": 100,
     "constraints": 85,

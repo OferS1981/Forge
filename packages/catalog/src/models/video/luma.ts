@@ -38,6 +38,7 @@ export const luma: Model = {
       ['duration', or(b.duration, '10s'), 'Up to 20s at 1080p'],
       ['resolution', '1080p', '4K HDR at master'],
       ['Keyframes', 'place on beat changes', 'Up to 16 per clip'],
+      ['Aspect ratio', or(b.aspect, '16:9'), ''],
       ['loop', 'false', ''],
     ]),
   pairsWith: [],

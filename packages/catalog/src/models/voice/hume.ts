@@ -36,7 +36,8 @@ export const hume: Model = {
       ['num_generations', '3', 'Up to 5, then pick'],
       ['instant_mode', 'on for preset voices', ''],
     ]),
-  audioTags: 'always',
+  // No inline bracket tags: that is ElevenLabs v3 syntax. Hume's own documentation directs
+  // delivery through the acting instruction instead, which the composer builds.
   actingInstruction: true,
   lengthWarningBelow: 250,
   pairsWith: [],

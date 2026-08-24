@@ -31,9 +31,13 @@
     {
       "label": "Reference",
       "body": "In the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Intended use",
+      "body": "For Pre-roll ad, sixty second cut, keep the focal subject clear of the frame edges."
     }
   ],
-  "flat": "Medium shot on a 35mm. Basement gym at 6am, condensation on the windows. Practical lamps only. Crushed blacks, high contrast grade. A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Slow dolly in. Tense in feeling, deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
+  "flat": "Medium shot on a 35mm. Basement gym at 6am, condensation on the windows. Practical lamps only. Crushed blacks, high contrast grade. A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Slow dolly in. Tense in feeling, deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. For Pre-roll ad, sixty second cut, keep the focal subject clear of the frame edges.",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -62,6 +66,13 @@
       "value": "10s",
       "why": "Up to 20s",
       "term": "setting.duration",
+      "tier": "advanced"
+    },
+    {
+      "name": "Aspect ratio",
+      "value": "16:9",
+      "why": "",
+      "term": "setting.aspect-ratio",
       "tier": "advanced"
     },
     {
@@ -98,9 +109,9 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 93,
+  "score": 94,
   "axes": {
-    "specificity": 95,
+    "specificity": 100,
     "technical": 100,
     "structure": 100,
     "constraints": 85,

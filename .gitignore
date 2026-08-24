@@ -14,3 +14,4 @@ out
 next-env.d.ts
 *.tsbuildinfo
 catalog-refresh
+battle-losses.txt

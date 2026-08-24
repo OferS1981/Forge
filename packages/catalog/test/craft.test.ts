@@ -411,6 +411,94 @@ describe('round seven: three more vendors, read and obeyed', () => {
   });
 });
 
+describe('round eight: the arrangement in the vendor syntax', () => {
+  it('turns a written arrangement into Suno metatags carrying the user words', () => {
+    const out = forge(
+      { mGenre: ['indie rock'], mStruct: 'quiet verse, building pre-chorus, huge chorus' },
+      modelById('suno'),
+      'advanced',
+    );
+    const tags = out.blocks.find((b) => b.label === 'Lyrics field metatags');
+    expect(tags?.body).toBe('[Verse: quiet] [Pre-Chorus: building] [Chorus: huge]');
+  });
+
+  it('emits a bare section tag when the user gave no descriptor', () => {
+    const out = forge(
+      { mGenre: ['ambient'], mStruct: 'intro, chorus, outro' },
+      modelById('suno'),
+      'advanced',
+    );
+    expect(out.blocks.find((b) => b.label === 'Lyrics field metatags')?.body).toBe(
+      '[Intro] [Chorus] [Outro]',
+    );
+  });
+
+  it('passes an arrangement naming no known section through untouched', () => {
+    const out = forge(
+      { mGenre: ['ambient'], mStruct: 'slow build over three minutes' },
+      modelById('suno'),
+      'advanced',
+    );
+    expect(out.blocks.find((b) => b.label === 'Lyrics field metatags')?.body).toBe(
+      'slow build over three minutes.',
+    );
+  });
+
+  it('leaves the other music models writing prose arrangements', () => {
+    const out = forge(
+      { mGenre: ['ambient'], mStruct: 'quiet verse, huge chorus' },
+      modelById('el-music'),
+      'advanced',
+    );
+    expect(out.blocks.find((b) => b.label === 'Arrangement')?.body).toBe(
+      'quiet verse, huge chorus.',
+    );
+  });
+});
+
+describe('the coding grammar works the way a senior works', () => {
+  it('tells a bug task to reproduce the failure before changing anything', () => {
+    const out = forge({ cTask: 'Fix the flaky checkout test' }, modelById('claudecode'), 'simple');
+    expect(out.flat).toMatch(/[Rr]eproduce/);
+    // And the reproduction comes before the plan, because that is the order the work happens in.
+    expect(out.flat.indexOf('eproduce')).toBeLessThan(out.flat.indexOf('plan'));
+  });
+
+  it('gives a risky task a rollback line', () => {
+    const out = forge(
+      { cTask: 'Migrate the user table to UUIDs with zero downtime' },
+      modelById('cursor'),
+      'simple',
+    );
+    expect(out.flat).toMatch(/roll ?back/i);
+  });
+
+  it('makes the agent ask for the done-check when none was given', () => {
+    const out = forge(
+      { cTask: 'Add CSV export to the reports page' },
+      modelById('claudecode'),
+      'simple',
+    );
+    expect(out.flat).toMatch(/propose the check|ask.*before implementing/i);
+    // And when a check was given, no asking: the answer is already there.
+    const given = forge(
+      { cTask: 'Add CSV export', cCheck: 'The export test passes' },
+      modelById('claudecode'),
+      'simple',
+    );
+    expect(given.flat).not.toMatch(/propose the check/i);
+  });
+
+  it('a plain feature task with a check stays lean: no bug or rollback boilerplate', () => {
+    const out = forge(
+      { cTask: 'Add dark mode to the settings screen', cCheck: 'Both themes screenshot-tested' },
+      modelById('cursor'),
+      'simple',
+    );
+    expect(out.flat).not.toMatch(/reproduce|roll ?back/i);
+  });
+});
+
 describe('small finish', () => {
   it('ends the app brief first line like the others', () => {
     const out = forge(

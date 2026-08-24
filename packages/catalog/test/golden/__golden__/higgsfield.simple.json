@@ -23,9 +23,13 @@
     {
       "label": "Reference",
       "body": "In the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Intended use",
+      "body": "For Pre-roll ad, sixty second cut, keep the focal subject clear of the frame edges."
     }
   ],
-  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
+  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. For Pre-roll ad, sixty second cut, keep the focal subject clear of the frame edges.",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -36,17 +40,17 @@
       "tier": "simple"
     },
     {
+      "name": "Aspect ratio",
+      "value": "16:9",
+      "why": "",
+      "term": "setting.aspect-ratio",
+      "tier": "simple"
+    },
+    {
       "name": "Camera preset",
       "value": "Super Dolly In",
       "why": "63 named moves",
       "term": "setting.camera-preset",
-      "tier": "simple"
-    },
-    {
-      "name": "cfg_scale",
-      "value": "0.6",
-      "why": "0.3 creative, 0.8 literal",
-      "term": "setting.cfg-scale",
       "tier": "simple"
     }
   ],
@@ -74,11 +78,11 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 92,
+  "score": 94,
   "axes": {
-    "specificity": 95,
+    "specificity": 100,
     "technical": 100,
-    "structure": 90,
+    "structure": 100,
     "constraints": 85,
     "format": 80,
     "context": 85,

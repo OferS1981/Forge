@@ -11,6 +11,9 @@ export const suno: Model = {
     'Style field, lyrics field, and a dedicated Exclude Styles box that is the only reliable way to say no.',
   tags: ['4–7 descriptors', 'Metatags in lyrics', 'Exclude Styles', 'Weirdness slider'],
   grammar: 'music',
+  // Its own note, below: metatags go in the Lyrics field, [Intro] [Verse 1] [Chorus], and
+  // parameterised sections work too, [Chorus: full band, soaring vocals].
+  structureTags: true,
   length: [0, 0],
   core: ['mGenre', 'mMood', 'mInst', 'mBpm'],
   craft: ['mKey', 'mProd', 'mVocal', 'mStruct', 'mLyrics', 'mExclude'],

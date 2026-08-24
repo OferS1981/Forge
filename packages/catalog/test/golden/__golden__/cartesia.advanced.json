@@ -6,7 +6,7 @@
     },
     {
       "label": "Script: paste this into the text box",
-      "body": "[sarcastic] There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on."
+      "body": "There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on."
     },
     {
       "label": "Direction",
@@ -17,7 +17,7 @@
       "body": "This script is under 250 characters. ElevenLabs document that short inputs give inconsistent output: pad it with a lead-in sentence you can trim afterwards."
     }
   ],
-  "flat": "[sarcastic] There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on.",
+  "flat": "There is a moment, right before the bell, when the noise drops away. You can hear the ropes settle, and your own breathing, and nothing else at all. That is the moment the whole thing turns on.",
   "negative": "american vowels",
   "settings": [
     {
@@ -82,7 +82,7 @@
   "autoFilled": [],
   "score": 76,
   "axes": {
-    "specificity": 66,
+    "specificity": 65,
     "technical": 100,
     "structure": 60,
     "constraints": 85,

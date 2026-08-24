@@ -1,3 +1,4 @@
+import { has } from './compose/text';
 import type { AutoFill, Brief, FieldId, Model } from './types';
 
 /**
@@ -48,7 +49,7 @@ const MOVING =
  * mood of a scene that has already decided its own.
  */
 const SOMBRE =
-  /\b(night|midnight|rain|wet|fog|mist|dusk|winter|snow|empty|alone|abandoned|derelict|ruin|ruins|wasteland|silence|grief|funeral|basement|[0-6]\s?am)\b/;
+  /\b(night|midnight|rain|wet|fog|mist|dusk|winter|snow|empty|alone|abandoned|derelict|ruin|ruins|wasteland|silence|grief|funeral|basement|dark|shadowy|[0-6]\s?am)\b/;
 const TENSE =
   /\b(storm|chase|chased|fight|fighting|escape|standoff|argument|war|riot|siren|sirens)\b/;
 const TRIUMPHANT = /\b(victory|celebrat\w*|wins|winning|summit|trophy|finish line|champion)\b/;
@@ -60,7 +61,7 @@ const PLAYFUL =
  * the user wrote are the lighting brief, and a softbox dropped into a sunlit cafe contradicts them.
  */
 const LIGHT_IN_SETTING =
-  /\b(sun|sunlit|sunrise|sunset|sunshine|golden hour|dawn|dusk|morning|midday|noon|night|midnight|moonlit|moonlight|neon|candle\w*|firelight|lamplight|streetlight|floodlit|overcast|dappled|backlit|\d{1,2}\s?(a|p)m|window light)\b/;
+  /\b(sun|sunlit|sunrise|sunset|sunshine|golden hour|dawn|dusk|morning|midday|noon|night|midnight|moonlit|moonlight|neon|candle\w*|firelight|lamplight|streetlight|spotlight|spotlit|floodlit|overcast|dappled|backlit|\d{1,2}\s?(a|p)m|window)\b/;
 
 /**
  * The media a camera vocabulary belongs to. A photograph or a cinematic still has a lens; an ink
@@ -149,6 +150,9 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
   mood: (b, m) => {
     // A sound describes its own mood, and a product's object is its mood. Neither gets one invented.
     if (m.category === 'sfx') return undefined;
+    // A reference is a register: "in the register of Kinfolk still lifes" already says the mood,
+    // and a channel default stamped on top of it can contradict it.
+    if (has(b.ref)) return undefined;
     const s = scene(b);
     if (SOMBRE.test(s)) return pick(['austere'], 'the scene you described is a quiet one');
     if (TENSE.test(s)) return pick(['tense'], 'the scene you described has conflict in it');
@@ -202,6 +206,7 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
         'that placement is a wide one',
       ],
       [/\b(editorial|print|magazine)\b/, '3:2', 'that is the print frame'],
+      [/\bposter\b/, '2:3', 'that is the poster frame'],
     ];
     for (const [test, value, why] of wanted) {
       if (test.test(p) && offered.has(value)) return pick(value, why);

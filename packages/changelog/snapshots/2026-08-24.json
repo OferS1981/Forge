@@ -1156,6 +1156,10 @@
           "says": "The negative prompt is a field called Negative prompt. supported"
         },
         {
+          "field": "settings.Aspect ratio",
+          "says": "Aspect ratio defaults to auto"
+        },
+        {
           "field": "settings.Camera preset",
           "says": "Camera preset defaults to General. 63 named moves"
         },
@@ -1404,6 +1408,10 @@
           "says": "The negative prompt is a field called Negative prompt. supported"
         },
         {
+          "field": "settings.Aspect ratio",
+          "says": "Aspect ratio defaults to 16:9"
+        },
+        {
           "field": "settings.Audio",
           "says": "Audio defaults to 24kHz stereo, single pass. Generated with the video, not dubbed after"
         },
@@ -1446,6 +1454,10 @@
         {
           "field": "negative",
           "says": "The negative prompt is a prose called Constraints. no documented field"
+        },
+        {
+          "field": "settings.Aspect ratio",
+          "says": "Aspect ratio defaults to 16:9"
         },
         {
           "field": "settings.Draft mode",

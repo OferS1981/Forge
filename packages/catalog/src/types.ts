@@ -192,6 +192,12 @@ export interface Model {
    * the default one, so it carries no flag. Set only where a note records the vendor saying so.
    */
   musicOrder?: readonly ('genre' | 'mood' | 'inst' | 'bpm' | 'key' | 'vocal' | 'prod')[];
+  /**
+   * The vendor documents section metatags in the lyrics field, [Verse] [Chorus] and parameterised
+   * [Chorus: huge], so a written arrangement is translated into that syntax. Suno's note is the
+   * source.
+   */
+  structureTags?: true;
   /** Warn when the spoken script is shorter than this many characters. */
   lengthWarningBelow?: number;
   /** Match: how this model does on vertical video. */

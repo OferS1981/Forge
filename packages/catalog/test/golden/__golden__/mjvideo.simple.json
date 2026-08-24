@@ -15,9 +15,13 @@
     {
       "label": "Reference",
       "body": "In the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Leave out",
+      "body": "Without crowds, modern signage."
     }
   ],
-  "flat": "Slow dolly in. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Deliberate pacing. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. --motion high --raw",
+  "flat": "Slow dolly in. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Deliberate pacing. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. Without crowds, modern signage. --motion high --raw",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -67,11 +71,11 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 84,
+  "score": 86,
   "axes": {
-    "specificity": 79,
+    "specificity": 81,
     "technical": 100,
-    "structure": 60,
+    "structure": 75,
     "constraints": 85,
     "format": 80,
     "context": 85,

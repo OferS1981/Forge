@@ -23,9 +23,17 @@
     {
       "label": "Reference",
       "body": "In the register of Roger Deakins night exteriors."
+    },
+    {
+      "label": "Intended use",
+      "body": "For Pre-roll ad, sixty second cut, keep the focal subject clear of the frame edges."
+    },
+    {
+      "label": "Leave out",
+      "body": "Without crowds, modern signage."
     }
   ],
-  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. SFX and ambience: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
+  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. SFX and ambience: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. For Pre-roll ad, sixty second cut, keep the focal subject clear of the frame edges. Without crowds, modern signage.",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -75,11 +83,11 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 92,
+  "score": 94,
   "axes": {
-    "specificity": 97,
+    "specificity": 100,
     "technical": 100,
-    "structure": 90,
+    "structure": 100,
     "constraints": 85,
     "format": 80,
     "context": 85,

@@ -78,6 +78,13 @@ const ORDER_DOCUMENTED = new Set(['runway', 'seedance', 'veo']);
 const MUSIC_ORDERED = new Set(['lyria', 'stableaudio', 'el-music']);
 
 /*
+ * Suno's arrangement block became the metatag syntax its own note documents. The user's words
+ * survive inside the brackets, so the check is word containment on that block and byte equality
+ * on the rest.
+ */
+const STRUCTURE_TAGS = new Set(['suno']);
+
+/*
  * Midjourney Video's own note says motion only, a handful of words, and let the still carry the
  * look; the prototype pasted the whole cinematic paragraph anyway. The flat is now the motion
  * alone, so the check is that everything the prototype pasted still lives in the blocks, and the
@@ -175,6 +182,10 @@ const JSON_FIXED = new Set(['ideogram']);
  * lesson is "How to direct a voice with punctuation", and the composer was removing the last piece
  * of it. Scoped: ours must be the prototype's output with at most a trailing mark restored.
  */
+/** The prototype put ElevenLabs bracket tags on these vendors' scripts; both vendors say not to. */
+const TAGS_REMOVED = new Set(['cartesia', 'hume']);
+const stripTags = (text: string): string => text.replace(/\[[a-z ]+\] ?/gi, '');
+
 const SCRIPT_VERBATIM = new Set([
   'el-tts',
   'cartesia',
@@ -202,6 +213,31 @@ const VIDEO_IDS = new Set<string>(MODELS.filter((m) => m.category === 'video').m
 
 function rewriteOurs(id: string, text: string): string {
   let out = text;
+  /*
+   * Round-eight additions: the video grammars gained the intended-use line the image grammars
+   * always had, and models with no negative parameter gained the Leave-out sentence. Stripped
+   * before any compare.
+   */
+  out = out
+    .replace(
+      / ?For [^.\n]*, (?:front-load the strongest moment into the first two seconds|compose safe for a vertical crop with the subject held centre frame|keep the focal subject clear of the frame edges)\./g,
+      '',
+    )
+    .replace(/ ?Without [^.\n]*\.(?=\s|$)/g, '');
+  /*
+   * The coding grammar learned three habits in round eight: reproduce a bug first, keep a
+   * rollback path on risky work, and ask for the done-check when none was given.
+   */
+  out = out
+    .replace(
+      /Reproduce the failure first and paste it, before changing anything: a fix for an unreproduced bug is a guess\. ?/g,
+      '',
+    )
+    .replace(/ ?Keep a tested rollback path: say in the report exactly how to revert this\./g, '')
+    .replace(
+      /Not stated\. Propose the check you will run to prove it and wait for my yes before implementing\./g,
+      'a command that exits 0. Run it yourself before you report back, and quote the output.',
+    );
   // The intended-use clause is a sentence now; the prototype wrote it as a label.
   out = out.replace(
     /For (.+?), (?:leave clean negative space around the subject for copy|keep the focal subject clear of the outer eighth of the frame)\./g,
@@ -258,6 +294,21 @@ function rewriteOurs(id: string, text: string): string {
       '$1.',
     );
   }
+  /*
+   * The coding grammar learned three habits in the eighth round: reproduce a bug first, keep a
+   * rollback path on risky work, and ask for the done-check when none was given. Each is one
+   * fixed sentence, stripped or mapped back before the byte compare.
+   */
+  out = out
+    .replace(
+      / ?Reproduce the failure first and paste it, before changing anything: a fix for an unreproduced bug is a guess\./g,
+      '',
+    )
+    .replace(/ ?Keep a tested rollback path: say in the report exactly how to revert this\./g, '')
+    .replace(
+      /Not stated\. Propose the check you will run to prove it and wait for my yes before implementing\./g,
+      'a command that exits 0. Run it yourself before you report back, and quote the output.',
+    );
   // Hailuo's inline token dropped the usage note that was being pasted as part of the prompt.
   if (id === 'hailuo') {
     out = out.replace(
@@ -302,6 +353,18 @@ const WORDING_SCORE = new Set([
   'el-dubbing',
   // The purpose token the invariant suite restored adds real words, so specificity moves.
   'sdxl',
+  'luma',
+  'wan',
+  'generic-video',
+  'kling',
+  'higgsfield',
+  // The coding grammar's learned habits are sentences, and sentences are words.
+  'claudecode',
+  'cursor',
+  'copilot',
+  'codex',
+  'devin',
+  'generic-code',
 ]);
 
 /** Symmetric: applied to both sides' 'What we are building' body. See rewriteOurs. */
@@ -326,6 +389,9 @@ const REWRITTEN_WHY: Record<string, string> = { claude: 'model' };
  */
 const NAMED_VALUE_ROWS: Record<string, string> = { higgsfield: 'Camera preset' };
 
+/** The models that gained an Aspect ratio settings row in round eight; dropped before compare. */
+const ASPECT_ROW_ADDED = new Set(['ltx', 'luma', 'higgsfield']);
+
 function normaliseSettings(
   rows: [string, string, string][],
   modelId: string,
@@ -333,7 +399,10 @@ function normaliseSettings(
   const emDash = EM_DASH_ROWS[modelId];
   const rewritten = REWRITTEN_WHY[modelId];
   const named = NAMED_VALUE_ROWS[modelId];
-  return rows.map(([name, value, why]) => {
+  const withoutAspect = ASPECT_ROW_ADDED.has(modelId)
+    ? rows.filter(([name]) => name !== 'Aspect ratio')
+    : rows;
+  return withoutAspect.map(([name, value, why]) => {
     if (name === emDash && value === '\u2014') return [name, 'none', why];
     // Only the explanation changed. The parameter and the value it emits must still match.
     if (name === rewritten) return [name, value, ''];
@@ -366,6 +435,8 @@ describe('parity with the prototype', () => {
           }
           const mine = forge(brief, m, 'advanced');
           const theirs = PROTOTYPE.forge({ ...brief }, p);
+          // Sanctioned additions removed up front, so the containment branches see only the rest.
+          const mineFlat = rewriteOurs(m.id, mine.flat);
 
           if (SFX_FIXED.has(m.id)) {
             const theirsWithoutTail = theirs.flat.replace(SFX_TAIL, '');
@@ -411,11 +482,14 @@ describe('parity with the prototype', () => {
               );
             }
           } else if (SCRIPT_VERBATIM.has(m.id)) {
-            // Same text, with the punctuation it was given. Nothing else may have moved.
+            // Same text, with the punctuation it was given. Nothing else may have moved, except
+            // the bracket tags the prototype put on vendors whose own docs say not to.
             const trailing = /[.!?\u2026]+$/;
-            expect(mine.flat.replace(trailing, '')).toBe(theirs.flat.replace(trailing, ''));
-            expect(mine.blocks.map((b) => [b.label, b.body.replace(trailing, '')])).toEqual(
-              theirs.blocks.map(([label, body]) => [label, body.replace(trailing, '')]),
+            const norm = (id: string, text: string): string =>
+              (TAGS_REMOVED.has(id) ? stripTags(text) : text).replace(trailing, '');
+            expect(norm(m.id, mine.flat)).toBe(norm(m.id, theirs.flat));
+            expect(mine.blocks.map((b) => [b.label, norm(m.id, b.body)])).toEqual(
+              theirs.blocks.map(([label, body]) => [label, norm(m.id, body)]),
             );
           } else if (MUSIC_ORDERED.has(m.id)) {
             /*
@@ -430,6 +504,20 @@ describe('parity with the prototype', () => {
             expect(mine.blocks.map((b, i) => [b.label, i === 0 ? theirsStyle : b.body])).toEqual(
               theirs.blocks,
             );
+          } else if (STRUCTURE_TAGS.has(m.id)) {
+            expect(mine.flat).toBe(theirs.flat);
+            for (const [i, b] of mine.blocks.entries()) {
+              const theirBlock = theirs.blocks[i];
+              if (theirBlock === undefined) throw new Error('suno gained a block');
+              if (b.label === 'Lyrics field metatags') {
+                expect(theirBlock[0]).toBe('Arrangement');
+                for (const word of words(theirBlock[1])) {
+                  expect(words(b.body), `suno lost "${word}"`).toContain(word);
+                }
+              } else {
+                expect([b.label, b.body]).toEqual(theirBlock);
+              }
+            }
           } else if (m.id === 'ltx') {
             for (const word of words(theirs.flat)) {
               if (LTX_REMOVED.has(word)) continue;
@@ -438,7 +526,7 @@ describe('parity with the prototype', () => {
             // A word the user typed is always legitimate: the old shot list dropped the lens
             // entirely, and the prose restoring it is a recovery, not an invention.
             const typed = new Set(words(JSON.stringify(brief)));
-            for (const word of words(mine.flat)) {
+            for (const word of words(mineFlat)) {
               if (words(theirs.flat).includes(word) || LTX_ADDED.has(word) || typed.has(word))
                 continue;
               throw new Error(`ltx gained the undocumented word "${word}"`);
@@ -458,15 +546,17 @@ describe('parity with the prototype', () => {
              * Remove exactly that token and the bytes must match, so nothing else can move.
              */
             const purpose = typeof brief.purpose === 'string' ? brief.purpose : '';
-            const withoutPurpose =
-              purpose.length > 0
-                ? mine.flat.replace(`, for ${purpose.replace(/\.$/, '')}`, '')
-                : mine.flat;
-            expect(withoutPurpose).toBe(theirs.flat);
+            const imgtext = typeof brief.imgtext === 'string' ? brief.imgtext : '';
+            let stripped = mine.flat;
+            if (purpose.length > 0)
+              stripped = stripped.replace(`, for ${purpose.replace(/\.$/, '')}`, '');
+            if (imgtext.length > 0)
+              stripped = stripped.replace(`, text "${imgtext.replace(/\.$/, '')}"`, '');
+            expect(stripped).toBe(theirs.flat);
           } else if (m.id === 'hume') {
             const record = mine.blocks.map((b) => b.body).join(' ');
             const INVENTED = new Set(['measured', 'warm']);
-            for (const word of words(theirs.flat)) {
+            for (const word of words(stripTags(theirs.flat))) {
               if (INVENTED.has(word)) continue;
               expect(words(record + ' ' + mine.flat), `hume lost "${word}"`).toContain(word);
             }
@@ -476,8 +566,8 @@ describe('parity with the prototype', () => {
             for (const word of words(theirs.flat.replace(/--motion \w+|--raw/g, ''))) {
               expect(words(record), `${m.id} lost "${word}"`).toContain(word);
             }
-            const FRAMING = new Set(['pacing', 'throughout']);
-            for (const word of words(mine.flat)) {
+            const FRAMING = new Set(['pacing', 'throughout', 'without']);
+            for (const word of words(mineFlat)) {
               if (FRAMING.has(word)) continue;
               expect(words(theirs.flat), `${m.id} gained "${word}"`).toContain(word);
             }
@@ -486,7 +576,7 @@ describe('parity with the prototype', () => {
             for (const word of words(theirs.flat)) {
               expect(words(mine.flat), `${m.id} lost "${word}"`).toContain(word);
             }
-            for (const word of words(mine.flat)) {
+            for (const word of words(mineFlat)) {
               if (words(theirs.flat).includes(word) || ORDER_WORDS_ALLOWED.has(word)) continue;
               throw new Error(`${m.id} gained the undocumented word "${word}"`);
             }
@@ -501,8 +591,14 @@ describe('parity with the prototype', () => {
             }
           } else {
             expect(rewriteOurs(m.id, mine.flat)).toBe(rewriteOurs(m.id, theirs.flat));
+            // The round-eight blocks, video intended-use and Leave out, did not exist in the
+            // prototype for any model, so they are dropped from ours before comparing shape.
+            const comparable = mine.blocks.filter(
+              (b) =>
+                b.label !== 'Leave out' && !(b.label === 'Intended use' && m.category === 'video'),
+            );
             expect(
-              mine.blocks.map((b) => [b.label, dedot(b.label, rewriteOurs(m.id, b.body))]),
+              comparable.map((b) => [b.label, dedot(b.label, rewriteOurs(m.id, b.body))]),
             ).toEqual(theirs.blocks.map(([label, body]) => [label, dedot(label, body)]));
           }
           expect(mine.negative).toBe(theirs.negative);

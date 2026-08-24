@@ -30,6 +30,7 @@ export const higgsfield: Model = {
   settings: (b) =>
     rows([
       ['Model', 'Cinema Studio 3.0', ''],
+      ['Aspect ratio', or(b.aspect, 'auto'), ''],
       /*
        * The named preset from the library its own note lists, chosen from the camera move, rather
        * than the shrug "nearest named preset" that told nobody which one to click.
