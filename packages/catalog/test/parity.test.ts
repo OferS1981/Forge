@@ -71,6 +71,22 @@ const SHOTLIST_FIXED = new Set(['kling', 'ltx']);
  */
 const JSON_FIXED = new Set(['ideogram']);
 
+/*
+ * The voice grammars ran the script through `stripDot`, which exists so a clause can be joined into
+ * a sentence without doubling a full stop. A script is not a clause: it is the literal text a voice
+ * will speak, and the mark it ends on tells the model where the pitch falls. Forge's own fifth
+ * lesson is "How to direct a voice with punctuation", and the composer was removing the last piece
+ * of it. Scoped: ours must be the prototype's output with at most a trailing mark restored.
+ */
+const SCRIPT_VERBATIM = new Set([
+  'el-tts',
+  'el-voicedesign',
+  'el-dubbing',
+  'cartesia',
+  'hume',
+  'generic-voice',
+]);
+
 /** Only the parts of Ideogram's object these checks look at. */
 interface JsonPrompt {
   high_level_description?: string;
@@ -150,6 +166,13 @@ describe('parity with the prototype', () => {
             const medium = mineJson.art_style?.medium;
             const style = (mineJson.style_description ?? '').toLowerCase();
             if (medium !== undefined) expect(style).toContain(medium.toLowerCase());
+          } else if (SCRIPT_VERBATIM.has(m.id)) {
+            // Same text, with the punctuation it was given. Nothing else may have moved.
+            const trailing = /[.!?\u2026]+$/;
+            expect(mine.flat.replace(trailing, '')).toBe(theirs.flat.replace(trailing, ''));
+            expect(mine.blocks.map((b) => [b.label, b.body.replace(trailing, '')])).toEqual(
+              theirs.blocks.map(([label, body]) => [label, body.replace(trailing, '')]),
+            );
           } else if (SHOTLIST_FIXED.has(m.id)) {
             // Everything the prototype said, and the subject it did not.
             for (const word of words(theirs.flat)) {
@@ -174,7 +197,7 @@ describe('parity with the prototype', () => {
           expect(mine.warnings).toEqual(theirs.warn);
           expect(mine.variations.map((v) => ({ n: v.name, t: v.text }))).toEqual(theirs.variations);
           expect(mine.stripped).toEqual(theirs.stripped);
-          if (SHOTLIST_FIXED.has(m.id) || JSON_FIXED.has(m.id)) {
+          if (SHOTLIST_FIXED.has(m.id) || JSON_FIXED.has(m.id) || SCRIPT_VERBATIM.has(m.id)) {
             /*
              * A prompt that names its subject, or that stops contradicting itself, is a better
              * prompt, so the score may move up. What a fix may never do is make one score worse,

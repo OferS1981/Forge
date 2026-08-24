@@ -196,7 +196,12 @@ const tts: Composer = (b, m) => {
   if (has(b.vTexture)) desc.push(join(b.vTexture) + ' texture');
   if (has(b.lang)) desc.push(b.lang ?? '');
   if (desc.length) S.push(block('Voice', cap(desc.join(', ')) + '.'));
-  let script = stripDot(b.script) || 'Write the line you want spoken here.';
+  /*
+   * Trimmed, not stripped of its final stop. `stripDot` is for a clause about to be joined into a
+   * sentence; a script is the literal text a voice will speak, and the mark it ends on is an
+   * instruction to the model about where the pitch falls. Lesson five is about exactly this.
+   */
+  let script = (b.script ?? '').trim() || 'Write the line you want spoken here.';
   script = markUpScript(script, b, tagsOk);
   S.push(block('Script: paste this into the text box', script));
   const dir: string[] = [];
@@ -235,8 +240,9 @@ const voicedesign: Composer = (b) => {
   parts.push('Broadcast quality recording.');
   const desc = parts.join(' ');
   const S = [block('Voice description', desc)];
+  // Verbatim here too: the preview text is spoken, so its punctuation is an instruction.
   if (has(b.script))
-    S.push(block('Preview text: must agree with the description', stripDot(b.script)));
+    S.push(block('Preview text: must agree with the description', (b.script ?? '').trim()));
   S.push(
     block(
       'Do not include',

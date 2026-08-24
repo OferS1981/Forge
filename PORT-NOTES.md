@@ -81,6 +81,12 @@ listed deviation or a note for a later phase.
     contradictory instructions, and it sent `palette` as an empty string. The medium is decided once
     now, and an empty key is left out.
 
+    e. **The voice grammars stripped the script's final punctuation.** `stripDot` exists so a
+    clause can be joined into a sentence without doubling a full stop, and it was being applied to
+    the script, which is not a clause: it is the literal text a voice will speak, and the mark it
+    ends on tells the model where the pitch falls. Forge's own fifth lesson is "How to direct a
+    voice with punctuation", and the composer was removing the last piece of it. Six models.
+
 11. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
     hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
 

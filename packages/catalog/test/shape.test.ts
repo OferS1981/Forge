@@ -255,3 +255,33 @@ describe('the JSON grammar', () => {
     walk(parse({}), 'root');
   });
 });
+
+describe('a script is verbatim, not a clause', () => {
+  const voiceModels = MODELS.filter((m) => m.category === 'voice');
+
+  /*
+   * `stripDot` exists so a clause can be joined into a sentence without doubling a full stop. A
+   * script is not a clause: it is the literal text a voice will speak, and its final mark is an
+   * instruction. Forge's own fifth lesson is "How to direct a voice with punctuation", and the
+   * composer was removing the last piece of it.
+   */
+  for (const model of voiceModels) {
+    it(`${model.id}: keeps the punctuation the line ends on`, () => {
+      for (const ending of ['.', '?', '!', '...']) {
+        const script = `You have three minutes. Use them${ending}`;
+        const result = forge({ script, useCase: 'Corporate narration' }, model, 'advanced');
+        const said = [result.flat, ...result.blocks.map((b) => b.body)].join('\n');
+        if (!said.includes('Use them')) continue;
+        expect(said, `${model.id} dropped a trailing "${ending}"`).toContain(`Use them${ending}`);
+      }
+    });
+  }
+
+  it('leaves the middle of a script alone as well', () => {
+    const model = MODELS.find((m) => m.id === 'el-tts');
+    if (model === undefined) throw new Error('el-tts is missing');
+    const script = 'Wait. Really? Yes, really, and then some.';
+    const result = forge({ script, useCase: 'Corporate narration' }, model, 'advanced');
+    expect(result.flat).toContain(script);
+  });
+});
