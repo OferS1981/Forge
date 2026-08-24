@@ -214,6 +214,16 @@ const VIDEO_IDS = new Set<string>(MODELS.filter((m) => m.category === 'video').m
 function rewriteOurs(id: string, text: string): string {
   let out = text;
   /*
+   * Phase 13's echo suppressor: a setting that reopens with the word the subject ended on loses
+   * that word at the join ("...basement gym, basement gym at 6am" becomes "...basement gym, at
+   * 6am"). Sanctioned; the prototype's doubled words are removed before comparing so everything
+   * else stays pinned. Applied to the video prose models compared byte-for-byte.
+   */
+  if (id === 'hailuo' || id === 'higgsfield' || id === 'generic-video') {
+    out = out.replace(/\b([a-z]+ [a-z]+), \1\b/gi, '$1,').replace(/\b([a-z]+), \1\b/gi, '$1,');
+    out = out.replace(/, at /g, ', at ');
+  }
+  /*
    * Phase 13 ended the music run-on for the wildcard too: the style line closes with a stop
    * before the arrangement sentence. The prototype ran them together, so the first stop between
    * a lowercase token and a capitalised sentence is removed before comparing.
@@ -389,6 +399,19 @@ const EM_DASH_ROWS: Record<string, string> = { recraft: 'substyle', suno: 'Exclu
 const REWRITTEN_WHY: Record<string, string> = { claude: 'model' };
 
 /*
+ * The settings audit found eleven rows whose why was an empty string: a settings table that
+ * could not explain itself. The whys were written in phase 13; the prototype's were blank, so
+ * for these models a why is compared only for being present, not for matching nothing.
+ */
+const WHY_WRITTEN = new Set([
+  'perplexity',
+  'notebooklm',
+  'deepresearch',
+  'generic-research',
+  'generic-app',
+]);
+
+/*
  * Higgsfield's Camera preset row used to say "nearest named preset", which told nobody which of
  * the 63 presets to click. It now names one, chosen from the camera move, out of the preset list
  * its own note documents. The parameter and the why must still match; the value is the fix.
@@ -409,6 +432,7 @@ function normaliseSettings(
     ? rows.filter(([name]) => name !== 'Aspect ratio')
     : rows;
   return withoutAspect.map(([name, value, why]) => {
+    if (WHY_WRITTEN.has(modelId)) return [name, value, ''];
     if (name === emDash && value === '\u2014') return [name, 'none', why];
     // Only the explanation changed. The parameter and the value it emits must still match.
     if (name === rewritten) return [name, value, ''];
@@ -613,7 +637,9 @@ describe('parity with the prototype', () => {
             );
             expect(
               comparable.map((b) => [b.label, dedot(b.label, rewriteOurs(m.id, b.body))]),
-            ).toEqual(theirs.blocks.map(([label, body]) => [label, dedot(label, body)]));
+            ).toEqual(
+              theirs.blocks.map(([label, body]) => [label, dedot(label, rewriteOurs(m.id, body))]),
+            );
           }
           expect(mine.negative).toBe(theirs.negative);
           expect(

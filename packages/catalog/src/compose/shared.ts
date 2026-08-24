@@ -161,6 +161,43 @@ export function imageSections(b: Brief, m?: Model): Block[] {
   return S;
 }
 
+/*
+ * The echo suppressors, phase 13. A brief often says one thing twice: an action restating the
+ * subject ("a spaceship lands the moon" after "a spaceship landing on the moon"), or a setting
+ * re-opening with the word the subject just ended on ("...on the moon" + "moon with earth
+ * behind"). The words all survive once; the second telling is the only thing dropped, because a
+ * prompt that repeats itself spends tokens teaching the model to repeat itself.
+ */
+function stems3(text: string): Set<string> {
+  return new Set(
+    text
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((w) => w.length > 3)
+      .map((w) => w.slice(0, 3)),
+  );
+}
+
+/** True when the action is a rewording of the subject rather than a new beat. */
+export function echoes(subject: string | undefined, action: string | undefined): boolean {
+  if (typeof subject !== 'string' || typeof action !== 'string') return false;
+  const a = stems3(action);
+  const b = stems3(subject);
+  if (a.size === 0 || b.size === 0) return false;
+  const shared = [...a].filter((w) => b.has(w)).length;
+  return shared / a.size >= 0.7;
+}
+
+/** The setting, with any leading words the subject already said trimmed off the front. */
+export function settingAfter(subject: string | undefined, setting: string): string {
+  const said = stems3(subject ?? '');
+  const parts = setting.split(/\s+/);
+  let i = 0;
+  while (i < parts.length && i < 2 && said.has((parts[i] ?? '').toLowerCase().slice(0, 3))) i += 1;
+  const trimmed = parts.slice(i).join(' ');
+  return trimmed.length > 3 ? trimmed : setting;
+}
+
 export function videoSections(b: Brief, m: Model): Block[] {
   const S: Block[] = [];
   const cam = [has(b.camMove) ? (b.camMove ?? '') : '', has(b.shot) ? first(b.shot) : '']
@@ -170,11 +207,11 @@ export function videoSections(b: Brief, m: Model): Block[] {
     cap(cam) + (has(b.lens) ? ' on ' + artic(b.lens ?? '') + ' ' + (b.lens ?? '') : '') + '.';
   const subjectBody =
     cap(stripDot(b.subject) || 'the subject') +
-    (has(b.setting) ? ', ' + lc(stripDot(b.setting)) : '') +
+    (has(b.setting) ? ', ' + lc(settingAfter(b.subject, stripDot(b.setting))) : '') +
     '.';
+  const actionSaysNew = !echoes(b.subject, b.action);
   const actionBody =
-    cap(stripDot(b.action) || 'the subject moves through the frame') +
-    '.' +
+    (actionSaysNew ? cap(stripDot(b.action) || 'the subject moves through the frame') + '.' : '') +
     (has(b.motion) ? ' ' + cap(join(b.motion)) + ' throughout.' : '');
 
   /*
@@ -305,7 +342,7 @@ export function videoSections(b: Brief, m: Model): Block[] {
   } else {
     if (cam) S.push(block('Cinematography', camBody));
     S.push(block('Subject', subjectBody));
-    S.push(block('Action', actionBody));
+    if (actionBody.trim() !== '') S.push(block('Action', actionBody.trim()));
   }
   /*
    * The mood and the pacing are one thought, so they share a sentence: "Playful in feeling,

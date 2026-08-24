@@ -13,11 +13,13 @@ import { Button } from '@forge/ui';
 export function PlanPanel({
   brief,
   model,
+  mode,
   onAnswer,
   onOpenField,
 }: {
   brief: Brief;
   model: Model;
+  mode: 'simple' | 'advanced';
   onAnswer: (field: FieldId, value: string | string[]) => void;
   onOpenField: (field: FieldId) => void;
 }): React.ReactNode {
@@ -62,6 +64,9 @@ export function PlanPanel({
     <section className="plan" aria-label="The plan">
       <p className="plan__count">
         Question {answered + 1} of {total}
+        {answered > 0 && (
+          <span className="plan__prefilled"> {answered} already answered by your brief.</span>
+        )}
       </p>
       <label className="plan__ask" htmlFor="plan-answer">
         {current.ask}
@@ -91,7 +96,7 @@ export function PlanPanel({
             setSkipped((prev) => (prev.includes(current.field) ? prev : [...prev, current.field]));
           }}
         >
-          Skip: Forge decides
+          {mode === 'simple' ? 'Skip: Forge decides' : 'Skip'}
         </Button>
         <Button
           size="sm"
@@ -105,7 +110,10 @@ export function PlanPanel({
       </div>
       {skipped.length > 0 && (
         <p className="plan__skipnote">
-          Skipped: {skipped.length}. Forge fills those with its own defaults and says why.
+          Skipped: {skipped.length}.{' '}
+          {mode === 'simple'
+            ? 'Forge fills those with its own defaults and says why.'
+            : 'In Advanced mode a skipped question stays unanswered, exactly as you left it.'}
         </p>
       )}
     </section>

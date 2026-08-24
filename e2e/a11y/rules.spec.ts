@@ -74,7 +74,7 @@ for (const theme of ['light', 'dark']) {
 for (const theme of ['light', 'dark']) {
   test(`the plan interview has no axe violations: ${theme}`, async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('radio', { name: 'Plan' }).click();
+    await page.getByRole('switch', { name: 'Plan it with me' }).check({ force: true });
     await page.locator('#plan-answer').fill('a dragon on a sea cliff');
     await page
       .getByRole('region', { name: 'The plan' })

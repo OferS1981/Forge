@@ -8,11 +8,11 @@ export const LEX = {
   camera:
     /\b(\d{2,3}\s?mm|f\/\d|close-?up|wide shot|medium shot|establishing|macro|telephoto|anamorphic|tilt-?shift|low angle|high angle|dutch angle|over-the-shoulder|bokeh|depth of field|rack focus)\b/i,
   light:
-    /\b(golden hour|blue hour|rim ?light|backlit|softbox|rembrandt|chiaroscuro|high-?key|low-?key|volumetric|overcast|hard light|soft light|neon|tungsten|3200k|5600k|practical)\b/i,
+    /\b(golden hour|blue hour|rim ?light|backlit|backlight|softbox|rembrandt|chiaroscuro|high-?key|low-?key|volumetric|overcast|hard light|soft light|neon|tungsten|3200k|5600k|practicals?|floodlit|floodlights?|lamplight|firelight|candlelit|moonlit|sodium|spotlit|spotlight)\b/i,
   film: /\b(portra|ektar|velvia|tri-?x|hp5|cinestill|vision3|kodachrome|film grain|halation|super ?8|16mm|35mm film|polaroid)\b/i,
   comp: /\b(rule of thirds|negative space|symmetr|leading lines|foreground|centred|centered|framing|composition)\b/i,
   colour:
-    /\b(teal and orange|desaturat|monochrom|palette|#[0-9a-f]{6}|duotone|bleach bypass|lifted blacks|pastel|saturated)\b/i,
+    /\b(teal and orange|desaturat|monochrom|palette|#[0-9a-f]{6}|duotone|bleach bypass|lifted blacks|pastel|saturated|graded?|colou?r grade|muted (?:tones|colou?rs|\w+-and-\w+)|\w+-and-\w+ grade|\w+-to-\w+ (?:sky|gradient|palette))\b/i,
   format: /\b(json|markdown|table|bullet|numbered|csv|xml|schema|word[s]?|paragraph|format)\b/i,
   role: /\b(you are|act as|as an? (expert|senior|professional))\b/i,
   example: /\b(example|for instance|e\.g\.|<example>|like this)\b/i,
@@ -148,7 +148,18 @@ export function rebuild(text: string, m: Model): Brief {
    * which would be worse than any fault it was treating.
    */
   const quoted = /["\u201c]([^"\u201d]{2,400})["\u201d]/.exec(text)?.[1];
-  const stripped = stripBanned(text).text;
+  /*
+   * People doctor Forge's own output, so the rebuild recognises its own handwriting: the
+   * intended-use guidance and the craft tails are regenerated fresh, never fed back through as
+   * if they were the patient's content.
+   */
+  const ownWriting = text
+    .replace(/for ([^.,\n]{2,40}), front-load the strongest moment[^.]*\./gi, 'for $1.')
+    .replace(/for ([^.,\n]{2,40}), compose safe for a vertical crop[^.]*\./gi, 'for $1.')
+    .replace(/for ([^.,\n]{2,40}), keep the focal subject clear[^.]*\./gi, 'for $1.')
+    .replace(/\b[a-z ]{0,16}in feeling(?:, escalating)?\.?/gi, '')
+    .replace(/\s{2,}/g, ' ');
+  const stripped = stripBanned(ownWriting).text;
   /*
    * "With no music, not crowded, without any clutter" is three exclusions living inside the
    * description, which is the one place they do harm: a negative construction plants the flagged
@@ -158,7 +169,14 @@ export function rebuild(text: string, m: Model): Brief {
   const exclusions: string[] = [];
   const t = stripped
     .replace(
-      /(?:^|[,;]\s*)(?:with no|without any|without|not|no)\s+([a-z][\w -]{2,24}?)(?=\s*(?:[,.;]|$))/gi,
+      /(?:^|[.,;]\s*)(?:with no|without any|without|not|no)\s+([a-z][\w -]{2,24}(?:,\s*[a-z][\w -]{2,24}){0,4})(?=\s*(?:[.;]|$))/gi,
+      (_, list: string) => {
+        for (const w of list.split(',')) exclusions.push(w.trim());
+        return '';
+      },
+    )
+    .replace(
+      /(?:^|[.,;]\s*)(?:with no|without any|without|not|no)\s+([a-z][\w -]{2,24}?)(?=\s*(?:[,.;]|$))/gi,
       (_, w: string) => {
         exclusions.push(w.trim());
         return '';
@@ -176,20 +194,95 @@ export function rebuild(text: string, m: Model): Brief {
      * The old build kept only the first clause, which threw away "red hair, freckles" the moment
      * "portrait" arrived first: content loss dressed as tidiness.
      */
-    const craftLike = (c: string): boolean =>
-      LEX.camera.test(c) ||
-      LEX.light.test(c) ||
-      LEX.colour.test(c) ||
-      LEX.comp.test(c) ||
-      /\b\d{2,3}\s?mm\b|f\/\d|film grain|bokeh|anamorphic|golden hour|blue hour|8[05]mm|\bhdr\b|dslr|4k|footage|drone shot|slow motion/i.test(
-        c,
-      );
+    /*
+     * A clause is craft when craft is most of what it says. "Softbox key camera-left" is a light
+     * spec and leaves the subject; "a stadium filling under floodlights" is a subject that
+     * happens to mention light, and one craft word must never cost five subject words.
+     */
+    const CRAFT_WORD =
+      /\b\d{2,3}\s?mm\b|f\/\d|film grain|bokeh|anamorphic|golden hour|blue hour|\bhdr\b|dslr|4k|footage|drone shot|slow motion|\b(dolly|panning|zoom|tracking|handheld|push in|pull back|highlights?|shadows?|graded?|contrast|softbox|rim light)\b/i;
+    const craftLike = (c: string): boolean => {
+      const wordsIn = c.split(/\s+/).filter((w) => w.length > 1);
+      const hits = wordsIn.filter(
+        (w) =>
+          LEX.camera.test(w) ||
+          LEX.light.test(w) ||
+          LEX.colour.test(w) ||
+          LEX.comp.test(w) ||
+          CRAFT_WORD.test(w),
+      ).length;
+      const phrase =
+        LEX.camera.test(c) ||
+        LEX.light.test(c) ||
+        LEX.colour.test(c) ||
+        LEX.comp.test(c) ||
+        CRAFT_WORD.test(c);
+      if (!phrase) return false;
+      if (wordsIn.length <= 3 || hits / wordsIn.length >= 0.5) return true;
+      // Strip everything the craft lexicons matched; if barely anything is left, the clause was
+      // craft wearing filler ("medium shot on a 50mm normal" leaves only "on" and "normal").
+      const residue = c
+        .replace(LEX.camera, ' ')
+        .replace(LEX.light, ' ')
+        .replace(LEX.colour, ' ')
+        .replace(LEX.comp, ' ')
+        .replace(CRAFT_WORD, ' ')
+        .split(/\s+/)
+        .filter((w) => w.length > 2 && !/^(the|and|with|for|normal|on)$/i.test(w));
+      return residue.length <= 1;
+    };
     const clauses = t
       .split(/[,.\n]/)
       .map((c) => deMeta(c.trim()))
       .filter((c) => c.length > 1);
-    const subjectClauses = clauses.filter((c) => !craftLike(c));
-    b.subject = subjectClauses.slice(0, 5).join(', ') || firstClause || deMeta(t.slice(0, 140));
+    const purposeClause = clauses.find((c) => /^for\s+\S/i.test(c));
+    if (purposeClause !== undefined) b.purpose = purposeClause.replace(/^for\s+/i, '');
+    const subjectClauses = clauses.filter((c) => !craftLike(c) && c !== purposeClause);
+    /*
+     * A pasted prompt often says the same thing twice in different words ("a spaceship landing
+     * on the moon" ... "a spaceship lands the moon"). Near-duplicate clauses are folded: the
+     * first phrasing stays, the echo goes, and nothing the user meant is lost because the words
+     * that matter already survived once.
+     */
+    const stems = (c: string): Set<string> =>
+      new Set(
+        c
+          .toLowerCase()
+          .split(/[^a-z0-9]+/)
+          .filter((w) => w.length > 3)
+          .map((w) => w.slice(0, 3)),
+      );
+    const kept: string[] = [];
+    for (const clause of subjectClauses) {
+      const cs = stems(clause);
+      const echo = kept.some((k) => {
+        const ks = stems(k);
+        const shared = [...cs].filter((w) => ks.has(w)).length;
+        return cs.size > 0 && shared / Math.min(cs.size, ks.size || 1) >= 0.7;
+      });
+      if (!echo) kept.push(clause);
+    }
+    /*
+     * And the join itself is deduped: when a clause opens with the word the previous one ended
+     * on ("...on the moon" + "moon with earth behind"), the doubled word goes. Everything still
+     * gets said once.
+     */
+    const joined: string[] = [];
+    const saidStems = new Set<string>();
+    for (const clause of kept.slice(0, 5)) {
+      const parts = clause.split(/\s+/);
+      let i = 0;
+      while (
+        i < parts.length - 1 &&
+        i < 2 &&
+        saidStems.has((parts[i] ?? '').toLowerCase().slice(0, 3))
+      )
+        i += 1;
+      const trimmed = parts.slice(i).join(' ');
+      joined.push(trimmed.length > 3 ? trimmed : clause);
+      for (const w of stems(clause)) saidStems.add(w);
+    }
+    b.subject = joined.join(', ') || firstClause || deMeta(t.slice(0, 140));
     b.medium = /paint|illustration|drawing|render|3d|vector/i.test(t)
       ? (/oil painting|illustration|3D render|flat vector/i.exec(t)?.[0] ?? 'photograph')
       : 'photograph';
@@ -208,7 +301,15 @@ export function rebuild(text: string, m: Model): Brief {
     if (!LEX.comp.test(t)) b.comp = 'rule of thirds';
     b.mood = ['calm'];
     if (m.category === 'video') {
-      b.action = t.length > 60 ? t : firstClause + ', held for the length of the shot';
+      /*
+       * The action is what the subject clauses did not already say. The old build set the whole
+       * pasted text as the action, so a doctored prompt carried everything twice: once as the
+       * subject, once again as the action. Never again.
+       */
+      const rest = kept.slice(5).join(', ');
+      // No echo dressed as an action: when everything was already said, the action stays unsaid
+      // and the composer's own neutral default carries the motion.
+      if (rest !== '') b.action = rest;
       b.camMove = 'slow dolly in';
     }
     const q = /["“]([^"”]{2,40})["”]/.exec(t);

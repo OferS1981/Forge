@@ -35,14 +35,14 @@
     {
       "name": "Sources",
       "value": "upload before asking",
-      "why": "",
+      "why": "it only knows what you gave it, which is the whole point of it",
       "term": "setting.sources",
       "tier": "simple"
     },
     {
       "name": "Grounding",
       "value": "cite the source line",
-      "why": "",
+      "why": "a quote you can click beats a summary you have to trust",
       "term": "setting.grounding",
       "tier": "simple"
     }

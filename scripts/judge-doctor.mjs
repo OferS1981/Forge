@@ -224,16 +224,135 @@ const CONTENT = {
   },
 };
 
-const PATIENTS_FOR = (category) => ARCHETYPES(CONTENT[category] ?? CONTENT.image);
+/**
+ * The marathon's patients: nine replacement subjects per category, so ten rounds of ten fight a
+ * hundred distinct consultations per model. The archetypes stay fixed, the ailment changes.
+ */
+const THINGS = {
+  image: [
+    ['a lighthouse keeper on a spiral stair', ['lighthouse', 'stair']],
+    ['a street vendor frying dumplings', ['vendor', 'dumplings']],
+    ['a dragon coiled around a bell tower', ['dragon', 'bell tower']],
+    ['a violin restorer at a cluttered bench', ['violin', 'bench']],
+    ['a freight train on a stone viaduct', ['train', 'viaduct']],
+    ['a beekeeper lifting a hive frame', ['beekeeper', 'hive']],
+    ['a diver over a shipwreck', ['diver', 'shipwreck']],
+    ['a potter pulling a tall vase', ['potter', 'vase']],
+    ['a stadium filling under floodlights', ['stadium', 'floodlights']],
+  ],
+  video: [
+    ['a kayaker threading a rock garden', ['kayaker', 'rock']],
+    ['a barista pouring latte art', ['barista', 'latte']],
+    ['a hawk stooping on a field mouse', ['hawk', 'field']],
+    ['a tram crossing a rainy junction', ['tram', 'junction']],
+    ['a blacksmith drawing out a blade', ['blacksmith', 'blade']],
+    ['a paper plane gliding through an office', ['paper plane', 'office']],
+    ['a tide pool waking as the sea returns', ['tide pool', 'sea']],
+    ['a drummer counting in a band', ['drummer', 'band']],
+    ['a night market opening its shutters', ['market', 'shutters']],
+  ],
+  voice: [
+    ['a stern librarian announcing: "The reading room closes in ten minutes."', ['reading room']],
+    ['a gentle guide saying: "Mind the step as you board."', ['Mind the step']],
+    ['an excited commentator: "And she takes the lead on the final bend."', ['final bend']],
+    ['a tired detective: "Run it past me one more time."', ['one more time']],
+    ['a kindly baker: "Fresh out of the oven, careful now."', ['out of the oven']],
+    ['a ship captain: "All hands, prepare to make way."', ['make way']],
+    ['a meditation coach: "Let your shoulders drop."', ['shoulders drop']],
+    ['a quiz host: "For ten points, name the river."', ['ten points']],
+    ['a storyteller: "The door had not been opened in a hundred years."', ['hundred years']],
+  ],
+  sfx: [
+    ['a vault door sealing with a deep clang', ['vault', 'clang']],
+    ['rain drumming on a canvas tent', ['rain', 'tent']],
+    ['ice cracking across a lake', ['ice', 'lake']],
+    ['an old lift gate concertinaing open', ['lift', 'gate']],
+    ['a campfire settling and popping', ['campfire', 'popping']],
+    ['a fencing bout on a metal piste', ['fencing', 'piste']],
+    ['a printing press at full tilt', ['printing press']],
+    ['wind in a ship rigging', ['wind', 'rigging']],
+    ['a beaded curtain parting', ['beaded curtain']],
+  ],
+  music: [
+    ['a garage rock stomper with fuzz guitar', ['garage rock', 'fuzz']],
+    ['an ambient piece for tape loops and felt piano', ['ambient', 'felt piano']],
+    ['an afrobeat groove with a horn section', ['afrobeat', 'horn']],
+    ['a synthwave night-drive theme', ['synthwave', 'night-drive']],
+    ['a bluegrass reel with banjo', ['bluegrass', 'banjo']],
+    ['a trip hop track over dusty breaks', ['trip hop', 'dusty']],
+    ['a chamber pop song with string quartet', ['chamber pop', 'quartet']],
+    ['a dub reggae cut with deep bass', ['dub', 'bass']],
+    ['a flamenco piece with palmas', ['flamenco', 'palmas']],
+  ],
+  text: [
+    ['a welcome email for allotment members', ['allotment', 'welcome']],
+    ['an explainer of container shipping for kids', ['container', 'shipping']],
+    ['a complaint about a delayed kitchen', ['complaint', 'kitchen']],
+    ['a museum label for a Roman coin hoard', ['museum', 'coin']],
+    ['a product page for a chef knife', ['chef knife']],
+    ['a wedding speech for my sister', ['wedding', 'sister']],
+    ['a rota policy for a shared studio', ['rota', 'studio']],
+    ['a planetarium wall text about the dark night sky', ['planetarium', 'night sky']],
+    ['a newsletter about the harvest festival', ['newsletter', 'harvest']],
+  ],
+  code: [
+    ['cursor pagination for the orders endpoint', ['pagination', 'orders']],
+    ['the DST double-report bug', ['DST', 'report']],
+    ['shared retry logic with backoff', ['retry', 'backoff']],
+    ['a health check for database and queue', ['health check', 'queue']],
+    ['a zero-downtime sessions migration', ['sessions', 'migration']],
+    ['a five-minute exchange-rate cache', ['exchange-rate', 'cache']],
+    ['property tests for invoice rounding', ['invoice', 'rounding']],
+    ['timing spans on the checkout flow', ['checkout', 'spans']],
+    ['streaming the image pipeline', ['image pipeline', 'streaming']],
+  ],
+  app: [
+    ['a barbershop queue app', ['barbershop', 'queue']],
+    ['a plant-watering tracker', ['plant', 'watering']],
+    ['a school lost-and-found board', ['lost-and-found', 'school']],
+    ['a wedding photographer CRM', ['photographer', 'CRM']],
+    ['a rotating chore wheel', ['chore', 'wheel']],
+    ['a library reading-challenge tracker', ['reading', 'library']],
+    ['a tide-aware kayak booking page', ['kayak', 'tide']],
+    ['a band tour expense splitter', ['band', 'expense']],
+    ['an open-day volunteer signup sheet', ['volunteer', 'signup']],
+  ],
+  research: [
+    ['disposable vape bans and sales', ['vape', 'sales']],
+    ['four-day school weeks and attainment', ['school weeks', 'attainment']],
+    ['museum admission charges and visitors', ['admission', 'visitors']],
+    ['sodium-ion batteries for grid storage', ['sodium-ion', 'grid']],
+    ['pedestrianised city centres since 2020', ['pedestrianised', 'centres']],
+    ['later school start times for teenagers', ['start times', 'teenagers']],
+    ['reclaimed timber certification schemes', ['timber', 'certification']],
+    ['bike-share schemes that went electric', ['bike-share', 'electric']],
+    ['endangered heritage crafts in the UK', ['heritage', 'crafts']],
+  ],
+};
+
+function contentForRound(category, round) {
+  const base = CONTENT[category] ?? CONTENT.image;
+  if (round === 0) return base;
+  const entry = (THINGS[category] ?? THINGS.image)[(round - 1) % 9];
+  if (!entry) return base;
+  const [thing, keep] = entry;
+  return { ...base, thing, keep };
+}
+
+const PATIENTS_FOR = (category, round) => ARCHETYPES(contentForRound(category, round));
 
 const wantLosses = process.argv.includes('--losses');
+const roundArg = process.argv.find((a) => a.startsWith('--round='));
+const ROUND = roundArg ? Number(roundArg.split('=')[1]) : 0;
+const asJson = process.argv.includes('--json');
+const byModel = {};
 const losses = [];
 let won = 0;
 let fought = 0;
 const perCategory = new Map();
 
 for (const model of MODELS) {
-  for (const patient of PATIENTS_FOR(model.category)) {
+  for (const patient of PATIENTS_FOR(model.category, ROUND)) {
     fought += 1;
     const reasons = [];
     let d;
@@ -284,9 +403,12 @@ for (const model of MODELS) {
     const catId = model.category;
     const bucket = perCategory.get(catId) ?? { won: 0, fought: 0 };
     bucket.fought += 1;
+    byModel[model.id] ??= { won: 0, fought: 0 };
+    byModel[model.id].fought += 1;
     if (reasons.length === 0) {
       won += 1;
       bucket.won += 1;
+      byModel[model.id].won += 1;
     } else {
       losses.push({ model: model.id, patient: patient.name, reasons });
     }
@@ -294,11 +416,14 @@ for (const model of MODELS) {
   }
 }
 
-for (const [catId, b] of perCategory) {
-  console.log(`${catId.padEnd(10)} ${String(b.won).padStart(3)}/${String(b.fought)}`);
-}
-console.log(`TOTAL ${String(won)}/${String(fought)} (${((won / fought) * 100).toFixed(1)}%)`);
-if (wantLosses || losses.length > 0) {
+if (asJson) console.log(JSON.stringify({ round: ROUND, byModel }));
+else
+  for (const [catId, b] of perCategory) {
+    console.log(`${catId.padEnd(10)} ${String(b.won).padStart(3)}/${String(b.fought)}`);
+  }
+if (!asJson)
+  console.log(`TOTAL ${String(won)}/${String(fought)} (${((won / fought) * 100).toFixed(1)}%)`);
+if (!asJson && (wantLosses || losses.length > 0)) {
   const lines = losses.map((l) => `${l.model} | ${l.patient} | ${l.reasons.join('; ')}`);
   writeFileSync(here('../doctor-losses.txt'), lines.join('\n') + '\n');
   console.log(`${String(losses.length)} losses written to doctor-losses.txt`);

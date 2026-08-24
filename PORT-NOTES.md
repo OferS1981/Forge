@@ -287,3 +287,23 @@ packages/data/test/usage.test.ts. What is deliberately NOT collected, and cannot
 questions", which would mean uploading what people type. The account-page privacy copy was
 updated to say exactly this. The signup questions (age, line of work, how you heard) live in the
 local profile; only "how you heard" bumps an anonymous counter, once.
+
+## The marathon (ten rounds of ten, both arenas, all 57)
+
+- Round-varied content pools (scripts/marathon-pools.mjs, the doctor's THINGS) make every one of
+  the 100 battles per model per arena distinct. scripts/marathon.mjs aggregates.
+- What the varied content caught, all fixed and pinned: two judge false-positives (a freight
+  train is not rain: word boundaries; a hive frame legitimately echoes "off-frame": distinctive
+  words only); the Doctor duplicating an entire pasted prompt as subject AND action on video;
+  Forge's own intended-use boilerplate being re-doctored as content; exclusion lists captured
+  whole ("Without watermarks, text artefacts, extra limbs"); near-duplicate clause folding
+  ("a spaceship landing on the moon ... a spaceship lands the moon"); the echo suppressors in
+  video prose (action that restates the subject stays unsaid; a setting never reopens with the
+  subject's last word); the Doctor's craft lexicon widened (floodlights, backlit, sodium,
+  amber-and-slate grades) with proportional clause classification so one craft word never costs
+  five subject words.
+- Plan became a helper toggle beside Simple/Advanced (Alon's call: planning is how you fill the
+  brief for a big prompt, not a third way of composing). The interview says when answers came
+  from a pre-filled brief, and Skip is honest per mode.
+- Settings audit: 57 of 57 distinct signatures; eleven empty whys written (research category and
+  the app wildcard), parity carrying the sanctioned change.

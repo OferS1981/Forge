@@ -2,6 +2,7 @@ import { fileURLToPath } from 'node:url';
 import { writeFileSync } from 'node:fs';
 import { build } from 'vite';
 import { BATTLES } from './battle-briefs.mjs';
+import { battlesForRound } from './marathon-pools.mjs';
 
 /**
  * The judge: my prompt-review rubric, executable.
@@ -101,7 +102,16 @@ function judge(model, brief, result) {
   if (
     model.motionOnly &&
     brief.subject &&
-    flat.toLowerCase().includes(words(brief.subject).slice(-1)[0] ?? '')
+    (() => {
+      // Only words that belong to the subject alone count: an action that says "off-frame"
+      // legitimately puts "frame" in a motion prompt about a hive frame.
+      const elsewhere = new Set(
+        words([brief.action, brief.motion, brief.setting].filter(Boolean).join(' ')),
+      );
+      const distinctive = words(brief.subject).filter((w) => !elsewhere.has(w));
+      const last = distinctive.slice(-1)[0];
+      return last !== undefined && flat.toLowerCase().includes(last);
+    })()
   ) {
     reasons.push('motion-only prompt carries the subject');
   }
@@ -130,7 +140,13 @@ function judge(model, brief, result) {
       .filter(Boolean)
       .join(' ')
       .toLowerCase();
-    if (/night|midnight|6am|dark|alone|rain|fog|wasteland/.test(scene) && /playful/i.test(flat)) {
+    // Word boundaries, learned the hard way: a freight train is not rain. And a mood the user
+    // typed is the user's to type: the bar only judges what Forge chose on its own.
+    if (
+      !brief.mood &&
+      /\b(night|midnight|6am|dark|alone|rain|fog|wasteland)\b/.test(scene) &&
+      /playful/i.test(flat)
+    ) {
       reasons.push('mood ignores a sombre scene');
     }
   }
@@ -194,12 +210,16 @@ function judge(model, brief, result) {
 }
 
 const showLosses = process.argv.includes('--losses');
+const roundArg = process.argv.find((a) => a.startsWith('--round='));
+const ROUND = roundArg ? Number(roundArg.split('=')[1]) : 0;
+const asJson = process.argv.includes('--json');
 const byCategory = {};
+const byModel = {};
 let won = 0;
 let fought = 0;
 const losses = [];
 for (const model of cat.MODELS) {
-  const bank = BATTLES[model.category] ?? [];
+  const bank = battlesForRound(BATTLES[model.category] ?? [], model.category, ROUND);
   for (const [i, wanted] of bank.entries()) {
     const reads = new Set([...model.core, ...model.craft, ...model.tech]);
     const brief = Object.fromEntries(Object.entries(wanted).filter(([k]) => reads.has(k)));
@@ -209,17 +229,23 @@ for (const model of cat.MODELS) {
     fought += 1;
     byCategory[model.category] ??= { won: 0, fought: 0 };
     byCategory[model.category].fought += 1;
+    byModel[model.id] ??= { won: 0, fought: 0 };
+    byModel[model.id].fought += 1;
     if (reasons.length === 0) {
       won += 1;
       byCategory[model.category].won += 1;
+      byModel[model.id].won += 1;
     } else {
       losses.push(`${model.id} #${i + 1}: ${reasons.join('; ')}`);
     }
   }
 }
-for (const [category, score] of Object.entries(byCategory)) {
-  console.log(`${category.padEnd(10)} ${score.won}/${score.fought}`);
-}
-console.log(`TOTAL      ${won}/${fought}  (${((won / fought) * 100).toFixed(1)}%)`);
+if (asJson) {
+  console.log(JSON.stringify({ round: ROUND, byModel, losses }));
+} else
+  for (const [category, score] of Object.entries(byCategory)) {
+    console.log(`${category.padEnd(10)} ${score.won}/${score.fought}`);
+  }
+if (!asJson) console.log(`TOTAL      ${won}/${fought}  (${((won / fought) * 100).toFixed(1)}%)`);
 if (showLosses) for (const loss of losses) console.log('LOSS', loss);
 writeFileSync(here('../battle-losses.txt'), losses.join('\n'));

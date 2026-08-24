@@ -2055,3 +2055,10 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
+
+.plan__prefilled {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--ink-dim);
+}

@@ -42,14 +42,14 @@
     {
       "name": "search_context_size",
       "value": "high",
-      "why": "",
+      "why": "more sources read per answer; the quality dial that looks like a cost dial",
       "term": "setting.search-context-size",
       "tier": "simple"
     },
     {
       "name": "Date range",
       "value": "state it in the prompt",
-      "why": "",
+      "why": "search defaults to forever, and forever includes the outdated",
       "term": "setting.date-range",
       "tier": "simple"
     }

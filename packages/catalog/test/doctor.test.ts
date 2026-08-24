@@ -70,6 +70,10 @@ describe('the Doctor', () => {
       const ours = rebuild(c.text, m);
       const theirs = PROTOTYPE.rebuild(c.text, protoModel(c.model));
       for (const key of Object.keys(theirs)) {
+        // The action is the one field the rebuild now leaves honestly unsaid when the patient
+        // said nothing new: the prototype fabricated one out of the subject, which is the echo
+        // bug phase 13 removed.
+        if (key === 'action' && ours.action === undefined) continue;
         expect(ours[key as keyof typeof ours], `${c.name}: lost the ${key} field`).toBeDefined();
       }
       const oursText = JSON.stringify(ours).toLowerCase();

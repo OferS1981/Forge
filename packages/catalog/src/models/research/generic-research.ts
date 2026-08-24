@@ -26,8 +26,16 @@ export const genericResearch: ModelSpec = {
   ],
   settings: () =>
     rows([
-      ['Citations', 'require inline', ''],
-      ['Date range', 'state explicitly', ''],
+      [
+        'Citations',
+        'require inline',
+        'an uncited claim from a research tool is a rumour with formatting',
+      ],
+      [
+        'Date range',
+        'state explicitly',
+        'without one, old evidence and new evidence blur into one answer',
+      ],
     ]),
   pairsWith: [],
   betterFor: [],

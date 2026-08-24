@@ -24,8 +24,16 @@ export const notebooklm: ModelSpec = {
   warnings: ['The real ceiling is chat queries per day, not tokens. Plan long sessions around it.'],
   settings: () =>
     rows([
-      ['Sources', 'upload before asking', ''],
-      ['Grounding', 'cite the source line', ''],
+      [
+        'Sources',
+        'upload before asking',
+        'it only knows what you gave it, which is the whole point of it',
+      ],
+      [
+        'Grounding',
+        'cite the source line',
+        'a quote you can click beats a summary you have to trust',
+      ],
     ]),
   pairsWith: [],
   betterFor: [],

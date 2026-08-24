@@ -273,19 +273,19 @@
         },
         {
           "field": "settings.Date range",
-          "says": "Date range defaults to state explicitly"
+          "says": "Date range defaults to state explicitly. without one, old evidence and new evidence blur into one answer"
         },
         {
           "field": "settings.Effort",
-          "says": "Effort defaults to High"
+          "says": "Effort defaults to High. research is the one job where thinking longer is visibly worth it"
         },
         {
           "field": "settings.Missing evidence",
-          "says": "Missing evidence defaults to say so, do not estimate"
+          "says": "Missing evidence defaults to say so, do not estimate. an honest gap beats a confident guess in every report ever read"
         },
         {
           "field": "settings.Mode",
-          "says": "Mode defaults to Deep Research"
+          "says": "Mode defaults to Deep Research. the long agentic mode; the quick mode answers before it has read enough"
         },
         {
           "field": "version",
@@ -705,7 +705,7 @@
         },
         {
           "field": "settings.Protect",
-          "says": "Protect defaults to name the files to leave alone"
+          "says": "Protect defaults to name the files to leave alone. builders rebuild what they are not fenced off from"
         },
         {
           "field": "settings.Scope",
@@ -817,11 +817,11 @@
         },
         {
           "field": "settings.Citations",
-          "says": "Citations defaults to require inline"
+          "says": "Citations defaults to require inline. an uncited claim from a research tool is a rumour with formatting"
         },
         {
           "field": "settings.Date range",
-          "says": "Date range defaults to state explicitly"
+          "says": "Date range defaults to state explicitly. without one, old evidence and new evidence blur into one answer"
         },
         {
           "field": "version",
@@ -1669,11 +1669,11 @@
         },
         {
           "field": "settings.Grounding",
-          "says": "Grounding defaults to cite the source line"
+          "says": "Grounding defaults to cite the source line. a quote you can click beats a summary you have to trust"
         },
         {
           "field": "settings.Sources",
-          "says": "Sources defaults to upload before asking"
+          "says": "Sources defaults to upload before asking. it only knows what you gave it, which is the whole point of it"
         },
         {
           "field": "version",
@@ -1693,7 +1693,7 @@
         },
         {
           "field": "settings.Date range",
-          "says": "Date range defaults to state it in the prompt"
+          "says": "Date range defaults to state it in the prompt. search defaults to forever, and forever includes the outdated"
         },
         {
           "field": "settings.Model",
@@ -1701,7 +1701,7 @@
         },
         {
           "field": "settings.search_context_size",
-          "says": "search_context_size defaults to high"
+          "says": "search_context_size defaults to high. more sources read per answer; the quality dial that looks like a cost dial"
         },
         {
           "field": "version",

@@ -35,14 +35,14 @@
     {
       "name": "Citations",
       "value": "require inline",
-      "why": "",
+      "why": "an uncited claim from a research tool is a rumour with formatting",
       "term": "setting.citations",
       "tier": "simple"
     },
     {
       "name": "Date range",
       "value": "state explicitly",
-      "why": "",
+      "why": "without one, old evidence and new evidence blur into one answer",
       "term": "setting.date-range",
       "tier": "simple"
     }

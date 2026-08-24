@@ -35,28 +35,28 @@
     {
       "name": "Mode",
       "value": "Deep Research",
-      "why": "",
+      "why": "the long agentic mode; the quick mode answers before it has read enough",
       "term": "setting.mode",
       "tier": "simple"
     },
     {
       "name": "Effort",
       "value": "High",
-      "why": "",
+      "why": "research is the one job where thinking longer is visibly worth it",
       "term": "setting.effort",
       "tier": "simple"
     },
     {
       "name": "Date range",
       "value": "state explicitly",
-      "why": "",
+      "why": "without one, old evidence and new evidence blur into one answer",
       "term": "setting.date-range",
       "tier": "simple"
     },
     {
       "name": "Missing evidence",
       "value": "Say so in a Gaps section rather than estimating",
-      "why": "",
+      "why": "an honest gap beats a confident guess in every report ever read",
       "term": "setting.missing-evidence",
       "tier": "advanced"
     }

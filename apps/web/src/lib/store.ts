@@ -93,19 +93,22 @@ function usePersisted<T>(
   return [value, set];
 }
 
-/**
- * The bench's third gear. Plan is a way of filling the brief, not a way of composing it: under
- * the hood a planned strike forges in Simple mode, so whatever the interview did not ask is
- * auto-filled with the same craft defaults, and the person sees every answer land in the brief.
- */
-export type BenchMode = Mode | 'plan';
-
-function isBenchMode(v: unknown): v is BenchMode {
-  return v === 'simple' || v === 'advanced' || v === 'plan';
+function isBenchMode(v: unknown): v is Mode {
+  return v === 'simple' || v === 'advanced';
 }
 
-export function useBenchMode(): [BenchMode, (next: BenchMode) => void] {
-  return usePersisted<BenchMode>('bench-mode', 'simple', isBenchMode);
+/** Simple or Advanced: the two ways of composing. Planning is a helper on top, not a third way. */
+export function useBenchMode(): [Mode, (next: Mode) => void] {
+  return usePersisted<Mode>('bench-mode', 'simple', isBenchMode);
+}
+
+/**
+ * The Plan helper: an interview that fills the brief, usable with either mode, reached for when
+ * the prompt is a big one. A toggle, because it changes how you fill the form, never what the
+ * strike composes.
+ */
+export function usePlanOpen(): [boolean, (next: boolean) => void] {
+  return usePersisted<boolean>('plan-open', false, (v): v is boolean => typeof v === 'boolean');
 }
 
 export function useModelId(fallback: ModelId): [string, (next: string) => void] {

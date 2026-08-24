@@ -27,7 +27,11 @@ export const genericApp: ModelSpec = {
   settings: () =>
     rows([
       ['Scope', 'one screen', ''],
-      ['Protect', 'name the files to leave alone', ''],
+      [
+        'Protect',
+        'name the files to leave alone',
+        'builders rebuild what they are not fenced off from',
+      ],
     ]),
   pairsWith: [],
   betterFor: [],

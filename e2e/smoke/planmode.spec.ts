@@ -14,7 +14,7 @@ test.beforeEach(async ({ page }) => {
 
 test('the interview asks, the answer lands in the brief, and the count moves', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('radio', { name: 'Plan' }).click();
+  await page.getByRole('switch', { name: 'Plan it with me' }).check({ force: true });
   const planPanel = page.getByRole('region', { name: 'The plan' });
   await expect(planPanel).toContainText('Question 1 of');
   await expect(planPanel).toContainText('What is the one thing this image is about?');
@@ -28,11 +28,11 @@ test('the interview asks, the answer lands in the brief, and the count moves', a
 
 test('skip hands the choice to Forge, and the strike explains it', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('radio', { name: 'Plan' }).click();
+  await page.getByRole('switch', { name: 'Plan it with me' }).check({ force: true });
   const planPanel = page.getByRole('region', { name: 'The plan' });
   await page.locator('#plan-answer').fill('a dragon on a sea cliff');
   await planPanel.getByRole('button', { name: 'Answer', exact: true }).click();
-  await planPanel.getByRole('button', { name: 'Skip: Forge decides' }).click();
+  await planPanel.getByRole('button', { name: /Skip/ }).click();
   await expect(planPanel).toContainText('Skipped: 1');
 
   await page.getByRole('button', { name: 'Strike' }).click();
@@ -44,7 +44,7 @@ test('skip hands the choice to Forge, and the strike explains it', async ({ page
 
 test('a finished interview says the plan is complete', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('radio', { name: 'Plan' }).click();
+  await page.getByRole('switch', { name: 'Plan it with me' }).check({ force: true });
   const planPanel = page.getByRole('region', { name: 'The plan' });
   for (let i = 0; i < 12; i += 1) {
     if ((await planPanel.getByText('The plan is complete').count()) > 0) break;

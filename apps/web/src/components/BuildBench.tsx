@@ -24,6 +24,7 @@ import {
   useForgeCount,
   useInvite,
   useBenchMode,
+  usePlanOpen,
   useModelId,
   usePolicyNotes,
 } from '../lib/store';
@@ -39,16 +40,14 @@ import { Walkthrough, WalkthroughRestart } from './Walkthrough';
 const FIRST = CATEGORIES[0]?.defaultModel ?? 'midjourney';
 
 export function BuildBench(): React.ReactNode {
-  const [benchMode, setBenchMode] = useBenchMode();
+  const [mode, setMode] = useBenchMode();
+  const [planOpen, setPlanOpen] = usePlanOpen();
   /*
-   * Plan is a way of filling the brief, not of composing it. The brief shows the full craft
-   * layer so every interview answer lands somewhere visible, and the strike runs Simple so
-   * whatever the interview did not cover is auto-filled with the same defaults, each one
-   * explained in the output.
+   * While the plan is open the brief shows its full craft layer, so every interview answer lands
+   * somewhere visible. The strike composes in whichever mode is chosen: Simple fills the skipped
+   * questions with explained defaults, Advanced adds nothing that was not answered.
    */
-  const mode = benchMode === 'plan' ? 'simple' : benchMode;
-  const briefMode = benchMode === 'plan' ? 'advanced' : benchMode;
-  const setMode = setBenchMode;
+  const briefMode = planOpen ? 'advanced' : mode;
   const [modelId, setModelId] = useModelId(FIRST);
   const { pins, toggle: togglePin } = usePinnedModels();
   const [forged, bumpForged] = useForgeCount();
@@ -102,9 +101,9 @@ export function BuildBench(): React.ReactNode {
     setStrikes((n) => n + 1);
     bumpForged();
     recordUse('strike:' + model.id);
-    if (benchMode === 'plan') recordUse('plan');
+    if (planOpen) recordUse('plan');
     outputRef.current?.focus();
-  }, [brief, model, mode, benchMode, useMyProfile, profile, bumpForged]);
+  }, [brief, model, mode, planOpen, useMyProfile, profile, bumpForged]);
 
   /**
    * The auto-filled line in Simple mode is the tutorial: each choice opens the one field that made
@@ -114,10 +113,10 @@ export function BuildBench(): React.ReactNode {
   const openField = useCallback(
     (field: FieldId) => {
       // In Plan the whole craft layer is already on show, so the mode stays put.
-      if (benchMode === 'simple') setMode('advanced');
+      if (!planOpen && mode === 'simple') setMode('advanced');
       setFocusField(field);
     },
-    [benchMode, setMode],
+    [planOpen, mode, setMode],
   );
 
   useEffect(() => {
@@ -193,23 +192,26 @@ export function BuildBench(): React.ReactNode {
         <div className="modebar">
           <Segmented
             label="Mode"
-            value={benchMode}
+            value={mode}
             onChange={(v) => {
-              if (v === 'simple' || v === 'advanced' || v === 'plan') setMode(v);
+              if (v === 'simple' || v === 'advanced') setMode(v);
             }}
             options={[
               { value: 'simple', label: 'Simple' },
               { value: 'advanced', label: 'Advanced' },
-              { value: 'plan', label: 'Plan' },
             ]}
           />
           <p className="modebar__what">
-            {benchMode === 'simple'
+            {mode === 'simple'
               ? 'Forge makes most of the choices. You give it the subject.'
-              : benchMode === 'advanced'
-                ? 'You make most of the choices. Forge fills in nothing you have not asked for.'
-                : 'Forge interviews you: answer what matters, skip what does not, and it fills the rest.'}
+              : 'You make most of the choices. Forge fills in nothing you have not asked for.'}
           </p>
+          <Switch
+            label="Plan it with me"
+            hint="for a big prompt: Forge interviews you, every answer lands in the brief"
+            checked={planOpen}
+            onChange={setPlanOpen}
+          />
           <Switch
             label="Policy notes"
             hint="the model's own documented content rules, beside the prompt"
@@ -231,10 +233,11 @@ export function BuildBench(): React.ReactNode {
           )}
         </div>
 
-        {benchMode === 'plan' && (
+        {planOpen && (
           <PlanPanel
             brief={brief}
             model={model}
+            mode={mode}
             onAnswer={(field, value) => {
               setField(model.id, field, value);
             }}

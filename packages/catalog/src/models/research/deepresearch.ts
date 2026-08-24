@@ -28,10 +28,26 @@ export const deepresearch: ModelSpec = {
   ],
   settings: (b) =>
     rows([
-      ['Mode', 'Deep Research', ''],
-      ['Effort', or(b.effort, 'High'), ''],
-      ['Date range', 'state explicitly', ''],
-      ['Missing evidence', or(b.rGaps, 'say so, do not estimate'), ''],
+      [
+        'Mode',
+        'Deep Research',
+        'the long agentic mode; the quick mode answers before it has read enough',
+      ],
+      [
+        'Effort',
+        or(b.effort, 'High'),
+        'research is the one job where thinking longer is visibly worth it',
+      ],
+      [
+        'Date range',
+        'state explicitly',
+        'without one, old evidence and new evidence blur into one answer',
+      ],
+      [
+        'Missing evidence',
+        or(b.rGaps, 'say so, do not estimate'),
+        'an honest gap beats a confident guess in every report ever read',
+      ],
     ]),
   pairsWith: [],
   betterFor: [],

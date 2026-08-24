@@ -28,8 +28,16 @@ export const perplexity: ModelSpec = {
   settings: () =>
     rows([
       ['Model', 'Sonar Pro', 'Sonar Deep Research for exhaustive reports'],
-      ['search_context_size', 'high', ''],
-      ['Date range', 'state it in the prompt', ''],
+      [
+        'search_context_size',
+        'high',
+        'more sources read per answer; the quality dial that looks like a cost dial',
+      ],
+      [
+        'Date range',
+        'state it in the prompt',
+        'search defaults to forever, and forever includes the outdated',
+      ],
     ]),
   pairsWith: [],
   betterFor: [],
