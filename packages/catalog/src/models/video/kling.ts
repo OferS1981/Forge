@@ -22,6 +22,7 @@ export const kling: Model = {
   worst:
     'Prompt sensitivity. It over-reads long prompts and will invent shot changes you did not ask for.',
   notes: [
+    'The official formula is subject and its description, then subject movement, then scene, then camera language, lighting and atmosphere, in that order. Keep each movement straightforward enough for a five-second beat.',
     "Kling's own formula is shot type, movement direction, duration or speed descriptor, then style elements. Forge writes one block per shot in that order.",
     'Master Shots camera presets are more stable than prompted camera language. When the move matters, use the preset.',
     'Bind elements. Without them, identity drifts badly past about eight seconds.',
@@ -51,11 +52,16 @@ export const kling: Model = {
   ],
   sources: [
     {
+      url: 'https://app.klingai.com/global/quickstart/text-to-video-prompt-guide',
+      title: 'Text to Video Prompt Guide',
+      publisher: 'Kling',
+    },
+    {
       url: 'https://app.klingai.com/global/dev/document-api/apiReference/model/videoGeneration',
       title: 'Video generation API',
       publisher: 'Kuaishou',
     },
   ],
-  verifiedOn: '2026-08-23',
+  verifiedOn: '2026-08-24',
   unverified: true,
 };

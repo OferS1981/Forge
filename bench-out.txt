@@ -151,8 +151,8 @@ Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide 
 == video-single :: veo (score 64)
 Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
-== video-single :: kling (score 60)
-Shot 1: Medium close-up, slow dolly in. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. A sunlit cafe counter. Warm highlights, cool shadows grade. 10 seconds.
+== video-single :: kling (score 61)
+Shot 1: A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. A sunlit cafe counter. Camera: medium close-up, slow dolly in. Warm highlights, cool shadows grade. 10 seconds.
 Continuity: Single continuous shot, no cuts.
 
 == video-single :: seedance (score 64)
@@ -167,9 +167,8 @@ Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, 
 == video-single :: luma (score 65)
 Slow dolly in, framed as a medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
-== video-single :: ltx (score 60)
-Shot 1: Medium close-up, slow dolly in. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. A sunlit cafe counter. Warm highlights, cool shadows grade. 10 seconds.
-Continuity: Single continuous shot, no cuts.
+== video-single :: ltx (score 69)
+Medium close-up on an 85mm portrait. A sunlit cafe counter. Warm highlights, cool shadows grade. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. Slow dolly in. Playful in feeling, escalating.
 
 == video-single :: higgsfield (score 64)
 Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
@@ -193,9 +192,9 @@ Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo b
 (fields this model does not read: shots)
 
 == video-multishot :: kling (score 73)
-Shot 1: Medium close-up, slow dolly in. A night courier on a cargo bike. He checks the address under a streetlight. Wet London streets after midnight. Warm highlights, cool shadows grade. 4 seconds.
-Shot 2: Medium close-up, arc around subject. He cuts through an alley. 4 seconds.
-Shot 3: Medium close-up, handheld follow. He hands over the parcel and nods. 4 seconds.
+Shot 1: A night courier on a cargo bike. He checks the address under a streetlight. Wet London streets after midnight. Camera: medium close-up, slow dolly in. Warm highlights, cool shadows grade. 4 seconds.
+Shot 2: He cuts through an alley. Camera: medium close-up, arc around subject. 4 seconds.
+Shot 3: He hands over the parcel and nods. Camera: medium close-up, handheld follow. 4 seconds.
 Audio: Rain on tarmac, distant sirens. No music.
 
 == video-multishot :: seedance (score 74)
@@ -214,11 +213,8 @@ Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo b
 Slow dolly in, framed as a medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
 (fields this model does not read: shots, vaudio)
 
-== video-multishot :: ltx (score 73)
-Shot 1: Medium close-up, slow dolly in. A night courier on a cargo bike. He checks the address under a streetlight. Wet London streets after midnight. Warm highlights, cool shadows grade. 4 seconds.
-Shot 2: Medium close-up, arc around subject. He cuts through an alley. 4 seconds.
-Shot 3: Medium close-up, handheld follow. He hands over the parcel and nods. 4 seconds.
-Audio: Rain on tarmac, distant sirens. No music.
+== video-multishot :: ltx (score 77)
+Medium close-up on an 85mm portrait. Wet London streets after midnight. Warm highlights, cool shadows grade. A night courier on a cargo bike. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Slow dolly in. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music.
 
 == video-multishot :: higgsfield (score 73)
 Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music.
@@ -244,11 +240,11 @@ Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo b
 This summer... everything changes. Are you ready? One last job. One last chance.
 
 == voice-trailer :: el-voicedesign (score 44)
-en-US. A gravelly American man in his fifties. Broadcast quality recording.
+Native en-US. A gravelly American man in his fifties. Broadcast quality recording.
 (fields this model does not read: useCase)
 
 == voice-trailer :: el-dubbing (score 25)
-en-US. A gravelly American man in his fifties. Broadcast quality recording.
+Native en-US. A gravelly American man in his fifties. Broadcast quality recording.
 (fields this model does not read: script, useCase)
 
 == voice-trailer :: cartesia (score 52)

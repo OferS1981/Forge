@@ -370,6 +370,47 @@ describe('facts fetched from the vendors, this round', () => {
   });
 });
 
+describe('round seven: three more vendors, read and obeyed', () => {
+  const courier7: Brief = {
+    subject: 'a night courier on a cargo bike',
+    setting: 'wet London streets after midnight',
+    action: 'he checks the address, then hands over the parcel',
+    shots: '2',
+    duration: '8s',
+  };
+
+  it('writes Kling in its official formula: subject, movement, scene, then camera', () => {
+    const flat = forge(courier7, modelById('kling'), 'simple').flat;
+    const first = flat.split('\n')[0] ?? '';
+    expect(first.indexOf('courier')).toBeLessThan(first.indexOf('Camera:'));
+    expect(first.indexOf('midnight')).toBeLessThan(first.indexOf('Camera:'));
+  });
+
+  it('writes LTX as one flowing paragraph, never the shot list its guide forbids', () => {
+    const out = forge(courier7, modelById('ltx'), 'simple');
+    expect(out.flat).not.toMatch(/Shot 1:/);
+    expect(out.flat).not.toContain('\n');
+    // The character arrives before the pronouns that refer to it.
+    expect(out.flat.indexOf('courier')).toBeLessThan(out.flat.indexOf('He checks'));
+  });
+
+  it('writes a voice design in the documented order, language first', () => {
+    const flat = forge(
+      {
+        lang: 'en-GB',
+        voiceChar: 'a weathered man in his sixties',
+        vArch: 'noir detective',
+        vTone: ['weary'],
+      },
+      modelById('el-voicedesign'),
+      'advanced',
+    ).flat;
+    expect(flat.startsWith('Native en-GB.')).toBe(true);
+    expect(flat).toContain('Persona: noir detective.');
+    expect(flat).toContain('Emotion: weary.');
+  });
+});
+
 describe('small finish', () => {
   it('ends the app brief first line like the others', () => {
     const out = forge(

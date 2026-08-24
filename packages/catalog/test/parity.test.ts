@@ -59,7 +59,7 @@ const LAYOUT_ONLY = new Set([
  * than the prototype did, so the deviation is scoped the other way: nothing the prototype said may
  * be missing from ours.
  */
-const SHOTLIST_FIXED = new Set(['kling', 'ltx']);
+const SHOTLIST_FIXED = new Set(['kling']);
 
 /*
  * Three video models now follow the order their own notes document the vendor asking for: Runway's
@@ -86,7 +86,63 @@ const MUSIC_ORDERED = new Set(['lyria', 'stableaudio', 'el-music']);
 const MOTION_ONLY = new Set(['mjvideo']);
 
 /* The models whose files gained a cited vendor note in the round-six research pass. */
-const NOTES_ADDED = new Set(['el-tts', 'cartesia', 'hume']);
+const NOTES_ADDED = new Set(['el-tts', 'cartesia', 'hume', 'ltx', 'kling', 'el-voicedesign']);
+
+/*
+ * LTX moved from the shot list its own guide forbids to the flowing paragraph it asks for. The
+ * scaffolding words of the old format may go; the documented framing words may arrive; every
+ * content word must survive.
+ */
+const LTX_REMOVED = new Set([
+  'shot',
+  'seconds',
+  'continuity',
+  'single',
+  'continuous',
+  'cuts',
+  'medium',
+  'camera',
+  // The old format injected alternating default moves per shot; the prose uses only the move the
+  // user gave, so the scaffold vocabulary may go.
+  'slow',
+  'dolly',
+  'arc',
+  'around',
+  'handheld',
+  'follow',
+  'locked',
+  'static',
+  'tilt',
+  // Both formats' filler placeholders, which differ: 'the action continues' against 'the subject
+  // moves through the frame'. Placeholder vocabulary is forgiven in both directions.
+  'subject',
+  'action',
+  'continues',
+  // The old format labelled the audio line; the word Audio itself was the label.
+  'audio',
+]);
+const LTX_ADDED = new Set([
+  'camera',
+  'movement',
+  'throughout',
+  'shot',
+  'framed',
+  'subject',
+  'moves',
+  'frame',
+  'through',
+  // The framing of sentences whose fields the old shot list dropped outright: the mood and
+  // pacing line, and the reference line. Their content words are covered by the typed-words rule;
+  // these are the joining words of the recovered sentences.
+  'feeling',
+  'register',
+]);
+
+/*
+ * Voice Design now follows the documented scaffold: Native <language>, Persona:, Emotion:. Those
+ * label words are the only ones allowed to arrive.
+ */
+const VOICEDESIGN_ADDED = new Set(['native', 'persona', 'emotion']);
 const tokens = (text: string): string => text.split(', ').sort().join('|');
 const ORDER_WORDS_ALLOWED = new Set([
   'framed',
@@ -121,8 +177,6 @@ const JSON_FIXED = new Set(['ideogram']);
  */
 const SCRIPT_VERBATIM = new Set([
   'el-tts',
-  'el-voicedesign',
-  'el-dubbing',
   'cartesia',
   // hume takes its own containment branch: its acting line changed shape as well as punctuation.
   'generic-voice',
@@ -241,6 +295,13 @@ const WORDING_SCORE = new Set([
   'mjvideo',
   // The invented "measured, warm" fallback is gone, so the words the axis counted went with it.
   'hume',
+  // Reshaped to their vendors' documented forms, so the word-counting axes move a point or two.
+  'kling',
+  'ltx',
+  'el-voicedesign',
+  'el-dubbing',
+  // The purpose token the invariant suite restored adds real words, so specificity moves.
+  'sdxl',
 ]);
 
 /** Symmetric: applied to both sides' 'What we are building' body. See rewriteOurs. */
@@ -343,6 +404,12 @@ describe('parity with the prototype', () => {
             const medium = mineJson.art_style?.medium;
             const style = (mineJson.style_description ?? '').toLowerCase();
             if (medium !== undefined) expect(style).toContain(medium.toLowerCase());
+            // The one added key carries the purpose the suite caught being dropped.
+            if (typeof brief.purpose === 'string') {
+              expect((mineJson as { intended_use?: string }).intended_use).toBe(
+                brief.purpose.replace(/\.$/, ''),
+              );
+            }
           } else if (SCRIPT_VERBATIM.has(m.id)) {
             // Same text, with the punctuation it was given. Nothing else may have moved.
             const trailing = /[.!?\u2026]+$/;
@@ -363,6 +430,39 @@ describe('parity with the prototype', () => {
             expect(mine.blocks.map((b, i) => [b.label, i === 0 ? theirsStyle : b.body])).toEqual(
               theirs.blocks,
             );
+          } else if (m.id === 'ltx') {
+            for (const word of words(theirs.flat)) {
+              if (LTX_REMOVED.has(word)) continue;
+              expect(words(mine.flat), `ltx lost "${word}"`).toContain(word);
+            }
+            // A word the user typed is always legitimate: the old shot list dropped the lens
+            // entirely, and the prose restoring it is a recovery, not an invention.
+            const typed = new Set(words(JSON.stringify(brief)));
+            for (const word of words(mine.flat)) {
+              if (words(theirs.flat).includes(word) || LTX_ADDED.has(word) || typed.has(word))
+                continue;
+              throw new Error(`ltx gained the undocumented word "${word}"`);
+            }
+            expect(mine.flat).not.toContain('Shot 1');
+          } else if (m.grammar === 'voicedesign') {
+            for (const word of words(theirs.flat)) {
+              expect(words(mine.flat), `${m.id} lost "${word}"`).toContain(word);
+            }
+            for (const word of words(mine.flat)) {
+              if (words(theirs.flat).includes(word) || VOICEDESIGN_ADDED.has(word)) continue;
+              throw new Error(`${m.id} gained the undocumented word "${word}"`);
+            }
+          } else if (m.grammar === 'tags') {
+            /*
+             * The tag grammar gained the purpose token the invariant suite caught it dropping.
+             * Remove exactly that token and the bytes must match, so nothing else can move.
+             */
+            const purpose = typeof brief.purpose === 'string' ? brief.purpose : '';
+            const withoutPurpose =
+              purpose.length > 0
+                ? mine.flat.replace(`, for ${purpose.replace(/\.$/, '')}`, '')
+                : mine.flat;
+            expect(withoutPurpose).toBe(theirs.flat);
           } else if (m.id === 'hume') {
             const record = mine.blocks.map((b) => b.body).join(' ');
             const INVENTED = new Set(['measured', 'warm']);
@@ -419,7 +519,7 @@ describe('parity with the prototype', () => {
             expect(mine.notes).toEqual(theirs.notes);
           }
           expect(mine.warnings).toEqual(theirs.warn);
-          if (!MOTION_ONLY.has(m.id)) {
+          if (!MOTION_ONLY.has(m.id) && m.id !== 'ltx' && m.grammar !== 'voicedesign') {
             expect(mine.variations.map((v) => ({ n: v.name, t: v.text }))).toEqual(
               theirs.variations,
             );

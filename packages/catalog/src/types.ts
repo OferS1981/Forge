@@ -168,10 +168,12 @@ export interface Model {
    * A documented section order that differs from the shared one. `action-in-environment` is
    * Runway's own template, "[camera] shot of [subject] [action] in [environment], then supporting
    * description". `performance-timeline` is Seedance's documented structure, "subject, performance
-   * across the full duration, ambience, camera, then audio". Set only where the model's own notes
-   * record the vendor saying so.
+   * across the full duration, ambience, camera, then audio". `shot-scene-action` is LTX's official
+   * prompting guide: establish the shot, set the scene, describe the action, define the character,
+   * identify the camera movement, describe the audio, all as one flowing paragraph. Set only where
+   * the model's own notes record the vendor saying so.
    */
-  videoOrder?: 'action-in-environment' | 'performance-timeline';
+  videoOrder?: 'action-in-environment' | 'performance-timeline' | 'shot-scene-action';
   /**
    * The vendor documents that SFX and ambience belong on their own labelled line rather than woven
    * into the prose. Veo's own note calls it the documented syntax.

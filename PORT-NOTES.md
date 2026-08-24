@@ -132,6 +132,29 @@ came from in `sources` with `verifiedOn` moved to the day it was read.
 - **Higgsfield's settings row** now names the preset to click, chosen from the camera move out of
   the preset library its own note lists, instead of saying "nearest named preset".
 
+## The round-seven research pass
+
+Three more vendors read and obeyed, each fact cited in `sources` with `verifiedOn` moved to the day
+it was read.
+
+- **Kling publishes a formula**: subject and its description, then subject movement, then scene,
+  then camera language, lighting and atmosphere. The shot list led with the camera; the vendor puts
+  it after the scene, so each shot line now reads subject, movement, scene, then Camera.
+- **LTX's guide forbids the very grammar it carried.** "Write your prompt as a single flowing
+  paragraph" and "Do not use a shot list, numbered beats, or screenplay sluglines". The grammar
+  moved from shotlist to prose in the guide's six-element order, with the character placed before
+  the pronouns that refer to it because the same guide demands one chronological paragraph. The
+  old shot list also dropped the lens and the reference outright; the prose restores them.
+- **ElevenLabs documents a voice-design scaffold**: native language, gender and age, audio
+  quality, persona, emotion, then timbre and pacing. The composer writes exactly that order, for
+  Voice Design and for Dubbing, which shares the grammar.
+
+And a new invariant suite, `quality.test.ts`, runs every model against a full and a minimal brief
+in both modes, 228 cases, holding the rules the bench applied by hand: nothing repeats, nothing
+contradicts, no meta-text in the paste, nothing typed is lost, no placeholder ships as a finished
+line. Its first run caught the tag and JSON grammars silently dropping the user's purpose, which
+no other suite had seen.
+
 ## Things in the prototype I think are wrong, left as they are
 
 - **The intended-use clause is a label, not a sentence.** `imageSections` emits

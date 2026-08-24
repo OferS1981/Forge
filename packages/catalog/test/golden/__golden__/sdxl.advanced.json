@@ -2,14 +2,14 @@
   "blocks": [
     {
       "label": "Positive prompt",
-      "body": "photograph, A retired boxer taping his hands in a basement gym, Basement gym at 6am, condensation on the windows, medium close-up, 85mm portrait, f/2.8, (softbox key camera-left:1.2), Kodak Portra 400, desaturated earth tones, rule of thirds, austere, #0B3D2E deep green, warm brass, bone white, Roger Deakins night exteriors"
+      "body": "photograph, A retired boxer taping his hands in a basement gym, Basement gym at 6am, condensation on the windows, medium close-up, 85mm portrait, f/2.8, (softbox key camera-left:1.2), Kodak Portra 400, desaturated earth tones, rule of thirds, austere, #0B3D2E deep green, warm brass, bone white, Roger Deakins night exteriors, for Instagram carousel, first slide"
     },
     {
       "label": "Negative prompt",
       "body": "logos, watermarks, other people, worst quality, low quality, jpeg artifacts, watermark, signature, text, bad anatomy, extra fingers, deformed hands, blurry, oversaturated"
     }
   ],
-  "flat": "photograph, A retired boxer taping his hands in a basement gym, Basement gym at 6am, condensation on the windows, medium close-up, 85mm portrait, f/2.8, (softbox key camera-left:1.2), Kodak Portra 400, desaturated earth tones, rule of thirds, austere, #0B3D2E deep green, warm brass, bone white, Roger Deakins night exteriors",
+  "flat": "photograph, A retired boxer taping his hands in a basement gym, Basement gym at 6am, condensation on the windows, medium close-up, 85mm portrait, f/2.8, (softbox key camera-left:1.2), Kodak Portra 400, desaturated earth tones, rule of thirds, austere, #0B3D2E deep green, warm brass, bone white, Roger Deakins night exteriors, for Instagram carousel, first slide",
   "negative": "logos, watermarks, other people, worst quality, low quality, jpeg artifacts, watermark, signature, text, bad anatomy, extra fingers, deformed hands, blurry, oversaturated",
   "settings": [
     {
@@ -80,9 +80,9 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 81,
+  "score": 82,
   "axes": {
-    "specificity": 81,
+    "specificity": 84,
     "technical": 100,
     "structure": 30,
     "constraints": 85,

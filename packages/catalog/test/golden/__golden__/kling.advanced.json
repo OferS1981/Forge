@@ -2,22 +2,22 @@
   "blocks": [
     {
       "label": "Shot 1",
-      "body": "Medium shot, slow dolly in. A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Practical lamps only. Crushed blacks, high contrast grade. 3 seconds."
+      "body": "A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Camera: medium shot, slow dolly in. Practical lamps only. Crushed blacks, high contrast grade. 3 seconds."
     },
     {
       "label": "Shot 2",
-      "body": "Medium shot, arc around subject. Looks up at the camera. 3 seconds."
+      "body": "Looks up at the camera. Camera: medium shot, arc around subject. 3 seconds."
     },
     {
       "label": "Shot 3",
-      "body": "Medium shot, handheld follow. Looks up at the camera. 3 seconds."
+      "body": "Looks up at the camera. Camera: medium shot, handheld follow. 3 seconds."
     },
     {
       "label": "Audio",
       "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
     }
   ],
-  "flat": "Shot 1: Medium shot, slow dolly in. A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Practical lamps only. Crushed blacks, high contrast grade. 3 seconds.\nShot 2: Medium shot, arc around subject. Looks up at the camera. 3 seconds.\nShot 3: Medium shot, handheld follow. Looks up at the camera. 3 seconds.\nAudio: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic.",
+  "flat": "Shot 1: A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Camera: medium shot, slow dolly in. Practical lamps only. Crushed blacks, high contrast grade. 3 seconds.\nShot 2: Looks up at the camera. Camera: medium shot, arc around subject. 3 seconds.\nShot 3: Looks up at the camera. Camera: medium shot, handheld follow. 3 seconds.\nAudio: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic.",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -64,6 +64,7 @@
     }
   ],
   "notes": [
+    "The official formula is subject and its description, then subject movement, then scene, then camera language, lighting and atmosphere, in that order. Keep each movement straightforward enough for a five-second beat.",
     "Kling's own formula is shot type, movement direction, duration or speed descriptor, then style elements. Forge writes one block per shot in that order.",
     "Master Shots camera presets are more stable than prompted camera language. When the move matters, use the preset.",
     "Bind elements. Without them, identity drifts badly past about eight seconds."

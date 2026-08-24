@@ -2,7 +2,7 @@
   "blocks": [
     {
       "label": "Voice description",
-      "body": "English, Received Pronunciation (not General American). British woman, late 30s, dry and unhurried. Documentary narrator. Wry, authoritative. Husky in texture, with an even, unhurried delivery and clean articulation. Broadcast quality recording."
+      "body": "Native English, Received Pronunciation (not General American). British woman, late 30s, dry and unhurried. Broadcast quality recording. Persona: documentary narrator. Emotion: wry, authoritative. Husky in texture, with an even, unhurried delivery and clean articulation."
     },
     {
       "label": "Preview text: must agree with the description",
@@ -13,7 +13,7 @@
       "body": "No reverb, echo, delay or any other acoustic or effects language. Voice Design models the voice, not the room."
     }
   ],
-  "flat": "English, Received Pronunciation (not General American). British woman, late 30s, dry and unhurried. Documentary narrator. Wry, authoritative. Husky in texture, with an even, unhurried delivery and clean articulation. Broadcast quality recording.",
+  "flat": "Native English, Received Pronunciation (not General American). British woman, late 30s, dry and unhurried. Broadcast quality recording. Persona: documentary narrator. Emotion: wry, authoritative. Husky in texture, with an even, unhurried delivery and clean articulation.",
   "negative": "american vowels",
   "settings": [
     {
@@ -78,7 +78,7 @@
   "autoFilled": [],
   "score": 72,
   "axes": {
-    "specificity": 64,
+    "specificity": 65,
     "technical": 100,
     "structure": 45,
     "constraints": 85,

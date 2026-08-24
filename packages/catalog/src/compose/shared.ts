@@ -255,6 +255,42 @@ export function videoSections(b: Brief, m: Model): Block[] {
       '.';
     S.push(block('Shot', lead));
     if (has(b.motion)) S.push(block('Motion', cap(join(b.motion)) + ' throughout.'));
+  } else if (m.videoOrder === 'shot-scene-action') {
+    /*
+     * LTX's guide, in its own order: establish the shot, set the scene, describe the action,
+     * define the character, identify the camera movement, describe the audio. One flowing
+     * paragraph; the audio joins below with everything else.
+     */
+    if (has(b.shot))
+      S.push(
+        block(
+          'Shot',
+          cap(first(b.shot)) +
+            (has(b.lens) ? ' on ' + artic(b.lens ?? '') + ' ' + (b.lens ?? '') : '') +
+            '.',
+        ),
+      );
+    const scene = [
+      has(b.setting) ? cap(stripDot(b.setting)) : '',
+      lightClause(b),
+      finishClause(b),
+    ].filter(has);
+    if (scene.length) S.push(block('Scene', sentences(scene) + '.'));
+    /*
+     * The character before the action, although the guide lists them the other way round: the
+     * same guide demands one chronological paragraph, and a paragraph that says "he checks the
+     * address" before saying who he is reads backwards.
+     */
+    S.push(block('Character', cap(stripDot(b.subject) || 'the subject') + '.'));
+    S.push(
+      block(
+        'Action',
+        cap(stripDot(b.action) || 'the subject moves through the frame') +
+          '.' +
+          (has(b.motion) ? ' ' + cap(join(b.motion)) + ' throughout.' : ''),
+      ),
+    );
+    if (has(b.camMove)) S.push(block('Camera movement', cap(b.camMove ?? '') + '.'));
   } else if (m.videoOrder === 'performance-timeline') {
     S.push(block('Subject', subjectBody));
     S.push(
@@ -281,7 +317,10 @@ export function videoSections(b: Brief, m: Model): Block[] {
     : has(b.pacing)
       ? (b.pacing ?? '')
       : '';
-  const amb = [lightClause(b), finishClause(b), feeling].filter(has);
+  const amb =
+    m.videoOrder === 'shot-scene-action'
+      ? [feeling].filter(has)
+      : [lightClause(b), finishClause(b), feeling].filter(has);
   if (amb.length) S.push(block('Style & ambiance', sentences(amb) + '.'));
   // Seedance's documented structure holds the camera until after the performance and ambience.
   if (m.videoOrder === 'performance-timeline' && cam) S.push(block('Camera', camBody));

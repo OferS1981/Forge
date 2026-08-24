@@ -1,23 +1,39 @@
 {
   "blocks": [
     {
-      "label": "Shot 1",
-      "body": "Medium shot, slow dolly in. A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Practical lamps only. Crushed blacks, high contrast grade. 3 seconds."
+      "label": "Shot",
+      "body": "Medium shot on a 35mm."
     },
     {
-      "label": "Shot 2",
-      "body": "Medium shot, arc around subject. Looks up at the camera. 3 seconds."
+      "label": "Scene",
+      "body": "Basement gym at 6am, condensation on the windows. Practical lamps only. Crushed blacks, high contrast grade."
     },
     {
-      "label": "Shot 3",
-      "body": "Medium shot, handheld follow. Looks up at the camera. 3 seconds."
+      "label": "Character",
+      "body": "A retired boxer taping his hands in a basement gym."
+    },
+    {
+      "label": "Action",
+      "body": "He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout."
+    },
+    {
+      "label": "Camera movement",
+      "body": "Slow dolly in."
+    },
+    {
+      "label": "Style & ambiance",
+      "body": "Tense in feeling, deliberate."
     },
     {
       "label": "Audio",
       "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+    },
+    {
+      "label": "Reference",
+      "body": "In the register of Roger Deakins night exteriors."
     }
   ],
-  "flat": "Shot 1: Medium shot, slow dolly in. A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist. Basement gym at 6am, condensation on the windows. Practical lamps only. Crushed blacks, high contrast grade. 3 seconds.\nShot 2: Medium shot, arc around subject. Looks up at the camera. 3 seconds.\nShot 3: Medium shot, handheld follow. Looks up at the camera. 3 seconds.\nAudio: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic.",
+  "flat": "Medium shot on a 35mm. Basement gym at 6am, condensation on the windows. Practical lamps only. Crushed blacks, high contrast grade. A retired boxer taping his hands in a basement gym. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Slow dolly in. Tense in feeling, deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -57,6 +73,7 @@
     }
   ],
   "notes": [
+    "The official guide asks for six things in one flowing paragraph: the shot, the scene, the action, the character, the camera movement, and the audio, in present tense, with any spoken line in quotation marks.",
     "LTX Studio is built around a shot list and @Element references, so Forge writes per-shot rather than one paragraph.",
     "Retake regenerates a 2–16 second segment without a full reshoot. It is the correct fix for one bad beat.",
     "The 48 and 50fps options are a real differentiator for sports and for PAL broadcast conform."
@@ -81,11 +98,11 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 89,
+  "score": 93,
   "axes": {
-    "specificity": 100,
+    "specificity": 95,
     "technical": 100,
-    "structure": 60,
+    "structure": 100,
     "constraints": 85,
     "format": 80,
     "context": 85,

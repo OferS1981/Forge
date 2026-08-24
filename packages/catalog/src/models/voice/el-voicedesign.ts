@@ -21,6 +21,7 @@ export const elVoicedesign: Model = {
   worst:
     'It models the voice, not the space. Anything about the room belongs in the mix, not the prompt.',
   notes: [
+    'The documented shape is: native language, then gender and age, then audio quality, then persona in a few words, then emotion, then a sentence on timbre and pacing. Forge writes that order.',
     'Order that works: native language and locale, gender and age, quality descriptor, persona in two to five words, two or three emotion adjectives, then timbre and pacing.',
     'The official quality ladder is Ok, Good, Very good, Excellent, Studio, Broadcast. Naming a rung genuinely changes the output.',
     'Longer preview text gives more stable and expressive results, and it must agree with the description.',
@@ -42,11 +43,16 @@ export const elVoicedesign: Model = {
   strengthTags: [],
   sources: [
     {
+      url: 'https://elevenlabs.io/docs/eleven-creative/voices/voice-design',
+      title: 'Voice design',
+      publisher: 'ElevenLabs',
+    },
+    {
       url: 'https://elevenlabs.io/docs/capabilities/voice-design',
       title: 'Voice design',
       publisher: 'ElevenLabs',
     },
   ],
-  verifiedOn: '2026-08-23',
+  verifiedOn: '2026-08-24',
   unverified: true,
 };

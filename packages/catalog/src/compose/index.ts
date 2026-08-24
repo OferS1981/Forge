@@ -89,6 +89,8 @@ const tags: Composer = (b) => {
   for (const x of arr(b.mood)) t.push(x);
   if (has(b.palette)) t.push(b.palette ?? '');
   if (has(b.ref)) t.push(stripDot(b.ref));
+  // The intended use is content like everything else. The invariant suite caught it being dropped.
+  if (has(b.purpose)) t.push('for ' + stripDot(b.purpose));
   const pos = t.join(', ');
   const neg = [
     'worst quality',
@@ -147,6 +149,8 @@ const json: Composer = (b) => {
       { content: stripDot(b.imgtext), placement: 'primary focal area', box: [300, 150, 520, 850] },
     ];
   if (has(b.palette)) o.color_palette = { description: b.palette };
+  // The intended use is content. The invariant suite caught the JSON grammar dropping it.
+  if (has(b.purpose)) o.intended_use = stripDot(b.purpose);
   const flat = JSON.stringify(o, null, 2);
   return { blocks: [block('JSON prompt', flat)], flat, mono: true };
 };
@@ -167,18 +171,18 @@ const shotlist: Composer = (b) => {
   const beats = splitBeats(stripDot(b.action) || stripDot(b.subject) || 'the action continues', n);
   for (let i = 0; i < n; i++) {
     const mv = i === 0 ? (moves[0] ?? '') : (alt[(i * 2) % alt.length] ?? '');
-    const parts: string[] = [];
-    parts.push((has(b.shot) ? first(b.shot) : 'medium shot') + ', ' + mv);
     /*
-     * The subject, first, in the shot that establishes it. It used to appear only as a fallback for
-     * a missing action, so a brief with both described the room, the light and the grade and never
-     * said who was in it. It is the one field nobody would think to check for.
+     * Kling's official formula, in its order: subject and its description, then subject movement,
+     * then scene, then camera language, lighting and atmosphere. The camera used to lead every
+     * shot; the vendor puts it after the scene.
      */
+    const parts: string[] = [];
     if (i === 0 && has(b.subject) && stripDot(b.subject) !== beats[0]) {
       parts.push(stripDot(b.subject));
     }
     parts.push(beats[i] ?? 'the action continues');
     if (i === 0 && has(b.setting)) parts.push(stripDot(b.setting));
+    parts.push('Camera: ' + (has(b.shot) ? first(b.shot) : 'medium shot') + ', ' + mv);
     if (i === 0 && lightClause(b)) parts.push(lightClause(b).toLowerCase());
     if (i === 0 && finishClause(b)) parts.push(finishClause(b).toLowerCase());
     parts.push(String(per) + ' seconds');
@@ -241,17 +245,22 @@ const tts: Composer = (b, m) => {
 };
 
 const voicedesign: Composer = (b) => {
+  /*
+   * The documented shape, in the documented order: native language, gender and age, audio quality,
+   * persona, emotion, then a sentence on timbre and pacing. The model file's note carries the
+   * citation.
+   */
   const parts: string[] = [];
-  if (has(b.lang)) parts.push(stripDot(b.lang) + '.');
+  if (has(b.lang)) parts.push('Native ' + stripDot(b.lang) + '.');
   if (has(b.voiceChar)) parts.push(cap(stripDot(b.voiceChar)) + '.');
-  if (has(b.vArch)) parts.push(cap(b.vArch ?? '') + '.');
-  if (has(b.vTone)) parts.push(cap(join(b.vTone)) + '.');
+  parts.push('Broadcast quality recording.');
+  if (has(b.vArch)) parts.push('Persona: ' + (b.vArch ?? '') + '.');
+  if (has(b.vTone)) parts.push('Emotion: ' + join(b.vTone) + '.');
   if (has(b.vTexture))
     parts.push(
       cap(join(b.vTexture)) +
         ' in texture, with an even, unhurried delivery and clean articulation.',
     );
-  parts.push('Broadcast quality recording.');
   const desc = parts.join(' ');
   const S = [block('Voice description', desc)];
   // Verbatim here too: the preview text is spoken, so its punctuation is an instruction.

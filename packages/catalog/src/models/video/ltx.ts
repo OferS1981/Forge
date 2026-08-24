@@ -10,7 +10,11 @@ export const ltx: Model = {
   blurb:
     'Genuinely open weights, native 4K, and the only model here that exposes 48 and 50fps. Built as a shot-list platform.',
   tags: ['Open weights', '4K native', '24/25/48/50fps', 'Lip sync'],
-  grammar: 'shotlist',
+  // Its own prompting guide: "Write your prompt as a single flowing paragraph" and "Do not use a
+  // shot list, numbered beats, or screenplay sluglines". The shot-list grammar this carried was
+  // the exact thing the vendor advises against.
+  grammar: 'prose',
+  videoOrder: 'shot-scene-action',
   length: [50, 160],
   core: ['subject', 'action', 'setting', 'purpose'],
   craft: ['camMove', 'shot', 'lens', 'light', 'motion', 'pacing', 'grade', 'mood', 'ref', 'avoid'],
@@ -21,6 +25,7 @@ export const ltx: Model = {
   best: 'End-to-end narrative production, local and self-hosted work, true frame-rate control, lip sync, cost-free at scale.',
   worst: 'Raw per-shot fidelity trails Seedance and Kling.',
   notes: [
+    'The official guide asks for six things in one flowing paragraph: the shot, the scene, the action, the character, the camera movement, and the audio, in present tense, with any spoken line in quotation marks.',
     'LTX Studio is built around a shot list and @Element references, so Forge writes per-shot rather than one paragraph.',
     'Retake regenerates a 2–16 second segment without a full reshoot. It is the correct fix for one bad beat.',
     'The 48 and 50fps options are a real differentiator for sports and for PAL broadcast conform.',
@@ -45,6 +50,11 @@ export const ltx: Model = {
     { tag: 'open-weights', weight: 3 },
   ],
   sources: [
+    {
+      url: 'https://docs.ltx.io/open-source-model/usage-guides/prompting-guide',
+      title: 'Prompting Guide',
+      publisher: 'LTX',
+    },
     { url: 'https://docs.ltx.studio/', title: 'LTX Studio documentation', publisher: 'Lightricks' },
     {
       url: 'https://github.com/Lightricks/LTX-2',
@@ -52,6 +62,6 @@ export const ltx: Model = {
       publisher: 'Lightricks',
     },
   ],
-  verifiedOn: '2026-08-23',
+  verifiedOn: '2026-08-24',
   unverified: true,
 };

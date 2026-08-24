@@ -2,7 +2,7 @@
   "blocks": [
     {
       "label": "Voice description",
-      "body": "English, Received Pronunciation (not General American). British woman, late 30s, dry and unhurried. Documentary narrator. Wry, authoritative. Husky in texture, with an even, unhurried delivery and clean articulation. Broadcast quality recording."
+      "body": "Native English, Received Pronunciation (not General American). British woman, late 30s, dry and unhurried. Broadcast quality recording. Persona: documentary narrator. Emotion: wry, authoritative. Husky in texture, with an even, unhurried delivery and clean articulation."
     },
     {
       "label": "Preview text: must agree with the description",
@@ -13,7 +13,7 @@
       "body": "No reverb, echo, delay or any other acoustic or effects language. Voice Design models the voice, not the room."
     }
   ],
-  "flat": "English, Received Pronunciation (not General American). British woman, late 30s, dry and unhurried. Documentary narrator. Wry, authoritative. Husky in texture, with an even, unhurried delivery and clean articulation. Broadcast quality recording.",
+  "flat": "Native English, Received Pronunciation (not General American). British woman, late 30s, dry and unhurried. Broadcast quality recording. Persona: documentary narrator. Emotion: wry, authoritative. Husky in texture, with an even, unhurried delivery and clean articulation.",
   "negative": "american vowels",
   "settings": [
     {
@@ -53,6 +53,7 @@
     }
   ],
   "notes": [
+    "The documented shape is: native language, then gender and age, then audio quality, then persona in a few words, then emotion, then a sentence on timbre and pacing. Forge writes that order.",
     "Order that works: native language and locale, gender and age, quality descriptor, persona in two to five words, two or three emotion adjectives, then timbre and pacing.",
     "The official quality ladder is Ok, Good, Very good, Excellent, Studio, Broadcast. Naming a rung genuinely changes the output.",
     "Longer preview text gives more stable and expressive results, and it must agree with the description."
@@ -77,9 +78,9 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 73,
+  "score": 74,
   "axes": {
-    "specificity": 64,
+    "specificity": 65,
     "technical": 100,
     "structure": 45,
     "constraints": 85,
