@@ -14,6 +14,7 @@ current phases is `PLAN.md`. Read both before changing anything structural. The 
 pnpm --filter @forge/web dev       run the web app on port 4322
 node scripts/catalog-refresh.mjs <category>   the claims in a category, and the sources for each
 node apps/cli/dist/main.js --help             the forge command, after building @forge/cli-app
+node scripts/catalog-snapshot.mjs             record a catalogue change. Commit what it writes
 pnpm verify         typecheck + lint + test + golden + a11y + e2e. must exit 0 before any phase is done
 pnpm test -- --watch
 pnpm format         prettier --write
@@ -38,6 +39,8 @@ pnpm --filter @forge/ui gallery    the component gallery, which axe and the e2e 
   catalogue's host map, and the per-site paste adapters as pure functions over a `Document`.
 - `apps/web` is the website: a Next.js static export that reads the catalogue and draws it with the
   controls from `packages/ui`. It names no model and no field.
+- `packages/changelog` is what changed in the catalogue and which saved prompts it touches. Its
+  `snapshots/` are the committed history, and a catalogue change with no snapshot fails a test.
 - `packages/cli` is the command line as a pure function, and `packages/mcp` is the MCP protocol as
   one. `apps/cli` and `apps/mcp` are the pumps around them, and hold no decisions.
 - `apps/extension` is the browser extension: a service worker, a content script and a side panel,
@@ -72,6 +75,7 @@ pnpm --filter @forge/ui gallery    the component gallery, which axe and the e2e 
   scrims and the foreground painted on a filled control: add a token rather than a literal.
 - No `any`. No `!` without a comment saying why.
 - Never auto-merge a catalogue change. The refresh workflow opens a pull request and stops.
+- A catalogue change needs a snapshot committed with it, or the changelog falls behind in silence.
 - Never ship a feature that only works when the AI layer is on, or when an account is signed in.
   A screen is written against `Library` and `PromptAssistant`, never against whether anybody is
   signed in or has a key.

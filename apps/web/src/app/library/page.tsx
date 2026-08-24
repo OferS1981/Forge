@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { FIELDS, findModel, modelLabel, scoreLabel } from '@forge/catalog';
 import { shareUrl, type SavedPrompt, type SavedRecipe } from '@forge/data';
+import { affectedBy, affectedSentence, releasesFrom } from '@forge/changelog';
+import { HISTORY } from '@forge/changelog/history';
 import { Button, Combobox, Dialog, TextField, toast } from '@forge/ui';
 import { Empty, Workspace } from '../../components/Workspace';
 import { useLibrary } from '../../lib/library';
@@ -36,6 +38,24 @@ export default function LibraryPage(): React.ReactNode {
   const { store, state, account, accountsAvailable } = useLibrary();
   const router = useRouter();
   const { folders, prompts, recipes, pins } = state.data;
+
+  /*
+   * The sentence section 22 asked for, and the reason a saved prompt keeps the brief rather than
+   * the finished text: when a model changes, Forge knows which of your prompts were written for it
+   * before that, and can forge them again. Read from files in the repository, so it costs nothing
+   * and works signed out.
+   */
+  const stale = useMemo(() => {
+    const found = new Map<string, string>();
+    for (const release of releasesFrom(HISTORY)) {
+      for (const entry of affectedBy(release, prompts)) {
+        const sentence = affectedSentence(entry);
+        for (const prompt of entry.prompts)
+          if (!found.has(prompt.id)) found.set(prompt.id, sentence);
+      }
+    }
+    return found;
+  }, [prompts]);
 
   const [folderName, setFolderName] = useState('');
   const [filter, setFilter] = useState(ALL);
@@ -147,6 +167,14 @@ export default function LibraryPage(): React.ReactNode {
                         <h2 className="lib-item__title">{prompt.title}</h2>
                         <span className="lib-item__model fg-mono">{modelName(prompt.modelId)}</span>
                       </div>
+                      {stale.get(prompt.id) !== undefined && (
+                        <p className="lib-item__stale">
+                          <span className="lib-item__stale-tag">Model changed</span>{' '}
+                          {stale.get(prompt.id)} <a href="/changes">See what changed</a>, then open
+                          it in Build and strike again to forge it against the catalogue as it
+                          stands.
+                        </p>
+                      )}
                       <p className="lib-item__meta">
                         Score {prompt.score}, {scoreLabel(prompt.score).name.toLowerCase()}
                         {when(prompt.updatedAt).length > 0

@@ -83,6 +83,12 @@ export const TOOLS = [
     href: '/assistant',
     what: 'Optional. A second opinion in Reverse and the Doctor, on a key that stays here.',
   },
+  {
+    id: 'changes',
+    label: 'Changes',
+    href: '/changes',
+    what: 'Every change to the catalogue, with the date it happened.',
+  },
 ];
 
 export function Shell({ children }: { children: ReactNode }): ReactNode {

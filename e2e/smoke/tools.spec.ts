@@ -9,6 +9,13 @@ import { expect, test } from '@playwright/test';
  * exit codes, the right streams, and an MCP conversation that a real client would recognise.
  */
 
+/*
+ * One worker for this file. The suite is fully parallel, which would otherwise let two workers run
+ * the build below at the same time: the second empties dist while the first is executing what was
+ * in it, and the binary vanishes mid-test. Eight fast tests do not need the parallelism.
+ */
+test.describe.configure({ mode: 'serial' });
+
 const CLI = 'apps/cli/dist/main.js';
 const MCP = 'apps/mcp/dist/main.js';
 

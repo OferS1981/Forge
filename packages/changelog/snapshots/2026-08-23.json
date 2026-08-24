@@ -1,0 +1,2161 @@
+{
+  "takenOn": "2026-08-23",
+  "models": [
+    {
+      "id": "base44",
+      "name": "Base44",
+      "category": "app",
+      "version": "current",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Leave alone."
+        },
+        {
+          "field": "settings.Integrations",
+          "says": "Integrations defaults to connect before you build against them"
+        },
+        {
+          "field": "settings.Order",
+          "says": "Order defaults to entities → screens → logic"
+        },
+        {
+          "field": "version",
+          "says": "The current version is current."
+        }
+      ]
+    },
+    {
+      "id": "bolt",
+      "name": "Bolt",
+      "category": "app",
+      "version": "current",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Locked files. file locking is the only reliable way to stop unwanted edits"
+        },
+        {
+          "field": "settings.Locks",
+          "says": "Locks defaults to lock finished files"
+        },
+        {
+          "field": "settings.Mode",
+          "says": "Mode defaults to Discussion first"
+        },
+        {
+          "field": "settings.System prompt",
+          "says": "System prompt defaults to set project defaults"
+        },
+        {
+          "field": "version",
+          "says": "The current version is current."
+        }
+      ]
+    },
+    {
+      "id": "cartesia",
+      "name": "Cartesia Sonic",
+      "category": "voice",
+      "version": "3.6",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "There is no negative prompt."
+        },
+        {
+          "field": "settings.emotion",
+          "says": "emotion defaults to match the tone chips. API parameter, not prompt text"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to sonic-3.6"
+        },
+        {
+          "field": "settings.Pronunciation dictionary",
+          "says": "Pronunciation dictionary defaults to add brand names. IPA overrides"
+        },
+        {
+          "field": "settings.sample_rate",
+          "says": "sample_rate defaults to 44100. 8k–44.8k supported"
+        },
+        {
+          "field": "settings.speed",
+          "says": "speed defaults to normal"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 3.6."
+        },
+        {
+          "field": "warnings",
+          "says": "Sonic-2, Sonic-turbo and older snapshots sunset after 20 October 2026. Pin to 3.6."
+        }
+      ]
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "category": "text",
+      "version": "Opus 5 / Sonnet 5",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints. Anthropic explicitly recommend positive framing over negative"
+        },
+        {
+          "field": "settings.max_tokens",
+          "says": "max_tokens defaults to generous. Thinking is on by default and eats budget"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to claude-opus-5. Sonnet 5 for volume, Opus 5 for hard work"
+        },
+        {
+          "field": "settings.output_config.effort",
+          "says": "output_config.effort defaults to high. low, medium, high, xhigh, max"
+        },
+        {
+          "field": "settings.temperature",
+          "says": "temperature defaults to leave default. Non-default values return a 400 on Sonnet 5"
+        },
+        {
+          "field": "settings.thinking",
+          "says": "thinking defaults to adaptive. On by default on the 5-series"
+        },
+        {
+          "field": "version",
+          "says": "The current version is Opus 5 / Sonnet 5."
+        }
+      ]
+    },
+    {
+      "id": "claudecode",
+      "name": "Claude Code",
+      "category": "code",
+      "version": "current",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Out of scope. the leave-alone clause is the highest-value line in agent prompting"
+        },
+        {
+          "field": "settings.Check",
+          "says": "Check defaults to a command that exits 0"
+        },
+        {
+          "field": "settings.CLAUDE.md",
+          "says": "CLAUDE.md defaults to commands, style rules, gotchas. Not things derivable from the code"
+        },
+        {
+          "field": "settings.Effort",
+          "says": "Effort defaults to High"
+        },
+        {
+          "field": "settings.Mode",
+          "says": "Mode defaults to plan first. Shift+Tab, or --permission-mode plan"
+        },
+        {
+          "field": "settings.Review",
+          "says": "Review defaults to /code-review in fresh context"
+        },
+        {
+          "field": "version",
+          "says": "The current version is current."
+        }
+      ]
+    },
+    {
+      "id": "codex",
+      "name": "Codex",
+      "category": "code",
+      "version": "GPT-5.6",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Out of scope."
+        },
+        {
+          "field": "settings.Default model",
+          "says": "Default model defaults to config.toml"
+        },
+        {
+          "field": "settings.Effort",
+          "says": "Effort defaults to Medium. Light, Medium, High, Extra High, Max, Ultra"
+        },
+        {
+          "field": "settings.Instructions",
+          "says": "Instructions defaults to AGENTS.md"
+        },
+        {
+          "field": "settings.Model",
+          "says": "Model defaults to gpt-5.6-sol. terra for everyday, luna for repeatable"
+        },
+        {
+          "field": "version",
+          "says": "The current version is GPT-5.6."
+        }
+      ]
+    },
+    {
+      "id": "copilot",
+      "name": "GitHub Copilot",
+      "category": "code",
+      "version": "current",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Out of scope."
+        },
+        {
+          "field": "settings.Path-scoped",
+          "says": "Path-scoped defaults to .github/instructions/NAME.instructions.md. With applyTo frontmatter"
+        },
+        {
+          "field": "settings.Precedence",
+          "says": "Precedence defaults to Personal → Repo → Org"
+        },
+        {
+          "field": "settings.Prompt files",
+          "says": "Prompt files defaults to *.prompt.md. Reusable"
+        },
+        {
+          "field": "settings.Repo file",
+          "says": "Repo file defaults to .github/copilot-instructions.md"
+        },
+        {
+          "field": "version",
+          "says": "The current version is current."
+        }
+      ]
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "category": "code",
+      "version": "Composer 2.5 + frontier models",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Out of scope."
+        },
+        {
+          "field": "settings.Length",
+          "says": "Length defaults to under 500 lines. Stated ceiling, not a target"
+        },
+        {
+          "field": "settings.Mode",
+          "says": "Mode defaults to Plan, then build. Shift+Tab"
+        },
+        {
+          "field": "settings.Rules file",
+          "says": "Rules file defaults to .cursor/rules/*.mdc. Never .md"
+        },
+        {
+          "field": "settings.Trigger",
+          "says": "Trigger defaults to alwaysApply or globs. Or description for apply-intelligently"
+        },
+        {
+          "field": "version",
+          "says": "The current version is Composer 2.5 + frontier models."
+        }
+      ]
+    },
+    {
+      "id": "deepresearch",
+      "name": "Deep Research",
+      "category": "research",
+      "version": "ChatGPT / Gemini / Claude",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Out of scope."
+        },
+        {
+          "field": "settings.Date range",
+          "says": "Date range defaults to state explicitly"
+        },
+        {
+          "field": "settings.Effort",
+          "says": "Effort defaults to High"
+        },
+        {
+          "field": "settings.Missing evidence",
+          "says": "Missing evidence defaults to say so, do not estimate"
+        },
+        {
+          "field": "settings.Mode",
+          "says": "Mode defaults to Deep Research"
+        },
+        {
+          "field": "version",
+          "says": "The current version is ChatGPT / Gemini / Claude."
+        }
+      ]
+    },
+    {
+      "id": "deepseek",
+      "name": "DeepSeek",
+      "category": "text",
+      "version": "V4 Pro / Flash",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints."
+        },
+        {
+          "field": "settings.max_tokens",
+          "says": "max_tokens defaults to up to 384000"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to deepseek-v4-pro. flash for volume"
+        },
+        {
+          "field": "settings.reasoning_effort",
+          "says": "reasoning_effort defaults to high"
+        },
+        {
+          "field": "settings.Schedule",
+          "says": "Schedule defaults to off-peak if batchable. Half price"
+        },
+        {
+          "field": "settings.thinking",
+          "says": "thinking defaults to enabled. On by default"
+        },
+        {
+          "field": "version",
+          "says": "The current version is V4 Pro / Flash."
+        }
+      ]
+    },
+    {
+      "id": "devin",
+      "name": "Devin",
+      "category": "code",
+      "version": "Cloud / Desktop",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Out of scope."
+        },
+        {
+          "field": "settings.Caps",
+          "says": "Caps defaults to 6k global / 12k workspace. Enforced"
+        },
+        {
+          "field": "settings.Rules",
+          "says": "Rules defaults to .devin/rules/*.md"
+        },
+        {
+          "field": "settings.Success criteria",
+          "says": "Success criteria defaults to measurable, not 'make it work'"
+        },
+        {
+          "field": "settings.Trigger",
+          "says": "Trigger defaults to always_on, model_decision, glob, manual"
+        },
+        {
+          "field": "version",
+          "says": "The current version is Cloud / Desktop."
+        }
+      ]
+    },
+    {
+      "id": "el-dubbing",
+      "name": "ElevenLabs",
+      "category": "voice",
+      "version": "v2",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "There is no negative prompt."
+        },
+        {
+          "field": "settings.Keep background audio",
+          "says": "Keep background audio defaults to on"
+        },
+        {
+          "field": "settings.num_speakers",
+          "says": "num_speakers defaults to auto. Up to 32"
+        },
+        {
+          "field": "settings.Speaker similarity",
+          "says": "Speaker similarity defaults to 7. 0–10"
+        },
+        {
+          "field": "settings.target_lang",
+          "says": "target_lang defaults to es-MX. BCP-47 with the dialect"
+        },
+        {
+          "field": "settings.Watermark",
+          "says": "Watermark defaults to per your delivery spec"
+        },
+        {
+          "field": "version",
+          "says": "The current version is v2."
+        },
+        {
+          "field": "warnings",
+          "says": "API limit is 3GB per file, 180 minutes in-app. Dubbing Studio (v1) is the editable-transcript path and caps much lower at 45 minutes."
+        }
+      ]
+    },
+    {
+      "id": "el-music",
+      "name": "ElevenLabs",
+      "category": "music",
+      "version": "music_v2",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Avoid. negative global styles exist inside a composition plan"
+        },
+        {
+          "field": "settings.force_instrumental",
+          "says": "force_instrumental defaults to false"
+        },
+        {
+          "field": "settings.model_id",
+          "says": "model_id defaults to music_v2"
+        },
+        {
+          "field": "settings.music_length_ms",
+          "says": "music_length_ms defaults to e.g. 90000. 3000–600000"
+        },
+        {
+          "field": "settings.output_format",
+          "says": "output_format defaults to wav. MP3 44.1kHz otherwise"
+        },
+        {
+          "field": "settings.seed",
+          "says": "seed defaults to fix once you like one"
+        },
+        {
+          "field": "settings.sign_with_c2pa",
+          "says": "sign_with_c2pa defaults to true if provenance matters"
+        },
+        {
+          "field": "version",
+          "says": "The current version is music_v2."
+        }
+      ]
+    },
+    {
+      "id": "el-sfx",
+      "name": "ElevenLabs",
+      "category": "sfx",
+      "version": "eleven_text_to_sound_v2",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "There is no negative prompt."
+        },
+        {
+          "field": "settings.duration_seconds",
+          "says": "duration_seconds defaults to leave unset. 0.5–30. Unset lets the model infer it"
+        },
+        {
+          "field": "settings.loop",
+          "says": "loop defaults to false. v2 only"
+        },
+        {
+          "field": "settings.model_id",
+          "says": "model_id defaults to eleven_text_to_sound_v2"
+        },
+        {
+          "field": "settings.output_format",
+          "says": "output_format defaults to wav 48kHz. WAV is non-looping only"
+        },
+        {
+          "field": "settings.prompt_influence",
+          "says": "prompt_influence defaults to 0.45. 0.3 is default and loose. Higher is literal"
+        },
+        {
+          "field": "version",
+          "says": "The current version is eleven_text_to_sound_v2."
+        },
+        {
+          "field": "warnings",
+          "says": "prompt_influence defaults to 0.3, which is deliberately loose. Raise it toward 0.8 when you need literal."
+        }
+      ]
+    },
+    {
+      "id": "el-tts",
+      "name": "ElevenLabs",
+      "category": "voice",
+      "version": "v3 / multilingual v2 / flash v2.5",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "There is no negative prompt. there is no negative prompt. Delivery is controlled by tags, punctuation and the sliders"
+        },
+        {
+          "field": "settings.apply_text_normalization",
+          "says": "apply_text_normalization defaults to auto. Force it on for Flash: it misreads currency"
+        },
+        {
+          "field": "settings.model_id",
+          "says": "model_id defaults to eleven_multilingual_v2. v3 for expression, multilingual v2 for long-form stability, flash v2.5 for latency"
+        },
+        {
+          "field": "settings.previous_text / next_text",
+          "says": "previous_text / next_text defaults to stitch adjacent chunks. How you stop drift across a long piece"
+        },
+        {
+          "field": "settings.Similarity boost",
+          "says": "Similarity boost defaults to 0.75. Too high on a noisy clone reproduces the noise"
+        },
+        {
+          "field": "settings.Speaker boost",
+          "says": "Speaker boost defaults to on"
+        },
+        {
+          "field": "settings.Speed",
+          "says": "Speed defaults to 1.00. 0.7–1.2. Extremes degrade quality"
+        },
+        {
+          "field": "settings.Stability",
+          "says": "Stability defaults to 0.55. Lower widens emotional range. v3 is a three-way enum, not a slider"
+        },
+        {
+          "field": "settings.Style exaggeration",
+          "says": "Style exaggeration defaults to 0.05. Any value above 0 adds latency and compute"
+        },
+        {
+          "field": "version",
+          "says": "The current version is v3 / multilingual v2 / flash v2.5."
+        },
+        {
+          "field": "warnings",
+          "says": "The phoneme tag only works on eleven_flash_v2: not on multilingual v2, not on v3. On v3 use inline IPA between forward slashes."
+        },
+        {
+          "field": "warnings",
+          "says": "v3 does not support break tags. Use tags, punctuation and line structure instead."
+        }
+      ]
+    },
+    {
+      "id": "el-voicedesign",
+      "name": "ElevenLabs",
+      "category": "voice",
+      "version": "eleven_ttv_v3",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "There is no negative prompt."
+        },
+        {
+          "field": "settings.guidance_scale",
+          "says": "guidance_scale defaults to higher for adherence. Lower gives the model more creative freedom"
+        },
+        {
+          "field": "settings.loudness",
+          "says": "loudness defaults to default"
+        },
+        {
+          "field": "settings.model_id",
+          "says": "model_id defaults to eleven_ttv_v3. eleven_multilingual_ttv_v2 for the 29-language v2 path"
+        },
+        {
+          "field": "settings.Preview text",
+          "says": "Preview text defaults to use the script field. Longer previews are more stable"
+        },
+        {
+          "field": "settings.seed",
+          "says": "seed defaults to fix once you like one. The only way to get the same voice twice"
+        },
+        {
+          "field": "version",
+          "says": "The current version is eleven_ttv_v3."
+        }
+      ]
+    },
+    {
+      "id": "firefly",
+      "name": "Adobe Firefly",
+      "category": "image",
+      "version": "Image 5",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are Square 1:1, Landscape 4:3, Portrait 3:4, Widescreen 16:9, Vertical 9:16 (Image 4 only)."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Exclude. a real negative field, rare at this tier"
+        },
+        {
+          "field": "settings.Aspect ratio",
+          "says": "Aspect ratio defaults to Square 1:1"
+        },
+        {
+          "field": "settings.Content type",
+          "says": "Content type defaults to Art"
+        },
+        {
+          "field": "settings.Effects",
+          "says": "Effects defaults to none. Only if it agrees with the prose style"
+        },
+        {
+          "field": "settings.Model",
+          "says": "Model defaults to Firefly Image 5. Image 4 Ultra if you need 9:16"
+        },
+        {
+          "field": "settings.Visual intensity",
+          "says": "Visual intensity defaults to Medium. Firefly's substitute for a stylize dial"
+        },
+        {
+          "field": "version",
+          "says": "The current version is Image 5."
+        }
+      ]
+    },
+    {
+      "id": "flux",
+      "name": "FLUX.2",
+      "category": "image",
+      "version": "[pro] / [flex]",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are square_hd, square, portrait_4_3, portrait_16_9, landscape_4_3, landscape_16_9."
+        },
+        {
+          "field": "negative",
+          "says": "There is no negative prompt. no negative prompt on the pro API. Open-weight [dev]/[klein] run true CFG locally and do support one"
+        },
+        {
+          "field": "settings.endpoint",
+          "says": "endpoint defaults to flux-2/flex. [pro] for default quality, [flex] when you need steps and guidance"
+        },
+        {
+          "field": "settings.guidance_scale",
+          "says": "guidance_scale defaults to 3.5. [flex] only. 3.0–4.0 is the usable band"
+        },
+        {
+          "field": "settings.image_size",
+          "says": "image_size defaults to landscape_16_9"
+        },
+        {
+          "field": "settings.num_inference_steps",
+          "says": "num_inference_steps defaults to 28. [flex] only. Default 28"
+        },
+        {
+          "field": "settings.output_format",
+          "says": "output_format defaults to png"
+        },
+        {
+          "field": "settings.safety_tolerance",
+          "says": "safety_tolerance defaults to 2. 1–5, default 2"
+        },
+        {
+          "field": "version",
+          "says": "The current version is [pro] / [flex]."
+        }
+      ]
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "category": "text",
+      "version": "3.7 Flash / 3.1 Pro",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints. positive framing"
+        },
+        {
+          "field": "settings.media_resolution",
+          "says": "media_resolution defaults to medium. low, medium, high, ultra_high"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to gemini-3.7-flash. 3.1 Pro (preview) for the Pro tier"
+        },
+        {
+          "field": "settings.system_instruction",
+          "says": "system_instruction defaults to state the year and cutoff"
+        },
+        {
+          "field": "settings.temperature",
+          "says": "temperature defaults to do not set. Google advise against changing it"
+        },
+        {
+          "field": "settings.thinking_level",
+          "says": "thinking_level defaults to medium. minimal, low, medium, high"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 3.7 Flash / 3.1 Pro."
+        }
+      ]
+    },
+    {
+      "id": "generic-app",
+      "name": "Any other app builder",
+      "category": "app",
+      "version": "category wildcard",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Leave alone."
+        },
+        {
+          "field": "settings.Protect",
+          "says": "Protect defaults to name the files to leave alone"
+        },
+        {
+          "field": "settings.Scope",
+          "says": "Scope defaults to one screen"
+        },
+        {
+          "field": "version",
+          "says": "The current version is category wildcard."
+        }
+      ]
+    },
+    {
+      "id": "generic-code",
+      "name": "Any other coding agent",
+      "category": "code",
+      "version": "category wildcard",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Out of scope."
+        },
+        {
+          "field": "settings.Check",
+          "says": "Check defaults to a command that exits 0"
+        },
+        {
+          "field": "settings.Instruction file",
+          "says": "Instruction file defaults to AGENTS.md"
+        },
+        {
+          "field": "version",
+          "says": "The current version is category wildcard."
+        }
+      ]
+    },
+    {
+      "id": "generic-image",
+      "name": "Any other image model",
+      "category": "image",
+      "version": "category wildcard",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 1:1, 4:5, 3:2, 2:3, 16:9, 9:16, 21:9."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Negative prompt. included in case your model has one: delete the block if it does not"
+        },
+        {
+          "field": "settings.Aspect",
+          "says": "Aspect defaults to 1:1"
+        },
+        {
+          "field": "settings.Guidance / CFG",
+          "says": "Guidance / CFG defaults to 5–7. Lower for distilled and turbo models, 1–2"
+        },
+        {
+          "field": "settings.Seed",
+          "says": "Seed defaults to fix it once you like a result. The only way to iterate on one composition"
+        },
+        {
+          "field": "settings.Steps",
+          "says": "Steps defaults to 28. 8–12 on turbo variants"
+        },
+        {
+          "field": "version",
+          "says": "The current version is category wildcard."
+        }
+      ]
+    },
+    {
+      "id": "generic-music",
+      "name": "Any other music model",
+      "category": "music",
+      "version": "category wildcard",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Exclude. put it in an exclude field if your tool has one"
+        },
+        {
+          "field": "settings.Duration",
+          "says": "Duration defaults to as needed"
+        },
+        {
+          "field": "settings.Instrumental",
+          "says": "Instrumental defaults to off"
+        },
+        {
+          "field": "settings.Style adherence",
+          "says": "Style adherence defaults to high"
+        },
+        {
+          "field": "version",
+          "says": "The current version is category wildcard."
+        }
+      ]
+    },
+    {
+      "id": "generic-research",
+      "name": "Any other research tool",
+      "category": "research",
+      "version": "category wildcard",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Out of scope."
+        },
+        {
+          "field": "settings.Citations",
+          "says": "Citations defaults to require inline"
+        },
+        {
+          "field": "settings.Date range",
+          "says": "Date range defaults to state explicitly"
+        },
+        {
+          "field": "version",
+          "says": "The current version is category wildcard."
+        }
+      ]
+    },
+    {
+      "id": "generic-sfx",
+      "name": "Any other sound model",
+      "category": "sfx",
+      "version": "category wildcard",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "There is no negative prompt."
+        },
+        {
+          "field": "settings.Duration",
+          "says": "Duration defaults to 3s"
+        },
+        {
+          "field": "settings.Prompt adherence",
+          "says": "Prompt adherence defaults to high"
+        },
+        {
+          "field": "settings.Sample rate",
+          "says": "Sample rate defaults to 48kHz"
+        },
+        {
+          "field": "version",
+          "says": "The current version is category wildcard."
+        }
+      ]
+    },
+    {
+      "id": "generic-text",
+      "name": "Any other chat model",
+      "category": "text",
+      "version": "category wildcard",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints."
+        },
+        {
+          "field": "settings.Reasoning",
+          "says": "Reasoning defaults to Medium"
+        },
+        {
+          "field": "settings.System prompt",
+          "says": "System prompt defaults to use it for role and rules"
+        },
+        {
+          "field": "settings.Temperature",
+          "says": "Temperature defaults to leave default"
+        },
+        {
+          "field": "version",
+          "says": "The current version is category wildcard."
+        }
+      ]
+    },
+    {
+      "id": "generic-video",
+      "name": "Any other video model",
+      "category": "video",
+      "version": "category wildcard",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 16:9, 9:16, 1:1, 21:9, 4:3."
+        },
+        {
+          "field": "durations",
+          "says": "The clip lengths offered are 5s, 10s, 15s, 20s."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Negative prompt. delete this block if your model has no negative field"
+        },
+        {
+          "field": "settings.Aspect",
+          "says": "Aspect defaults to 16:9"
+        },
+        {
+          "field": "settings.Duration",
+          "says": "Duration defaults to 5s"
+        },
+        {
+          "field": "settings.Motion strength",
+          "says": "Motion strength defaults to medium. If exposed"
+        },
+        {
+          "field": "settings.Resolution",
+          "says": "Resolution defaults to highest your plan allows"
+        },
+        {
+          "field": "version",
+          "says": "The current version is category wildcard."
+        }
+      ]
+    },
+    {
+      "id": "generic-voice",
+      "name": "Any other voice model",
+      "category": "voice",
+      "version": "category wildcard",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "There is no negative prompt."
+        },
+        {
+          "field": "settings.Sample rate",
+          "says": "Sample rate defaults to 44.1kHz"
+        },
+        {
+          "field": "settings.Similarity",
+          "says": "Similarity defaults to high"
+        },
+        {
+          "field": "settings.Speed",
+          "says": "Speed defaults to 1.0"
+        },
+        {
+          "field": "settings.Stability / temperature",
+          "says": "Stability / temperature defaults to mid"
+        },
+        {
+          "field": "version",
+          "says": "The current version is category wildcard."
+        },
+        {
+          "field": "warnings",
+          "says": "Bracketed audio tags are an ElevenLabs v3 convention. Strip them if your engine does not document them."
+        }
+      ]
+    },
+    {
+      "id": "gpt",
+      "name": "GPT",
+      "category": "text",
+      "version": "5.6 Sol / Terra / Luna",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints. state each rule once"
+        },
+        {
+          "field": "settings.instructions",
+          "says": "instructions defaults to use the developer block. Outranks user messages"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to gpt-5.6-sol. terra for everyday, luna for cheap repeatable work"
+        },
+        {
+          "field": "settings.reasoning.context",
+          "says": "reasoning.context defaults to current_turn. Default all_turns is a hidden cost"
+        },
+        {
+          "field": "settings.reasoning.effort",
+          "says": "reasoning.effort defaults to medium. none, minimal, low, medium, high, xhigh, max"
+        },
+        {
+          "field": "settings.reasoning.mode",
+          "says": "reasoning.mode defaults to standard. pro for more model work at higher latency"
+        },
+        {
+          "field": "settings.text.verbosity",
+          "says": "text.verbosity defaults to medium"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 5.6 Sol / Terra / Luna."
+        },
+        {
+          "field": "warnings",
+          "says": "Above 272k input tokens you pay 2x input and 1.5x output. The 1.05M window is not uniformly priced."
+        },
+        {
+          "field": "warnings",
+          "says": "reasoning.context defaults to all_turns on 5.6, which silently re-renders prior reasoning and bills for it."
+        }
+      ]
+    },
+    {
+      "id": "gptimage",
+      "name": "GPT Image",
+      "category": "image",
+      "version": "2",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 1024x1024, 1536x1024, 1024x1536, 1920x1080, 1080x1920, 3840x2160, auto."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints. no negative field: exclusions go in the brief as an explicit Constraints line"
+        },
+        {
+          "field": "settings.background",
+          "says": "background defaults to opaque. transparent needs png or webp output"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to gpt-image-2. Current snapshot: gpt-image-2-2026-04-21"
+        },
+        {
+          "field": "settings.n",
+          "says": "n defaults to 1. Up to 10 per call"
+        },
+        {
+          "field": "settings.output_format",
+          "says": "output_format defaults to png. jpeg if you need the file small"
+        },
+        {
+          "field": "settings.quality",
+          "says": "quality defaults to medium. low for layout exploration, high only for the text-dense final"
+        },
+        {
+          "field": "settings.size",
+          "says": "size defaults to 1024x1024. Custom sizes must divide by 16, up to 3840x2160"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 2."
+        }
+      ]
+    },
+    {
+      "id": "grok",
+      "name": "Grok",
+      "category": "text",
+      "version": "4.6",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints."
+        },
+        {
+          "field": "settings.Context compaction",
+          "says": "Context compaction defaults to on for long tool loops"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to grok-4-6"
+        },
+        {
+          "field": "settings.prompt_cache_key",
+          "says": "prompt_cache_key defaults to set it. Otherwise you pay full input price"
+        },
+        {
+          "field": "settings.reasoning_effort",
+          "says": "reasoning_effort defaults to high. low, medium, high, xhigh"
+        },
+        {
+          "field": "settings.service_tier",
+          "says": "service_tier defaults to priority for agents"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 4.6."
+        }
+      ]
+    },
+    {
+      "id": "hailuo",
+      "name": "Hailuo",
+      "category": "video",
+      "version": "MiniMax H3",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 16:9, 9:16, 1:1, 4:3."
+        },
+        {
+          "field": "durations",
+          "says": "The clip lengths offered are 4s, 6s, 10s, 15s."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints. not a documented field"
+        },
+        {
+          "field": "settings.aspect",
+          "says": "aspect defaults to 16:9. Bounded 2:5 to 5:2"
+        },
+        {
+          "field": "settings.duration",
+          "says": "duration defaults to 6. Integers only, 4–15"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to MiniMax-H3"
+        },
+        {
+          "field": "settings.prompt_optimizer",
+          "says": "prompt_optimizer defaults to off. H3-Context-IR rewrites your prompt when on"
+        },
+        {
+          "field": "settings.resolution",
+          "says": "resolution defaults to 2K. 768P or 2K"
+        },
+        {
+          "field": "version",
+          "says": "The current version is MiniMax H3."
+        },
+        {
+          "field": "warnings",
+          "says": "Duration must be an integer. Sending 7.5 fails."
+        }
+      ]
+    },
+    {
+      "id": "higgsfield",
+      "name": "Higgsfield",
+      "category": "video",
+      "version": "Cinema Studio 3.0",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+        },
+        {
+          "field": "durations",
+          "says": "The clip lengths offered are 4s, 8s, 12s, 15s."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Negative prompt. supported"
+        },
+        {
+          "field": "settings.Camera preset",
+          "says": "Camera preset defaults to General. 63 named moves"
+        },
+        {
+          "field": "settings.cfg_scale",
+          "says": "cfg_scale defaults to 0.6. 0.3 creative, 0.8 literal"
+        },
+        {
+          "field": "settings.duration",
+          "says": "duration defaults to 8s. 4–15s"
+        },
+        {
+          "field": "settings.generate_audio",
+          "says": "generate_audio defaults to false"
+        },
+        {
+          "field": "settings.genre",
+          "says": "genre defaults to auto. action, horror, comedy, noir, drama, epic"
+        },
+        {
+          "field": "settings.Model",
+          "says": "Model defaults to Cinema Studio 3.0"
+        },
+        {
+          "field": "version",
+          "says": "The current version is Cinema Studio 3.0."
+        }
+      ]
+    },
+    {
+      "id": "hume",
+      "name": "Hume Octave",
+      "category": "voice",
+      "version": "2",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "There is no negative prompt."
+        },
+        {
+          "field": "settings.instant_mode",
+          "says": "instant_mode defaults to on for preset voices"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to octave-2"
+        },
+        {
+          "field": "settings.num_generations",
+          "says": "num_generations defaults to 3. Up to 5, then pick"
+        },
+        {
+          "field": "settings.speed",
+          "says": "speed defaults to 1.0. 0.5–2.0, non-linear"
+        },
+        {
+          "field": "settings.trailing_silence",
+          "says": "trailing_silence defaults to 0.3s"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 2."
+        },
+        {
+          "field": "warnings",
+          "says": "Speed runs 0.5 to 2.0 and is non-linear. 2.0 does not double the rate."
+        }
+      ]
+    },
+    {
+      "id": "ideogram",
+      "name": "Ideogram",
+      "category": "image",
+      "version": "4.0",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 1x1, 16x9, 9x16, 4x3, 3x4, 3x2, 2x3, 10x16, 16x10."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called negative_prompt. the positive prompt always wins: you cannot negative away a part of something you asked for"
+        },
+        {
+          "field": "settings.magic_prompt",
+          "says": "magic_prompt defaults to OFF. Leave ON only for one-line prompts"
+        },
+        {
+          "field": "settings.num_images",
+          "says": "num_images defaults to 4. 1–8"
+        },
+        {
+          "field": "settings.rendering_speed",
+          "says": "rendering_speed defaults to DEFAULT. TURBO for drafts, QUALITY for finals"
+        },
+        {
+          "field": "settings.resolution",
+          "says": "resolution defaults to 1x1. 1K and 2K enums"
+        },
+        {
+          "field": "settings.style_type",
+          "says": "style_type defaults to AUTO. AUTO, GENERAL, REALISTIC, DESIGN, FICTION"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 4.0."
+        }
+      ]
+    },
+    {
+      "id": "kling",
+      "name": "Kling",
+      "category": "video",
+      "version": "3.0 / O1",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 16:9, 9:16, 1:1."
+        },
+        {
+          "field": "durations",
+          "says": "The clip lengths offered are 5s, 10s, 15s."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Negative prompt. supported"
+        },
+        {
+          "field": "settings.Aspect",
+          "says": "Aspect defaults to 16:9"
+        },
+        {
+          "field": "settings.Duration",
+          "says": "Duration defaults to 5s. 3–15 seconds"
+        },
+        {
+          "field": "settings.Elements",
+          "says": "Elements defaults to bind the subject. 5–30s of reference for voice binding"
+        },
+        {
+          "field": "settings.Mode",
+          "says": "Mode defaults to pro. std, pro or 4k"
+        },
+        {
+          "field": "settings.Model",
+          "says": "Model defaults to Kling 3.0. O1 for unified generate-and-edit, Turbo for drafts"
+        },
+        {
+          "field": "settings.Sound",
+          "says": "Sound defaults to off. On by default and billed per second"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 3.0 / O1."
+        }
+      ]
+    },
+    {
+      "id": "leonardo",
+      "name": "Leonardo",
+      "category": "image",
+      "version": "Lucid Origin",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 1024x1024, 1440x1440, 1536x864, 864x1536, 1360x768, 2048x1152."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Negative prompt. supported historically on Phoenix; not confirmed in current Lucid docs: verify in your account"
+        },
+        {
+          "field": "settings.Dimensions",
+          "says": "Dimensions defaults to 1440x1440. Multiples of 8, max 2496"
+        },
+        {
+          "field": "settings.Generation mode",
+          "says": "Generation mode defaults to FAST. ULTRA for finals"
+        },
+        {
+          "field": "settings.Model",
+          "says": "Model defaults to Lucid Origin. Lucid Realism only if the still feeds a video model"
+        },
+        {
+          "field": "settings.num_images",
+          "says": "num_images defaults to 4. 1–8"
+        },
+        {
+          "field": "settings.Prompt enhancement",
+          "says": "Prompt enhancement defaults to OFF. Leave off once the prompt is engineered"
+        },
+        {
+          "field": "settings.Style guidance",
+          "says": "Style guidance defaults to MID. LOW, MID, HIGH, ULTRA, MAX"
+        },
+        {
+          "field": "version",
+          "says": "The current version is Lucid Origin."
+        }
+      ]
+    },
+    {
+      "id": "lovable",
+      "name": "Lovable",
+      "category": "app",
+      "version": "current",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Leave alone. the single highest-value instruction in this tool"
+        },
+        {
+          "field": "settings.Cosmetics",
+          "says": "Cosmetics defaults to Visual Edits, not re-prompting"
+        },
+        {
+          "field": "settings.Mode",
+          "says": "Mode defaults to Plan first, then Agent"
+        },
+        {
+          "field": "settings.Scope",
+          "says": "Scope defaults to one screen per prompt"
+        },
+        {
+          "field": "version",
+          "says": "The current version is current."
+        }
+      ]
+    },
+    {
+      "id": "ltx",
+      "name": "LTX-2",
+      "category": "video",
+      "version": "2.3",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 16:9, 9:16, 1:1, 2.39:1."
+        },
+        {
+          "field": "durations",
+          "says": "The clip lengths offered are 5s, 10s, 20s."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Negative prompt. supported"
+        },
+        {
+          "field": "settings.Audio",
+          "says": "Audio defaults to 24kHz stereo, single pass. Generated with the video, not dubbed after"
+        },
+        {
+          "field": "settings.Duration",
+          "says": "Duration defaults to 10s. Up to 20s"
+        },
+        {
+          "field": "settings.Frame rate",
+          "says": "Frame rate defaults to 24. 48 or 50 for high motion and PAL"
+        },
+        {
+          "field": "settings.Model",
+          "says": "Model defaults to LTX-2.3"
+        },
+        {
+          "field": "settings.Resolution",
+          "says": "Resolution defaults to 4K. Native, not upscaled"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 2.3."
+        }
+      ]
+    },
+    {
+      "id": "luma",
+      "name": "Luma Ray",
+      "category": "video",
+      "version": "3.2",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 16:9, 9:16, 1:1, 21:9, 4:3."
+        },
+        {
+          "field": "durations",
+          "says": "The clip lengths offered are 5s, 10s, 20s."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints. no documented field"
+        },
+        {
+          "field": "settings.Draft mode",
+          "says": "Draft mode defaults to on while iterating. 5x faster, then master"
+        },
+        {
+          "field": "settings.duration",
+          "says": "duration defaults to 10s. Up to 20s at 1080p"
+        },
+        {
+          "field": "settings.Keyframes",
+          "says": "Keyframes defaults to place on beat changes. Up to 16 per clip"
+        },
+        {
+          "field": "settings.loop",
+          "says": "loop defaults to false"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to ray3.2"
+        },
+        {
+          "field": "settings.resolution",
+          "says": "resolution defaults to 1080p. 4K HDR at master"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 3.2."
+        }
+      ]
+    },
+    {
+      "id": "lyria",
+      "name": "Google Lyria",
+      "category": "music",
+      "version": "3 Pro",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "There is no negative prompt. negative prompting is not documented for Lyria 3 Pro"
+        },
+        {
+          "field": "settings.Duration",
+          "says": "Duration defaults to up to 3 min"
+        },
+        {
+          "field": "settings.Lyrics",
+          "says": "Lyrics defaults to prefix with 'Lyrics:'"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to lyria-3-pro. Lyria 3 for 30s, 3 Pro for full structure"
+        },
+        {
+          "field": "settings.Vocals",
+          "says": "Vocals defaults to instrumental. 8 vocal languages"
+        },
+        {
+          "field": "settings.Watermark",
+          "says": "Watermark defaults to SynthID, always on"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 3 Pro."
+        }
+      ]
+    },
+    {
+      "id": "midjourney",
+      "name": "Midjourney",
+      "category": "image",
+      "version": "V8.2",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 1:1, 4:5, 3:2, 2:3, 16:9, 9:16, 21:9, 139:100."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a flag called --no. --no x is exactly equivalent to a x::-0.5 weight"
+        },
+        {
+          "field": "settings.--ar",
+          "says": "--ar defaults to 1:1. Aspect ratio. No decimals: use 139:100, not 1.39:1"
+        },
+        {
+          "field": "settings.--chaos",
+          "says": "--chaos defaults to 0. 0–100. Raise to 15–25 only when you want four genuinely different directions"
+        },
+        {
+          "field": "settings.--hd",
+          "says": "--hd defaults to on for finals. 2048px at 1:1. Draft at SD, master at HD"
+        },
+        {
+          "field": "settings.--q",
+          "says": "--q defaults to 1. 1, 2 or 4. Only go to 2 on the final render: it costs 2x GPU time"
+        },
+        {
+          "field": "settings.--raw",
+          "says": "--raw defaults to off. Removes Midjourney's house styling. Use it for documentary and product work"
+        },
+        {
+          "field": "settings.--stylize",
+          "says": "--stylize defaults to 250. 0–1000, default 100. Higher gives Midjourney more artistic licence"
+        },
+        {
+          "field": "settings.--v",
+          "says": "--v defaults to 8.2. Current default model"
+        },
+        {
+          "field": "version",
+          "says": "The current version is V8.2."
+        },
+        {
+          "field": "warnings",
+          "says": "Adjective spam (masterpiece, 8k, hyper detailed) is a V5-era habit that actively hurts V7/V8. Forge strips it."
+        },
+        {
+          "field": "warnings",
+          "says": "Omni Reference (--oref) is documented against V7 and can silently downgrade a V8.2 render. Check the version stamp before batching."
+        }
+      ]
+    },
+    {
+      "id": "mjvideo",
+      "name": "Midjourney Video",
+      "category": "video",
+      "version": "V1",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 16:9 (832x464 / 1280x720), 9:16, 1:1 (624x624 / 960x960), 4:3, 2:3."
+        },
+        {
+          "field": "negative",
+          "says": "There is no negative prompt. no negative prompt on video"
+        },
+        {
+          "field": "settings.--end",
+          "says": "--end defaults to optional. Custom end frame"
+        },
+        {
+          "field": "settings.--loop",
+          "says": "--loop defaults to off. On for motion-graphic loops"
+        },
+        {
+          "field": "settings.--motion",
+          "says": "--motion defaults to high. low is the default and barely moves"
+        },
+        {
+          "field": "settings.--raw",
+          "says": "--raw defaults to on. Turns off aesthetic auto-styling"
+        },
+        {
+          "field": "settings.Resolution",
+          "says": "Resolution defaults to HD 720p. Requires Pro or Mega in Fast Mode"
+        },
+        {
+          "field": "version",
+          "says": "The current version is V1."
+        }
+      ]
+    },
+    {
+      "id": "nanobanana",
+      "name": "Nano Banana Pro",
+      "category": "image",
+      "version": "gemini-3-pro-image",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 1:1, 2:3, 3:2, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9, 21:9."
+        },
+        {
+          "field": "negative",
+          "says": "There is no negative prompt. no negative parameter exists. Google's guidance is to describe the desired state positively"
+        },
+        {
+          "field": "settings.aspect_ratio",
+          "says": "aspect_ratio defaults to 1:1. Ten presets, 21:9 through 9:16"
+        },
+        {
+          "field": "settings.image_size",
+          "says": "image_size defaults to 2K. Capital K is mandatory. 4K for print"
+        },
+        {
+          "field": "settings.mime_type",
+          "says": "mime_type defaults to image/png"
+        },
+        {
+          "field": "settings.thinking_level",
+          "says": "thinking_level defaults to high. Cannot be disabled on Gemini 3. Use high when the image carries information"
+        },
+        {
+          "field": "version",
+          "says": "The current version is gemini-3-pro-image."
+        }
+      ]
+    },
+    {
+      "id": "notebooklm",
+      "name": "NotebookLM",
+      "category": "research",
+      "version": "Gemini Notebook",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Out of scope."
+        },
+        {
+          "field": "settings.Grounding",
+          "says": "Grounding defaults to cite the source line"
+        },
+        {
+          "field": "settings.Sources",
+          "says": "Sources defaults to upload before asking"
+        },
+        {
+          "field": "version",
+          "says": "The current version is Gemini Notebook."
+        }
+      ]
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "category": "research",
+      "version": "Sonar / Agent API",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Out of scope."
+        },
+        {
+          "field": "settings.Date range",
+          "says": "Date range defaults to state it in the prompt"
+        },
+        {
+          "field": "settings.Model",
+          "says": "Model defaults to Sonar Pro. Sonar Deep Research for exhaustive reports"
+        },
+        {
+          "field": "settings.search_context_size",
+          "says": "search_context_size defaults to high"
+        },
+        {
+          "field": "version",
+          "says": "The current version is Sonar / Agent API."
+        }
+      ]
+    },
+    {
+      "id": "qwenimage",
+      "name": "Qwen-Image",
+      "category": "image",
+      "version": "3.0 Pro",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 1024*1024, 1328*1328, 1664*928, 928*1664, 1472*1140, 2048*2048."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called negative_prompt. dedicated field"
+        },
+        {
+          "field": "settings.enable_thinking",
+          "says": "enable_thinking defaults to true"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to qwen-image-3.0-pro"
+        },
+        {
+          "field": "settings.n",
+          "says": "n defaults to 1. 1–6, but the Pro tier allows only 5 requests per minute"
+        },
+        {
+          "field": "settings.prompt_extend",
+          "says": "prompt_extend defaults to false. Defaults true: turn it off for engineered prompts"
+        },
+        {
+          "field": "settings.size",
+          "says": "size defaults to 1328*1328. Asterisk, not x. 512 to 2048 per side"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 3.0 Pro."
+        }
+      ]
+    },
+    {
+      "id": "recraft",
+      "name": "Recraft",
+      "category": "image",
+      "version": "V4",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 1024x1024, 1365x1024, 1024x1365, 1536x1024, 1024x1536, 2048x2048."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called negative_prompt. max 1000 bytes, same as the positive"
+        },
+        {
+          "field": "settings.controls.artistic_level",
+          "says": "controls.artistic_level defaults to 2. 0–5"
+        },
+        {
+          "field": "settings.controls.no_text",
+          "says": "controls.no_text defaults to true. Set true when text must not appear anywhere"
+        },
+        {
+          "field": "settings.response_format",
+          "says": "response_format defaults to url. SVG, PNG, JPG, PDF, TIFF and Lottie all available"
+        },
+        {
+          "field": "settings.size",
+          "says": "size defaults to 1024x1024. 2048x2048 on Pro"
+        },
+        {
+          "field": "settings.style",
+          "says": "style defaults to realistic_image. realistic_image, digital_illustration, vector_illustration, icon, logo_raster"
+        },
+        {
+          "field": "settings.substyle",
+          "says": "substyle defaults to none. natural_light, studio_portrait, hdr, line_art, flat, engraving, pictogram…"
+        },
+        {
+          "field": "version",
+          "says": "The current version is V4."
+        },
+        {
+          "field": "warnings",
+          "says": "V4 is not a strict superset of V3. Route style-creation jobs back to V3."
+        }
+      ]
+    },
+    {
+      "id": "runway",
+      "name": "Runway",
+      "category": "video",
+      "version": "Gen-4.5",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 16:9 (1280x720), 9:16 (720x1280), image-to-video only, 1:1 (960x960), I2V only, 21:9 (1584x672), I2V only."
+        },
+        {
+          "field": "durations",
+          "says": "The clip lengths offered are 5s, 10s."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints. no dedicated field"
+        },
+        {
+          "field": "settings.Duration",
+          "says": "Duration defaults to 5s. 2–10 seconds"
+        },
+        {
+          "field": "settings.fps",
+          "says": "fps defaults to 24. 24 or 25"
+        },
+        {
+          "field": "settings.Model",
+          "says": "Model defaults to gen4.5. aleph2 for video-to-video, act_two for performance capture"
+        },
+        {
+          "field": "settings.Ratio",
+          "says": "Ratio defaults to 16:9 (1280x720). T2V is 16:9 only"
+        },
+        {
+          "field": "version",
+          "says": "The current version is Gen-4.5."
+        }
+      ]
+    },
+    {
+      "id": "sdxl",
+      "name": "Stable Diffusion",
+      "category": "image",
+      "version": "SDXL / 3.5",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 1024x1024, 1152x896, 1216x832, 1344x768, 896x1152, 832x1216, 768x1344."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Negative prompt. first-class separate field: the family's defining advantage"
+        },
+        {
+          "field": "settings.CFG scale",
+          "says": "CFG scale defaults to 7. SDXL 5–8. SD 3.5 around 4–5. Turbo and Lightning 1–2"
+        },
+        {
+          "field": "settings.Clip skip",
+          "says": "Clip skip defaults to 2. Standard for most SDXL fine-tunes"
+        },
+        {
+          "field": "settings.Hires fix",
+          "says": "Hires fix defaults to 1.5x, denoise 0.4. How you get to 2K without duplicated limbs"
+        },
+        {
+          "field": "settings.Resolution",
+          "says": "Resolution defaults to 1344x768. Stay on the native bucket, then upscale"
+        },
+        {
+          "field": "settings.Sampler",
+          "says": "Sampler defaults to DPM++ 2M Karras. The workhorse. DPM++ SDE Karras for more texture"
+        },
+        {
+          "field": "settings.Steps",
+          "says": "Steps defaults to 28. 20–30 typical, 8–12 on Lightning LoRAs"
+        },
+        {
+          "field": "version",
+          "says": "The current version is SDXL / 3.5."
+        },
+        {
+          "field": "warnings",
+          "says": "Boilerplate negatives help SDXL and genuinely hurt SD 3.5 and the Flux family. Forge only emits them for SDXL."
+        }
+      ]
+    },
+    {
+      "id": "seedance",
+      "name": "Seedance",
+      "category": "video",
+      "version": "2.5",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are auto, 21:9, 16:9, 4:3, 1:1, 3:4, 9:16."
+        },
+        {
+          "field": "durations",
+          "says": "The clip lengths offered are 5s, 10s, 15s, 20s, 30s."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints. not documented as a field: express exclusions in the prompt"
+        },
+        {
+          "field": "settings.aspect_ratio",
+          "says": "aspect_ratio defaults to 16:9"
+        },
+        {
+          "field": "settings.bitrate_mode",
+          "says": "bitrate_mode defaults to high"
+        },
+        {
+          "field": "settings.duration",
+          "says": "duration defaults to 10s. 4–30 seconds"
+        },
+        {
+          "field": "settings.generate_audio",
+          "says": "generate_audio defaults to false"
+        },
+        {
+          "field": "settings.mode",
+          "says": "mode defaults to t2v. t2v, omni_reference, video_edit, video_extension"
+        },
+        {
+          "field": "settings.resolution",
+          "says": "resolution defaults to 1080p. Requires mode std. Fast caps at 720p"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 2.5."
+        }
+      ]
+    },
+    {
+      "id": "seedream",
+      "name": "Seedream",
+      "category": "image",
+      "version": "5.0 Pro",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are auto, 1:1, 4:3, 3:4, 16:9, 9:16, 3:2, 2:3, 4:5, 5:4, 21:9."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Constraints. no documented negative field on the 5.0 Pro endpoint"
+        },
+        {
+          "field": "settings.output_format",
+          "says": "output_format defaults to png. jpeg is default"
+        },
+        {
+          "field": "settings.prompt_priority",
+          "says": "prompt_priority defaults to standard. fast trades quality for latency"
+        },
+        {
+          "field": "settings.quality",
+          "says": "quality defaults to 1.5K. Same price as 1K. Always take it"
+        },
+        {
+          "field": "settings.size",
+          "says": "size defaults to auto"
+        },
+        {
+          "field": "settings.watermark",
+          "says": "watermark defaults to false"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 5.0 Pro."
+        },
+        {
+          "field": "warnings",
+          "says": "1.5K costs the same as 1K and looks better. There is no reason ever to request 1K."
+        }
+      ]
+    },
+    {
+      "id": "stableaudio",
+      "name": "Stable Audio",
+      "category": "music",
+      "version": "2.5",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Avoid. expressed in the prompt"
+        },
+        {
+          "field": "settings.Duration",
+          "says": "Duration defaults to up to 3 min"
+        },
+        {
+          "field": "settings.Inpaint range",
+          "says": "Inpaint range defaults to set start and end. How you fix one bad span"
+        },
+        {
+          "field": "settings.Model",
+          "says": "Model defaults to Stable Audio 2.5"
+        },
+        {
+          "field": "settings.Steps",
+          "says": "Steps defaults to default"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 2.5."
+        }
+      ]
+    },
+    {
+      "id": "suno",
+      "name": "Suno",
+      "category": "music",
+      "version": "v5.5",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Exclude Styles. a dedicated field. Negative language in the Style box does not work reliably"
+        },
+        {
+          "field": "settings.Exclude Styles",
+          "says": "Exclude Styles defaults to none. The only working negative"
+        },
+        {
+          "field": "settings.Instrumental",
+          "says": "Instrumental defaults to off"
+        },
+        {
+          "field": "settings.Style field",
+          "says": "Style field defaults to the composed style line. Keep it to 4–7 descriptors"
+        },
+        {
+          "field": "settings.Style Influence",
+          "says": "Style Influence defaults to 70%. Higher means stricter adherence"
+        },
+        {
+          "field": "settings.Weirdness",
+          "says": "Weirdness defaults to 50%. Right is experimental and less coherent"
+        },
+        {
+          "field": "version",
+          "says": "The current version is v5.5."
+        }
+      ]
+    },
+    {
+      "id": "v0",
+      "name": "v0",
+      "category": "app",
+      "version": "v2 API",
+      "claims": [
+        {
+          "field": "negative",
+          "says": "The negative prompt is a prose called Leave alone."
+        },
+        {
+          "field": "settings.Mode",
+          "says": "Mode defaults to streaming"
+        },
+        {
+          "field": "settings.Model",
+          "says": "Model defaults to v0-1.5-md. lg for harder work"
+        },
+        {
+          "field": "settings.Skills",
+          "says": "Skills defaults to max 3"
+        },
+        {
+          "field": "version",
+          "says": "The current version is v2 API."
+        }
+      ]
+    },
+    {
+      "id": "veo",
+      "name": "Veo",
+      "category": "video",
+      "version": "3.1",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 16:9, 9:16."
+        },
+        {
+          "field": "durations",
+          "says": "The clip lengths offered are 4s, 6s, 8s."
+        },
+        {
+          "field": "negative",
+          "says": "There is no negative prompt. not a first-class API parameter. Google's guidance is to phrase exclusions positively: 'a desolate landscape with no buildings' rather than 'no man-made structures'"
+        },
+        {
+          "field": "settings.aspectRatio",
+          "says": "aspectRatio defaults to 16:9. 16:9 or 9:16, nothing else"
+        },
+        {
+          "field": "settings.durationSeconds",
+          "says": "durationSeconds defaults to 8. 4, 6 or 8"
+        },
+        {
+          "field": "settings.model",
+          "says": "model defaults to veo-3.1-generate-preview. fast and lite variants exist for drafts"
+        },
+        {
+          "field": "settings.Prompt rewriter",
+          "says": "Prompt rewriter defaults to off. Silently rewrites your prompt when left on"
+        },
+        {
+          "field": "settings.referenceImages",
+          "says": "referenceImages defaults to up to 3"
+        },
+        {
+          "field": "settings.resolution",
+          "says": "resolution defaults to 1080p. 1080p and 4K require 8 seconds"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 3.1."
+        }
+      ]
+    },
+    {
+      "id": "wan",
+      "name": "Wan",
+      "category": "video",
+      "version": "2.6 / 2.7",
+      "claims": [
+        {
+          "field": "aspects",
+          "says": "The aspect ratios offered are 16:9, 9:16, 1:1, 4:3, 3:4."
+        },
+        {
+          "field": "durations",
+          "says": "The clip lengths offered are 5s, 10s, 15s."
+        },
+        {
+          "field": "negative",
+          "says": "The negative prompt is a field called Negative prompt. supported"
+        },
+        {
+          "field": "settings.aspect",
+          "says": "aspect defaults to 16:9"
+        },
+        {
+          "field": "settings.duration",
+          "says": "duration defaults to 5s. 2–15s"
+        },
+        {
+          "field": "settings.resolution",
+          "says": "resolution defaults to 1080p"
+        },
+        {
+          "field": "settings.Thinking Mode",
+          "says": "Thinking Mode defaults to on. 2.7 only"
+        },
+        {
+          "field": "settings.Version",
+          "says": "Version defaults to 2.7. 2.6 if you need open weights"
+        },
+        {
+          "field": "version",
+          "says": "The current version is 2.6 / 2.7."
+        },
+        {
+          "field": "warnings",
+          "says": "Wan is no longer simply open source. 2.7 is closed-weights and API-only. Pin to 2.6 if you need local."
+        }
+      ]
+    }
+  ]
+}

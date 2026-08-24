@@ -1604,3 +1604,88 @@ a {
   font-size: var(--t-sm);
   color: var(--warn-text);
 }
+
+/* The changelog, public and personal. Phase 12. */
+.rel {
+  margin-bottom: var(--sp-5);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--line);
+}
+.rel:last-child {
+  border-bottom: 0;
+}
+.rel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+.rel__when {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: var(--t-lg);
+  font-weight: 700;
+}
+.rel__count {
+  margin: 0;
+  font-size: var(--t-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.rel__group {
+  margin-bottom: var(--sp-3);
+}
+.rel__what {
+  margin: 0 0 var(--sp-2);
+  font-family: var(--f-display);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.rel__field {
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+}
+.rel__note {
+  margin: 0;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  max-width: 62ch;
+}
+
+.chg-side h2 {
+  margin: 0 0 var(--sp-2);
+  font-family: var(--f-display);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.chg-side p {
+  margin: 0 0 var(--sp-5);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  max-width: 62ch;
+}
+
+/* One line on a saved prompt whose model has moved since it was saved. */
+.lib-item__stale {
+  margin: var(--sp-2) 0 0;
+  padding: var(--sp-2) var(--sp-3);
+  border-left: 2px solid var(--ember);
+  background: var(--surface-2);
+  font-size: var(--t-xs);
+  color: var(--ink-2);
+}
+.lib-item__stale-tag {
+  font-family: var(--f-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ember-text);
+}

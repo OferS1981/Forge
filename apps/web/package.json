@@ -14,6 +14,7 @@
     "@anthropic-ai/sdk": "^0.71.0",
     "@forge/ai": "workspace:*",
     "@forge/catalog": "workspace:*",
+    "@forge/changelog": "workspace:*",
     "@forge/data": "workspace:*",
     "@forge/ui": "workspace:*",
     "@forge/workbench": "workspace:*",

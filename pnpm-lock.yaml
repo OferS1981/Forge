@@ -167,6 +167,9 @@ importers:
       '@forge/catalog':
         specifier: workspace:*
         version: link:../../packages/catalog
+      '@forge/changelog':
+        specifier: workspace:*
+        version: link:../../packages/changelog
       '@forge/data':
         specifier: workspace:*
         version: link:../../packages/data
@@ -210,6 +213,19 @@ importers:
         version: 2.1.9(@types/node@22.20.1)(jsdom@30.0.1)(lightningcss@1.33.0)(terser@5.50.0)
 
   packages/catalog:
+    devDependencies:
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.9(@types/node@22.20.1)(jsdom@30.0.1)(lightningcss@1.33.0)(terser@5.50.0)
+
+  packages/changelog:
+    dependencies:
+      '@forge/catalog':
+        specifier: workspace:*
+        version: link:../catalog
     devDependencies:
       typescript:
         specifier: ^5.7.2
