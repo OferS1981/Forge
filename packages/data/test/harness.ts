@@ -24,6 +24,12 @@ const PRELUDE = `
     email text unique
   );
 
+  create or replace function auth.jwt() returns jsonb
+    language sql stable
+  as $$
+    select coalesce(nullif(current_setting('request.jwt.claims', true), ''), '{}')::jsonb;
+  $$;
+
   create or replace function auth.uid() returns uuid
     language sql stable
   as $$
@@ -34,7 +40,9 @@ const PRELUDE = `
   create role authenticated nologin;
 `;
 
-const MIGRATION = fileURLToPath(new URL('../sql/001_library.sql', import.meta.url));
+const MIGRATIONS = ['001_library.sql', '002_usage.sql'].map((f) =>
+  fileURLToPath(new URL(`../sql/${f}`, import.meta.url)),
+);
 
 /** Two people, so that "only the owner" can be tested rather than asserted. */
 export const ALICE = '11111111-1111-1111-1111-111111111111';
@@ -43,6 +51,8 @@ export const BOB = '22222222-2222-2222-2222-222222222222';
 export interface Db {
   /** One statement as a signed-in user. Its own transaction, so a rejection leaves nothing behind. */
   as: <T>(uid: string, sql: string, params?: unknown[]) => Promise<T[]>;
+  /** The same, with an email claim, for policies that name people by address. */
+  asEmail: <T>(uid: string, email: string, sql: string, params?: unknown[]) => Promise<T[]>;
   /** One statement as an anonymous visitor, which is what a share page is. */
   anon: <T>(sql: string, params?: unknown[]) => Promise<T[]>;
   /** One statement with no role change, for setting up the world the policies act on. */
@@ -53,7 +63,7 @@ export interface Db {
 export async function makeDb(): Promise<Db> {
   const pg = new PGlite();
   await pg.exec(PRELUDE);
-  await pg.exec(readFileSync(MIGRATION, 'utf8'));
+  for (const m of MIGRATIONS) await pg.exec(readFileSync(m, 'utf8'));
   await pg.exec(`
     insert into auth.users (id, email) values
       ('${ALICE}', 'alice@example.test'),
@@ -82,6 +92,8 @@ export async function makeDb(): Promise<Db> {
   return {
     as: (uid, sql, params = []) =>
       run('authenticated', JSON.stringify({ sub: uid, role: 'authenticated' }), sql, params),
+    asEmail: (uid, email, sql, params = []) =>
+      run('authenticated', JSON.stringify({ sub: uid, email, role: 'authenticated' }), sql, params),
     anon: (sql, params = []) => run('anon', JSON.stringify({ role: 'anon' }), sql, params),
     admin: async <T>(sql: string, params: unknown[] = []) => (await pg.query<T>(sql, params)).rows,
     close: () => pg.close(),

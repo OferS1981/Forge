@@ -190,3 +190,32 @@ export async function signOut(): Promise<void> {
   const { error } = await db.auth.signOut();
   if (error !== null) throw new Error(error.message);
 }
+
+/**
+ * One anonymous counter tick. Fire and forget: the product never waits on it, never retries it,
+ * and works identically when it fails or when no project is configured. The event vocabulary is
+ * enforced server-side; nothing about the person or the brief travels with it.
+ */
+export function recordUse(event: string): void {
+  if (!configured()) return;
+  void getClient()
+    .then((c) => c.rpc('record_use', { p_event: event }))
+    .catch(() => {
+      // Counting is a courtesy. The strike already happened.
+    });
+}
+
+/** The admin's read: every counter row, newest day first. RLS decides who gets rows. */
+export async function usageRows(): Promise<{ day: string; event: string; n: number }[]> {
+  const c = await getClient();
+  const result = await c.from('usage_counts').select('day, event, n');
+  if (result.error !== null) throw new Error(result.error.message);
+  const rows = result.data ?? [];
+  return rows
+    .map((r) => ({
+      day: typeof r.day === 'string' ? r.day : '',
+      event: typeof r.event === 'string' ? r.event : '',
+      n: typeof r.n === 'number' ? r.n : Number(r.n ?? 0),
+    }))
+    .sort((a, b) => b.day.localeCompare(a.day) || b.n - a.n);
+}

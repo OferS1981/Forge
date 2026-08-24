@@ -214,6 +214,12 @@ const VIDEO_IDS = new Set<string>(MODELS.filter((m) => m.category === 'video').m
 function rewriteOurs(id: string, text: string): string {
   let out = text;
   /*
+   * Phase 13 ended the music run-on for the wildcard too: the style line closes with a stop
+   * before the arrangement sentence. The prototype ran them together, so the first stop between
+   * a lowercase token and a capitalised sentence is removed before comparing.
+   */
+  if (id === 'generic-music') out = out.replace(/([a-z0-9])\. (?=[A-Z])/, '$1 ');
+  /*
    * Round-eight additions: the video grammars gained the intended-use line the image grammars
    * always had, and models with no negative parameter gained the Leave-out sentence. Stripped
    * before any compare.
@@ -500,7 +506,15 @@ describe('parity with the prototype', () => {
             const mineStyle = mine.blocks[0]?.body ?? '';
             const theirsStyle = theirs.blocks[0]?.[1] ?? '';
             expect(tokens(mineStyle)).toBe(tokens(theirsStyle));
-            expect(mine.flat.replace(mineStyle, theirsStyle)).toBe(theirs.flat);
+            /*
+             * Phase 13 ended the run-on: the style line now closes with a full stop before the
+             * arrangement sentence ("...instrumental. Start with...", where the prototype ran
+             * "...instrumental Start with..."). Sanctioned; the stop is removed before the byte
+             * comparison so everything else stays pinned.
+             */
+            expect(
+              mine.flat.replace(mineStyle, theirsStyle).replace(theirsStyle + '.', theirsStyle),
+            ).toBe(theirs.flat);
             expect(mine.blocks.map((b, i) => [b.label, i === 0 ? theirsStyle : b.body])).toEqual(
               theirs.blocks,
             );

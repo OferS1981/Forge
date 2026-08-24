@@ -43,12 +43,14 @@ describe('every table is protected', () => {
        order by relname`,
     );
     expect(rows.map((r) => r.relname)).toEqual([
+      'admin_emails',
       'folders',
       'pins',
       'profiles',
       'prompts',
       'recipes',
       'shares',
+      'usage_counts',
     ]);
     for (const row of rows) {
       expect(row.relrowsecurity, `${row.relname} has row level security off`).toBe(true);
@@ -62,7 +64,7 @@ describe('every table is protected', () => {
    * decides whether the endpoint answers. Supabase's own linter found this on the live project and
    * this is the test that stops it returning.
    */
-  it('publishes exactly one function, and it is the one an anonymous reader is meant to call', async () => {
+  it('publishes exactly the intended functions, and no other', async () => {
     const callable = await db.admin<{ proname: string; who: string }>(
       `select p.proname, r.rolname as who
        from pg_proc p
@@ -73,6 +75,11 @@ describe('every table is protected', () => {
        order by p.proname, r.rolname`,
     );
     expect(callable.map((row) => `${row.proname}:${row.who}`)).toEqual([
+      // The admin check: definer-owned, signed-in callers only, returns one boolean.
+      'is_forge_admin:authenticated',
+      // The one anonymous writer: bumps a counter from a fixed vocabulary, reads nothing back.
+      'record_use:anon',
+      'record_use:authenticated',
       'share_by_slug:anon',
       'share_by_slug:authenticated',
     ]);
@@ -125,14 +132,14 @@ describe('every table is protected', () => {
       'prompts',
       'recipes',
       'shares',
+      'usage_counts',
     ]);
     for (const [table, verbs] of byTable) {
-      expect([...verbs].sort(), `${table} has the wrong verbs`).toEqual([
-        'DELETE',
-        'INSERT',
-        'SELECT',
-        'UPDATE',
-      ]);
+      // The counters are the one read-only table: SELECT for the admin policy to gate, no verbs
+      // that could ever write it from a client.
+      const expected =
+        table === 'usage_counts' ? ['SELECT'] : ['DELETE', 'INSERT', 'SELECT', 'UPDATE'];
+      expect([...verbs].sort(), `${table} has the wrong verbs`).toEqual(expected);
     }
   });
 });

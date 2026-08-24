@@ -12,6 +12,7 @@ import {
 import { Button, Segmented, TextArea } from '@forge/ui';
 import { Empty, ModelPicker, Workspace } from './Workspace';
 import { useModelId } from '../lib/store';
+import { recordUse } from '../lib/account';
 
 /**
  * The Refusal Doctor: the policy manual's ninety-second diagnostic as a workspace. Paste the
@@ -56,6 +57,7 @@ export function RefusalDoctor(): React.ReactNode {
 
   const run = useCallback(() => {
     setRan(true);
+    recordUse('refusal');
     setFragment(null);
     setSteps(0);
     outputRef.current?.focus();

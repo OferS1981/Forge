@@ -13,14 +13,18 @@ export interface Profile {
   name: string;
   /** A birthday, if you want age-appropriate tone; free text, never validated, never required. */
   birthday: string;
+  /** An age, if that is easier than a birthday. Free text, optional, local like everything here. */
+  age: string;
   /** What you make or do, in a sentence. */
   work: string;
   /** The words your brand or voice should carry. */
   voice: string;
+  /** How you found Forge. The one answer that also bumps an anonymous counter, once. */
+  heard: string;
 }
 
 const KEY = 'forge.profile';
-const EMPTY: Profile = { name: '', birthday: '', work: '', voice: '' };
+const EMPTY: Profile = { name: '', birthday: '', age: '', work: '', voice: '', heard: '' };
 
 let cached: Profile = EMPTY;
 let cachedRaw: string | null = null;
@@ -42,8 +46,10 @@ function read(): Profile {
       cached = {
         name: typeof p.name === 'string' ? p.name : '',
         birthday: typeof p.birthday === 'string' ? p.birthday : '',
+        age: typeof p.age === 'string' ? p.age : '',
         work: typeof p.work === 'string' ? p.work : '',
         voice: typeof p.voice === 'string' ? p.voice : '',
+        heard: typeof p.heard === 'string' ? p.heard : '',
       };
     } else cached = EMPTY;
   } catch {
@@ -72,7 +78,7 @@ export function useProfile(): [Profile, (next: Profile) => void] {
 }
 
 export function hasProfile(p: Profile): boolean {
-  return [p.name, p.birthday, p.work, p.voice].some((v) => v.trim() !== '');
+  return [p.name, p.birthday, p.age, p.work, p.voice].some((v) => v.trim() !== '');
 }
 
 /** The one line a prompt carries when the switch is on. Only filled fields appear. */
@@ -80,6 +86,7 @@ export function profileClause(p: Profile): string {
   const parts: string[] = [];
   if (p.name.trim() !== '') parts.push(`I am ${p.name.trim()}`);
   if (p.birthday.trim() !== '') parts.push(`born ${p.birthday.trim()}`);
+  else if (p.age.trim() !== '') parts.push(`aged ${p.age.trim()}`);
   if (p.work.trim() !== '') parts.push(p.work.trim());
   if (p.voice.trim() !== '') parts.push(`my voice: ${p.voice.trim()}`);
   return parts.length === 0 ? '' : `About me: ${parts.join('. ')}.`;
@@ -90,6 +97,7 @@ export function profileMarkdown(p: Profile): string {
   const lines = ['# user.md', '', 'Facts about me, for tools that write on my behalf.', ''];
   if (p.name.trim() !== '') lines.push(`- **Name**: ${p.name.trim()}`);
   if (p.birthday.trim() !== '') lines.push(`- **Birthday**: ${p.birthday.trim()}`);
+  if (p.age.trim() !== '') lines.push(`- **Age**: ${p.age.trim()}`);
   if (p.work.trim() !== '') lines.push(`- **What I do**: ${p.work.trim()}`);
   if (p.voice.trim() !== '') lines.push(`- **Voice**: ${p.voice.trim()}`);
   return lines.join('\n') + '\n';

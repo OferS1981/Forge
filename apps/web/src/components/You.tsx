@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, TextField, toast } from '@forge/ui';
+import { Button, Segmented, TextField, toast } from '@forge/ui';
 import { hasProfile, profileMarkdown, useProfile } from '../lib/profile';
+import { recordUse } from '../lib/account';
 
 /**
  * The "You" card: a few facts, kept in this browser only. They reach a prompt only through the
@@ -39,6 +40,12 @@ export function You(): React.ReactNode {
         onChange={set('birthday')}
       />
       <TextField
+        label="Age"
+        hint="optional, if a birthday feels like too much"
+        value={profile.age}
+        onChange={set('age')}
+      />
+      <TextField
         label="What you do"
         hint="one sentence, e.g. I run a bakery called Crumb"
         value={profile.work}
@@ -49,6 +56,20 @@ export function You(): React.ReactNode {
         hint="the words your writing should carry, e.g. warm, direct, no jargon"
         value={profile.voice}
         onChange={set('voice')}
+      />
+      <Segmented
+        label="How did you hear about Forge?"
+        value={profile.heard}
+        onChange={(v) => {
+          if (profile.heard === '' && v !== '') recordUse('heard:' + v);
+          setProfile({ ...profile, heard: v });
+        }}
+        options={[
+          { value: 'friend', label: 'A friend' },
+          { value: 'school', label: 'School' },
+          { value: 'social', label: 'Social' },
+          { value: 'search', label: 'Search' },
+        ]}
       />
       <div className="strike-row">
         <Button

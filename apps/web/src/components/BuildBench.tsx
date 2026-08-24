@@ -28,6 +28,7 @@ import {
   usePolicyNotes,
 } from '../lib/store';
 import { usePinnedModels } from '../lib/library';
+import { recordUse } from '../lib/account';
 import { Keep } from './Keep';
 import { CompliancePass } from './CompliancePass';
 import { PlanPanel } from './PlanPanel';
@@ -100,8 +101,10 @@ export function BuildBench(): React.ReactNode {
     setResult(out);
     setStrikes((n) => n + 1);
     bumpForged();
+    recordUse('strike:' + model.id);
+    if (benchMode === 'plan') recordUse('plan');
     outputRef.current?.focus();
-  }, [brief, model, mode, useMyProfile, profile, bumpForged]);
+  }, [brief, model, mode, benchMode, useMyProfile, profile, bumpForged]);
 
   /**
    * The auto-filled line in Simple mode is the tutorial: each choice opens the one field that made

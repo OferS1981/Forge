@@ -374,9 +374,18 @@ const music: Composer = (b, m) => {
   if (has(b.mLyrics)) S.push(block('Lyrics', b.mLyrics ?? ''));
   if (has(b.mExclude))
     S.push(block(m.flatStyleOnly ? 'Exclude Styles field' : 'Exclude', b.mExclude ?? ''));
+  /*
+   * The style tokens and the arrangement are different registers: a tag line and a sentence.
+   * They get a full stop between them, ending the run-on the prototype shipped ("instrumental
+   * Start with..."). A style line alone stays a bare tag line, which is what music models eat.
+   */
   const flat = m.flatStyleOnly
     ? styleLine
-    : [styleLine, has(b.mStruct) ? stripDot(b.mStruct) + '.' : ''].filter(has).join(' ');
+    : has(b.mStruct) && styleLine !== ''
+      ? styleLine + '. ' + cap(stripDot(b.mStruct)) + '.'
+      : has(b.mStruct)
+        ? cap(stripDot(b.mStruct)) + '.'
+        : styleLine;
   const out: Composed = { blocks: S, flat };
   if (has(b.mExclude)) out.negOverride = b.mExclude ?? '';
   return out;

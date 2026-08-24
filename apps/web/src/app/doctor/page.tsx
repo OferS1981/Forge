@@ -19,6 +19,7 @@ import { Empty, ModelPicker, Workspace } from '../../components/Workspace';
 import { Result } from '../../components/Result';
 import { SecondOpinion } from '../../components/SecondOpinion';
 import { useModelId } from '../../lib/store';
+import { recordUse } from '../../lib/account';
 import { RefusalDoctor } from '../../components/RefusalDoctor';
 
 /** A finding names something missing, and the glossary explains what it does. */
@@ -121,6 +122,7 @@ function PromptDoctor(): React.ReactNode {
     const trimmed = text.trim();
     if (trimmed.length === 0) return;
     const diagnosis = diagnose(trimmed, model);
+    recordUse('doctor');
     const result = forge(rebuild(trimmed, model), model);
     setSeen({ diagnosis, result, model, pasted: trimmed });
     outputRef.current?.focus();

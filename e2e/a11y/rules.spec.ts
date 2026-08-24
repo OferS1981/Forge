@@ -91,3 +91,11 @@ for (const theme of ['light', 'dark']) {
     expect(await violations(page)).toEqual([]);
   });
 }
+
+for (const theme of ['light', 'dark']) {
+  test(`the admin page has no axe violations: ${theme}`, async ({ page }) => {
+    await page.goto('/admin');
+    await setTheme(page, theme);
+    expect(await violations(page)).toEqual([]);
+  });
+}

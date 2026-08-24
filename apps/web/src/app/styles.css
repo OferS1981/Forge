@@ -1998,3 +1998,60 @@ a {
   flex-wrap: wrap;
   gap: var(--sp-2);
 }
+
+/* ============ The admin counters ============ */
+
+.admin {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-4) var(--sp-8);
+  display: grid;
+  gap: var(--sp-4);
+}
+.admin__title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: var(--t-2xl);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.admin__lede,
+.admin__note {
+  margin: 0;
+  color: var(--ink-2);
+  max-width: 62ch;
+}
+.admin__cards {
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+.admin__card {
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--ember);
+  border-radius: var(--r);
+  background: var(--surface);
+  min-width: 160px;
+}
+.admin__n {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: var(--t-2xl);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.admin__what {
+  margin: 0;
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.admin__h2 {
+  margin: 0 0 var(--sp-2);
+  font-family: var(--f-display);
+  font-size: var(--t-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

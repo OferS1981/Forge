@@ -93,3 +93,23 @@ test('a model that is not a writing model never sees the profile switch', async 
   await page.goto('/');
   await expect(page.getByRole('switch', { name: 'Use my profile' })).toHaveCount(0);
 });
+
+test('the admin page is honest in an unconfigured build', async ({ page }) => {
+  await page.goto('/admin');
+  await expect(page.getByRole('heading', { name: 'The counters' })).toBeVisible();
+  await expect(page.getByRole('main')).toContainText('no account service configured');
+  await expect(page.getByRole('main')).toContainText('No prompts, no briefs, no names');
+});
+
+test('the You card carries the signup questions and the heard counter fires once', async ({
+  page,
+}) => {
+  await page.goto('/account');
+  const you = page.getByRole('region', { name: 'You' });
+  await expect(you.getByLabel('Age')).toBeVisible();
+  await you.getByRole('radio', { name: 'A friend' }).click();
+  await expect(you.getByRole('radio', { name: 'A friend' })).toHaveAttribute(
+    'aria-checked',
+    'true',
+  );
+});

@@ -275,3 +275,15 @@ and flips it to `false`, at which point a stub fails the build.
 - **Mode storage unified** on 'forge.bench-mode'; the legacy useMode hook is gone.
 - **Palette race fixed**: the lazily loaded command list pre-warms one beat after hydration, and
   the e2e waits for the visible option like a person does.
+
+## The counters and the questionnaire (a deliberate amendment to "no analytics")
+
+Alon asked for an admin view of use. The original decision was "Analytics: none", so this is a
+recorded amendment, built to keep the promise that matters: **events, never people, never text.**
+usage_counts holds (day, event, n) and nothing else; record_use() is the only writer, admin-gated
+reads via admin_emails (ofer.shayo@gmail.com on the live project), all pinned by
+packages/data/test/usage.test.ts. What is deliberately NOT collected, and cannot be shown on
+/admin because it does not exist: prompts, briefs, identities, sessions, or "most common
+questions", which would mean uploading what people type. The account-page privacy copy was
+updated to say exactly this. The signup questions (age, line of work, how you heard) live in the
+local profile; only "how you heard" bumps an anonymous counter, once.

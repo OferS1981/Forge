@@ -10,6 +10,7 @@ import {
   isPaletteShortcut,
   type Command,
 } from '@forge/ui';
+import { recordUse } from '../lib/account';
 
 /**
  * The shell every route sits in: the skip link, the top bar, the command palette and the one live
@@ -123,6 +124,19 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
    * palette that had not finished arriving.
    */
   useEffect(() => {
+    /*
+     * The daily visit tick: one anonymous count per browser per day, guarded locally so it can
+     * never become a session trail. This is the whole of what Forge knows about its visitors.
+     */
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      if (localStorage.getItem('forge.visit-day') !== today) {
+        localStorage.setItem('forge.visit-day', today);
+        recordUse('visit');
+      }
+    } catch {
+      // No storage, no count. The page does not care.
+    }
     // A beat after hydration, on every browser the same way: no idle-callback API roulette.
     const handle = window.setTimeout(() => {
       setWarm(true);

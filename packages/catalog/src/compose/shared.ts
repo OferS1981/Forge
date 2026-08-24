@@ -248,7 +248,7 @@ export function videoSections(b: Brief, m: Model): Block[] {
           (has(b.lens) ? ' on ' + artic(b.lens ?? '') + ' ' + (b.lens ?? '') : '') +
           ' of '
         : '') +
-      (cam ? stripDot(b.subject) || 'the subject' : cap(stripDot(b.subject) || 'the subject')) +
+      (cam ? lc(stripDot(b.subject) || 'the subject') : cap(stripDot(b.subject) || 'the subject')) +
       '. ' +
       cap(stripDot(b.action) || 'the subject moves through the frame') +
       (has(b.setting) ? ', in ' + lc(stripDot(b.setting)) : '') +

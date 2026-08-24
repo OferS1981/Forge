@@ -155,7 +155,9 @@ export default function AccountPage(): React.ReactNode {
           <h2>What Forge stores</h2>
           <p className="acct-side__note">
             Your address, the briefs you save, their titles, their folders and their models. No
-            usage tracking of any kind, here or anywhere else in Forge.
+            personal tracking of any kind: the one thing Forge counts is anonymous events, a model
+            was struck, a page was visited, with nothing attached to say by whom, and never a word
+            of what anyone typed.
           </p>
         </div>
       }
