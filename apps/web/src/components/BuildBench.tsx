@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  applyAutoFill,
   CATEGORIES,
   FIELDS,
   clarify,
@@ -58,6 +59,7 @@ export function BuildBench(): React.ReactNode {
   const { briefFor, setField, setFields, clear } = useBriefs();
 
   const [result, setResult] = useState<ForgeResult | null>(null);
+  const [lift, setLift] = useState<{ to: number; onApply: () => void } | undefined>(undefined);
   const [strikes, setStrikes] = useState(0);
   const [focusField, setFocusField] = useState<FieldId | undefined>(undefined);
   const outputRef = useRef<HTMLDivElement>(null);
@@ -98,12 +100,34 @@ export function BuildBench(): React.ReactNode {
         : brief;
     const out = forge(withProfile, model, mode);
     setResult(out);
+    /*
+     * Advanced fills in nothing you have not asked for; the lift is you asking for it, one click,
+     * everything visible in the brief afterwards. Offered only when it genuinely moves the score.
+     */
+    if (mode === 'advanced') {
+      const { brief: filledUp } = applyAutoFill(withProfile, model, 'simple');
+      const lifted = forge(filledUp, model, 'advanced');
+      setLift(
+        lifted.score > out.score + 4
+          ? {
+              to: lifted.score,
+              onApply: () => {
+                setFields(model.id, filledUp);
+                setResult(lifted);
+                setLift(undefined);
+              },
+            }
+          : undefined,
+      );
+    } else {
+      setLift(undefined);
+    }
     setStrikes((n) => n + 1);
     bumpForged();
     recordUse('strike:' + model.id);
     if (planOpen) recordUse('plan');
     outputRef.current?.focus();
-  }, [brief, model, mode, planOpen, useMyProfile, profile, bumpForged]);
+  }, [brief, model, mode, planOpen, useMyProfile, profile, bumpForged, setFields]);
 
   /**
    * The auto-filled line in Simple mode is the tutorial: each choice opens the one field that made
@@ -354,6 +378,7 @@ export function BuildBench(): React.ReactNode {
             result={result}
             model={model}
             mode={mode}
+            lift={lift}
             onOpenField={openField}
             keep={<Keep brief={brief} model={model} mode={mode} result={result} />}
             policyNotes={policyNotes}

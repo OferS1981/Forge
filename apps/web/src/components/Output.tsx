@@ -20,6 +20,11 @@ export interface OutputProps {
   /** Off where the workspace has already shown a score, such as the Doctor's before and after. */
   showScore?: boolean | undefined;
   /**
+   * Advanced mode's one-click out of a lean prompt: apply the Simple-mode craft into the brief,
+   * visibly, and re-strike. Offered only when it would genuinely move the score.
+   */
+  lift?: { to: number; onApply: () => void } | undefined;
+  /**
    * Opens one field from the auto-filled line, which is how Simple mode teaches the craft layer.
    * Left out where there is no brief to open, such as a shared prompt: the values are then plain
    * text rather than controls that look like they do something and do not.
@@ -128,6 +133,7 @@ export function Output({
   onOpenField,
   keep,
   policyNotes = false,
+  lift,
 }: OutputProps): React.ReactNode {
   const advanced = mode === 'advanced';
   const label = scoreLabel(result.score);
@@ -136,6 +142,17 @@ export function Output({
   return (
     <div className="output">
       {showScore && <ScoreMeter score={result.score} />}
+      {lift !== undefined && (
+        <div className="lift" role="status">
+          <p className="lift__what">
+            Forge&rsquo;s craft layer would take this to <strong>{lift.to}</strong>: the lens, the
+            light, the excludes, each landing visibly in the brief for you to keep or change.
+          </p>
+          <Button size="sm" variant="primary" onClick={lift.onApply}>
+            Lift it (+{lift.to - result.score})
+          </Button>
+        </div>
+      )}
 
       <div data-tour="prompt">
         <Billet

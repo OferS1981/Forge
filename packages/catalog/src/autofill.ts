@@ -50,7 +50,9 @@ const CREATURE =
 const STRUCTURE =
   /\b(stadium|arena|cathedral|castle|castle|bridge|skyscraper|tower|temple|palace|station|airport|amphitheatre|colosseum|monument|lighthouse|dam|harbour|harbor|fortress|aqueduct|viaduct|observatory)\b/;
 const VEHICLE =
-  /\b(spaceship|starship|spacecraft|freighter|rocket|shuttle|car|supercar|hypercar|motorcycle|motorbike|train|locomotive|aircraft|plane|jet|helicopter|boat|yacht|sailboat|ship|submarine|tank|truck|bus|tram|mech|hovercraft)\b/;
+  // spa\w{0,3}ship forgives the spellings a fast typist actually produces: spaceship, spaseship,
+  // spacship. A misspelt rocket deserves the same rim light as a spelt one.
+  /\b(spa\w{0,3}ship|starship|spacecraft|freighter|rocket|shuttle|car|supercar|hypercar|motorcycle|motorbike|train|locomotive|aircraft|plane|jet|helicopter|boat|yacht|sailboat|ship|submarine|tank|truck|bus|tram|mech|hovercraft)\b/;
 const DOCUMENTARY = /\b(documentary|editorial|journal|news|report|reportage|candid)\b/;
 const AD = /\b(ad|advert|campaign|commercial|trailer|hero|billboard|launch|promo)\b/;
 const SOCIAL = /\b(instagram|tiktok|reel|story|stories|thumbnail|social|carousel|youtube)\b/;
@@ -66,6 +68,8 @@ const SOMBRE =
 const TENSE =
   /\b(storm|chase|chased|fight|fighting|escape|standoff|argument|war|riot|siren|sirens)\b/;
 const TRIUMPHANT = /\b(victory|celebrat\w*|wins|winning|summit|trophy|finish line|champion)\b/;
+const VAST =
+  /\b(moon|lunar|orbit|orbital|deep space|nebula|galaxy|cosmos|void|glacier|tundra|open ocean|abyss|canyon|desert)\b/;
 const PLAYFUL =
   /\b(pupp\w*|kitten|child|children|kids|party|balloon\w*|picnic|ice cream|confetti)\b/;
 
@@ -185,6 +189,8 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     if (TENSE.test(s)) return pick(['tense'], 'the scene you described has conflict in it');
     if (TRIUMPHANT.test(s)) return pick(['triumphant'], 'the scene you described is a victory');
     if (PLAYFUL.test(s)) return pick(['playful'], 'the scene you described is a light one');
+    if (VAST.test(s))
+      return pick(['austere'], 'a vast place carries its own quiet; the scale is the drama');
     const t = text(b);
     if (PRODUCT.test(t)) return undefined;
     if (AD.test(t)) return pick(['triumphant'], 'campaign work wants lift');

@@ -2095,6 +2095,16 @@ a {
 }
 .topbar .fg-seg {
   padding: 1px;
+  background: transparent;
+  border-color: var(--line);
+  margin-left: var(--sp-2);
+}
+.topbar .fg-seg__opt {
+  color: var(--ink-2);
+  font-weight: 600;
+}
+.topbar .fg-seg__opt[aria-checked='true'] {
+  color: var(--on-ember);
 }
 .topbar .fg-seg__opt {
   min-height: 22px;
@@ -2109,4 +2119,22 @@ a {
   .tools__link {
     min-height: var(--tap);
   }
+}
+
+/* The lift: Advanced mode's one click out of a lean prompt. */
+.lift {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--ember);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+.lift__what {
+  margin: 0;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  flex: 1;
 }

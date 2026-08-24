@@ -113,3 +113,26 @@ test('the You card carries the signup questions and the heard counter fires once
     'true',
   );
 });
+
+test('advanced mode offers the lift, and one click lands the craft in the brief', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await page.getByRole('radio', { name: 'Advanced' }).click();
+  await page.getByRole('button', { name: /^Model/ }).click();
+  await page.getByRole('combobox').fill('Veo');
+  await page.getByRole('option').first().click();
+  await page.locator('#field-subject textarea').fill('a spaceship landing on the moon');
+  await page.getByRole('button', { name: 'Strike' }).click();
+
+  const out = page.getByRole('region', { name: 'The forged prompt' });
+  await expect(out).toContainText('craft layer would take this to');
+  await page.getByRole('button', { name: /Lift it/ }).click();
+
+  // The craft landed visibly in the brief, and the score moved.
+  await expect(page.getByRole('button', { name: 'low angle' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await expect(out).not.toContainText('craft layer would take this to');
+});
