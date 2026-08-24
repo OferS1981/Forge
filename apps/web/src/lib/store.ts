@@ -69,7 +69,6 @@ function write(key: string, value: unknown): void {
   announce();
 }
 
-const isMode = (v: unknown): v is Mode => v === 'simple' || v === 'advanced';
 const isString = (v: unknown): v is string => typeof v === 'string';
 const isBriefMap = (v: unknown): v is Record<string, Brief> =>
   typeof v === 'object' && v !== null && !Array.isArray(v);
@@ -94,8 +93,19 @@ function usePersisted<T>(
   return [value, set];
 }
 
-export function useMode(): [Mode, (next: Mode) => void] {
-  return usePersisted<Mode>('mode', 'simple', isMode);
+/**
+ * The bench's third gear. Plan is a way of filling the brief, not a way of composing it: under
+ * the hood a planned strike forges in Simple mode, so whatever the interview did not ask is
+ * auto-filled with the same craft defaults, and the person sees every answer land in the brief.
+ */
+export type BenchMode = Mode | 'plan';
+
+function isBenchMode(v: unknown): v is BenchMode {
+  return v === 'simple' || v === 'advanced' || v === 'plan';
+}
+
+export function useBenchMode(): [BenchMode, (next: BenchMode) => void] {
+  return usePersisted<BenchMode>('bench-mode', 'simple', isBenchMode);
 }
 
 export function useModelId(fallback: ModelId): [string, (next: string) => void] {
@@ -167,7 +177,7 @@ export function openInBuild(modelId: string, brief: Brief, mode: Mode): void {
   const briefs = readRaw<Record<string, Brief>>('briefs', EMPTY_BRIEFS, isBriefMap);
   write('briefs', { ...briefs, [modelId]: brief });
   write('model', modelId);
-  write('mode', mode);
+  write('bench-mode', mode);
 }
 
 /**

@@ -38,6 +38,19 @@ const LANDSCAPE =
   /\b(landscape|city|skyline|street|building|mountain|forest|coast|beach|valley|room|interior|architecture|estate)\b/;
 const PRODUCT =
   /\b(product|bottle|packaging|pack|sneaker|shoe|watch|phone|can|jar|box|logo|device|gadget|machine|appliance|laptop|headphones|chair|lamp|e-?commerce|packshot)\b/;
+/*
+ * The classes a photographer reads before touching a light. A creature is shot from below with a
+ * rim of light because scale and separation are what sell it; a built place wants width and
+ * raking light; a machine wants a hero angle and light tracing its bodywork. These exist because
+ * "softbox, calm" on a dragon was the day a bare two-word brief exposed the defaults as portrait
+ * furniture. Same law as ever: the user's own words outrank all of it.
+ */
+const CREATURE =
+  /\b(dragon|dinosaur|t-?rex|monster|creature|beast|wolf|wolves|lion|tiger|bear|eagle|hawk|owl|stag|elk|bull|gorilla|whale|shark|orca|octopus|serpent|snake|crocodile|griffin|phoenix|kraken|golem|giant)\b/;
+const STRUCTURE =
+  /\b(stadium|arena|cathedral|castle|castle|bridge|skyscraper|tower|temple|palace|station|airport|amphitheatre|colosseum|monument|lighthouse|dam|harbour|harbor|fortress|aqueduct|viaduct|observatory)\b/;
+const VEHICLE =
+  /\b(spaceship|starship|spacecraft|freighter|rocket|shuttle|car|supercar|hypercar|motorcycle|motorbike|train|locomotive|aircraft|plane|jet|helicopter|boat|yacht|sailboat|ship|submarine|tank|truck|bus|tram|mech|hovercraft)\b/;
 const DOCUMENTARY = /\b(documentary|editorial|journal|news|report|reportage|candid)\b/;
 const AD = /\b(ad|advert|campaign|commercial|trailer|hero|billboard|launch|promo)\b/;
 const SOCIAL = /\b(instagram|tiktok|reel|story|stories|thumbnail|social|carousel|youtube)\b/;
@@ -85,6 +98,9 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     const t = text(b);
     if (PRODUCT.test(t)) return pick(['close-up'], 'you are showing a product');
     if (PORTRAIT.test(t)) return pick(['medium close-up'], 'the subject is a person');
+    if (CREATURE.test(t)) return pick(['low angle'], 'seen from below, the creature towers');
+    if (VEHICLE.test(t)) return pick(['low angle'], 'a hero angle gives a machine presence');
+    if (STRUCTURE.test(t)) return pick(['wide shot'], 'a built place needs room in the frame');
     if (LANDSCAPE.test(t)) return pick(['wide shot'], 'the subject is a place');
     if (m.category === 'video')
       return pick(['medium shot'], 'it holds a person and the action in one frame');
@@ -95,6 +111,8 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     const t = text(b);
     if (PORTRAIT.test(t))
       return pick('85mm portrait', 'it flatters faces and separates them from the background');
+    if (CREATURE.test(t)) return pick('24mm wide', 'up close and wide, the creature looms');
+    if (STRUCTURE.test(t)) return pick('24mm wide', 'it takes in the whole structure');
     if (LANDSCAPE.test(t)) return pick('24mm wide', 'it takes in the whole place');
     if (PRODUCT.test(t)) return pick('50mm normal', 'it shows the product without distortion');
     return pick('35mm', 'it is the neutral documentary focal length');
@@ -116,6 +134,12 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     if (DOCUMENTARY.test(t))
       return pick(['overcast diffusion'], 'documentary work reads as available light');
     if (PRODUCT.test(t)) return pick(['high-key'], 'product work wants clean, even light');
+    if (CREATURE.test(t))
+      return pick(['rim light separation'], 'a rim of light reads as scale and keeps the menace');
+    if (VEHICLE.test(t))
+      return pick(['rim light separation'], 'a rim of light traces the bodywork');
+    if (STRUCTURE.test(t))
+      return pick(['golden hour'], 'low raking light gives a structure its depth and shadow');
     if (LANDSCAPE.test(t)) return pick(['golden hour'], 'it gives a place depth and warmth');
     return pick(['softbox key camera-left'], 'one soft key light is the portrait standard');
   },
@@ -141,6 +165,9 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     }
     if (PORTRAIT.test(t))
       return pick('rule of thirds', 'it places a face where the eye expects it');
+    if (CREATURE.test(t))
+      return pick('depth layering', 'foreground, creature, background: layers read as scale');
+    if (STRUCTURE.test(t)) return pick('leading lines', 'architecture is made of them');
     if (LANDSCAPE.test(t)) return pick('leading lines', 'it pulls the eye into the place');
     return pick(
       'rule of thirds',
@@ -163,6 +190,8 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     if (AD.test(t)) return pick(['triumphant'], 'campaign work wants lift');
     if (DOCUMENTARY.test(t)) return pick(['austere'], 'documentary work wants restraint');
     if (SOCIAL.test(t)) return pick(['playful'], 'social work wants energy');
+    if (CREATURE.test(t))
+      return pick(['menacing'], 'a creature reads as presence; say playful if yours is friendly');
     return pick(['calm'], 'it is the mood that does not fight the subject');
   },
   camMove: (b) => {

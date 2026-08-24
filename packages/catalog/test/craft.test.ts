@@ -520,3 +520,37 @@ describe('small finish', () => {
     }
   });
 });
+
+describe('subject classes', () => {
+  // The day a bare "a dragon" got a softbox and a calm mood is the day these were written.
+  it('a creature is shot from below with a rim of light and its menace intact', () => {
+    const r = forge({ subject: 'a dragon' }, modelById('nanobanana'), 'simple');
+    expect(r.flat).toContain('low angle');
+    expect(r.flat).toContain('rim light');
+    expect(r.flat).toContain('menacing');
+    expect(r.flat).not.toContain('softbox');
+  });
+
+  it('a built place gets width and raking light', () => {
+    const r = forge({ subject: 'a football stadium' }, modelById('nanobanana'), 'simple');
+    expect(r.flat).toContain('wide shot');
+    expect(r.flat).toContain('golden hour');
+    expect(r.flat).toContain('leading lines');
+  });
+
+  it('a machine gets the hero angle', () => {
+    const r = forge({ subject: 'a spaceship' }, modelById('nanobanana'), 'simple');
+    expect(r.flat).toContain('low angle');
+    expect(r.flat).toContain('rim light');
+  });
+
+  it('the user words still outrank the class', () => {
+    const r = forge(
+      { subject: 'a dragon', setting: 'a sunlit meadow at noon' },
+      modelById('nanobanana'),
+      'simple',
+    );
+    // LIGHT_IN_SETTING: the user named the light, so no rim light lands on top of it.
+    expect(r.flat).not.toContain('rim light');
+  });
+});

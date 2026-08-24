@@ -258,3 +258,20 @@ and flips it to `false`, at which point a stub fails the build.
   the SW asset cache is bounded; the export-cap finding no longer masked by the ownership one; a
   test that could not fail now can; misquotes and comma artifacts fixed. Rejected: removing the
   bisect itself, which the manual and the plan both mandate; the guardrail was the right fix.
+
+## Phase 13, the second wind (subject classes, Plan mode, the profile)
+
+- **Subject-class autofill**: the day a bare "a dragon" got a softbox and a calm mood, three new
+  classes joined PORTRAIT/LANDSCAPE/PRODUCT: CREATURE (low angle, 24mm, rim light, depth layering,
+  menacing), STRUCTURE (wide, 24mm, golden hour, leading lines) and VEHICLE (low angle, rim light).
+  User words still outrank everything; pinned in craft.test.ts.
+- **Plan mode**: a third bench gear. plan() in the engine is the full deterministic interview per
+  category (professional asking order, answered fields leave the list); the panel writes every
+  answer visibly into the brief; the strike runs Simple underneath so skips are auto-filled and
+  explained. Not a chat, same as ever.
+- **The profile**: local-only (localStorage), account-page "You" card, copies out as user.md.
+  Reaches a prompt only via the "Use my profile" switch (writing models only), where the About-me
+  line is visible in the context. Never uploaded anywhere; pinned by e2e.
+- **Mode storage unified** on 'forge.bench-mode'; the legacy useMode hook is gone.
+- **Palette race fixed**: the lazily loaded command list pre-warms one beat after hydration, and
+  the e2e waits for the visible option like a person does.

@@ -23,24 +23,37 @@ import {
   useBriefs,
   useForgeCount,
   useInvite,
-  useMode,
+  useBenchMode,
   useModelId,
   usePolicyNotes,
 } from '../lib/store';
 import { usePinnedModels } from '../lib/library';
 import { Keep } from './Keep';
 import { CompliancePass } from './CompliancePass';
+import { PlanPanel } from './PlanPanel';
+import { hasProfile, profileClause, useProfile } from '../lib/profile';
 import { EXAMPLE_BRIEF } from '../lib/walkthrough';
 import { Walkthrough, WalkthroughRestart } from './Walkthrough';
 
 const FIRST = CATEGORIES[0]?.defaultModel ?? 'midjourney';
 
 export function BuildBench(): React.ReactNode {
-  const [mode, setMode] = useMode();
+  const [benchMode, setBenchMode] = useBenchMode();
+  /*
+   * Plan is a way of filling the brief, not of composing it. The brief shows the full craft
+   * layer so every interview answer lands somewhere visible, and the strike runs Simple so
+   * whatever the interview did not cover is auto-filled with the same defaults, each one
+   * explained in the output.
+   */
+  const mode = benchMode === 'plan' ? 'simple' : benchMode;
+  const briefMode = benchMode === 'plan' ? 'advanced' : benchMode;
+  const setMode = setBenchMode;
   const [modelId, setModelId] = useModelId(FIRST);
   const { pins, toggle: togglePin } = usePinnedModels();
   const [forged, bumpForged] = useForgeCount();
   const [inviteDismissed, dismissInvite] = useInvite();
+  const [profile] = useProfile();
+  const [useMyProfile, setUseMyProfile] = useState(false);
   const [policyNotes, setPolicyNotes] = usePolicyNotes();
   const { briefFor, setField, setFields, clear } = useBriefs();
 
@@ -74,12 +87,21 @@ export function BuildBench(): React.ReactNode {
       toast('Fill in at least the first field, then strike.', 'warn');
       return;
     }
-    const out = forge(brief, model, mode);
+    const withProfile =
+      useMyProfile && model.category === 'text' && hasProfile(profile)
+        ? {
+            ...brief,
+            context: [brief.context, profileClause(profile)]
+              .filter((v): v is string => typeof v === 'string' && v.trim() !== '')
+              .join(' '),
+          }
+        : brief;
+    const out = forge(withProfile, model, mode);
     setResult(out);
     setStrikes((n) => n + 1);
     bumpForged();
     outputRef.current?.focus();
-  }, [brief, model, mode, bumpForged]);
+  }, [brief, model, mode, useMyProfile, profile, bumpForged]);
 
   /**
    * The auto-filled line in Simple mode is the tutorial: each choice opens the one field that made
@@ -88,10 +110,11 @@ export function BuildBench(): React.ReactNode {
    */
   const openField = useCallback(
     (field: FieldId) => {
-      if (mode !== 'advanced') setMode('advanced');
+      // In Plan the whole craft layer is already on show, so the mode stays put.
+      if (benchMode === 'simple') setMode('advanced');
       setFocusField(field);
     },
-    [mode, setMode],
+    [benchMode, setMode],
   );
 
   useEffect(() => {
@@ -167,19 +190,22 @@ export function BuildBench(): React.ReactNode {
         <div className="modebar">
           <Segmented
             label="Mode"
-            value={mode}
+            value={benchMode}
             onChange={(v) => {
-              if (v === 'simple' || v === 'advanced') setMode(v);
+              if (v === 'simple' || v === 'advanced' || v === 'plan') setMode(v);
             }}
             options={[
               { value: 'simple', label: 'Simple' },
               { value: 'advanced', label: 'Advanced' },
+              { value: 'plan', label: 'Plan' },
             ]}
           />
           <p className="modebar__what">
-            {mode === 'simple'
+            {benchMode === 'simple'
               ? 'Forge makes most of the choices. You give it the subject.'
-              : 'You make most of the choices. Forge fills in nothing you have not asked for.'}
+              : benchMode === 'advanced'
+                ? 'You make most of the choices. Forge fills in nothing you have not asked for.'
+                : 'Forge interviews you: answer what matters, skip what does not, and it fills the rest.'}
           </p>
           <Switch
             label="Policy notes"
@@ -187,6 +213,14 @@ export function BuildBench(): React.ReactNode {
             checked={policyNotes}
             onChange={setPolicyNotes}
           />
+          {model.category === 'text' && hasProfile(profile) && (
+            <Switch
+              label="Use my profile"
+              hint="adds the About-me line from your account page to the context, visibly"
+              checked={useMyProfile}
+              onChange={setUseMyProfile}
+            />
+          )}
           {mode === 'simple' && forged >= 10 && (
             <p className="modebar__offer" role="status">
               You have forged {forged} prompts. Advanced mode opens the craft layer if you want it.
@@ -194,11 +228,22 @@ export function BuildBench(): React.ReactNode {
           )}
         </div>
 
+        {benchMode === 'plan' && (
+          <PlanPanel
+            brief={brief}
+            model={model}
+            onAnswer={(field, value) => {
+              setField(model.id, field, value);
+            }}
+            onOpenField={openField}
+          />
+        )}
+
         <div id="brief" data-tour="brief">
           <Brief
             model={model}
             brief={brief}
-            mode={mode}
+            mode={briefMode}
             onChange={(field, value) => {
               setField(model.id, field, value);
             }}

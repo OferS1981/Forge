@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { modelById } from '@forge/catalog';
 import { Button, Markdown, splitTitle, toast } from '@forge/ui';
 import type { Lesson } from '../lib/lessons';
-import { useBriefs, useMode, useModelId } from '../lib/store';
+import { useBenchMode, useBriefs, useModelId } from '../lib/store';
 
 /**
  * A lesson, and the button that matters: it loads the brief the lesson describes into the Build
@@ -22,7 +22,7 @@ export function LessonBody({
 }): React.ReactNode {
   const router = useRouter();
   const [, setModelId] = useModelId('midjourney');
-  const [, setMode] = useMode();
+  const [, setMode] = useBenchMode();
   const { setFields } = useBriefs();
   const { title, body } = splitTitle(lesson.source);
   const model = modelById(lesson.demo.model);

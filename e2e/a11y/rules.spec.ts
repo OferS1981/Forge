@@ -70,3 +70,24 @@ for (const theme of ['light', 'dark']) {
     expect(await violations(page)).toEqual([]);
   });
 }
+
+for (const theme of ['light', 'dark']) {
+  test(`the plan interview has no axe violations: ${theme}`, async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('radio', { name: 'Plan' }).click();
+    await page.locator('#plan-answer').fill('a dragon on a sea cliff');
+    await page
+      .getByRole('region', { name: 'The plan' })
+      .getByRole('button', { name: 'Answer', exact: true })
+      .click();
+    await setTheme(page, theme);
+    expect(await violations(page)).toEqual([]);
+  });
+
+  test(`the You card has no axe violations: ${theme}`, async ({ page }) => {
+    await page.goto('/account');
+    await page.getByRole('region', { name: 'You' }).getByLabel('Name').fill('Alon');
+    await setTheme(page, theme);
+    expect(await violations(page)).toEqual([]);
+  });
+}

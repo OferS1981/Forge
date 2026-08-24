@@ -116,8 +116,23 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
    * catalogue's weight at first paint, and the palette costs one dynamic import on first use.
    */
   const [catalogCommands, setCatalogCommands] = useState<Command[] | null>(null);
+  const [warm, setWarm] = useState(false);
+  /*
+   * Pre-warm in idle time: the chunk stays off the first paint, but by the time a hand reaches
+   * Cmd-K the commands are already here. Without this, a fast typist could press Enter into a
+   * palette that had not finished arriving.
+   */
   useEffect(() => {
-    if (!palette || catalogCommands !== null) return;
+    // A beat after hydration, on every browser the same way: no idle-callback API roulette.
+    const handle = window.setTimeout(() => {
+      setWarm(true);
+    }, 250);
+    return () => {
+      window.clearTimeout(handle);
+    };
+  }, []);
+  useEffect(() => {
+    if ((!palette && !warm) || catalogCommands !== null) return;
     let live = true;
     void import('@forge/catalog').then(({ MODELS, TERM_LIST }) => {
       if (!live) return;
@@ -141,7 +156,7 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
     return () => {
       live = false;
     };
-  }, [palette, catalogCommands]);
+  }, [palette, warm, catalogCommands]);
 
   const commands: Command[] = [
     ...(catalogCommands ?? []),

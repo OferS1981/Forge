@@ -238,6 +238,8 @@ test('the command palette opens on the shortcut and switches model', async ({ pa
   await page.keyboard.press('ControlOrMeta+k');
   await expect(page.getByRole('dialog', { name: 'Search Forge' })).toBeVisible();
   await page.keyboard.type('Ideogram');
+  // The results are visible before Enter, exactly as a person sees them before committing.
+  await expect(page.getByRole('option', { name: /Ideogram/ }).first()).toBeVisible();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('button', { name: /^Model/ })).toContainText('Ideogram');
 });

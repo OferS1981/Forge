@@ -13,6 +13,7 @@ import { Button, TextField, toast } from '@forge/ui';
 import { Workspace } from '../../components/Workspace';
 import { useLibrary } from '../../lib/library';
 import { sendSignInLink, signInWithGoogle, signOut } from '../../lib/account';
+import { You } from '../../components/You';
 
 /**
  * Where the work is kept, and how to move it.
@@ -272,6 +273,7 @@ export default function AccountPage(): React.ReactNode {
           )}
         </section>
       )}
+      <You />
     </Workspace>
   );
 }
