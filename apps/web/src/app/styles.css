@@ -2077,3 +2077,36 @@ a {
   letter-spacing: normal;
   color: var(--ink-dim);
 }
+
+/*
+ * The theme control sits among links, so it dresses like one: same visual weight, compact chips,
+ * its label spoken to screen readers but not spent on the row.
+ */
+.topbar .fg-seg-wrap .fg-field__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.topbar .fg-seg {
+  padding: 1px;
+}
+.topbar .fg-seg__opt {
+  min-height: 22px;
+  padding: 0 var(--sp-2);
+  font-size: var(--t-xs);
+}
+/* Compact is for pointers; a thumb gets the full target back. */
+@media (max-width: 819px) {
+  .topbar .fg-seg__opt {
+    min-height: var(--tap);
+  }
+  .tools__link {
+    min-height: var(--tap);
+  }
+}

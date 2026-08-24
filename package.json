@@ -18,7 +18,8 @@
     "test:e2e": "playwright test --config playwright.config.ts --project smoke --pass-with-no-tests",
     "build": "turbo run build",
     "verify": "pnpm typecheck && pnpm lint && pnpm test && pnpm test:golden && pnpm test:a11y && pnpm test:e2e && pnpm test:budget",
-    "test:budget": "node scripts/perf-budget.mjs"
+    "test:budget": "node scripts/perf-budget.mjs",
+    "mcp": "node scripts/mcp-install.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
