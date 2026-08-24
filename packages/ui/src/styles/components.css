@@ -249,6 +249,18 @@
 }
 
 /* ---------- Segmented ---------- */
+/*
+ * The label sits beside the control, not glued to it. Without this the wrap is a plain block and
+ * the inline label lands flush against the first option: "Theme" reads as part of "System". Every
+ * segmented control in the product had the fault, which is why the fix lives here and not in a
+ * page stylesheet.
+ */
+.fg-seg-wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-2);
+}
 .fg-seg {
   display: inline-flex;
   padding: 2px;

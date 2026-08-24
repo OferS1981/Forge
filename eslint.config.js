@@ -82,5 +82,17 @@ export default tseslint.config(
       },
     },
   },
+  // The service worker runs in worker scope: self, caches and fetch are its real globals.
+  {
+    files: ['apps/web/public/sw.js'],
+    languageOptions: {
+      globals: {
+        self: 'readonly',
+        caches: 'readonly',
+        fetch: 'readonly',
+        URL: 'readonly',
+      },
+    },
+  },
   prettier,
 );

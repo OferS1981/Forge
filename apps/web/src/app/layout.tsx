@@ -5,6 +5,7 @@ import './styles.css';
 import { AssistantProvider } from '../lib/assistant';
 import { LibraryProvider } from '../lib/library';
 import { Shell } from '../components/Shell';
+import { Offline } from '../components/Offline';
 
 export const metadata: Metadata = {
   title: 'Forge, a prompt smithy',
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: ReactNode }): React
         <LibraryProvider>
           <AssistantProvider>
             <Shell>{children}</Shell>
+            <Offline />
           </AssistantProvider>
         </LibraryProvider>
       </body>

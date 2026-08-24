@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, type ReactNode } from 'react';
-import { MODELS, TERM_LIST } from '@forge/catalog';
+
 import {
   CommandPalette,
   ThemeToggle,
@@ -109,16 +109,42 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
     };
   }, []);
 
-  // Cmd-K searches models and glossary terms together, so typing "cfg" reaches the explanation as
-  // directly as typing a model name reaches the model.
+  /*
+   * Cmd-K searches models and glossary terms together, so typing "cfg" reaches the explanation as
+   * directly as typing a model name reaches the model. The catalogue is the heaviest chunk in the
+   * product, so the palette pulls it in only when the palette first opens: the shell stays off the
+   * catalogue's weight at first paint, and the palette costs one dynamic import on first use.
+   */
+  const [catalogCommands, setCatalogCommands] = useState<Command[] | null>(null);
+  useEffect(() => {
+    if (!palette || catalogCommands !== null) return;
+    let live = true;
+    void import('@forge/catalog').then(({ MODELS, TERM_LIST }) => {
+      if (!live) return;
+      setCatalogCommands([
+        ...MODELS.map((m) => ({
+          value: `model:${m.id}`,
+          label: m.sub === undefined ? m.name : `${m.name} ${m.sub}`,
+          hint: m.blurb,
+          group: 'Models',
+          keywords: `${m.maker ?? ''} ${m.tags.join(' ')} ${m.grammar}`,
+        })),
+        ...TERM_LIST.map((t) => ({
+          value: `term:${t.id}`,
+          label: t.label,
+          hint: t.short,
+          group: 'Glossary',
+          keywords: t.id,
+        })),
+      ]);
+    });
+    return () => {
+      live = false;
+    };
+  }, [palette, catalogCommands]);
+
   const commands: Command[] = [
-    ...MODELS.map((m) => ({
-      value: `model:${m.id}`,
-      label: m.sub === undefined ? m.name : `${m.name} ${m.sub}`,
-      hint: m.blurb,
-      group: 'Models',
-      keywords: `${m.maker ?? ''} ${m.tags.join(' ')} ${m.grammar}`,
-    })),
+    ...(catalogCommands ?? []),
     ...[...WORKSPACES, ...TOOLS].map((w) => ({
       value: `go:${w.href}`,
       label: w.label,
@@ -133,13 +159,6 @@ export function Shell({ children }: { children: ReactNode }): ReactNode {
       group: 'Workspaces',
       keywords: 'sign in sign out sync',
     },
-    ...TERM_LIST.map((t) => ({
-      value: `term:${t.id}`,
-      label: t.label,
-      hint: t.short,
-      group: 'Glossary',
-      keywords: t.id,
-    })),
   ];
 
   const run = (value: string): void => {

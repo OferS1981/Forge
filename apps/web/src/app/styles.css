@@ -509,14 +509,30 @@ a {
   }
 }
 @media (max-width: 819px) {
-  /* The secondary links and the theme control take their own row rather than squeezing the tabs. */
+  /*
+   * A phone gets a working bar, not a stack of five. The workspace tabs and the tool strip each
+   * scroll sideways in place, the secondary links shrink to one row with the theme control, and
+   * the whole shell spends two rows before the bench starts instead of half the screen.
+   */
   .topbar {
     padding: var(--sp-1) var(--sp-3);
+    gap: 0 var(--sp-2);
   }
   .topbar__spacer {
     flex-basis: 100%;
     height: 0;
   }
+  .topbar__link {
+    padding: var(--sp-1) var(--sp-2);
+    font-size: var(--t-xs);
+  }
+  .topbar .fg-seg-wrap {
+    margin: 0 0 0 auto;
+  }
+  .topbar .fg-field__label {
+    font-size: var(--t-xs);
+  }
+
   .bay {
     padding: var(--sp-4) var(--sp-3) var(--sp-6);
   }
@@ -1044,8 +1060,18 @@ a {
   color: var(--ember-text);
 }
 @media (max-width: 819px) {
+  /* One row that scrolls sideways, like the workspace tabs above it. */
+  .tools {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tools::-webkit-scrollbar {
+    display: none;
+  }
   .tools__link {
     min-height: var(--tap);
+    white-space: nowrap;
   }
 }
 
