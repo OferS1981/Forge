@@ -37,7 +37,7 @@
     },
     {
       "name": "Camera preset",
-      "value": "nearest named preset",
+      "value": "Super Dolly In",
       "why": "63 named moves",
       "term": "setting.camera-preset",
       "tier": "simple"

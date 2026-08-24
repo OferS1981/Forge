@@ -177,8 +177,8 @@ Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, 
 == video-single :: wan (score 65)
 Slow dolly in, framed as a medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
-== video-single :: mjvideo (score 56)
-Slow dolly in. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. Calm in feeling. --motion high --raw
+== video-single :: mjvideo (score 51)
+Slow dolly in. She pours a rosetta into a flat white, then slides it across the counter. --motion high --raw
 (fields this model does not read: setting, purpose)
 
 == video-single :: generic-video (score 64)
@@ -228,8 +228,8 @@ Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo b
 Slow dolly in, framed as a medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
 (fields this model does not read: shots, vaudio)
 
-== video-multishot :: mjvideo (score 57)
-Slow dolly in. A night courier on a cargo bike. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Austere in feeling. --motion high --raw
+== video-multishot :: mjvideo (score 52)
+Slow dolly in. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. --motion high --raw
 (fields this model does not read: setting, shots, duration, vaudio)
 
 == video-multishot :: generic-video (score 73)
@@ -254,7 +254,7 @@ en-US. A gravelly American man in his fifties. Broadcast quality recording.
 == voice-trailer :: cartesia (score 52)
 This summer... everything changes. Are you ready? One last job. One last chance.
 
-== voice-trailer :: hume (score 47)
+== voice-trailer :: hume (score 45)
 This summer... everything changes. Are you ready? One last job. One last chance.
 (fields this model does not read: useCase)
 
@@ -266,16 +266,16 @@ This summer... everything changes. Are you ready? One last job. One last chance.
 ####################################################################################################
 
 == music-instrumental :: el-music (score 41)
-bossa nova, 120 BPM, nylon-string guitar, muted trumpet, instrumental, vinyl crackle, nostalgic
+bossa nova, nostalgic, nylon-string guitar, muted trumpet, 120 BPM, vinyl crackle, instrumental
 
 == music-instrumental :: suno (score 41)
 bossa nova, 120 BPM, nylon-string guitar, muted trumpet, instrumental, vinyl crackle, nostalgic
 
 == music-instrumental :: lyria (score 43)
-bossa nova, 120 BPM, nylon-string guitar, muted trumpet, instrumental, vinyl crackle, nostalgic
+bossa nova, nostalgic, nylon-string guitar, muted trumpet, 120 BPM, instrumental, vinyl crackle
 
 == music-instrumental :: stableaudio (score 43)
-bossa nova, 120 BPM, nylon-string guitar, muted trumpet, instrumental, vinyl crackle, nostalgic
+bossa nova, nylon-string guitar, muted trumpet, nostalgic, vinyl crackle, 120 BPM, instrumental
 
 == music-instrumental :: generic-music (score 41)
 bossa nova, 120 BPM, nylon-string guitar, muted trumpet, instrumental, vinyl crackle, nostalgic

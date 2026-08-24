@@ -29,7 +29,10 @@ function flatten(S: Block[], sep: string, fmt: (s: Block) => string): string {
 
 const prose: Composer = (b, m) => {
   const S = m.category === 'video' ? videoSections(b, m) : imageSections(b, m);
-  let flat = S.map((s) => s.body).join(' ');
+  // A block whose label says the still carries it is the record, not part of the paste.
+  let flat = S.filter((s) => !s.label.startsWith('Start frame'))
+    .map((s) => s.body)
+    .join(' ');
   const negs = arr(b.avoid);
   if (m.negative.mode === 'flag' && negs.length) flat += ' --no ' + join(negs);
   if (m.promptSuffix) flat += m.promptSuffix(b);
@@ -209,11 +212,20 @@ const tts: Composer = (b, m) => {
   const dir: string[] = [];
   if (has(b.useCase)) dir.push('Read as: ' + (b.useCase ?? '').toLowerCase());
   if (has(b.vTone)) dir.push('Tone: ' + join(b.vTone));
-  if (m.actingInstruction)
-    dir.push(
-      'Acting instruction (keep under 100 characters): ' +
-        (arr(b.vTone).slice(0, 2).join(', ') || 'measured, warm'),
-    );
+  if (m.actingInstruction) {
+    /*
+     * Hume's own guidance: pair a precise emotion with a delivery style, "excited but whispering",
+     * and keep it under about 100 characters. Built from the tone and texture the user gave, and
+     * left out entirely when they gave neither: "measured, warm" as a fallback was an invented
+     * mood, which is the one thing Forge never does.
+     */
+    const acting = [arr(b.vTone).slice(0, 2).join(', '), arr(b.vTexture).slice(0, 1).join('')]
+      .filter(has)
+      .join(', ');
+    if (acting.length > 0) {
+      dir.push('Acting instruction (keep under 100 characters): ' + acting.slice(0, 100));
+    }
+  }
   if (dir.length) S.push(block('Direction', dir.join('. ') + '.'));
   if (
     m.lengthWarningBelow !== undefined &&

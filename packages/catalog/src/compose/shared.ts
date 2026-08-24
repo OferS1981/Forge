@@ -183,6 +183,40 @@ export function videoSections(b: Brief, m: Model): Block[] {
    * its action in its environment; Seedance's documented structure holds the camera back until the
    * performance is told. Each flag sits beside the note in the model file that justifies it.
    */
+  if (m.motionOnly === true) {
+    /*
+     * Only the motion goes in the prompt; the still carries the look, says the vendor. The subject
+     * and setting stay in a labelled block so nothing typed is lost from the record.
+     */
+    const motion = [
+      has(b.camMove) ? cap(b.camMove ?? '') : '',
+      cap(stripDot(b.action) || 'the subject moves through the frame'),
+      has(b.motion) ? cap(join(b.motion)) + ' throughout' : '',
+      has(b.pacing) ? cap(b.pacing ?? '') + ' pacing' : '',
+    ]
+      .filter(has)
+      .join('. ');
+    S.push(block('Motion, and only the motion', motion + '.'));
+    S.push(
+      block(
+        'Start frame (the still carries this, not the prompt)',
+        cap(stripDot(b.subject) || 'the subject') +
+          (has(b.setting) ? ', ' + lc(stripDot(b.setting)) : '') +
+          '.' +
+          (has(b.shot) ? ' Framed as ' + artic(first(b.shot)) + ' ' + first(b.shot) : '') +
+          (has(b.lens)
+            ? (has(b.shot) ? ' on ' : ' On ') + artic(b.lens ?? '') + ' ' + (b.lens ?? '')
+            : '') +
+          (has(b.shot) || has(b.lens) ? '.' : '') +
+          (lightClause(b) ? ' ' + lightClause(b) + '.' : '') +
+          (finishClause(b) ? ' ' + finishClause(b) + '.' : '') +
+          (has(b.mood) ? ' ' + cap(join(b.mood)) + ' in feeling.' : ''),
+      ),
+    );
+    if (has(b.vaudio)) S.push(block('Audio', stripDot(b.vaudio) + '.'));
+    if (has(b.ref)) S.push(block('Reference', 'In the register of ' + stripDot(b.ref) + '.'));
+    return S;
+  }
   if (m.prose === 'narrative') {
     /*
      * Wan 2.7 and Luma Ray3 both document that they reward flowing narrative over stacked

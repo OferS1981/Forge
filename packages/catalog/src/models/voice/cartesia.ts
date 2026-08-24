@@ -19,6 +19,7 @@ export const cartesia: Model = {
   best: 'Realtime voice agents, telephony, code-switching, alphanumerics like order and phone numbers.',
   worst: 'Beta API, no open weights, smaller voice library than ElevenLabs.',
   notes: [
+    'Cartesia documents concrete transcript rules: end every transcript with punctuation, insert a dash or a break tag where you need a pause, write dates as MM/DD/YYYY, and put a space between a time and AM or PM.',
     'Emotion, speed and volume are API parameters here rather than prompt text, which makes them deterministic.',
     'Custom pronunciation dictionaries with IPA overrides are the reliable fix for brand names.',
   ],
@@ -37,8 +38,13 @@ export const cartesia: Model = {
   betterFor: [],
   strengthTags: [],
   sources: [
+    {
+      url: 'https://docs.cartesia.ai/build-with-cartesia/formatting-text-for-sonic-2/best-practices',
+      title: 'Formatting text for Sonic',
+      publisher: 'Cartesia',
+    },
     { url: 'https://docs.cartesia.ai/', title: 'Cartesia documentation', publisher: 'Cartesia' },
   ],
-  verifiedOn: '2026-08-23',
+  verifiedOn: '2026-08-24',
   unverified: true,
 };

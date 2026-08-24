@@ -1,20 +1,12 @@
 {
   "blocks": [
     {
-      "label": "Cinematography",
-      "body": "Slow dolly in, medium shot on a 35mm."
+      "label": "Motion, and only the motion",
+      "body": "Slow dolly in. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Deliberate pacing."
     },
     {
-      "label": "Subject",
-      "body": "A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
-    },
-    {
-      "label": "Action",
-      "body": "He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout."
-    },
-    {
-      "label": "Style & ambiance",
-      "body": "Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate."
+      "label": "Start frame (the still carries this, not the prompt)",
+      "body": "A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. Framed as a medium shot on a 35mm. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling."
     },
     {
       "label": "Audio",
@@ -25,7 +17,7 @@
       "body": "In the register of Roger Deakins night exteriors."
     }
   ],
-  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. --motion high --raw",
+  "flat": "Slow dolly in. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Deliberate pacing. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors. --motion high --raw",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -75,11 +67,11 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 91,
+  "score": 84,
   "axes": {
-    "specificity": 97,
+    "specificity": 79,
     "technical": 100,
-    "structure": 90,
+    "structure": 60,
     "constraints": 85,
     "format": 80,
     "context": 85,

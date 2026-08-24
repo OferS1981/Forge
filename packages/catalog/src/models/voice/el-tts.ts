@@ -41,6 +41,7 @@ export const elTts: Model = {
   worst:
     'Very short inputs are unstable. It is not a general SSML engine: only break, phoneme and lexeme tags exist.',
   notes: [
+    'v3 documents that ellipses add pauses and weight, capitalisation increases emphasis, and standard punctuation gives natural rhythm. Punctuate the script like the read you want.',
     'v3 takes inline audio tags like [whispers], [sighs], [sarcastic], and interprets natural-language direction inside brackets.',
     'Ellipses add hesitation and weight, dashes make short pauses, CAPITALS carry stress. That is the real prosody control.',
     'Under 250 characters gets inconsistent output. Give it a full paragraph even if you only need one line.',
@@ -95,6 +96,11 @@ export const elTts: Model = {
   ],
   sources: [
     {
+      url: 'https://elevenlabs.io/docs/best-practices/prompting/eleven-v3',
+      title: 'Prompting Eleven v3',
+      publisher: 'ElevenLabs',
+    },
+    {
       url: 'https://elevenlabs.io/docs/capabilities/text-to-speech',
       title: 'Text to speech',
       publisher: 'ElevenLabs',
@@ -105,6 +111,6 @@ export const elTts: Model = {
       publisher: 'ElevenLabs',
     },
   ],
-  verifiedOn: '2026-08-23',
+  verifiedOn: '2026-08-24',
   unverified: true,
 };

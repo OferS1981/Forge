@@ -19,6 +19,7 @@ export const hume: Model = {
   best: 'Emotionally precise delivery, character work, direction that changes mid-line.',
   worst: 'The description field is Octave 1 only at time of writing. Verify before relying on it.',
   notes: [
+    "Pair a precise emotion with a delivery style: 'excited but whispering', 'confident, professional tone'. Hume's own examples all take that two-part shape.",
     "Hume's own guidance: keep acting instructions under about 100 characters. 'Frightened, rushed' beats a paragraph.",
     'Precise emotions beat generic ones: melancholy and frustrated, not sad.',
     "Audience context shapes delivery: 'speaking to a child', 'addressing a large crowd'.",
@@ -43,11 +44,16 @@ export const hume: Model = {
   strengthTags: [],
   sources: [
     {
+      url: 'https://dev.hume.ai/docs/text-to-speech-tts/acting-instructions',
+      title: 'Acting instructions',
+      publisher: 'Hume',
+    },
+    {
       url: 'https://dev.hume.ai/docs/text-to-speech-tts/overview',
       title: 'Text-to-speech overview',
       publisher: 'Hume AI',
     },
   ],
-  verifiedOn: '2026-08-23',
+  verifiedOn: '2026-08-24',
   unverified: true,
 };

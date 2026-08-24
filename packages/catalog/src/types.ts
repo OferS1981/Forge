@@ -178,6 +178,13 @@ export interface Model {
    */
   audioLabels?: true;
   /**
+   * The vendor documents that this is not a cinematic-paragraph model: describe only the motion,
+   * in a handful of words, and let the still carry the look. The composer keeps the subject and
+   * setting in a start-frame block so nothing the user typed is lost, and puts only the motion in
+   * the pasteable prompt. Midjourney Video's own note is the source.
+   */
+  motionOnly?: true;
+  /**
    * The vendor's own published order for the style tokens. Google's formula for Lyria, Stability's
    * for Stable Audio, ElevenLabs' five dimensions for its music model. Suno's documented order is
    * the default one, so it carries no flag. Set only where a note records the vendor saying so.

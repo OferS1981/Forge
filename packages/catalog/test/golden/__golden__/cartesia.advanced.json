@@ -57,6 +57,7 @@
     }
   ],
   "notes": [
+    "Cartesia documents concrete transcript rules: end every transcript with punctuation, insert a dash or a break tag where you need a pause, write dates as MM/DD/YYYY, and put a space between a time and AM or PM.",
     "Emotion, speed and volume are API parameters here rather than prompt text, which makes them deterministic.",
     "Custom pronunciation dictionaries with IPA overrides are the reliable fix for brand names."
   ],

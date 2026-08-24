@@ -330,6 +330,46 @@ describe('the music tokens follow the vendor order', () => {
   });
 });
 
+describe('facts fetched from the vendors, this round', () => {
+  it('writes Midjourney Video as motion only, which its own note documents', () => {
+    const out = forge(barista, modelById('mjvideo'), 'simple');
+    // Only the motion is pasted; the still carries the look.
+    expect(out.flat).not.toContain('linen apron');
+    expect(out.flat).toContain('pours a rosetta');
+    // And nothing typed is lost: the subject lives in the start-frame block.
+    expect(out.blocks.map((b) => b.body).join(' ')).toContain('linen apron');
+  });
+
+  it('names the Higgsfield preset instead of shrugging "nearest named preset"', () => {
+    const out = forge(barista, modelById('higgsfield'), 'simple');
+    const preset = out.settings.find((r) => r.name === 'Camera preset');
+    expect(preset?.value).toBe('Super Dolly In');
+  });
+
+  it('builds the Hume acting line from what was given, and never invents one', () => {
+    const given = forge(
+      { script: 'We need to move, now!', vTone: ['urgent'], vTexture: ['gravelly'] },
+      modelById('hume'),
+      'advanced',
+    );
+    const direction = given.blocks.find((b) => b.label === 'Direction');
+    expect(direction?.body).toContain('urgent, gravelly');
+    const bare = forge({ script: 'We need to move, now!' }, modelById('hume'), 'advanced');
+    const bareDirection = bare.blocks.find((b) => b.label === 'Direction');
+    expect(bareDirection?.body ?? '').not.toContain('measured, warm');
+  });
+
+  it('carries the punctuation guidance the vendors document, as notes', () => {
+    for (const [id, want] of [
+      ['el-tts', 'ellipses add pauses'],
+      ['cartesia', 'MM/DD/YYYY'],
+      ['hume', 'excited but whispering'],
+    ] as const) {
+      expect(modelById(id).notes.join(' ')).toContain(want);
+    }
+  });
+});
+
 describe('small finish', () => {
   it('ends the app brief first line like the others', () => {
     const out = forge(

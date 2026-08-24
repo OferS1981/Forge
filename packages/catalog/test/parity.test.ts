@@ -76,6 +76,17 @@ const ORDER_DOCUMENTED = new Set(['runway', 'seedance', 'veo']);
  * and the score, which reads words not order, must not move at all.
  */
 const MUSIC_ORDERED = new Set(['lyria', 'stableaudio', 'el-music']);
+
+/*
+ * Midjourney Video's own note says motion only, a handful of words, and let the still carry the
+ * look; the prototype pasted the whole cinematic paragraph anyway. The flat is now the motion
+ * alone, so the check is that everything the prototype pasted still lives in the blocks, and the
+ * flat is a subset of it.
+ */
+const MOTION_ONLY = new Set(['mjvideo']);
+
+/* The models whose files gained a cited vendor note in the round-six research pass. */
+const NOTES_ADDED = new Set(['el-tts', 'cartesia', 'hume']);
 const tokens = (text: string): string => text.split(', ').sort().join('|');
 const ORDER_WORDS_ALLOWED = new Set([
   'framed',
@@ -113,7 +124,7 @@ const SCRIPT_VERBATIM = new Set([
   'el-voicedesign',
   'el-dubbing',
   'cartesia',
-  'hume',
+  // hume takes its own containment branch: its acting line changed shape as well as punctuation.
   'generic-voice',
 ]);
 
@@ -181,6 +192,18 @@ function rewriteOurs(id: string, text: string): string {
       /(?:, )?(?:confident line weight with controlled hatching|visible brushwork, with impasto in the highlights|matte layered washes with soft edges|flat colour fills and crisp edges, no gradients|limited ink layers with visible grain and slight misregistration|painterly detail that holds up at full-frame scale|true isometric projection with no perspective distortion|cut-paper edges and layered texture|graphite shading with visible construction lines)(?:\. )?/g,
       '',
     );
+  /*
+   * Hume's acting line gained the texture word the user gave and lost the invented fallback. Map
+   * ours back: drop a trailing ", <texture>" inside the acting instruction, and where the
+   * prototype had the invented "measured, warm" and we have nothing, nothing maps to nothing here
+   * and the containment branch handles it.
+   */
+  if (id === 'hume') {
+    out = out.replace(
+      /(Acting instruction \(keep under 100 characters\): [^.]*?), (?:breathy|husky|gravelly|velvety|chesty|bright|resonant|smoky|reedy)\./,
+      '$1.',
+    );
+  }
   // Hailuo's inline token dropped the usage note that was being pasted as part of the prompt.
   if (id === 'hailuo') {
     out = out.replace(
@@ -215,6 +238,9 @@ const WORDING_SCORE = new Set([
   'runway',
   'seedance',
   'veo',
+  'mjvideo',
+  // The invented "measured, warm" fallback is gone, so the words the axis counted went with it.
+  'hume',
 ]);
 
 /** Symmetric: applied to both sides' 'What we are building' body. See rewriteOurs. */
@@ -232,16 +258,26 @@ const EM_DASH_ROWS: Record<string, string> = { recraft: 'substyle', suno: 'Exclu
 
 const REWRITTEN_WHY: Record<string, string> = { claude: 'model' };
 
+/*
+ * Higgsfield's Camera preset row used to say "nearest named preset", which told nobody which of
+ * the 63 presets to click. It now names one, chosen from the camera move, out of the preset list
+ * its own note documents. The parameter and the why must still match; the value is the fix.
+ */
+const NAMED_VALUE_ROWS: Record<string, string> = { higgsfield: 'Camera preset' };
+
 function normaliseSettings(
   rows: [string, string, string][],
   modelId: string,
 ): [string, string, string][] {
   const emDash = EM_DASH_ROWS[modelId];
   const rewritten = REWRITTEN_WHY[modelId];
+  const named = NAMED_VALUE_ROWS[modelId];
   return rows.map(([name, value, why]) => {
     if (name === emDash && value === '\u2014') return [name, 'none', why];
     // Only the explanation changed. The parameter and the value it emits must still match.
     if (name === rewritten) return [name, value, ''];
+    // Only the value changed, from a shrug to a name. The parameter and the why still match.
+    if (name === named) return [name, '', why];
     return [name, value, why];
   });
 }
@@ -327,6 +363,25 @@ describe('parity with the prototype', () => {
             expect(mine.blocks.map((b, i) => [b.label, i === 0 ? theirsStyle : b.body])).toEqual(
               theirs.blocks,
             );
+          } else if (m.id === 'hume') {
+            const record = mine.blocks.map((b) => b.body).join(' ');
+            const INVENTED = new Set(['measured', 'warm']);
+            for (const word of words(theirs.flat)) {
+              if (INVENTED.has(word)) continue;
+              expect(words(record + ' ' + mine.flat), `hume lost "${word}"`).toContain(word);
+            }
+            expect(record).not.toContain('measured, warm');
+          } else if (MOTION_ONLY.has(m.id)) {
+            const record = mine.blocks.map((b) => b.body).join(' ');
+            for (const word of words(theirs.flat.replace(/--motion \w+|--raw/g, ''))) {
+              expect(words(record), `${m.id} lost "${word}"`).toContain(word);
+            }
+            const FRAMING = new Set(['pacing', 'throughout']);
+            for (const word of words(mine.flat)) {
+              if (FRAMING.has(word)) continue;
+              expect(words(theirs.flat), `${m.id} gained "${word}"`).toContain(word);
+            }
+            expect(mine.flat.length).toBeLessThan(theirs.flat.length + 1);
           } else if (ORDER_DOCUMENTED.has(m.id)) {
             for (const word of words(theirs.flat)) {
               expect(words(mine.flat), `${m.id} lost "${word}"`).toContain(word);
@@ -357,9 +412,18 @@ describe('parity with the prototype', () => {
               m.id,
             ),
           ).toEqual(normaliseSettings(theirs.settings, m.id));
-          expect(mine.notes).toEqual(theirs.notes);
+          if (NOTES_ADDED.has(m.id)) {
+            // The ported notes all survive; what is new carries a citation in the model file.
+            for (const note of theirs.notes) expect(mine.notes).toContain(note);
+          } else {
+            expect(mine.notes).toEqual(theirs.notes);
+          }
           expect(mine.warnings).toEqual(theirs.warn);
-          expect(mine.variations.map((v) => ({ n: v.name, t: v.text }))).toEqual(theirs.variations);
+          if (!MOTION_ONLY.has(m.id)) {
+            expect(mine.variations.map((v) => ({ n: v.name, t: v.text }))).toEqual(
+              theirs.variations,
+            );
+          }
           expect(mine.stripped).toEqual(theirs.stripped);
           if (WORDING_SCORE.has(m.id)) {
             // See WORDING_SCORE above: the words that moved the measure were dead weight.

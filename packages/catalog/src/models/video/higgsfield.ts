@@ -30,7 +30,23 @@ export const higgsfield: Model = {
   settings: (b) =>
     rows([
       ['Model', 'Cinema Studio 3.0', ''],
-      ['Camera preset', b.camMove ? 'nearest named preset' : 'General', '63 named moves'],
+      /*
+       * The named preset from the library its own note lists, chosen from the camera move, rather
+       * than the shrug "nearest named preset" that told nobody which one to click.
+       */
+      [
+        'Camera preset',
+        /dolly|push/i.test(b.camMove ?? '')
+          ? 'Super Dolly In'
+          : /arc|orbit/i.test(b.camMove ?? '')
+            ? '360 Orbit'
+            : /whip/i.test(b.camMove ?? '')
+              ? 'Whip Pan'
+              : /zoom/i.test(b.camMove ?? '')
+                ? 'Crash Zoom In'
+                : 'General',
+        '63 named moves',
+      ],
       ['cfg_scale', '0.6', '0.3 creative, 0.8 literal'],
       ['duration', or(b.duration, '8s'), '4–15s'],
       ['genre', 'auto', 'action, horror, comedy, noir, drama, epic'],

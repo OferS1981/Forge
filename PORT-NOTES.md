@@ -112,6 +112,26 @@ exact words in `parity.test.ts`, so the port discipline survives the improvement
 - **A writing task may invent.** The system prompt's grounding line now keys off the task's verb:
   "say so rather than filling the gap" stays for reading tasks and would sabotage a drafting one.
 
+## The round-six research pass, done by hand
+
+The refresh pipeline's job, done once manually while it waits for its key: the remaining tie models
+were checked against their vendors' live documentation, and each fact taken carries the page it
+came from in `sources` with `verifiedOn` moved to the day it was read.
+
+- **ElevenLabs v3** documents that ellipses add pauses and weight and capitalisation increases
+  emphasis. Now a note on `el-tts`, so the Doctor and the panel teach it.
+- **Cartesia** documents concrete transcript rules: end punctuation on every transcript, a dash for
+  a pause, dates as MM/DD/YYYY, a space before AM or PM. Now a note.
+- **Hume's** examples all pair a precise emotion with a delivery style. The acting line is now
+  composed from the tone and texture the user gave, and the invented "measured, warm" fallback is
+  gone: it was a made-up mood, the one thing Forge never does.
+- **Midjourney Video's own ported note** says it is not a cinematic-paragraph model: motion only,
+  a handful of words, the still carries the look. The composer was pasting the paragraph anyway.
+  The flat is now the motion alone; everything else the user typed lives in a start-frame block, so
+  nothing is lost from the record.
+- **Higgsfield's settings row** now names the preset to click, chosen from the camera move out of
+  the preset library its own note lists, instead of saying "nearest named preset".
+
 ## Things in the prototype I think are wrong, left as they are
 
 - **The intended-use clause is a label, not a sentence.** `imageSections` emits

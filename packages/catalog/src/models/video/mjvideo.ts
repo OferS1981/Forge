@@ -11,6 +11,8 @@ export const mjvideo: Model = {
     'Inherits the Midjourney look frame by frame. Motion-only prompts, five to twenty-one seconds, no audio at all.',
   tags: ['5–25 word prompts', '--motion high', '480p / 720p', 'No audio'],
   grammar: 'prose',
+  // Its own note, below: not a cinematic-paragraph model. Motion only, a handful of words.
+  motionOnly: true,
   length: [5, 25],
   core: ['subject', 'action'],
   craft: ['camMove', 'motion', 'mood'],
