@@ -77,7 +77,10 @@ describe('glossary quality', () => {
       const label = t.label.toLowerCase();
       const head = label.split(' ')[0] ?? '';
       if (head.length <= 4) continue;
-      expect(t.short.toLowerCase().includes(label), `${t.id} defines "${t.label}" with itself`).toBe(false);
+      expect(
+        t.short.toLowerCase().includes(label),
+        `${t.id} defines "${t.label}" with itself`,
+      ).toBe(false);
     }
   });
 

@@ -197,7 +197,9 @@ function Scaffold({
             onApply(filled);
           }}
         >
-          Use these {String(filled.length)} dials
+          {filled.length === 0
+            ? 'Fill an axis to use it'
+            : `Use ${filled.length === 1 ? 'this dial' : `these ${String(filled.length)} dials`}`}
         </Button>
         <Button size="sm" variant="quiet" onClick={onClose}>
           Close

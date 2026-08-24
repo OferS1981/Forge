@@ -256,23 +256,33 @@ describe('the refusal engine', () => {
 
 describe('the adversarial round, pinned', () => {
   it('a baby blue car and a school of fish are not children', () => {
-    expect(compliance({ subject: 'a baby blue vintage car on a coast road' }, modelById('veo'))).toEqual([]);
-    expect(compliance({ subject: 'a school of fish turning as one' }, modelById('nanobanana'))).toEqual([]);
+    expect(
+      compliance({ subject: 'a baby blue vintage car on a coast road' }, modelById('veo')),
+    ).toEqual([]);
+    expect(
+      compliance({ subject: 'a school of fish turning as one' }, modelById('nanobanana')),
+    ).toEqual([]);
   });
 
   it('actual children still meet the wall', () => {
-    const findings = compliance({ subject: 'toddlers chasing pigeons in a square' }, modelById('veo'));
+    const findings = compliance(
+      { subject: 'toddlers chasing pigeons in a square' },
+      modelById('veo'),
+    );
     expect(findings.find((f) => f.id === 'google-person-generation')).toBeDefined();
   });
 
   it('a real person as the subject is flagged for publicity, not style', () => {
-    const findings = compliance({ subject: 'a portrait of Taylor Swift on stage' }, modelById('gptimage'));
+    const findings = compliance(
+      { subject: 'a portrait of Taylor Swift on stage' },
+      modelById('gptimage'),
+    );
     const f = findings.find((x) => x.id.startsWith('proper-noun'));
     expect(f).toBeDefined();
     expect(f?.detail).toContain('right of publicity');
   });
 
-  it("a possessive name is one finding, not two", () => {
+  it('a possessive name is one finding, not two', () => {
     const findings = compliance({ mGenre: ["sounds like Adele's voice"] }, modelById('suno'));
     expect(findings.filter((f) => f.id.startsWith('proper-noun'))).toHaveLength(1);
   });
@@ -284,7 +294,10 @@ describe('the adversarial round, pinned', () => {
   });
 
   it('a "without" construction is quoted as written, never misquoted as "no"', () => {
-    const findings = compliance({ subject: 'a field without weeds under a big sky' }, modelById('sdxl'));
+    const findings = compliance(
+      { subject: 'a field without weeds under a big sky' },
+      modelById('sdxl'),
+    );
     const f = findings.find((x) => x.id.startsWith('negative'));
     expect(f?.detail).toContain('"without weeds"');
     expect(f?.detail).not.toContain('"no weeds"');

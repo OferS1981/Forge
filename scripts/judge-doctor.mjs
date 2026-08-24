@@ -33,7 +33,7 @@ const r = await build({
 const out = Array.isArray(r) ? r[0].output : r.output;
 const code = out.find((c) => c.type === 'chunk').code;
 const cat = await import(`data:text/javascript;base64,${Buffer.from(code).toString('base64')}`);
-const { MODELS, diagnose, rebuild, forge, modelLabel } = cat;
+const { MODELS, diagnose, rebuild, forge } = cat;
 
 /**
  * Ten patients per category: the same ten failure archetypes a working reviewer sees daily,
