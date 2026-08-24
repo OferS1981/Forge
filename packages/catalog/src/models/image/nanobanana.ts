@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const nanobanana: Model = {
+export const nanobanana: ModelSpec = {
   id: 'nanobanana',
   name: 'Nano Banana Pro',
   version: 'gemini-3-pro-image',

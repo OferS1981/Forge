@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const genericVoice: Model = {
+export const genericVoice: ModelSpec = {
   id: 'generic-voice',
   name: 'Any other voice model',
   version: 'category wildcard',

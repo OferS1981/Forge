@@ -28,6 +28,7 @@ import {
 } from '../lib/store';
 import { usePinnedModels } from '../lib/library';
 import { Keep } from '../components/Keep';
+import { CompliancePass } from '../components/CompliancePass';
 import { EXAMPLE_BRIEF } from '../lib/walkthrough';
 import { Walkthrough, WalkthroughRestart } from '../components/Walkthrough';
 
@@ -227,6 +228,16 @@ export default function BuildPage(): React.ReactNode {
             </ul>
           </section>
         )}
+
+        <CompliancePass
+          brief={brief}
+          model={model}
+          onOpenField={openField}
+          onReplaceField={(field, value) => {
+            setField(model.id, field, value);
+            openField(field);
+          }}
+        />
 
         {advice.length > 0 && (
           <div className="advice" role="status">

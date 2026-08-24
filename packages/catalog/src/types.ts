@@ -24,7 +24,8 @@ export type Mode = 'simple' | 'advanced';
  * Glossary term ids. Fields and vocabulary banks get fixed ids so a typo fails `tsc`.
  * Settings rows derive their id from the row name; the term-coverage test checks those.
  */
-export type TermId = `field.${FieldId}` | `vocab.${VocabBank}` | `setting.${string}`;
+export type TermId =
+  `field.${FieldId}` | `vocab.${VocabBank}` | `setting.${string}` | `concept.${string}`;
 
 /** What the user typed or picked. Chip fields hold a list, everything else one string. */
 export type Brief = {
@@ -87,6 +88,77 @@ export interface Source {
   url: string;
   title: string;
   publisher: string;
+}
+
+/**
+ * The vendor's published content rules, typed exactly as the policy manual's section 9.1 specifies.
+ * Everything in these four blocks is the vendor's own position with the page it came from in
+ * `sources`; nothing in them is Forge's judgement of anyone's brief. A block that no primary page
+ * backs yet says so with `unverified` and empty strings rather than a confident guess.
+ */
+export interface PolicyBlock {
+  /** The vendor's content or community policy page. Empty string when no page has been read. */
+  policyUrl: string;
+  usagePolicyUrl?: string;
+  /** The rules people actually hit, in the vendor's words. */
+  tripLines: string[];
+  artistNames: 'refused' | 'stripped' | 'allowed' | 'unpublished';
+  publicFigures: 'blocked' | 'allowed-with-safeguards' | 'stock-licensed-only' | 'unpublished';
+  optOutRegistry: boolean;
+  /** The actual rule on minors, including regional carve-outs. */
+  minors: string;
+  politicalContent: string;
+  /** A supported, documented moderation level. A product setting, never a bypass. */
+  moderationSetting?: { name: string; values: string[]; default: string; note: string };
+  regionalLimits: { regions: string[]; rule: string }[];
+  sources: Source[];
+  verifiedOn: string;
+  unverified?: true;
+}
+
+export interface RightsBlock {
+  outputOwner: 'user' | 'vendor' | 'tier-dependent' | 'unclear';
+  /** The Recraft and Leonardo free-tier traps live here. */
+  ownershipNote?: string;
+  commercialUse: string;
+  /** Suno's download caps live here. */
+  exportEntitlement?: string;
+  indemnity: null | { scope: string; requires: string; excludes: string[] };
+  sources: Source[];
+  verifiedOn: string;
+  unverified?: true;
+}
+
+export interface ProvenanceBlock {
+  /** Invisible marks in the file: SynthID, a proprietary tag. */
+  invisible: string[];
+  c2pa: boolean;
+  visible: 'always' | 'optional' | 'tier-dependent' | 'none';
+  removalProhibited: boolean;
+  /** Higgsfield explicitly does not warrant that its marks persist. */
+  euArticle50Ready: boolean;
+  sources: Source[];
+  verifiedOn: string;
+  unverified?: true;
+}
+
+export interface RefusalBlock {
+  /** What the vendor gives you to diagnose with: Vertex RAI codes, error strings. */
+  diagnostics?: string;
+  /** Be honest when there is none: null, not a soothing sentence. */
+  appealPath: string | null;
+  vendorGuidance: string;
+  sources: Source[];
+  verifiedOn: string;
+  unverified?: true;
+}
+
+/** The four vendor-fact blocks, kept per vendor in models/compliance and composed onto each model. */
+export interface Compliance {
+  policy: PolicyBlock;
+  rights: RightsBlock;
+  provenance: ProvenanceBlock;
+  refusal: RefusalBlock;
 }
 
 export interface Category {
@@ -198,17 +270,19 @@ export interface Model {
    * source.
    */
   structureTags?: true;
-  /**
-   * The vendor's documented content rules, one paragraph in the vendor's own terms, shown only
-   * when the person turns policy notes on. Never a filter and never a judgement: Forge does not
-   * scan anyone's brief, it repeats what the vendor's own page says and links it. Set only where
-   * a policy page was actually read, with that page in `sources`.
-   */
-  policy?: string;
   /** Warn when the spoken script is shorter than this many characters. */
   lengthWarningBelow?: number;
   /** Match: how this model does on vertical video. */
   vertical?: 'weak' | 'strong';
+
+  /** The vendor's published content rules. See PolicyBlock. */
+  policy: PolicyBlock;
+  /** Who owns the output and what you may do with it. See RightsBlock. */
+  rights: RightsBlock;
+  /** What marks are in the file. See ProvenanceBlock. */
+  provenance: ProvenanceBlock;
+  /** What happens when you are refused. See RefusalBlock. */
+  refusal: RefusalBlock;
 
   pairsWith: { model: ModelId; why: string }[];
   betterFor: { when: BriefPredicate; model: ModelId; why: string }[];
@@ -216,8 +290,22 @@ export interface Model {
 
   sources: Source[];
   verifiedOn: string;
+  /**
+   * Present until a real verification pass clears it: someone fetched the pages in `sources` and
+   * reconciled every prompting claim in this file against them, on `verifiedOn`. Reading one page,
+   * or porting faithfully from the prototype, does not clear it. The app shows the badge honestly,
+   * so a cleared flag is a promise, not a mood.
+   */
   unverified?: true;
 }
+
+/**
+ * What a model file writes: everything about prompting the model. The four vendor-fact blocks are
+ * kept beside their sources in models/compliance, one file per category mirroring the policy
+ * manual's vendor sheets, and composed onto the spec in models/index. A model missing its blocks
+ * is a type error there, not a runtime surprise.
+ */
+export type ModelSpec = Omit<Model, 'policy' | 'rights' | 'provenance' | 'refusal'>;
 
 export interface Block {
   label: string;

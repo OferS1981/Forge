@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
-export const suno: Model = {
+export const suno: ModelSpec = {
   id: 'suno',
   name: 'Suno',
   version: 'v5.5',

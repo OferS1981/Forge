@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const genericVideo: Model = {
+export const genericVideo: ModelSpec = {
   id: 'generic-video',
   name: 'Any other video model',
   version: 'category wildcard',

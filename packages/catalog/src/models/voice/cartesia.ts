@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const cartesia: Model = {
+export const cartesia: ModelSpec = {
   id: 'cartesia',
   name: 'Cartesia Sonic',
   version: '3.6',

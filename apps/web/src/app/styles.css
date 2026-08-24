@@ -1729,3 +1729,195 @@ a {
   font-size: var(--t-xs);
   color: var(--ink-dim);
 }
+
+/* ============ The Compliance Pass ============ */
+
+.pass__box {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--warn);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+.pass__tagline {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+}
+.pass__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-3);
+}
+.pass__item {
+  padding: var(--sp-2) var(--sp-3);
+  border-left: 2px solid var(--line);
+}
+.pass__item--caution {
+  border-left-color: var(--warn);
+}
+.pass__item--high {
+  border-left-color: var(--crit);
+}
+.pass__head {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+.pass__sev {
+  font-family: var(--f-display);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+.pass__item--caution .pass__sev {
+  color: var(--warn-text);
+}
+.pass__item--high .pass__sev {
+  color: var(--crit-text);
+}
+.pass__title {
+  font-weight: 600;
+}
+.pass__detail,
+.pass__rewrite {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+.pass__rewrite {
+  font-style: italic;
+}
+.pass__actions {
+  margin: var(--sp-2) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+/* The attribute scaffold: nine dials where the name was one. */
+.scaffold {
+  margin-top: var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface-2);
+}
+.scaffold__note {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+.scaffold__axes {
+  display: grid;
+  gap: var(--sp-3);
+}
+.scaffold__axis {
+  display: grid;
+  gap: var(--sp-1);
+}
+.scaffold__label {
+  font-family: var(--f-display);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.scaffold__hint {
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+}
+.scaffold__input {
+  padding: var(--sp-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--t-sm);
+}
+.scaffold__input:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 1px;
+}
+
+/* ============ The Rights card ============ */
+
+.rights {
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+  padding: var(--sp-2) var(--sp-3);
+}
+.rights__badge {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--t-xs);
+  color: var(--warn-text);
+}
+.rights__grid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--sp-2) var(--sp-3);
+}
+.rights__grid dt {
+  font-family: var(--f-display);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  padding-top: 2px;
+}
+.rights__grid dd {
+  margin: 0;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+@media (max-width: 560px) {
+  .rights__grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-1);
+  }
+  .rights__grid dd {
+    margin-bottom: var(--sp-2);
+  }
+}
+
+/* ============ The Refusal Doctor ============ */
+
+.doctor-modes .fg-tabs__strip {
+  margin-bottom: var(--sp-4);
+}
+.bisect {
+  display: grid;
+  gap: var(--sp-3);
+  margin: var(--sp-3) 0;
+}
+@media (min-width: 720px) {
+  .bisect {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.bisect__half {
+  display: grid;
+  gap: var(--sp-2);
+  align-content: start;
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface-2);
+}
+.bisect__text {
+  margin: 0;
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}

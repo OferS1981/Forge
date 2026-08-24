@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const genericResearch: Model = {
+export const genericResearch: ModelSpec = {
   id: 'generic-research',
   name: 'Any other research tool',
   version: 'category wildcard',

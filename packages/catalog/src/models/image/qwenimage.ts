@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const qwenimage: Model = {
+export const qwenimage: ModelSpec = {
   id: 'qwenimage',
   name: 'Qwen-Image',
   version: '3.0 Pro',

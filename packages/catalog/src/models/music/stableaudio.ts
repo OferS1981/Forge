@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const stableaudio: Model = {
+export const stableaudio: ModelSpec = {
   id: 'stableaudio',
   name: 'Stable Audio',
   version: '2.5',

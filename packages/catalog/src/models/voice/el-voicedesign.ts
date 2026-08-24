@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const elVoicedesign: Model = {
+export const elVoicedesign: ModelSpec = {
   id: 'el-voicedesign',
   name: 'ElevenLabs',
   sub: 'Voice Design',
@@ -41,8 +41,6 @@ export const elVoicedesign: Model = {
   pairsWith: [],
   betterFor: [],
   strengthTags: [],
-  policy:
-    "ElevenLabs restricts professional voice cloning to your own voice: their page says that even with consent you cannot clone someone else's, and creation requires reading verification lines aloud so the recording can be matched to the samples. Voice Design describes an invented voice, which is the compliant route to a character.",
   sources: [
     {
       url: 'https://elevenlabs.io/docs/product-guides/voices/voice-cloning',
@@ -61,5 +59,4 @@ export const elVoicedesign: Model = {
     },
   ],
   verifiedOn: '2026-08-24',
-  unverified: true,
 };

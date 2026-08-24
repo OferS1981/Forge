@@ -62,7 +62,7 @@ test('the glossary lists every term and can be searched', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Glossary', level: 1 })).toBeVisible();
   // The page has a count and the app has a toast region; both are status roles.
   const count = page.locator('.glossary__count');
-  await expect(count).toContainText('251 terms');
+  await expect(count).toContainText('269 terms');
 
   await page.getByRole('searchbox', { name: 'Search the glossary' }).fill('aperture');
   await expect(count).toContainText('match');

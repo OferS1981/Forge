@@ -5,9 +5,11 @@ import lighting from '../lessons/lighting.md';
 import motion from '../lessons/motion.md';
 import negatives from '../lessons/negatives.md';
 import punctuation from '../lessons/punctuation.md';
+import blocked from '../lessons/blocked.md';
+import styleWithoutNaming from '../lessons/style-without-naming.md';
 
 /**
- * Six short lessons, each built from what the glossary already explains plus a live demo brief.
+ * Eight short lessons, each built from what the glossary already explains plus a live demo brief.
  * The lesson ends with a button that loads that brief into the Build workspace, so the reader does
  * the thing rather than only reading about it.
  */
@@ -126,6 +128,42 @@ export const LESSONS: readonly Lesson[] = [
         lens: '85mm portrait',
         light: ['softbox key camera-left'],
         grade: 'desaturated earth tones',
+      },
+    },
+  },
+  {
+    slug: 'blocked',
+    title: 'Why your prompt got blocked, and which of seven layers did it',
+    standfirst:
+      'Seven independent gates can refuse you, they fail differently, and applying the wrong fix is why people go in circles.',
+    source: blocked,
+    demo: {
+      model: 'gptimage',
+      what: 'a surgical scene with the register named, so the classifier reads it as the clinical work it is',
+      brief: {
+        subject: 'A surgeon closing a 4 cm incision with interrupted sutures',
+        setting: 'A teaching-hospital operating theatre',
+        medium: 'illustration',
+        purpose: 'A clinical reference figure for a nursing textbook',
+      },
+    },
+  },
+  {
+    slug: 'style-without-naming',
+    title: 'How to get a look without naming an artist',
+    standfirst:
+      'A name gives you one dial you cannot turn. The decomposition gives you nine you can, and it is the safer prompt for free.',
+    source: styleWithoutNaming,
+    demo: {
+      model: 'nanobanana',
+      what: 'the fox from the worked example, fully decomposed into independent dials',
+      brief: {
+        subject: 'A fox mid-stride between birch trunks',
+        medium: 'gouache and coloured pencil on cold-press paper, visible tooth in the flat areas',
+        palette: 'limited palette of burnt sienna, sage and bone, one saturated vermilion accent',
+        comp: 'cropped tight, generous negative space at the top of the frame',
+        light: ['flat compressed space, no cast shadows, forms separated by outline weight'],
+        mood: ['quiet', 'warm'],
       },
     },
   },

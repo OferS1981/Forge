@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState, useSyncExternalStore } from 'react';
 import {
   AXES,
   diagnose,
@@ -14,11 +14,12 @@ import {
   type ForgeResult,
   type Model,
 } from '@forge/catalog';
-import { Button, TextArea } from '@forge/ui';
+import { Button, Tabs, TextArea } from '@forge/ui';
 import { Empty, ModelPicker, Workspace } from '../../components/Workspace';
 import { Result } from '../../components/Result';
 import { SecondOpinion } from '../../components/SecondOpinion';
 import { useModelId } from '../../lib/store';
+import { RefusalDoctor } from '../../components/RefusalDoctor';
 
 /** A finding names something missing, and the glossary explains what it does. */
 const LINKS: { test: RegExp; term: string }[] = [
@@ -67,7 +68,43 @@ function Axes({ axes }: { axes: Diagnosis['axes'] }): React.ReactNode {
   );
 }
 
+function subscribeToHash(onChange: () => void): () => void {
+  window.addEventListener('hashchange', onChange);
+  return () => {
+    window.removeEventListener('hashchange', onChange);
+  };
+}
+
+function readHash(): string {
+  return window.location.hash;
+}
+
 export default function DoctorPage(): React.ReactNode {
+  // The blocked lesson links straight to the refusal mode with /doctor#refusal. The hash is an
+  // external system, so it is read as one: no state to desynchronise, and the back button works.
+  const hash = useSyncExternalStore(subscribeToHash, readHash, () => '');
+  const [chosen, setChosen] = useState<string | null>(null);
+  const docTab = chosen ?? (hash === '#refusal' ? 'refusal' : 'prompt');
+  const setDocTab = setChosen;
+  return (
+    <div className="doctor-modes">
+      <Tabs
+        label="Doctor mode"
+        value={docTab}
+        onChange={setDocTab}
+        tabs={[
+          { value: 'prompt', label: 'Prompt Doctor' },
+          { value: 'refusal', label: 'Refusal Doctor' },
+        ]}
+      >
+        {docTab === 'prompt' ? <PromptDoctor /> : <RefusalDoctor />}
+      </Tabs>
+    </div>
+  );
+}
+
+/** The original mode: paste a prompt that under-performed and watch it re-smithed. */
+function PromptDoctor(): React.ReactNode {
   const [modelId, setModelId] = useModelId('midjourney');
   const [text, setText] = useState('');
   const [seen, setSeen] = useState<{

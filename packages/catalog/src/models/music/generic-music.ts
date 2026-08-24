@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const genericMusic: Model = {
+export const genericMusic: ModelSpec = {
   id: 'generic-music',
   name: 'Any other music model',
   version: 'category wildcard',

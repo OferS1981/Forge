@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const luma: Model = {
+export const luma: ModelSpec = {
   id: 'luma',
   name: 'Luma Ray',
   version: '3.2',

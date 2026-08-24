@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
-export const grok: Model = {
+export const grok: ModelSpec = {
   id: 'grok',
   name: 'Grok',
   version: '4.6',

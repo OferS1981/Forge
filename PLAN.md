@@ -707,3 +707,49 @@ phase 7 argued for and could not yet demonstrate. This is the demonstration.
 
 Email or push about a change: no notifications, no analytics, nothing that needs a server. The page
 and the library line are both read from data already in the repository.
+
+---
+
+## Phase 13: Good to Great — audit, compliance layer (parts A and B)
+
+Ordered by Alon via GOOD-TO-GREAT.md. Part A audited the twelve phases (findings table delivered
+in chat; verify green, goldens/staleness/terms proven mutable-to-red, RLS proven live, zero native
+controls/billing/any). Part B built the one specified layer that never had a phase: Compliance and
+Rights, from POLICY-MANUAL.md section 9.
+
+### Part A fixes
+
+- `unverified` got a written definition (types.ts) and a real pass cleared it on the five models
+  whose prompting claims were reconciled against fetched vendor pages: el-tts, el-voicedesign,
+  hume, kling, ltx. 52 of 57 still wear the badge, honestly.
+- Public API pruned: string helpers (`cap`, `lc`, `stripDot`, `deMeta`, `arr`, `stripBanned`,
+  `wordCount`) and numeric internals (`clamp`, `weigh`, `nearestRatio`, `seedBrief`) are no longer
+  exported from the package indexes. Slider, Tabs and Tooltip stay: spec §7 mandates the component
+  inventory, and Tabs now has a consumer (the Doctor's mode strip).
+- The a11y lesson-slug list is drift-guarded: a test compares it against what /learn renders.
+- Bundle (catalogue on first paint) is deferred to Part C, where the performance budget and its CI
+  enforcement land together. Recorded as the one unfixed finding, with that reason.
+
+### Part B
+
+- **B1**: `PolicyBlock`, `RightsBlock`, `ProvenanceBlock`, `RefusalBlock` (types.ts, §9.1 shapes
+  plus per-block `sources`/`verifiedOn`/`unverified`). Data in `models/compliance/` — one file per
+  category mirroring the manual's vendor sheets, shared vendor constants, composed onto the 57
+  `ModelSpec`s in models/index (typed-complete record: a model without a sheet cannot compile).
+  90-day staleness on policy blocks, 120 on the rest. Sourceless facts wear `unverified`; the three
+  user-biting traps (Recraft free tier, Suno retroactive caps, Google EU/UK child wall) are pinned
+  by invariants.
+- **B2**: pure engines — `compliance()` (proper-noun shape detection with decompose offer, register
+  check, negative constructions incl. the --no split, intensifiers, per-vendor trip lines, rights
+  surprises), `decompose()` (8 visual / 9 audio axes), `rights()`, and the refusal engine
+  (`parseRefusal` with the Vertex RAI table, `diagnoseRefusal`, `splitHalves`). Five golden
+  snapshot cases as the definition of done demands.
+- **B3**: the Compliance Pass (between brief and Strike, live, collapsed to one line, dismissible
+  with session memory, never a gate), the Rights card in the Output, and the Refusal Doctor as a
+  second mode of the Doctor (tabs; /doctor#refusal deep link; honest per-vendor appeal paths;
+  interactive bisect).
+- **B4**: 18 concept terms in the glossary ("The rules of the road" group) and two lessons:
+  `blocked` and `style-without-naming`, both with try-it briefs.
+- The old `policy?: string` field and its billet were subsumed by `policy.tripLines`.
+
+Part C (hardening) awaits its own session.

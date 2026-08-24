@@ -29,7 +29,7 @@ export {
 } from './models/registry';
 export { settingTerm } from './models/shared';
 export * from './engine';
-export { arr, cap, deMeta, has, join, lc, stripBanned, stripDot, wordCount } from './compose/text';
+export { has, join } from './compose/text';
 export { COMPOSERS } from './compose';
 export type { Composed, Composer } from './compose';
 export * from './refresh';

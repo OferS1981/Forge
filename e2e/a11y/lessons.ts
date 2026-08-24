@@ -6,4 +6,6 @@ export const LESSON_SLUGS = [
   'motion',
   'punctuation',
   'deadweight',
+  'blocked',
+  'style-without-naming',
 ] as const;

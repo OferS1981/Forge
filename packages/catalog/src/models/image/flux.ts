@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const flux: Model = {
+export const flux: ModelSpec = {
   id: 'flux',
   name: 'FLUX.2',
   version: '[pro] / [flex]',

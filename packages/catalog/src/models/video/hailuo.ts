@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const hailuo: Model = {
+export const hailuo: ModelSpec = {
   id: 'hailuo',
   name: 'Hailuo',
   version: 'MiniMax H3',

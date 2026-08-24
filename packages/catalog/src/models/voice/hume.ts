@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const hume: Model = {
+export const hume: ModelSpec = {
   id: 'hume',
   name: 'Hume Octave',
   version: '2',
@@ -56,5 +56,4 @@ export const hume: Model = {
     },
   ],
   verifiedOn: '2026-08-24',
-  unverified: true,
 };

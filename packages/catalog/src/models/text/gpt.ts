@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
-export const gpt: Model = {
+export const gpt: ModelSpec = {
   id: 'gpt',
   name: 'GPT',
   version: '5.6 Sol / Terra / Luna',

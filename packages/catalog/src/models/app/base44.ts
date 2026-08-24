@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const base44: Model = {
+export const base44: ModelSpec = {
   id: 'base44',
   name: 'Base44',
   version: 'current',

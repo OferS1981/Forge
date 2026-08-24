@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, rows } from '../shared';
 
-export const mjvideo: Model = {
+export const mjvideo: ModelSpec = {
   id: 'mjvideo',
   name: 'Midjourney Video',
   version: 'V1',

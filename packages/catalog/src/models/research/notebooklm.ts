@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const notebooklm: Model = {
+export const notebooklm: ModelSpec = {
   id: 'notebooklm',
   name: 'NotebookLM',
   version: 'Gemini Notebook',

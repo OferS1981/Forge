@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const wan: Model = {
+export const wan: ModelSpec = {
   id: 'wan',
   name: 'Wan',
   version: '2.6 / 2.7',

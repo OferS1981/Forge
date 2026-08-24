@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const kling: Model = {
+export const kling: ModelSpec = {
   id: 'kling',
   name: 'Kling',
   version: '3.0 / O1',
@@ -63,5 +63,4 @@ export const kling: Model = {
     },
   ],
   verifiedOn: '2026-08-24',
-  unverified: true,
 };

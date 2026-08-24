@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const lyria: Model = {
+export const lyria: ModelSpec = {
   id: 'lyria',
   name: 'Google Lyria',
   version: '3 Pro',

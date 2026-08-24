@@ -1,0 +1,66 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`compliance golden cases > a free-tier rights trap surfaces without any trigger words at all 1`] = `
+[
+  {
+    "detail": "The free tier is the trap: Recraft owns the output and you get no commercial rights. Paid tiers, you own it. If you made it on free, you cannot sell it.",
+    "id": "rights-surprise",
+    "severity": "caution",
+    "title": "What you own here depends on your tier",
+  },
+]
+`;
+
+exports[`compliance golden cases > a multi-word --no on Midjourney warns with the vendor-documented split 1`] = `
+[
+  {
+    "detail": "Midjourney's own docs: the moderation system reads each word after --no independently, so "--no modern clothing" parses as "no modern" plus "no clothing", and their own advice is to describe what you do want instead.",
+    "field": "avoid",
+    "id": "mj-no-split",
+    "rewrite": "Describe the thing you want in its place, and keep --no to single words.",
+    "severity": "caution",
+    "title": "--no will split "modern clothing" into separate words",
+  },
+]
+`;
+
+exports[`compliance golden cases > a named artist gets the decomposition, not a scolding 1`] = `
+[
+  {
+    "decompose": {
+      "category": "image",
+      "term": "Hayao Miyazaki",
+    },
+    "detail": "You wrote in the style of "Hayao Miyazaki". This vendor refuses living artists by name, in its own words. If Hayao Miyazaki is a movement, a place or a technique, dismiss this. If it is a person, a studio or a song, the look it names is really eight or nine attributes, and each one is a dial you can turn.",
+    "field": "ref",
+    "id": "proper-noun:hayao-miyazaki",
+    "severity": "caution",
+    "title": ""Hayao Miyazaki" is one dial you cannot turn",
+  },
+]
+`;
+
+exports[`compliance golden cases > a negative construction is rewritten positively 1`] = `
+[
+  {
+    "detail": "A negative construction puts the flagged word in the prompt: "no blood" contains "blood". Every vendor that publishes prompting guidance says the same thing for quality reasons: describe what is there instead. The avoid field exists for models with a real negative parameter.",
+    "field": "subject",
+    "id": "negative:subject",
+    "rewrite": "Replace it with a positive description of what should be there instead.",
+    "severity": "note",
+    "title": ""no blood" says what is absent",
+  },
+]
+`;
+
+exports[`compliance golden cases > children on a Google surface get the regional wall, before submission 1`] = `
+[
+  {
+    "detail": "On Google surfaces person generation is a capability gate, not a content judgement: the default allows adults only, and the setting that permits children, allow_all, is prohibited outright in the EU, UK, Switzerland and MENA regardless of settings. If you are in those regions and the scene needs children, no rewrite exists; use a different model.",
+    "field": "subject",
+    "id": "google-person-generation",
+    "severity": "high",
+    "title": "People in frame meet personGeneration, and children meet a regional wall",
+  },
+]
+`;

@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const seedance: Model = {
+export const seedance: ModelSpec = {
   id: 'seedance',
   name: 'Seedance',
   version: '2.5',

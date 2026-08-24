@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const copilot: Model = {
+export const copilot: ModelSpec = {
   id: 'copilot',
   name: 'GitHub Copilot',
   version: 'current',

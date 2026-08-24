@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const genericImage: Model = {
+export const genericImage: ModelSpec = {
   id: 'generic-image',
   name: 'Any other image model',
   version: 'category wildcard',

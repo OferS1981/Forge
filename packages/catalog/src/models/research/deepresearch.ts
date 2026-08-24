@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
-export const deepresearch: Model = {
+export const deepresearch: ModelSpec = {
   id: 'deepresearch',
   name: 'Deep Research',
   version: 'ChatGPT / Gemini / Claude',

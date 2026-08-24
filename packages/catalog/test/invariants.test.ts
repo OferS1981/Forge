@@ -105,3 +105,71 @@ describe('catalogue invariants', () => {
     }
   });
 });
+
+/**
+ * The compliance layer's own invariants. A wildcard says "it depends" and needs no sources; an
+ * unverified block admits it has none; everything else cites a fetched page. And the three traps
+ * the manual says will bite users are pinned here so no edit can quietly soften them.
+ */
+describe('compliance blocks', () => {
+  const isWildcard = (id: string): boolean => id.startsWith('generic-') || id === 'deepresearch';
+
+  it('every verified, non-wildcard block cites at least one source with a well-formed URL', () => {
+    for (const m of MODELS) {
+      for (const [name, block] of [
+        ['policy', m.policy],
+        ['rights', m.rights],
+        ['provenance', m.provenance],
+        ['refusal', m.refusal],
+      ] as const) {
+        if (isWildcard(m.id) || block.unverified === true) continue;
+        expect(
+          block.sources.length,
+          `${m.id} ${name} has no sources yet claims verification`,
+        ).toBeGreaterThan(0);
+        for (const src of block.sources)
+          expect(() => new URL(src.url), `${m.id} ${name}: ${src.url}`).not.toThrow();
+      }
+    }
+  });
+
+  it('an unverified block never pretends: empty sources go with the badge, not without it', () => {
+    for (const m of MODELS) {
+      if (isWildcard(m.id)) continue;
+      for (const block of [m.policy, m.rights, m.provenance, m.refusal]) {
+        if (block.sources.length === 0)
+          expect(block.unverified, `${m.id} has a sourceless block without the badge`).toBe(true);
+      }
+    }
+  });
+
+  it('the recraft free-tier trap survives into the data', () => {
+    const recraft = MODELS.find((m) => m.id === 'recraft');
+    expect(recraft?.rights.outputOwner).toBe('tier-dependent');
+    expect(recraft?.rights.ownershipNote).toContain('no commercial rights');
+    expect(recraft?.rights.commercialUse).toContain('free tier');
+  });
+
+  it('the suno retroactive download caps survive into the data', () => {
+    const suno = MODELS.find((m) => m.id === 'suno');
+    expect(suno?.rights.exportEntitlement).toContain('retroactive');
+    expect(suno?.rights.exportEntitlement).toContain('3 September 2026');
+    expect(suno?.policy.artistNames).toBe('stripped');
+  });
+
+  it('the google child-generation regional wall survives into the data', () => {
+    for (const id of ['veo', 'nanobanana'] as const) {
+      const m = MODELS.find((x) => x.id === id);
+      const wall = m?.policy.regionalLimits.find((r) => r.regions.includes('EU'));
+      expect(wall, `${id} lost the EU/UK regional rule`).toBeDefined();
+      expect(wall?.rule).toContain('allow_all');
+      expect(m?.policy.minors).toContain('EU, UK');
+    }
+  });
+
+  it("the manual's own uncertainty list wears the badge", () => {
+    expect(MODELS.find((m) => m.id === 'flux')?.policy.unverified).toBe(true);
+    expect(MODELS.find((m) => m.id === 'leonardo')?.rights.unverified).toBe(true);
+    expect(MODELS.find((m) => m.id === 'suno')?.rights.unverified).toBe(true);
+  });
+});

@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const genericApp: Model = {
+export const genericApp: ModelSpec = {
   id: 'generic-app',
   name: 'Any other app builder',
   version: 'category wildcard',

@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { has, opts, or, rows } from '../shared';
 
-export const sdxl: Model = {
+export const sdxl: ModelSpec = {
   id: 'sdxl',
   name: 'Stable Diffusion',
   version: 'SDXL / 3.5',

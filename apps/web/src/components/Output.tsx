@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  rights,
   modelLabel,
   scoreLabel,
   settingTerm,
@@ -283,17 +284,24 @@ export function Output({
         </div>
       )}
 
-      {policyNotes && model.policy !== undefined && (
+      {policyNotes && model.policy.policyUrl !== '' && model.policy.tripLines.length > 0 && (
         <Billet title="The vendor's content rules">
-          <p className="billet__note">{model.policy}</p>
-          {model.sources[0] !== undefined && (
+          {model.policy.tripLines.map((line) => (
+            <p key={line.slice(0, 40)} className="billet__note">
+              {line}
+            </p>
+          ))}
+          {model.policy.sources[0] !== undefined && (
             <p className="billet__note">
-              Their own page: <a href={model.sources[0].url}>{model.sources[0].title}</a>,{' '}
-              {model.sources[0].publisher}.
+              Their own page:{' '}
+              <a href={model.policy.sources[0].url}>{model.policy.sources[0].title}</a>,{' '}
+              {model.policy.sources[0].publisher}.
             </p>
           )}
         </Billet>
       )}
+
+      <RightsCard model={model} />
 
       {result.notes.length > 0 && (
         <Billet title="Why it is written this way">
@@ -354,5 +362,38 @@ export function Output({
         </p>
       </div>
     </div>
+  );
+}
+
+/**
+ * The Rights card: who owns this, can you sell it, are you indemnified and against what, what
+ * has to be disclosed, and what your export entitlement is. Collapsed, because it changes per
+ * model rather than per prompt — but always there, because the surprises in it are expensive.
+ */
+function RightsCard({ model }: { model: Model }): React.ReactNode {
+  const r = rights(model);
+  return (
+    <section className="rights" aria-label="Who owns this">
+      <Disclosure summary="Who owns this, and what you can do with it">
+        {r.unverified && (
+          <p className="rights__badge">
+            Parts of this sheet are unverified: no primary page was fetched for them. Treat them as
+            leads, not answers.
+          </p>
+        )}
+        <dl className="rights__grid">
+          <dt>Who owns it</dt>
+          <dd>{r.owner}</dd>
+          <dt>Can you sell it</dt>
+          <dd>{r.sell}</dd>
+          <dt>Are you indemnified</dt>
+          <dd>{r.indemnified}</dd>
+          <dt>What to disclose</dt>
+          <dd>{r.disclose}</dd>
+          <dt>Getting it out</dt>
+          <dd>{r.exportNote}</dd>
+        </dl>
+      </Disclosure>
+    </section>
   );
 }

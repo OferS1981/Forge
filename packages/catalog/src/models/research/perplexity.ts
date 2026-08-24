@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const perplexity: Model = {
+export const perplexity: ModelSpec = {
   id: 'perplexity',
   name: 'Perplexity',
   version: 'Sonar / Agent API',

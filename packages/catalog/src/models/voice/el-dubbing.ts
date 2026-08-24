@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
-export const elDubbing: Model = {
+export const elDubbing: ModelSpec = {
   id: 'el-dubbing',
   name: 'ElevenLabs',
   sub: 'Dubbing',

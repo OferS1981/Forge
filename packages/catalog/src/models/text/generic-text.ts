@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
-export const genericText: Model = {
+export const genericText: ModelSpec = {
   id: 'generic-text',
   name: 'Any other chat model',
   version: 'category wildcard',

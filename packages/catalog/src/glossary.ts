@@ -1,4 +1,5 @@
 import { FIELD_LIST } from './fields';
+import { CONCEPT_COPY } from './glossary/concepts';
 import { FIELD_COPY } from './glossary/fields';
 import { SETTING_COPY } from './glossary/settings';
 import { VOCAB_COPY } from './glossary/vocab';
@@ -90,6 +91,10 @@ function build(): Map<TermId, Term> {
       if (terms.has(id)) continue;
       terms.set(id, term(id, row.name, SETTING_COPY[id.replace('setting.', '')]));
     }
+  }
+  for (const [slug, copy] of Object.entries(CONCEPT_COPY)) {
+    const id: TermId = `concept.${slug}`;
+    terms.set(id, term(id, copy.label, copy));
   }
   return terms;
 }

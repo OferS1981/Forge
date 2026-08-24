@@ -216,3 +216,23 @@ one reviewed pull request per category.
 The glossary holds one stub entry per term id so the coverage test is real, but no term has its copy
 written yet. `packages/catalog/test/terms.test.ts` has `ALLOW_STUBS = true`; phase 4 writes the copy
 and flips it to `false`, at which point a stub fails the build.
+
+## Phase 13 decisions (Good to Great, parts A and B)
+
+- **`unverified` now has a definition** (see types.ts): cleared only when the pages in `sources`
+  were fetched and every prompting claim reconciled against them. Cleared for el-tts,
+  el-voicedesign, hume, kling, ltx (the rounds-6-and-7 reconstruction from vendor docs). Midjourney
+  and suno keep the badge: their policy pages were read, but their craft claims were not re-walked.
+- **Compliance data sourcing rule**: a fact carries a source URL only where POLICY-MANUAL.md cites
+  one (§10 lists what was fetched). Facts the manual states without citation — the §6.5 table rows,
+  Kling/Runway/Hailuo terms quotes, Microsoft CCC — are populated but wear `unverified: true` with
+  empty sources. This includes Recraft's free-tier trap: the manual asserts it emphatically but
+  cites no page, so the data keeps the wording and the badge both.
+- **brilliant.spec change**: the "policy page not read" example model moved from Veo to Runway,
+  because part B read Google's pages. Not a weakening — the assertion is unchanged.
+- **mjvideo shares midjourney's compliance sheet** by reference: same guidelines, same terms.
+  ElevenLabs' five models share one voice sheet, with the music model overriding the contractual
+  prohibited-input list. Veo/lyria/gemini/notebooklm derive from the Google sheet with cited
+  differences. Shared objects, not copies, so a correction lands everywhere at once.
+- **deepresearch** is populated as "whichever lab ran it", not as a vendor sheet, and is exempt
+  from the block-sources invariant alongside the wildcards.

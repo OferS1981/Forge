@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const ideogram: Model = {
+export const ideogram: ModelSpec = {
   id: 'ideogram',
   name: 'Ideogram',
   version: '4.0',

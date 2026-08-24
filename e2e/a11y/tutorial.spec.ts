@@ -29,6 +29,24 @@ async function violations(page: Page): Promise<string[]> {
   return results.violations.map((v) => `${v.id}: ${v.help}`);
 }
 
+test('the slug list beside the specs matches what /learn actually renders', async ({ page }) => {
+  // LESSON_SLUGS is kept in this folder so the suites import no application code. The price of
+  // that is drift: a seventh lesson added to the app would be silently unaxed. This test makes
+  // the drift loud instead.
+  await page.goto('/learn');
+  const hrefs = await page
+    .getByRole('main')
+    .getByRole('link')
+    .evaluateAll((links) => links.map((a) => a.getAttribute('href') ?? ''));
+  const rendered = hrefs
+    .filter((h) => /\/learn\/[a-z-]+$/.test(h))
+    .map((h) => h.split('/').pop())
+    .sort();
+  expect(rendered, 'update e2e/a11y/lessons.ts when a lesson is added or removed').toEqual(
+    [...LESSON_SLUGS].sort(),
+  );
+});
+
 for (const theme of ['light', 'dark']) {
   test(`/learn has no axe violations: ${theme}`, async ({ page }) => {
     await page.goto('/learn');

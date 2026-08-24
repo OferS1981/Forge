@@ -93,7 +93,7 @@ test('a model whose policy page has not been read shows nothing rather than a gu
     localStorage.setItem('forge.policy-notes', 'true');
   });
   await page.goto('/');
-  await pickModel(page, 'Veo');
+  await pickModel(page, 'Runway');
   await page.locator('#field-subject textarea').fill('a quiet harbour');
   await page.getByRole('button', { name: 'Strike' }).click();
   await expect(page.getByRole('region', { name: 'The forged prompt' })).not.toContainText(

@@ -1,4 +1,4 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
 /** Preset table by use case: model, stability, similarity, style, speed. */
@@ -13,7 +13,7 @@ const TTS_PRESETS: Record<string, readonly [string, string, string, string, stri
   'Meditation / ASMR': ['eleven_multilingual_v2', '0.68', '0.85', '0.00', '0.80'],
 };
 
-export const elTts: Model = {
+export const elTts: ModelSpec = {
   id: 'el-tts',
   name: 'ElevenLabs',
   sub: 'Speech',
@@ -94,8 +94,6 @@ export const elTts: Model = {
     { tag: 'speed-cost', weight: 1 },
     { tag: 'non-english-text', weight: 2 },
   ],
-  policy:
-    "Cloned voices on ElevenLabs may only be of yourself: their voice-cloning page says that even with consent you cannot clone someone else's voice, and professional clones are verified by reading lines aloud. Stock and designed voices carry no such restriction.",
   sources: [
     {
       url: 'https://elevenlabs.io/docs/product-guides/voices/voice-cloning',
@@ -119,5 +117,4 @@ export const elTts: Model = {
     },
   ],
   verifiedOn: '2026-08-24',
-  unverified: true,
 };

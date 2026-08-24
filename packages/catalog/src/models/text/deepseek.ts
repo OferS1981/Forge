@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
-export const deepseek: Model = {
+export const deepseek: ModelSpec = {
   id: 'deepseek',
   name: 'DeepSeek',
   version: 'V4 Pro / Flash',

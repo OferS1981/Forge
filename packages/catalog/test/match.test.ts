@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { match, recommend, seedBrief, translate } from '../src/engine';
+import { match, recommend, translate } from '../src/engine';
+import { seedBrief } from '../src/engine/match';
 import { MODELS, modelById } from '../src/models/registry';
 import { PRIORITIES } from '../src/engine/match';
 import { FULL } from './fixtures/briefs';

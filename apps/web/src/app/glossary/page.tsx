@@ -25,6 +25,11 @@ const GROUPS = [
     name: 'The settings',
     lede: 'Every parameter Forge writes alongside a prompt, under the name the vendor uses for it.',
   },
+  {
+    id: 'concept',
+    name: 'The rules of the road',
+    lede: 'Moderation, provenance and rights: the vocabulary of why prompts get refused and what you own, from the policy manual.',
+  },
 ];
 
 function anchor(id: string): string {

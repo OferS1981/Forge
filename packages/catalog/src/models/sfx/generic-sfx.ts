@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
-export const genericSfx: Model = {
+export const genericSfx: ModelSpec = {
   id: 'generic-sfx',
   name: 'Any other sound model',
   version: 'category wildcard',

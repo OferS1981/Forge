@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const cursor: Model = {
+export const cursor: ModelSpec = {
   id: 'cursor',
   name: 'Cursor',
   version: 'Composer 2.5 + frontier models',

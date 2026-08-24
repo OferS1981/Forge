@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
-export const genericCode: Model = {
+export const genericCode: ModelSpec = {
   id: 'generic-code',
   name: 'Any other coding agent',
   version: 'category wildcard',

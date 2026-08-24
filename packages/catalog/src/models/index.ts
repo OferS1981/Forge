@@ -1,4 +1,5 @@
-import type { Model } from '../types';
+import type { Model, ModelSpec } from '../types';
+import { COMPLIANCE } from './compliance';
 import { midjourney } from './image/midjourney';
 import { gptimage } from './image/gptimage';
 import { nanobanana } from './image/nanobanana';
@@ -57,8 +58,8 @@ import { notebooklm } from './research/notebooklm';
 import { deepresearch } from './research/deepresearch';
 import { genericResearch } from './research/generic-research';
 
-/** Every model, in rail order: category by category, wildcard last. */
-export const MODELS: readonly Model[] = [
+/** Every model spec, in rail order: category by category, wildcard last. */
+const SPECS: readonly ModelSpec[] = [
   midjourney,
   gptimage,
   nanobanana,
@@ -117,3 +118,9 @@ export const MODELS: readonly Model[] = [
   deepresearch,
   genericResearch,
 ];
+
+/**
+ * The finished models: each spec plus its four vendor-fact blocks from models/compliance. The
+ * record is typed complete, so a model without a sheet cannot compile.
+ */
+export const MODELS: readonly Model[] = SPECS.map((spec) => ({ ...spec, ...COMPLIANCE[spec.id] }));

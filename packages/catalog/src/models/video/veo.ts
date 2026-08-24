@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const veo: Model = {
+export const veo: ModelSpec = {
   id: 'veo',
   name: 'Veo',
   version: '3.1',

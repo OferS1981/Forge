@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const ltx: Model = {
+export const ltx: ModelSpec = {
   id: 'ltx',
   name: 'LTX-2',
   version: '2.3',
@@ -64,5 +64,4 @@ export const ltx: Model = {
     },
   ],
   verifiedOn: '2026-08-24',
-  unverified: true,
 };

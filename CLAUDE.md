@@ -93,3 +93,7 @@ good teacher would: what it is, what changes, when to use it.
 ## IMPORTANT
 
 `pnpm verify` must exit 0 and you must quote its output before calling a phase done.
+
+- Nothing in this product helps a user evade a content filter. The compliance features exist to make
+  legitimate requests legible to a classifier, and to warn before submission. That distinction is in
+  section 0 of the policy manual and it is a hard requirement.

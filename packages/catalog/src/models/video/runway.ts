@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows, wantsVertical } from '../shared';
 
-export const runway: Model = {
+export const runway: ModelSpec = {
   id: 'runway',
   name: 'Runway',
   version: 'Gen-4.5',

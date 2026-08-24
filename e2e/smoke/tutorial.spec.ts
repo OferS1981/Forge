@@ -110,13 +110,13 @@ test('the invitation can be dismissed and stays dismissed', async ({ page }) => 
   await expect(page.getByRole('complementary', { name: 'A faster way to start' })).toHaveCount(0);
 });
 
-test('Learn lists six lessons, and each one opens', async ({ page }) => {
+test('Learn lists eight lessons, and each one opens', async ({ page }) => {
   await page.goto('/learn');
   await expect(page.getByRole('heading', { name: 'Learn', level: 1 })).toBeVisible();
   const cards = page.locator('.lesson-card');
-  await expect(cards).toHaveCount(6);
+  await expect(cards).toHaveCount(8);
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 8; i++) {
     await page.goto('/learn');
     await cards.nth(i).getByRole('link').click();
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();

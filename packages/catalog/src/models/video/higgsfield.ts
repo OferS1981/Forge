@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { opts, or, rows } from '../shared';
 
-export const higgsfield: Model = {
+export const higgsfield: ModelSpec = {
   id: 'higgsfield',
   name: 'Higgsfield',
   version: 'Cinema Studio 3.0',

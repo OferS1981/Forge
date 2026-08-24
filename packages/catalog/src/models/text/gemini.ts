@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { THINKING_LEVEL, or, rows } from '../shared';
 
-export const gemini: Model = {
+export const gemini: ModelSpec = {
   id: 'gemini',
   name: 'Gemini',
   version: '3.7 Flash / 3.1 Pro',

@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { or, rows } from '../shared';
 
-export const claudecode: Model = {
+export const claudecode: ModelSpec = {
   id: 'claudecode',
   name: 'Claude Code',
   version: 'current',

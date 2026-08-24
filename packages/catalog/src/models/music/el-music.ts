@@ -1,7 +1,7 @@
-import type { Model } from '../../types';
+import type { ModelSpec } from '../../types';
 import { rows } from '../shared';
 
-export const elMusic: Model = {
+export const elMusic: ModelSpec = {
   id: 'el-music',
   name: 'ElevenLabs',
   sub: 'Music',

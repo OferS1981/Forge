@@ -23,3 +23,33 @@ describe('staleness', () => {
     });
   }
 });
+
+/**
+ * Policy moves faster than model versions do, so the policy block gets a shorter window: 90 days
+ * against the catalogue's 120. The other three blocks age at the catalogue rate.
+ */
+const POLICY_MAX_AGE_DAYS = 90;
+
+describe('compliance staleness', () => {
+  const now = Date.now();
+  const age = (iso: string): number => Math.floor((now - Date.parse(iso)) / 86_400_000);
+
+  for (const m of MODELS) {
+    it(`${m.id}'s policy block was verified within ${String(POLICY_MAX_AGE_DAYS)} days`, () => {
+      expect(Number.isNaN(Date.parse(m.policy.verifiedOn))).toBe(false);
+      expect(
+        age(m.policy.verifiedOn),
+        `${m.id}'s policy block was last checked on ${m.policy.verifiedOn}. Policy moves monthly: re-check the vendor pages and bump verifiedOn.`,
+      ).toBeLessThanOrEqual(POLICY_MAX_AGE_DAYS);
+    });
+
+    it(`${m.id}'s rights, provenance and refusal blocks were verified within ${MAX_AGE_LABEL} days`, () => {
+      for (const block of [m.rights, m.provenance, m.refusal]) {
+        expect(Number.isNaN(Date.parse(block.verifiedOn))).toBe(false);
+        expect(age(block.verifiedOn), `${m.id}: a compliance block is stale.`).toBeLessThanOrEqual(
+          MAX_AGE_DAYS,
+        );
+      }
+    });
+  }
+});
