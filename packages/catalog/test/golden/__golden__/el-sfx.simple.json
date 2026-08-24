@@ -2,14 +2,14 @@
   "blocks": [
     {
       "label": "Prompt",
-      "body": "Heavy wooden door creaking open on rusted hinges, foley, shotgun mic, stairwell, menacing, high-quality, professionally recorded, sound effects foley"
+      "body": "Heavy wooden door creaking open on rusted hinges, foley, shotgun mic, stairwell, menacing"
     },
     {
       "label": "Why this shape",
       "body": "One event per generation. Layer sequential sounds in an editor rather than asking for a sequence: that is the documented workflow, not a workaround."
     }
   ],
-  "flat": "Heavy wooden door creaking open on rusted hinges, foley, shotgun mic, stairwell, menacing, high-quality, professionally recorded, sound effects foley",
+  "flat": "Heavy wooden door creaking open on rusted hinges, foley, shotgun mic, stairwell, menacing",
   "negative": "",
   "settings": [
     {
@@ -59,9 +59,9 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 63,
+  "score": 62,
   "axes": {
-    "specificity": 60,
+    "specificity": 59,
     "technical": 100,
     "structure": 30,
     "constraints": 20,

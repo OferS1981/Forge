@@ -1,11 +1,19 @@
 import type { AutoFill, Brief, FieldId, Model } from './types';
 
 /**
- * Simple mode fills the craft layer from what the user did say: the subject, the purpose and the
- * medium. Every choice comes with the sentence Simple mode shows, so the user learns the craft
- * layer one decision at a time on their own work.
+ * Simple mode fills the craft layer from what the user did say: the subject, the setting, the
+ * purpose and the medium. Every choice comes with the sentence Simple mode shows, so the user
+ * learns the craft layer one decision at a time on their own work.
  *
- * Rules are deliberately plain. They pick a sensible professional default, never a flourish.
+ * Rules are deliberately plain. They pick a sensible professional default, never a flourish, and
+ * they follow three laws that came out of judging Forge's output against a person's:
+ *
+ * 1. **The subject outranks the channel.** A boxer alone at 6am is not "playful" because the clip
+ *    is for social. The mood and the pacing read the scene first and the purpose second.
+ * 2. **What the user said outranks what a rule would add.** A setting that names its own light gets
+ *    no studio light dropped on top of it.
+ * 3. **Craft belongs to its medium.** A lens, an aperture and a grade mean nothing on ink line art,
+ *    so they are not offered there.
  */
 
 function text(brief: Brief): string {
@@ -15,17 +23,55 @@ function text(brief: Brief): string {
     .toLowerCase();
 }
 
+function scene(brief: Brief): string {
+  // The scene only: what is in front of the camera, without the purpose muddying the read.
+  return [brief.subject, brief.setting, brief.action]
+    .filter((v): v is string => typeof v === 'string')
+    .join(' ')
+    .toLowerCase();
+}
+
 const PORTRAIT =
-  /\b(portrait|face|headshot|person|man|woman|boy|girl|boxer|founder|ceo|actor|model|people|couple|character)\b/;
+  /\b(portrait|face|headshot|person|man|woman|boy|girl|boxer|founder|ceo|actor|model|people|couple|character|barista|courier|chef|dancer)\b/;
 const LANDSCAPE =
   /\b(landscape|city|skyline|street|building|mountain|forest|coast|beach|valley|room|interior|architecture|estate)\b/;
 const PRODUCT =
-  /\b(product|bottle|packaging|pack|sneaker|shoe|watch|phone|can|jar|box|logo|device|gadget)\b/;
+  /\b(product|bottle|packaging|pack|sneaker|shoe|watch|phone|can|jar|box|logo|device|gadget|machine|appliance|laptop|headphones|chair|lamp|e-?commerce|packshot)\b/;
 const DOCUMENTARY = /\b(documentary|editorial|journal|news|report|reportage|candid)\b/;
 const AD = /\b(ad|advert|campaign|commercial|trailer|hero|billboard|launch|promo)\b/;
 const SOCIAL = /\b(instagram|tiktok|reel|story|stories|thumbnail|social|carousel|youtube)\b/;
 const MOVING =
   /\b(walk|walks|walking|run|runs|running|follow|chase|ride|rides|riding|dance|dances)\b/;
+
+/*
+ * The scene's own emotional cues, strongest first. These are what stop the channel deciding the
+ * mood of a scene that has already decided its own.
+ */
+const SOMBRE =
+  /\b(night|midnight|rain|wet|fog|mist|dusk|winter|snow|empty|alone|abandoned|derelict|ruin|ruins|wasteland|silence|grief|funeral|basement|[0-6]\s?am)\b/;
+const TENSE =
+  /\b(storm|chase|chased|fight|fighting|escape|standoff|argument|war|riot|siren|sirens)\b/;
+const TRIUMPHANT = /\b(victory|celebrat\w*|wins|winning|summit|trophy|finish line|champion)\b/;
+const PLAYFUL =
+  /\b(pupp\w*|kitten|child|children|kids|party|balloon\w*|picnic|ice cream|confetti)\b/;
+
+/*
+ * A setting that names its own light. When any of these appear, no light is filled in: the words
+ * the user wrote are the lighting brief, and a softbox dropped into a sunlit cafe contradicts them.
+ */
+const LIGHT_IN_SETTING =
+  /\b(sun|sunlit|sunrise|sunset|sunshine|golden hour|dawn|dusk|morning|midday|noon|night|midnight|moonlit|moonlight|neon|candle\w*|firelight|lamplight|streetlight|floodlit|overcast|dappled|backlit|\d{1,2}\s?(a|p)m|window light)\b/;
+
+/**
+ * The media a camera vocabulary belongs to. A photograph or a cinematic still has a lens; an ink
+ * drawing does not, and "24mm, f/8, golden hour" on line art reads as noise to the model and to
+ * the person learning from the why-line.
+ */
+function cameraMedium(brief: Brief): boolean {
+  const medium = typeof brief.medium === 'string' ? brief.medium.toLowerCase() : '';
+  if (medium.length === 0) return true;
+  return /photo|cinematic|film|render/.test(medium);
+}
 
 type Rule = (brief: Brief, model: Model) => AutoFill | undefined;
 
@@ -44,6 +90,7 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     return pick(['medium shot'], 'it is the safe default when the frame is not specified');
   },
   lens: (b) => {
+    if (!cameraMedium(b)) return undefined;
     const t = text(b);
     if (PORTRAIT.test(t))
       return pick('85mm portrait', 'it flatters faces and separates them from the background');
@@ -52,6 +99,7 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     return pick('35mm', 'it is the neutral documentary focal length');
   },
   aperture: (b) => {
+    if (!cameraMedium(b)) return undefined;
     const t = text(b);
     if (PORTRAIT.test(t))
       return pick('f/2.8', 'a wide aperture puts the face in focus and softens the background');
@@ -60,6 +108,9 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     return pick('f/5.6', 'it keeps the subject sharp without flattening the background');
   },
   light: (b) => {
+    if (!cameraMedium(b)) return undefined;
+    // The user's own words are the lighting brief. Nothing is dropped on top of them.
+    if (LIGHT_IN_SETTING.test(scene(b))) return undefined;
     const t = text(b);
     if (DOCUMENTARY.test(t))
       return pick(['overcast diffusion'], 'documentary work reads as available light');
@@ -68,12 +119,13 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     return pick(['softbox key camera-left'], 'one soft key light is the portrait standard');
   },
   grade: (b) => {
+    if (!cameraMedium(b)) return undefined;
     const t = text(b);
+    // A product shot wants its colour true, so no grade is put on it at all.
+    if (PRODUCT.test(t)) return undefined;
     if (DOCUMENTARY.test(t)) return pick('desaturated earth tones', 'you said documentary');
     if (t.includes('cinematic'))
       return pick('teal and orange', 'it is the cinematic default grade');
-    if (PRODUCT.test(t))
-      return pick('pastel palette', 'it keeps product colour true without competing');
     return pick('warm highlights, cool shadows', 'it adds depth without a strong look');
   },
   comp: (b) => {
@@ -88,8 +140,16 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
       'it is the composition that works when nothing else is specified',
     );
   },
-  mood: (b) => {
+  mood: (b, m) => {
+    // A sound describes its own mood, and a product's object is its mood. Neither gets one invented.
+    if (m.category === 'sfx') return undefined;
+    const s = scene(b);
+    if (SOMBRE.test(s)) return pick(['austere'], 'the scene you described is a quiet one');
+    if (TENSE.test(s)) return pick(['tense'], 'the scene you described has conflict in it');
+    if (TRIUMPHANT.test(s)) return pick(['triumphant'], 'the scene you described is a victory');
+    if (PLAYFUL.test(s)) return pick(['playful'], 'the scene you described is a light one');
     const t = text(b);
+    if (PRODUCT.test(t)) return undefined;
     if (AD.test(t)) return pick(['triumphant'], 'campaign work wants lift');
     if (DOCUMENTARY.test(t)) return pick(['austere'], 'documentary work wants restraint');
     if (SOCIAL.test(t)) return pick(['playful'], 'social work wants energy');
@@ -104,11 +164,43 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     return pick('slow dolly in', 'one slow move reads as intent on every model');
   },
   pacing: (b) => {
+    const s = scene(b);
+    // A quiet scene is paced like one, whatever channel it is for.
+    if (SOMBRE.test(s)) return pick('deliberate', 'the scene you described is a quiet one');
+    if (TENSE.test(s)) return pick('urgent', 'the scene you described has conflict in it');
     const t = text(b);
     if (AD.test(t)) return pick('urgent', 'campaign work wants pace');
     if (SOCIAL.test(t))
       return pick('escalating', 'social clips need to build inside a few seconds');
     return pick('deliberate', 'it gives the model time to show the action');
+  },
+  aspect: (b, m) => {
+    /*
+     * The purpose names the crop more often than people think: a story is 9:16, a carousel is 4:5,
+     * a hero image is 16:9. Only ever an aspect this model actually offers, and only when the
+     * purpose says so: with no signal the model's own default stands.
+     */
+    const p = typeof b.purpose === 'string' ? b.purpose.toLowerCase() : '';
+    if (p.length === 0 || m.aspects === undefined) return undefined;
+    const offered = new Set(m.aspects.map((a) => a.value));
+    const wanted: [RegExp, string, string][] = [
+      [
+        /\b(story|stories|reel|reels|tiktok|short|shorts|vertical)\b/,
+        '9:16',
+        'that format is vertical',
+      ],
+      [/\b(carousel|instagram post|feed post)\b/, '4:5', 'that format is a tall feed crop'],
+      [
+        /\b(hero|banner|thumbnail|youtube|widescreen|landing|header|cover)\b/,
+        '16:9',
+        'that placement is a wide one',
+      ],
+      [/\b(editorial|print|magazine)\b/, '3:2', 'that is the print frame'],
+    ];
+    for (const [test, value, why] of wanted) {
+      if (test.test(p) && offered.has(value)) return pick(value, why);
+    }
+    return undefined;
   },
 };
 

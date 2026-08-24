@@ -90,6 +90,28 @@ listed deviation or a note for a later phase.
 11. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
     hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
 
+## The quality pass, ordered by Alon
+
+Alon ordered Forge's composed prompts benched against hand-written ones and improved until they
+win, which supersedes port-as-written for the composers. The bench is ten real briefs against all
+57 models (`scripts/bench-briefs.mjs`); every match Forge lost became a rule in
+`packages/catalog/test/craft.test.ts`, and every wording change is mapped back to the prototype's
+exact words in `parity.test.ts`, so the port discipline survives the improvement. The changes:
+
+- **The subject outranks the channel.** Mood and pacing read the scene first: a boxer alone at 6am
+  is austere whatever the clip is for, and a product shot carries no invented mood at all.
+- **What the user said outranks what a rule would add.** A setting that names its own light, sunlit
+  or midnight or 6am, gets no studio light dropped on top of it.
+- **Craft belongs to its medium.** Lens, aperture, light and grade are not auto-filled onto ink
+  line art or any other non-camera medium.
+- **The purpose does real work.** It reads as a sentence, a hero image gets negative space rather
+  than a safety margin, and the purpose sets the aspect ratio when it names the crop, only ever to
+  one the model offers.
+- **Nothing but the prompt in the prompt.** Hailuo's bracket token lost the pasted usage note, and
+  the sound-effects grammar lost the quality-word tail that called an ambience bed foley.
+- **A writing task may invent.** The system prompt's grounding line now keys off the task's verb:
+  "say so rather than filling the gap" stays for reading tasks and would sabotage a drafting one.
+
 ## Things in the prototype I think are wrong, left as they are
 
 - **The intended-use clause is a label, not a sentence.** `imageSections` emits

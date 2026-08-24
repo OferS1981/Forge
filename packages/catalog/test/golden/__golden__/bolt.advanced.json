@@ -2,7 +2,7 @@
   "blocks": [
     {
       "label": "What we are building",
-      "body": "A shared shopping list where two people tick items off in real time"
+      "body": "A shared shopping list where two people tick items off in real time."
     },
     {
       "label": "Data model",
@@ -29,7 +29,7 @@
       "body": "Restate what you are about to build in three bullets and wait for me to confirm."
     }
   ],
-  "flat": "What we are building: A shared shopping list where two people tick items off in real time\n\nData model: List has many Items. Item: name, quantity, done, addedBy.\n\nThis pass only: Just the list screen and the add-item sheet. Do not build anything else yet.\n\nLook: Dense, 14px base, 8px radius, one accent colour, no gradients.\n\nLeave alone: The auth screens, which already work.\n\nRules: No new dependencies.\n\nBefore you build: Restate what you are about to build in three bullets and wait for me to confirm.",
+  "flat": "What we are building: A shared shopping list where two people tick items off in real time.\n\nData model: List has many Items. Item: name, quantity, done, addedBy.\n\nThis pass only: Just the list screen and the add-item sheet. Do not build anything else yet.\n\nLook: Dense, 14px base, 8px radius, one accent colour, no gradients.\n\nLeave alone: The auth screens, which already work.\n\nRules: No new dependencies.\n\nBefore you build: Restate what you are about to build in three bullets and wait for me to confirm.",
   "negative": "",
   "settings": [
     {

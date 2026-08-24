@@ -120,13 +120,18 @@ export function imageSections(b: Brief, m?: Model): Block[] {
       ),
     );
   if (has(b.ref)) S.push(block('Reference', 'In the register of ' + stripDot(b.ref) + '.'));
-  if (has(b.purpose))
-    S.push(
-      block(
-        'Intended use',
-        stripDot(b.purpose) + ': keep the focal subject clear of the outer eighth of the frame.',
-      ),
-    );
+  if (has(b.purpose)) {
+    /*
+     * A sentence, not a label: "editorial: keep the focal subject..." read like a leaked internal
+     * note. And the guidance follows the placement: a hero or banner exists to sit under copy, so
+     * what it needs is negative space, not a safety margin.
+     */
+    const purpose = stripDot(b.purpose);
+    const guidance = /hero|banner|thumbnail|cover|header|landing/i.test(purpose)
+      ? 'leave clean negative space around the subject for copy'
+      : 'keep the focal subject clear of the outer eighth of the frame';
+    S.push(block('Intended use', 'For ' + purpose + ', ' + guidance + '.'));
+  }
   return S;
 }
 
@@ -174,15 +179,12 @@ export function videoSections(b: Brief, m: Model): Block[] {
       : /pan|whip|truck/i.test(mv)
         ? '[pan]'
         : '[static]';
-    S.push(
-      block(
-        'Inline camera token',
-        t +
-          ': ' +
-          m.name +
-          ' reads this bracket syntax. Strip it before pasting into any other model.',
-      ),
-    );
+    /*
+     * The token alone. The old body carried "Strip it before pasting into any other model", which
+     * is advice about the prompt and was being pasted as part of it. The model file's own notes
+     * explain the bracket syntax; the prompt just uses it.
+     */
+    S.push(block('Inline camera token', t));
   }
   return S;
 }

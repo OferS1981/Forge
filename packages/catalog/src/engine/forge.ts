@@ -17,7 +17,11 @@ export function applyAutoFill(
   if (mode !== 'simple') return { brief: b, autoFilled: [] };
   const brief: Brief = { ...b };
   const autoFilled: AutoFilled[] = [];
-  for (const id of m.craft) {
+  /*
+   * Craft, and then the tech fields that carry an auto-fill of their own: the aspect ratio reads
+   * the purpose, and it lives in tech rather than craft on every model that has it.
+   */
+  for (const id of [...m.craft, ...m.tech]) {
     const field = FIELDS[id];
     if (!field.autoFill || has(brief[id])) continue;
     const picked = field.autoFill(brief, m);

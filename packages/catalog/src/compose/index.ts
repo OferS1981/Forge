@@ -254,12 +254,17 @@ const voicedesign: Composer = (b) => {
 
 const sfx: Composer = (b) => {
   const parts: string[] = [];
-  parts.push(cap(stripDot(b.sound) || 'the sound'));
+  parts.push(cap(stripDot(b.sound) || 'Describe the sound you want here'));
   if (has(b.sfxKind)) parts.push(b.sfxKind ?? '');
   if (has(b.mic)) parts.push(b.mic ?? '');
   if (has(b.room)) parts.push(b.room ?? '');
   if (has(b.mood)) parts.push(join(b.mood));
-  parts.push('high-quality, professionally recorded, sound effects foley');
+  /*
+   * The old tail appended "high-quality, professionally recorded, sound effects foley" to every
+   * prompt, which called an ambience bed foley and padded the description with the quality words
+   * Forge strips everywhere else. The kind comes from the kind field; the description is enough.
+   */
+  if (!has(b.sfxKind)) parts.push('one-shot sound effect');
   const p = parts.join(', ');
   const S = [block('Prompt', p)];
   S.push(
@@ -300,8 +305,19 @@ const llm: Composer = (b, m) => {
   const roleLine = has(b.role) ? 'You are a ' + (b.role ?? '') + '.' : '';
   const sys = [roleLine];
   if (has(b.rules)) sys.push(stripDot(b.rules) + '.');
+  /*
+   * The grounding line fits a reading task and actively harms a writing one: told to "say so
+   * rather than filling the gap", a model asked to draft a cold email starts listing what it was
+   * not told instead of drafting. The verb the task opens with says which kind it is.
+   */
+  const writing =
+    /^(write|draft|compose|create|design|invent|brainstorm|name|generate|pitch|outline|come up)/i.test(
+      stripDot(b.goal) || '',
+    );
   sys.push(
-    'Answer from the material provided. If something is not in it, say so rather than filling the gap.',
+    writing
+      ? 'Keep every fact you were given exactly as given, and invent freely where the brief is silent.'
+      : 'Answer from the material provided. If something is not in it, say so rather than filling the gap.',
   );
   const system = sys.filter(has).join(' ');
   S.push(block('System prompt', system));
@@ -360,7 +376,8 @@ const code: Composer = (b) => {
 
 const app: Composer = (b) => {
   const S: Block[] = [];
-  S.push(block('What we are building', stripDot(b.aApp) || 'Describe the app.'));
+  // stripDot then a full stop, like every other line here: the first line was the one without one.
+  S.push(block('What we are building', (stripDot(b.aApp) || 'Describe the app') + '.'));
   if (has(b.aData)) S.push(block('Data model', stripDot(b.aData) + '.'));
   S.push(
     block(
