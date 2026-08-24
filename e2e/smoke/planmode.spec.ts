@@ -136,3 +136,21 @@ test('advanced mode offers the lift, and one click lands the craft in the brief'
   );
   await expect(out).not.toContainText('craft layer would take this to');
 });
+
+test('pro mode opens the what-you-do-not-want layer that Advanced keeps folded away', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await page.getByRole('radio', { name: 'Advanced' }).click();
+  await expect(page.getByRole('main')).not.toContainText('What you do not want');
+  await page.getByRole('radio', { name: 'Pro' }).click();
+  await expect(page.getByRole('main')).toContainText('What you do not want');
+  await expect(page.getByRole('textbox', { name: 'Keep out' })).toBeVisible();
+});
+
+test('simple mode asks for no settings, because Forge picks them and says so', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('radio', { name: 'Simple' }).click();
+  await expect(page.getByRole('main')).toContainText('Forge chooses the settings');
+  await expect(page.locator('#field-aspect')).toHaveCount(0);
+});

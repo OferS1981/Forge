@@ -7,8 +7,9 @@ and nothing you type ever leaves the page.
 ## What it does
 
 - **Build** — fill a form, get a prompt written in the target model's own documented grammar,
-  with the exact settings to match it. Simple mode makes the craft choices a professional would
-  and explains every one; Advanced hands you the whole bench; **Plan** interviews you.
+  with the exact settings to match it. Simple mode makes the choices a professional would,
+  settings included, and explains every one; Advanced is the middle tier, where you pick what you
+  want; Pro adds what you do not want; **Plan** interviews you.
 - **Doctor** — paste an under-performing prompt: a score out of 100, plain-English findings, and
   the same brief re-smithed properly. The **Refusal Doctor** names which of the seven moderation
   layers blocked you and gives the fix for that layer.

@@ -59,9 +59,9 @@ export const TOOLS: ToolDefinition[] = [
         },
         mode: {
           type: 'string',
-          enum: ['simple', 'advanced'],
+          enum: ['simple', 'advanced', 'pro'],
           description:
-            'simple lets Forge choose the craft layer and say what it chose. advanced fills in nothing you did not ask for. Defaults to simple.',
+            'simple lets Forge choose the settings and the craft layer and say what it chose. advanced fills in nothing you did not ask for. pro adds the exclusion fields. Defaults to simple.',
         },
       },
       required: ['model', 'brief'],
@@ -178,8 +178,8 @@ export function callTool(name: string, args: unknown): ToolResult {
       if (typeof brief === 'string') return problem(brief);
 
       const mode = str(input, 'mode') ?? 'simple';
-      if (mode !== 'simple' && mode !== 'advanced') {
-        return problem('mode is simple or advanced.');
+      if (mode !== 'simple' && mode !== 'advanced' && mode !== 'pro') {
+        return problem('mode is simple, advanced or pro.');
       }
 
       const result = forge(brief, model, mode);

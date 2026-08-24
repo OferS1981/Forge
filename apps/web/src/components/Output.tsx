@@ -135,7 +135,7 @@ export function Output({
   policyNotes = false,
   lift,
 }: OutputProps): React.ReactNode {
-  const advanced = mode === 'advanced';
+  const advanced = mode !== 'simple';
   const label = scoreLabel(result.score);
   const settings = advanced ? result.settings : result.settings.filter((r) => r.tier === 'simple');
 
@@ -146,7 +146,7 @@ export function Output({
         <div className="lift" role="status">
           <p className="lift__what">
             Forge&rsquo;s craft layer would take this to <strong>{lift.to}</strong>: the lens, the
-            light, the excludes, each landing visibly in the brief for you to keep or change.
+            light, the excludes, each landing in the brief for you to keep or change.
           </p>
           <Button size="sm" variant="primary" onClick={lift.onApply}>
             Lift it (+{lift.to - result.score})

@@ -200,17 +200,23 @@ export function Brief({ model, brief, mode, onChange, onExplain }: BriefProps): 
       ));
 
   const simpleTech = model.tech.filter((id) => FIELDS[id].tier === 'simple');
-  const advancedTech = model.tech.filter((id) => FIELDS[id].tier !== 'simple');
+  const advancedTech = model.tech.filter((id) => FIELDS[id].tier === 'advanced');
+  const craft = model.craft.filter((id) => FIELDS[id].tier !== 'pro');
+  const exclusions = [...model.craft, ...model.tech].filter((id) => FIELDS[id].tier === 'pro');
 
+  /*
+   * Simple asks only what nobody else can answer: Forge picks the settings, the frame and the
+   * craft itself and reports every choice. Advanced is the middle tier, where you choose what you
+   * want. Pro adds the last layer: what you do not want, in its own section.
+   */
   if (mode === 'simple') {
     return (
       <div className="brief">
         {render(model.core)}
-        {render(simpleTech)}
         <p className="brief__note">
-          These are the questions only you can answer. Forge chooses the lens, the light, the grade
-          and the settings itself, and tells you what it chose after the strike. Advanced mode hands
-          all of that back to you.
+          These are the questions only you can answer. Forge chooses the settings, the frame, the
+          lens, the light and the grade itself, and tells you what it chose after the strike.
+          Advanced mode hands all of that back to you.
         </p>
       </div>
     );
@@ -220,13 +226,18 @@ export function Brief({ model, brief, mode, onChange, onExplain }: BriefProps): 
     <div className="brief">
       {render(model.core)}
       {render(simpleTech)}
-      {model.craft.length > 0 && (
+      {craft.length > 0 && (
         <Disclosure summary="The craft layer" defaultOpen>
-          {render(model.craft)}
+          {render(craft)}
         </Disclosure>
       )}
       {advancedTech.length > 0 && (
         <Disclosure summary="Model settings">{render(advancedTech)}</Disclosure>
+      )}
+      {mode === 'pro' && exclusions.length > 0 && (
+        <Disclosure summary="What you do not want" defaultOpen>
+          {render(exclusions)}
+        </Disclosure>
       )}
     </div>
   );

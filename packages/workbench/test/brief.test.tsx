@@ -12,7 +12,7 @@ import { explanationFor } from '../src/explain';
 
 const noop = (): void => undefined;
 
-function draw(id: ModelId, mode: 'simple' | 'advanced') {
+function draw(id: ModelId, mode: 'simple' | 'advanced' | 'pro') {
   const model = modelById(id);
   return render(<Brief model={model} brief={{}} mode={mode} onChange={noop} onExplain={noop} />);
 }
@@ -40,10 +40,31 @@ describe('the generated brief', () => {
   it('asks fewer questions in Simple mode, and says why', () => {
     const { unmount } = draw('midjourney', 'simple');
     const simple = document.querySelectorAll('.brief__field').length;
-    expect(screen.getByText(/Forge chooses the lens/)).toBeInTheDocument();
+    expect(screen.getByText(/Forge chooses the settings/)).toBeInTheDocument();
     unmount();
     draw('midjourney', 'advanced');
     expect(document.querySelectorAll('.brief__field').length).toBeGreaterThan(simple);
+  });
+
+  it('keeps the exclusions for Pro mode, in their own section', () => {
+    const { unmount } = draw('midjourney', 'advanced');
+    expect(screen.queryByText('What you do not want')).not.toBeInTheDocument();
+    expect(document.getElementById('field-avoid')).toBeNull();
+    unmount();
+    const second = draw('midjourney', 'pro');
+    expect(screen.getByText('What you do not want')).toBeInTheDocument();
+    expect(document.getElementById('field-avoid')).not.toBeNull();
+    second.unmount();
+  });
+
+  it('asks for no settings in Simple mode, because Forge picks them', () => {
+    const { unmount } = draw('veo', 'simple');
+    expect(document.getElementById('field-aspect')).toBeNull();
+    expect(document.getElementById('field-duration')).toBeNull();
+    unmount();
+    draw('veo', 'advanced');
+    expect(document.getElementById('field-aspect')).not.toBeNull();
+    expect(document.getElementById('field-duration')).not.toBeNull();
   });
 
   it('reports a change with the field id the catalogue uses', () => {

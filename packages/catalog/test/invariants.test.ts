@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CATEGORIES } from '../src/categories';
-import { FIELDS, SIMPLE_FIELDS, tierOf } from '../src/fields';
+import { FIELDS, PRO_FIELDS, SIMPLE_FIELDS, tierOf } from '../src/fields';
 import { CATEGORY_IDS, FIELD_IDS, MODEL_IDS } from '../src/ids';
 import { MODELS, modelById, modelsIn } from '../src/models/registry';
 import { COMPOSERS } from '../src/compose';
@@ -87,14 +87,17 @@ describe('catalogue invariants', () => {
     }
   });
 
-  it('marks every core field simple and every craft field advanced', () => {
+  it('marks every core field simple, craft advanced, and only the exclusions pro', () => {
     const core = new Set<FieldId>();
     for (const m of MODELS) for (const id of m.core) core.add(id);
     for (const id of core) expect(tierOf(id)).toBe('simple');
     expect(SIMPLE_FIELDS.has('aspect')).toBe(true);
     expect(SIMPLE_FIELDS.has('duration')).toBe(true);
     for (const m of MODELS)
-      for (const id of m.craft) if (!core.has(id)) expect(tierOf(id)).toBe('advanced');
+      for (const id of m.craft)
+        if (!core.has(id)) expect(tierOf(id)).toBe(PRO_FIELDS.has(id) ? 'pro' : 'advanced');
+    // The pro tier is exactly the exclusion fields: nothing else may creep in.
+    for (const id of PRO_FIELDS) expect(core.has(id)).toBe(false);
   });
 
   it('keeps a default model per category, and never a wildcard', () => {

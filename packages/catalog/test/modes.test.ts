@@ -77,3 +77,22 @@ describe('Simple and Advanced agree', () => {
     }
   });
 });
+
+/**
+ * Pro is Advanced plus the exclusion fields and nothing else at the engine: the same brief
+ * composes to the same prompt, no auto-fill, and every settings row Advanced shows, Pro shows.
+ */
+describe('Pro and Advanced agree at the engine', () => {
+  it('composes identically and fills nothing in', () => {
+    for (const m of MODELS) {
+      for (const { brief } of briefsFor(m.category)) {
+        const pro = forge(brief, m, 'pro');
+        const advanced = forge(brief, m, 'advanced');
+        expect(pro.flat).toBe(advanced.flat);
+        expect(pro.blocks).toEqual(advanced.blocks);
+        expect(pro.settings).toEqual(advanced.settings);
+        expect(pro.autoFilled).toEqual([]);
+      }
+    }
+  });
+});

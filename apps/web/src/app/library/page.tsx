@@ -180,7 +180,11 @@ export default function LibraryPage(): React.ReactNode {
                         {when(prompt.updatedAt).length > 0
                           ? `, saved ${when(prompt.updatedAt)}`
                           : ''}
-                        {prompt.mode === 'advanced' ? ', advanced mode' : ''}
+                        {prompt.mode === 'advanced'
+                          ? ', advanced mode'
+                          : prompt.mode === 'pro'
+                            ? ', pro mode'
+                            : ''}
                       </p>
                       <div className="lib-item__move">
                         <Combobox

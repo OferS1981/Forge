@@ -44,11 +44,11 @@ export function BuildBench(): React.ReactNode {
   const [mode, setMode] = useBenchMode();
   const [planOpen, setPlanOpen] = usePlanOpen();
   /*
-   * While the plan is open the brief shows its full craft layer, so every interview answer lands
-   * somewhere visible. The strike composes in whichever mode is chosen: Simple fills the skipped
-   * questions with explained defaults, Advanced adds nothing that was not answered.
+   * While the plan is open the brief shows everything, exclusions included, so every interview
+   * answer lands somewhere visible. The strike composes in whichever mode is chosen: Simple fills
+   * the skipped questions with explained defaults, Advanced adds nothing that was not answered.
    */
-  const briefMode = planOpen ? 'advanced' : mode;
+  const briefMode = planOpen ? 'pro' : mode;
   const [modelId, setModelId] = useModelId(FIRST);
   const { pins, toggle: togglePin } = usePinnedModels();
   const [forged, bumpForged] = useForgeCount();
@@ -104,9 +104,9 @@ export function BuildBench(): React.ReactNode {
      * Advanced fills in nothing you have not asked for; the lift is you asking for it, one click,
      * everything visible in the brief afterwards. Offered only when it genuinely moves the score.
      */
-    if (mode === 'advanced') {
+    if (mode !== 'simple') {
       const { brief: filledUp } = applyAutoFill(withProfile, model, 'simple');
-      const lifted = forge(filledUp, model, 'advanced');
+      const lifted = forge(filledUp, model, mode);
       setLift(
         lifted.score > out.score + 4
           ? {
@@ -136,8 +136,14 @@ export function BuildBench(): React.ReactNode {
    */
   const openField = useCallback(
     (field: FieldId) => {
-      // In Plan the whole craft layer is already on show, so the mode stays put.
-      if (!planOpen && mode === 'simple') setMode('advanced');
+      // In Plan everything is already on show, so the mode stays put.
+      if (!planOpen) {
+        if (FIELDS[field].tier === 'pro') {
+          if (mode !== 'pro') setMode('pro');
+        } else if (mode === 'simple') {
+          setMode('advanced');
+        }
+      }
       setFocusField(field);
     },
     [planOpen, mode, setMode],
@@ -218,17 +224,20 @@ export function BuildBench(): React.ReactNode {
             label="Mode"
             value={mode}
             onChange={(v) => {
-              if (v === 'simple' || v === 'advanced') setMode(v);
+              if (v === 'simple' || v === 'advanced' || v === 'pro') setMode(v);
             }}
             options={[
               { value: 'simple', label: 'Simple' },
               { value: 'advanced', label: 'Advanced' },
+              { value: 'pro', label: 'Pro' },
             ]}
           />
           <p className="modebar__what">
             {mode === 'simple'
-              ? 'Forge makes most of the choices. You give it the subject.'
-              : 'You make most of the choices. Forge fills in nothing you have not asked for.'}
+              ? 'Forge makes the choices, settings included. You give it the subject.'
+              : mode === 'advanced'
+                ? 'The middle tier. You choose what you want; Forge fills in nothing you have not asked for.'
+                : 'Everything Advanced has, plus what you do not want: the keep-outs and excludes, in their own section.'}
           </p>
           <Switch
             label="Plan it with me"

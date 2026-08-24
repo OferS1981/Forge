@@ -76,7 +76,7 @@ function asPayload(value: unknown): SharePayload | null {
   const v = value as Record<string, unknown>;
   if (v.v !== 1) return null;
   if (typeof v.title !== 'string' || typeof v.modelId !== 'string') return null;
-  if (v.mode !== 'simple' && v.mode !== 'advanced') return null;
+  if (v.mode !== 'simple' && v.mode !== 'advanced' && v.mode !== 'pro') return null;
   if (!isBrief(v.brief)) return null;
   return { v: 1, title: v.title, modelId: v.modelId, brief: v.brief, mode: v.mode };
 }

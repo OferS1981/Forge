@@ -42,7 +42,15 @@ export const SIMPLE_FIELDS: ReadonlySet<FieldId> = new Set<FieldId>([
   'duration',
 ]);
 
+/**
+ * The exclusion fields: what must not appear. Saying what you do not want is Pro mode's whole
+ * point, so these render there, in their own section. Simple still fills them for you, and a
+ * value set in any mode still composes.
+ */
+export const PRO_FIELDS: ReadonlySet<FieldId> = new Set<FieldId>(['avoid', 'mExclude', 'cScope']);
+
 export function tierOf(id: FieldId): Mode {
+  if (PRO_FIELDS.has(id)) return 'pro';
   return SIMPLE_FIELDS.has(id) ? 'simple' : 'advanced';
 }
 

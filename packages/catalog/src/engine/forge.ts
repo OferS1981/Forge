@@ -116,7 +116,7 @@ export function forge(brief: Brief, model: Model, mode: Mode = 'advanced'): Forg
     blocks: composed.blocks,
     flat: clean.text,
     negative,
-    settings: model.settings(b, mode).filter((r) => mode === 'advanced' || r.tier === 'simple'),
+    settings: model.settings(b, mode).filter((r) => mode !== 'simple' || r.tier === 'simple'),
     notes: model.notes,
     warnings,
     variations: variations(model),

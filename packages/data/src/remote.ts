@@ -67,7 +67,7 @@ interface ShareRow {
   created_at: string;
 }
 
-const asMode = (v: string): Mode => (v === 'advanced' ? 'advanced' : 'simple');
+const asMode = (v: string): Mode => (v === 'advanced' || v === 'pro' ? v : 'simple');
 
 const toPrompt = (r: PromptRow): SavedPrompt => ({
   id: r.id,

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { FIELDS, plan, type Brief, type FieldId, type Model } from '@forge/catalog';
+import { FIELDS, plan, type Brief, type FieldId, type Mode, type Model } from '@forge/catalog';
 import { Button } from '@forge/ui';
 
 /**
@@ -19,7 +19,7 @@ export function PlanPanel({
 }: {
   brief: Brief;
   model: Model;
-  mode: 'simple' | 'advanced';
+  mode: Mode;
   onAnswer: (field: FieldId, value: string | string[]) => void;
   onOpenField: (field: FieldId) => void;
 }): React.ReactNode {

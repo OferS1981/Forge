@@ -50,7 +50,7 @@ const HELP = `forge, a prompt smithy
 
 Common flags
 
-  --mode simple|advanced   how many choices Forge makes for you. Simple is the default
+  --mode simple|advanced|pro   how many choices Forge makes for you. Simple is the default
   --json                   machine-readable output, for a script or another tool
   --help                   this
   --version                the version of the catalogue this was built from
@@ -99,7 +99,7 @@ function briefFrom(model: Model, flags: Parsed['flags']): Brief | string {
 function modeFrom(flags: Parsed['flags']): { mode: Mode } | { error: string } {
   const given = value(flags, 'mode');
   if (given === undefined) return { mode: 'simple' };
-  if (given === 'simple' || given === 'advanced') return { mode: given };
+  if (given === 'simple' || given === 'advanced' || given === 'pro') return { mode: given };
   return { error: `--mode is simple or advanced, not ${given}.` };
 }
 

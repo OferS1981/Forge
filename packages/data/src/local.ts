@@ -48,7 +48,7 @@ function asBrief(value: unknown): Brief {
 }
 
 function asMode(value: unknown): Mode {
-  return value === 'advanced' ? 'advanced' : 'simple';
+  return value === 'advanced' || value === 'pro' ? value : 'simple';
 }
 
 function list<T>(value: unknown, one: (v: Record<string, unknown>) => T | null): T[] {

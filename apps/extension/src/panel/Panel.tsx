@@ -164,11 +164,12 @@ export function Panel(): React.ReactNode {
         label="Mode"
         value={mode}
         onChange={(v) => {
-          if (v === 'simple' || v === 'advanced') setMode(v);
+          if (v === 'simple' || v === 'advanced' || v === 'pro') setMode(v);
         }}
         options={[
           { value: 'simple', label: 'Simple' },
           { value: 'advanced', label: 'Advanced' },
+          { value: 'pro', label: 'Pro' },
         ]}
       />
 
@@ -224,7 +225,7 @@ export function Panel(): React.ReactNode {
           {result.settings.length > 0 && (
             <ul className="panel__settings">
               {result.settings
-                .filter((r) => mode === 'advanced' || r.tier === 'simple')
+                .filter((r) => mode !== 'simple' || r.tier === 'simple')
                 .map((r) => (
                   <li key={r.name}>
                     <span className="fg-mono">{r.name}</span>

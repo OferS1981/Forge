@@ -40,6 +40,9 @@ describe('the package surface', () => {
     expect(fieldById('subject').label).toBe('Subject');
     expect(fieldById('subject').tier).toBe('simple');
     expect(fieldById('lens').tier).toBe('advanced');
+    expect(fieldById('avoid').tier).toBe('pro');
+    expect(fieldById('mExclude').tier).toBe('pro');
+    expect(fieldById('cScope').tier).toBe('pro');
     expect(optionsFrom(['a', 'b'], 'field.subject')).toHaveLength(2);
   });
 });

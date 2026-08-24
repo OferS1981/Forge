@@ -18,7 +18,7 @@ export type FieldId = (typeof FIELD_IDS)[number];
 export type ChipFieldId = (typeof CHIP_FIELD_IDS)[number];
 export type ModelId = (typeof MODEL_IDS)[number];
 
-export type Mode = 'simple' | 'advanced';
+export type Mode = 'simple' | 'advanced' | 'pro';
 
 /**
  * Glossary term ids. Fields and vocabulary banks get fixed ids so a typo fails `tsc`.

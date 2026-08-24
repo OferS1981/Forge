@@ -94,10 +94,14 @@ function usePersisted<T>(
 }
 
 function isBenchMode(v: unknown): v is Mode {
-  return v === 'simple' || v === 'advanced';
+  return v === 'simple' || v === 'advanced' || v === 'pro';
 }
 
-/** Simple or Advanced: the two ways of composing. Planning is a helper on top, not a third way. */
+/**
+ * Simple, Advanced or Pro: the three ways of composing, in order of how much you choose. Simple
+ * chooses for you, Advanced is the middle where you pick what you want, and Pro adds what you do
+ * not want. Planning is a helper on top, not a fourth way.
+ */
 export function useBenchMode(): [Mode, (next: Mode) => void] {
   return usePersisted<Mode>('bench-mode', 'simple', isBenchMode);
 }
