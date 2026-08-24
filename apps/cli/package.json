@@ -1,0 +1,22 @@
+{
+  "name": "@forge/cli-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The forge command. A pump around @forge/cli: read the arguments, write the answer, exit.",
+  "type": "module",
+  "bin": {
+    "forge": "./dist/main.js"
+  },
+  "scripts": {
+    "build": "node ../../scripts/bundle-bin.mjs src/main.ts dist",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@forge/catalog": "workspace:*",
+    "@forge/cli": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11"
+  }
+}

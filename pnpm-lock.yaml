@@ -87,6 +87,22 @@ importers:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@22.20.1)(jsdom@30.0.1)(lightningcss@1.33.0)(terser@5.50.0)
 
+  apps/cli:
+    dependencies:
+      '@forge/catalog':
+        specifier: workspace:*
+        version: link:../../packages/catalog
+      '@forge/cli':
+        specifier: workspace:*
+        version: link:../../packages/cli
+    devDependencies:
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.21(@types/node@22.20.1)(lightningcss@1.33.0)(terser@5.50.0)
+
   apps/extension:
     dependencies:
       '@forge/catalog':
@@ -117,6 +133,22 @@ importers:
       react-dom:
         specifier: ^19.2.8
         version: 19.2.8(react@19.2.8)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.21(@types/node@22.20.1)(lightningcss@1.33.0)(terser@5.50.0)
+
+  apps/mcp:
+    dependencies:
+      '@forge/catalog':
+        specifier: workspace:*
+        version: link:../../packages/catalog
+      '@forge/mcp':
+        specifier: workspace:*
+        version: link:../../packages/mcp
+    devDependencies:
       typescript:
         specifier: ^5.7.2
         version: 5.9.3
@@ -186,6 +218,19 @@ importers:
         specifier: ^2.1.8
         version: 2.1.9(@types/node@22.20.1)(jsdom@30.0.1)(lightningcss@1.33.0)(terser@5.50.0)
 
+  packages/cli:
+    dependencies:
+      '@forge/catalog':
+        specifier: workspace:*
+        version: link:../catalog
+    devDependencies:
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.9(@types/node@22.20.1)(jsdom@30.0.1)(lightningcss@1.33.0)(terser@5.50.0)
+
   packages/data:
     dependencies:
       '@forge/catalog':
@@ -211,6 +256,19 @@ importers:
       jsdom:
         specifier: ^30.0.1
         version: 30.0.1
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.9(@types/node@22.20.1)(jsdom@30.0.1)(lightningcss@1.33.0)(terser@5.50.0)
+
+  packages/mcp:
+    dependencies:
+      '@forge/catalog':
+        specifier: workspace:*
+        version: link:../catalog
+    devDependencies:
       typescript:
         specifier: ^5.7.2
         version: 5.9.3

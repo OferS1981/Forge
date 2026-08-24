@@ -1,0 +1,22 @@
+{
+  "name": "@forge/mcp-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Forge as an MCP server. A pump around @forge/mcp: read a line of stdio, answer it, write it back.",
+  "type": "module",
+  "bin": {
+    "forge-mcp": "./dist/main.js"
+  },
+  "scripts": {
+    "build": "node ../../scripts/bundle-bin.mjs src/main.ts dist",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@forge/catalog": "workspace:*",
+    "@forge/mcp": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11"
+  }
+}
