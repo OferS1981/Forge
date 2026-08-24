@@ -78,13 +78,13 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 74,
+  "score": 86,
   "axes": {
-    "specificity": 65,
+    "specificity": 72,
     "technical": 100,
-    "structure": 45,
+    "structure": 96,
     "constraints": 85,
-    "format": 35,
+    "format": 65,
     "context": 85,
     "modelfit": 86,
     "noise": 100

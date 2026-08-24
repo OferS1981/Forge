@@ -74,18 +74,43 @@ export function useTheme(): [Theme, (next: Theme) => void] {
   return [theme, set];
 }
 
+function osPrefersDark(): boolean {
+  // jsdom has no matchMedia; a test environment counts as a light device.
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
+}
+
+function subscribeOs(listener: () => void): () => void {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function')
+    return () => undefined;
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  mq.addEventListener('change', listener);
+  return () => {
+    mq.removeEventListener('change', listener);
+  };
+}
+
+/**
+ * Two choices, not three. A visitor who has never chosen follows their device, and the toggle
+ * simply shows which side of it they are on; the first click makes the choice explicit. "System"
+ * as a visible third option read as a duplicate of whichever theme the device was in.
+ */
 export function ThemeToggle({ className }: { className?: string | undefined }): ReactNode {
   const [theme, set] = useTheme();
+  const osDark = useSyncExternalStore(subscribeOs, osPrefersDark, () => false);
+  const resolved = theme === 'system' ? (osDark ? 'dark' : 'light') : theme;
   return (
     <Segmented
       className={className}
       label="Theme"
-      value={theme}
+      value={resolved}
       onChange={(v) => {
-        if (isTheme(v)) set(v);
+        if (v === 'light' || v === 'dark') set(v);
       }}
       options={[
-        { value: 'system', label: 'System' },
         { value: 'light', label: 'Light' },
         { value: 'dark', label: 'Dark' },
       ]}

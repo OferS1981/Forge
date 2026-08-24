@@ -60,14 +60,14 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 66,
+  "score": 94,
   "axes": {
-    "specificity": 64,
-    "technical": 83,
-    "structure": 45,
+    "specificity": 100,
+    "technical": 100,
+    "structure": 96,
     "constraints": 85,
-    "format": 35,
-    "context": 30,
+    "format": 80,
+    "context": 85,
     "modelfit": 100,
     "noise": 100
   }

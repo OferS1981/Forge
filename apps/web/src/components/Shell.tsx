@@ -48,23 +48,13 @@ export const WORKSPACES = [
 
 /** The workspaces that are not tabs: reachable from the palette and from each other. */
 export const TOOLS = [
+  // Sorted by how often a working day reaches for them: what you saved, what you reuse, then the
+  // comparison tools, then the occasional ones.
   {
-    id: 'cross-forge',
-    label: 'Cross-forge',
-    href: '/cross-forge',
-    what: 'The same brief in two models, side by side, with what was lost.',
-  },
-  {
-    id: 'batch',
-    label: 'Batch',
-    href: '/batch',
-    what: 'One brief, several models, results in a row.',
-  },
-  {
-    id: 'compare',
-    label: 'Compare',
-    href: '/compare',
-    what: 'Two prompts, with what actually changed marked.',
+    id: 'library',
+    label: 'Library',
+    href: '/library',
+    what: 'Everything you have saved: folders, prompts, pinned models and recipes.',
   },
   {
     id: 'recipes',
@@ -73,10 +63,22 @@ export const TOOLS = [
     what: 'Save a brief as a template and reuse it.',
   },
   {
-    id: 'library',
-    label: 'Library',
-    href: '/library',
-    what: 'Everything you have saved: folders, prompts, pinned models and recipes.',
+    id: 'compare',
+    label: 'Compare',
+    href: '/compare',
+    what: 'Two prompts, with what actually changed marked.',
+  },
+  {
+    id: 'batch',
+    label: 'Batch',
+    href: '/batch',
+    what: 'One brief, several models, results in a row.',
+  },
+  {
+    id: 'cross-forge',
+    label: 'Cross-forge',
+    href: '/cross-forge',
+    what: 'The same brief in two models, side by side, with what was lost.',
   },
   {
     id: 'assistant',

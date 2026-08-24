@@ -298,6 +298,8 @@ describe('a medium brings its own technique', () => {
 });
 
 describe('the music tokens follow the vendor order', () => {
+  // Advanced mode isolates the order: Simple now adds its own honest tokens (mood, production,
+  // instrumental), which is the phase-13 feature and its own tests' subject.
   const track: Brief = {
     mGenre: ['bossa nova'],
     mMood: ['nostalgic'],
@@ -307,24 +309,24 @@ describe('the music tokens follow the vendor order', () => {
   };
 
   it("writes Lyria in Google's formula: genre, mood, instrumentation, tempo", () => {
-    const flat = forge(track, modelById('lyria'), 'simple').flat;
+    const flat = forge(track, modelById('lyria'), 'advanced').flat;
     expect(flat).toBe('bossa nova, nostalgic, nylon-string guitar, 120 BPM, vinyl crackle');
   });
 
   it("writes Stable Audio in Stability's order: style, instruments, mood, details", () => {
-    const flat = forge(track, modelById('stableaudio'), 'simple').flat;
+    const flat = forge(track, modelById('stableaudio'), 'advanced').flat;
     expect(flat).toBe('bossa nova, nylon-string guitar, nostalgic, vinyl crackle, 120 BPM');
   });
 
   it('keeps Suno on its own documented order, which is the default', () => {
-    const flat = forge(track, modelById('suno'), 'simple').flat;
+    const flat = forge(track, modelById('suno'), 'advanced').flat;
     expect(flat).toBe('bossa nova, 120 BPM, nylon-string guitar, vinyl crackle, nostalgic');
   });
 
   it('always the same tokens: order is the only thing a flag may change', () => {
     const ids = ['lyria', 'stableaudio', 'el-music', 'suno', 'generic-music'] as const;
     const sorted = ids.map((id) =>
-      forge(track, modelById(id), 'simple').flat.split(', ').sort().join('|'),
+      forge(track, modelById(id), 'advanced').flat.split(', ').sort().join('|'),
     );
     expect(new Set(sorted).size).toBe(1);
   });

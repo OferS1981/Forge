@@ -16,11 +16,19 @@
   z-index: 30;
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  /*
+   * One row, at every width it can be one: the tabs scroll inside themselves, the links refuse
+   * to wrap mid-word, and only a true phone width breaks the secondary links onto a second line.
+   * Three stacked layers of chrome was the day the shell ate the screen.
+   */
+  flex-wrap: nowrap;
   gap: var(--sp-2) var(--sp-3);
   padding: var(--sp-2) var(--sp-4);
   border-bottom: 1px solid var(--line);
   background: var(--surface);
+}
+.topbar__link {
+  white-space: nowrap;
 }
 .topbar__spacer {
   flex: 1 1 auto;
@@ -508,13 +516,14 @@ a {
     border-bottom: 1px solid var(--line);
   }
 }
-@media (max-width: 819px) {
+@media (max-width: 640px) {
   /*
    * A phone gets a working bar, not a stack of five. The workspace tabs and the tool strip each
    * scroll sideways in place, the secondary links shrink to one row with the theme control, and
    * the whole shell spends two rows before the bench starts instead of half the screen.
    */
   .topbar {
+    flex-wrap: wrap;
     padding: var(--sp-1) var(--sp-3);
     gap: 0 var(--sp-2);
   }
@@ -1035,16 +1044,22 @@ a {
 /* ---------- The second row: the tools that are not tabs ---------- */
 .tools {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
   gap: var(--sp-1);
-  padding: var(--sp-1) var(--sp-4);
+  padding: 0 var(--sp-4);
   border-bottom: 1px solid var(--line);
   background: var(--surface-2);
+}
+.tools::-webkit-scrollbar {
+  display: none;
 }
 .tools__link {
   display: inline-flex;
   align-items: center;
-  min-height: var(--hit);
+  white-space: nowrap;
+  min-height: 30px;
   padding: 0 var(--sp-2);
   color: var(--ink-dim);
   font-family: var(--f-mono);

@@ -61,14 +61,14 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 65,
+  "score": 94,
   "axes": {
-    "specificity": 64,
-    "technical": 80,
-    "structure": 45,
+    "specificity": 100,
+    "technical": 100,
+    "structure": 96,
     "constraints": 85,
-    "format": 35,
-    "context": 30,
+    "format": 80,
+    "context": 85,
     "modelfit": 98,
     "noise": 100
   }

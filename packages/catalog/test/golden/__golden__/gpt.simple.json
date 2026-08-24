@@ -72,11 +72,11 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 88,
+  "score": 92,
   "axes": {
     "specificity": 86,
     "technical": 100,
-    "structure": 75,
+    "structure": 100,
     "constraints": 85,
     "format": 80,
     "context": 85,

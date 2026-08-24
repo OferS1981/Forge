@@ -226,6 +226,29 @@ for (const model of cat.MODELS) {
     if (Object.keys(brief).length === 0) continue;
     const result = cat.forge(brief, model, 'simple');
     const reasons = judge(model, brief, result);
+    // Alon's bar: a Simple strike from a real brief scores 75 or better; a one-field brief may
+    // land in the sixties, which is the score doing its job of asking for one more answer. A
+    // brief with no seed at all (a tone with nothing to say in it) is not a real ask, and gets
+    // judged on every other bar but not this one.
+    const fields = Object.keys(brief).length;
+    const SEEDY = [
+      'subject',
+      'script',
+      'goal',
+      'cTask',
+      'aApp',
+      'rQuestion',
+      'sound',
+      'mGenre',
+      'lang',
+      'mStruct',
+      'action',
+    ];
+    const seeded = SEEDY.some((k) => k in brief);
+    if (seeded && fields >= 2 && result.score < 75)
+      reasons.push(`simple score ${result.score} under the 75 bar`);
+    if (seeded && fields === 1 && result.score < 62)
+      reasons.push(`single-field score ${result.score} under the 62 floor`);
     fought += 1;
     byCategory[model.category] ??= { won: 0, fought: 0 };
     byCategory[model.category].fought += 1;

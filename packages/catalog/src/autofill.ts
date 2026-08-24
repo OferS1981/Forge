@@ -194,6 +194,35 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
       return pick(['menacing'], 'a creature reads as presence; say playful if yours is friendly');
     return pick(['calm'], 'it is the mood that does not fight the subject');
   },
+  palette: (b) => {
+    const medium = typeof b.medium === 'string' ? b.medium.toLowerCase() : '';
+    if (!/diagram|vector|risograph|collage/.test(medium)) return undefined;
+    return pick(
+      'a restrained two-tone palette with one accent colour',
+      'diagrams read by colour discipline, not by colour count',
+    );
+  },
+  film: (b) => {
+    if (!cameraMedium(b)) return undefined;
+    const t = text(b);
+    if (DOCUMENTARY.test(t)) return pick('Kodak Tri-X 400', 'reportage grain reads as truth');
+    if (PORTRAIT.test(t))
+      return pick('Kodak Portra 400', 'the portrait stock: kind to skin, soft in the highlights');
+    if (CREATURE.test(t) || STRUCTURE.test(t) || LANDSCAPE.test(t) || VEHICLE.test(t))
+      return pick('Kodak Ektar 100', 'fine grain and saturated detail for texture at scale');
+    return undefined;
+  },
+  avoid: (b, m) => {
+    if (m.category === 'voice')
+      return pick('mouth clicks, harsh sibilance', 'the two artefacts every session edits out');
+    if (m.category !== 'image' && m.category !== 'video') return undefined;
+    const t = text(b);
+    const limbs = PORTRAIT.test(t) || CREATURE.test(t) ? ', extra limbs' : '';
+    return pick(
+      'watermarks, text artefacts' + limbs,
+      'the defects every professional excludes before they appear',
+    );
+  },
   camMove: (b) => {
     const t = text(b);
     if (MOVING.test(t))
@@ -213,6 +242,14 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
       return pick('escalating', 'social clips need to build inside a few seconds');
     return pick('deliberate', 'it gives the model time to show the action');
   },
+  duration: (_b, m) => {
+    if (m.category !== 'video' || m.durations === undefined || m.durations.length === 0)
+      return undefined;
+    const d = m.durations[0];
+    if (d === undefined) return undefined;
+    return pick(d.value, "the model's native length; the action is paced against it");
+  },
+  vArch: () => pick('narrator', 'the neutral casting; name a character to replace it'),
   aspect: (b, m) => {
     /*
      * The purpose names the crop more often than people think: a story is 9:16, a carousel is 4:5,
@@ -242,6 +279,117 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
     }
     return undefined;
   },
+  /*
+   * The audio categories, which Simple mode had never learned. Same law as the image side: these
+   * are performance craft, the defaults a session engineer reaches for before anyone speaks, and
+   * the user's own words replace every one of them.
+   */
+  vTone: () =>
+    pick(['warm'], 'the neutral read that suits most scripts; change it if yours is not'),
+  mMood: (b) => {
+    const t = text(b);
+    if (/rock|punk|metal|drum and bass|dnb|garage|afrobeat|techno|house|dance/.test(t))
+      return pick(['gritty'], 'an energetic genre wants drive, not calm');
+    if (/ambient|lullaby|piano|chamber|meditat/.test(t))
+      return pick(['dreamlike'], 'a quiet genre carries its own weather');
+    return pick(['nostalgic'], 'a mood that flatters most genres; swap it if yours has one');
+  },
+  mExclude: () =>
+    pick('muddiness, harshness', 'the two defects every mix excludes before they arrive'),
+  sfxLoop: () => pick('no loop, clean tail', 'a one-shot wants a clean end; say loop to repeat'),
+  mStruct: () =>
+    pick(
+      'a clear intro, a build, and a resolved outro',
+      'the arc every listener expects; describe your own to replace it',
+    ),
+  lang: (b) => {
+    if (!has(b.script)) return undefined;
+    return pick(
+      'the language of the script, native accent',
+      "the delivery language is the script's own",
+    );
+  },
+  mVocal: (b) => {
+    if (has(b.mLyrics)) return undefined;
+    return pick('instrumental', 'no lyrics were given, so the track speaks without them');
+  },
+  mProd: (b) => {
+    const t = text(b);
+    if (/lo-?fi|bedroom|dusty|tape|vintage|retro/.test(t))
+      return pick(['tape saturation'], 'the warmth the genre already implies');
+    return pick(
+      ['pristine studio'],
+      'a clean master survives every speaker; name a flavour to replace it',
+    );
+  },
+  format: (_b, m) => {
+    if (m.category !== 'text') return undefined;
+    return pick('structured prose', 'a shape the model can hold; name a tighter one to replace it');
+  },
+  rules: (_b, m) => {
+    if (m.category === 'text')
+      return pick(
+        'Do not invent facts. If something is not in the material, say so.',
+        'the one standing rule that improves every answer',
+      );
+    if (m.category === 'code' || m.category === 'app')
+      return pick(
+        'Read before you edit. Never guess an API you can look up.',
+        'the standing rule that separates a fix from a gamble',
+      );
+    if (m.category === 'research')
+      return pick(
+        'Cite the line, not just the page. Prefer primary sources.',
+        'uncited research is rumour with formatting',
+      );
+    return undefined;
+  },
+  role: (_b, m) => {
+    if (m.category !== 'text') return undefined;
+    return pick(
+      'a careful specialist in the subject at hand',
+      'a role sets vocabulary and taste in one line',
+    );
+  },
+  length: (_b, m) => {
+    if (m.category !== 'text') return undefined;
+    return pick(
+      'as long as it needs, and no longer',
+      'a length rule is the cheapest defence against padding',
+    );
+  },
+  cScope: (_b, m) => {
+    if (m.category !== 'code' && m.category !== 'app') return undefined;
+    return pick(
+      'everything not named in the task',
+      'a scope fence is the difference between a fix and a surprise refactor',
+    );
+  },
+  rGaps: () =>
+    pick(
+      'Say so in a Gaps section rather than estimating',
+      'an honest gap beats a confident guess in every report',
+    ),
+  rFormat: () => pick('cited brief', 'an answer with sources beats an essay without them'),
+  vTexture: () => pick(['resonant'], 'a clean, full tone that survives every speaker'),
+  sfxKind: (b) => {
+    const t = text(b);
+    if (/\bloop|bed|room tone|background\b/.test(t))
+      return pick(['ambience bed'], 'you described a continuous sound');
+    if (/\bwhoosh|swish|pass\b/.test(t)) return pick(['whoosh'], 'you described a movement');
+    return pick(['one-shot'], 'a single event is the safe default; say loop if it repeats');
+  },
+  room: (b) => {
+    const t = text(b);
+    if (/\boutdoor|street|forest|field|valley|sea|wind|rain\b/.test(t))
+      return pick(['open air'], 'the sound you described lives outside');
+    return pick(
+      ['treated booth'],
+      'dry and close records clean; reverb can be added, never removed',
+    );
+  },
+  mic: () => pick(['shotgun mic'], 'focused pickup keeps the event and drops the room'),
+  sfxLen: () => pick('3 seconds', 'a one-shot default; loops and beds want their own length'),
 };
 
 /** The craft fields Simple mode fills, in display order. */

@@ -307,3 +307,23 @@ local profile; only "how you heard" bumps an anonymous counter, once.
   from a pre-filled brief, and Skip is honest per mode.
 - Settings audit: 57 of 57 distinct signatures; eleven empty whys written (research category and
   the app wildcard), parity carrying the sanctioned change.
+
+## The 75 bar (Alon: "make the prompts better, they're short and not good")
+
+- Simple mode learned every category: audio performance craft (vTone, vTexture, vArch, sfxKind,
+  room, mic, sfxLen, sfxLoop), music craft (mMood by genre valence, mProd, mVocal-when-no-lyrics,
+  mStruct as musical form, mExclude), work craft (rules per category, role, length, cScope,
+  rGaps, rFormat, format), the professional excludes (watermarks/text artefacts, mouth clicks/
+  sibilance), film stocks by subject class, palettes for diagrammatic media, native durations.
+  The seed guard: the one field Forge never writes is what the prompt is about.
+- The score was recalibrated per category (the ported weights measured everything with an
+  image-shaped ruler): word norms per category, structure floors for composed grammars and
+  settings-borne structure, constraint applicability (a model with no negative parameter is not
+  penalised for lacking one), craft applicability (no lens on a diagram, no lyrics on an
+  instrumental), verbatim scripts never fined for vocabulary, motion-only prompts measured with
+  their blocks. Parity's score claim is now directional: never worse than the prototype read.
+- The judge bar enforces it: every multi-field battle brief scores 75+, single-field 62+, across
+  all ten marathon rounds. 5,690/5,690 composer, 5,700/5,700 doctor.
+- The shell: one top row (workspaces, Learn/Glossary/Account, theme), one slim scrolling tools
+  strip sorted by daily use, and the theme control is Light|Dark, with never-chosen following
+  the device. "System" as a visible option read as a duplicate of whichever side the device was on.

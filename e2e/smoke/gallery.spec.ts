@@ -175,8 +175,11 @@ test('the theme toggle wins over the operating system in both directions', async
   );
   expect(lightGround).not.toBe(darkGround);
 
-  await page.getByRole('radio', { name: 'System' }).click();
-  await expect(root).not.toHaveAttribute('data-theme', /.*/);
+  // Two choices only: a visitor who never chose follows the device, and the first click makes
+  // it explicit. Light lands the attribute like any other explicit choice.
+  await page.getByRole('radio', { name: 'Light' }).click();
+  await expect(root).toHaveAttribute('data-theme', 'light');
+  await expect(page.getByRole('radio', { name: 'System' })).toHaveCount(0);
 });
 
 test('the info dot explains without selecting', async ({ page }) => {

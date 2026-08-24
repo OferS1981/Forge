@@ -9,6 +9,18 @@ import { variations } from './variations';
  * Simple mode fills the craft layer itself and reports every choice. Advanced mode leaves the
  * brief exactly as the user wrote it.
  */
+/** The one field per category Forge never fills: the thing the prompt is about. */
+const SEEDS = new Set<FieldId>([
+  'subject',
+  'script',
+  'goal',
+  'cTask',
+  'aApp',
+  'rQuestion',
+  'sound',
+  'mGenre',
+]);
+
 export function applyAutoFill(
   b: Brief,
   m: Model,
@@ -18,10 +30,12 @@ export function applyAutoFill(
   const brief: Brief = { ...b };
   const autoFilled: AutoFilled[] = [];
   /*
-   * Craft, and then the tech fields that carry an auto-fill of their own: the aspect ratio reads
-   * the purpose, and it lives in tech rather than craft on every model that has it.
+   * Craft, the tech fields that carry an auto-fill of their own, and any core field that is not
+   * the category's seed. The seed (the subject, the script, the task) is the one thing Forge
+   * will never write for anyone; a core mood or sound-kind is still craft wearing a core badge,
+   * and phase 13 let it fill like the rest.
    */
-  for (const id of [...m.craft, ...m.tech]) {
+  for (const id of [...m.core.filter((f) => !SEEDS.has(f)), ...m.craft, ...m.tech]) {
     const field = FIELDS[id];
     if (!field.autoFill || has(brief[id])) continue;
     const picked = field.autoFill(brief, m);

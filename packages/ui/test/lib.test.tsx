@@ -104,11 +104,15 @@ describe('theme', () => {
     expect(readTheme()).toBe('light');
   });
 
-  it('is a radio group that remembers the choice', async () => {
+  it('is a two-choice radio group that remembers the choice', async () => {
+    // Light and Dark only: a visitor who never chose follows the device, and the first click
+    // makes it explicit. "System" as a visible third option read as a duplicate.
     const { user, container } = setup(<ThemeToggle />);
     expect(container.querySelector('[role="radiogroup"]')).toHaveAccessibleName('Theme');
+    const radios = container.querySelectorAll('[role="radio"]');
+    expect(radios).toHaveLength(2);
     await act(async () => {
-      await user.click(must(container.querySelectorAll('[role="radio"]')[2], '[role="radio"]'));
+      await user.click(must(radios[1], '[role="radio"]'));
     });
     expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
     expect(localStorage.getItem('forge.theme')).toBe('dark');
