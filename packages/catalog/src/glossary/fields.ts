@@ -150,7 +150,7 @@ export const FIELD_COPY: Record<FieldId, Copy> = {
     when: 'Always. Every model writes this differently, which is why Forge lists only what yours takes.',
   },
   camMove: {
-    short: 'How the camera moves during the shot.',
+    short: 'Whether the frame itself travels: a push in reads intent, a static frame observes.',
     what: 'A single named camera move: a push, a pan, an orbit, a rise.',
     changes: 'The energy of the clip and what the viewer discovers when.',
     when: 'One per shot. Stacking dolly, orbit and tilt produces mush on every model.',
@@ -241,7 +241,7 @@ export const FIELD_COPY: Record<FieldId, Copy> = {
     when: 'Always. These are terms the model was trained on, so they land.',
   },
   room: {
-    short: 'The space the sound happens in.',
+    short: 'The acoustic around the sound: a booth is dry and close, a cathedral answers back.',
     what: 'The acoustics: dry booth, tiled bathroom, stairwell, cathedral.',
     changes: 'The tail, the reflections and the sense of size.',
     when: 'On sound effects and music. Never on voice design, which models the voice, not the room.',
@@ -265,7 +265,7 @@ export const FIELD_COPY: Record<FieldId, Copy> = {
     when: 'Ambience beds and anything that plays under something else.',
   },
   mGenre: {
-    short: 'The genre, or the two it sits between.',
+    short: 'The musical tradition the track belongs to, or the two it sits between.',
     what: 'The musical style, named as a genre a listener would recognise.',
     changes: 'Instrumentation, rhythm and production defaults, all at once.',
     when: 'Always. One or two. Three is a request the model cannot resolve.',
@@ -393,7 +393,7 @@ export const FIELD_COPY: Record<FieldId, Copy> = {
     when: 'Always, unless the agent can already see it.',
   },
   cScope: {
-    short: 'What to leave alone.',
+    short: 'The code the agent must not touch, named before it starts.',
     what: 'The files, directories or systems that must not be touched.',
     changes:
       'How much collateral change you get. This is the single highest-value line in agent prompting.',
@@ -464,7 +464,7 @@ export const FIELD_COPY: Record<FieldId, Copy> = {
     when: 'Always. All three deep-research modes reward this being explicit.',
   },
   rFormat: {
-    short: 'What the deliverable is.',
+    short: 'The shape the answer arrives in: a cited brief, a table, a memo.',
     what: 'A cited brief, a comparison table, a timeline, an annotated source list.',
     changes: 'The structure, and therefore how usable the result is.',
     when: 'Always. Fixing the structure up front saves a second pass.',

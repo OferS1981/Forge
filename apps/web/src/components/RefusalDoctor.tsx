@@ -138,7 +138,7 @@ export function RefusalDoctor(): React.ReactNode {
               </div>
             </section>
 
-            {prompt.trim() !== '' && (
+            {prompt.trim() !== '' && !read.codes.some((c) => c.hardLine) && (
               <section className="billet" aria-label="Bisect the prompt">
                 <div className="billet__head">
                   <h2 className="billet__title">Bisect: four runs to the trigger</h2>

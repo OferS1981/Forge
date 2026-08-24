@@ -64,7 +64,7 @@ export const SETTING_COPY: Record<string, Copy> = {
 
   // ---------- Model and mode ----------
   model: {
-    short: 'Which model or snapshot handles the request.',
+    short: 'The engine and snapshot that will answer the request.',
     what: 'The exact model identifier, usually with a dated snapshot behind it.',
     changes: 'Everything: quality, price, latency and which parameters exist.',
     when: 'Always pin it. An unpinned model changes under you.',
@@ -76,7 +76,7 @@ export const SETTING_COPY: Record<string, Copy> = {
     when: 'Always. Different jobs want different models within the same product.',
   },
   version: {
-    short: 'Which version of the model to use.',
+    short: 'Which release of the engine answers; defaults move without asking.',
     what: 'The release, where two releases behave differently enough to matter.',
     changes: 'Prompting style as well as quality: some versions want density, others want intent.',
     when: 'Always. Pin it rather than taking the default.',
@@ -445,7 +445,7 @@ export const SETTING_COPY: Record<string, Copy> = {
     when: 'Draft at standard, master at HD.',
   },
   background: {
-    short: 'Whether the background is solid or transparent.',
+    short: 'Solid ground or transparency behind the subject.',
     what: 'The alpha handling of the output.',
     changes: 'Whether you can drop the result onto something else.',
     when: 'Transparent for assets, which requires a format that carries alpha.',
@@ -538,7 +538,7 @@ export const SETTING_COPY: Record<string, Copy> = {
     when: 'Off for silent b-roll. It is billed per second and on by default here.',
   },
   audio: {
-    short: 'How the audio is produced.',
+    short: 'Whether the clip arrives with generated sound, and what kind.',
     what: 'Audio generated with the video rather than dubbed afterwards.',
     changes: 'How well the sound matches the picture.',
     when: 'On when the clip stands alone, off when it will be scored later.',
@@ -878,7 +878,7 @@ export const SETTING_COPY: Record<string, Copy> = {
     when: 'Use the exact path and extension the tool documents, or it is silently ignored.',
   },
   rules: {
-    short: 'The standing rules for the project.',
+    short: 'The standing constraints every reply must respect.',
     what: 'Conventions the tool applies to every run.',
     changes: 'Consistency across sessions.',
     when: 'Keep them short. Every line should prevent a real mistake.',

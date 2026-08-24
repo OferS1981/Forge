@@ -199,10 +199,25 @@ describe('rights', () => {
 
 describe('the refusal engine', () => {
   it('reads a Vertex RAI input code and names the layer', () => {
-    const read = parseRefusal('Blocked. Reason code: 58061214.');
-    expect(read.codes).toEqual([{ code: '58061214', category: 'Child', side: 'input' }]);
+    const read = parseRefusal('Blocked. Reason code: 61493863.');
+    expect(read.codes).toEqual([{ code: '61493863', category: 'Violence', side: 'input' }]);
     expect(read.layer).toBe('input-classifier');
     expect(diagnoseRefusal(read, null).fix).toContain('Change the word');
+  });
+
+  it('a hard-line category refuses wordsmithing outright', () => {
+    // Section 0 of the manual, binding: no vocabulary advice on child or sexual categories,
+    // whatever the layer. The legitimate routes are the documented capability ones.
+    const read = parseRefusal('Blocked. Reason code: 58061214.');
+    const d = diagnoseRefusal(read, true);
+    expect(d.name).toContain('hard line');
+    expect(d.fix).toContain('Do not rephrase around this one');
+    expect(d.fix).not.toContain('Change the word');
+  });
+
+  it('an explicit output code outranks the every-time answer', () => {
+    const read = parseRefusal('raiReason 56562880');
+    expect(diagnoseRefusal(read, true).layer).toBe('output-classifier');
   });
 
   it('reads an output code and points at the depiction', () => {
@@ -236,5 +251,42 @@ describe('the refusal engine', () => {
     const [c, d] = splitHalves('one two three four');
     expect(c).toBe('one two');
     expect(d).toBe('three four');
+  });
+});
+
+describe('the adversarial round, pinned', () => {
+  it('a baby blue car and a school of fish are not children', () => {
+    expect(compliance({ subject: 'a baby blue vintage car on a coast road' }, modelById('veo'))).toEqual([]);
+    expect(compliance({ subject: 'a school of fish turning as one' }, modelById('nanobanana'))).toEqual([]);
+  });
+
+  it('actual children still meet the wall', () => {
+    const findings = compliance({ subject: 'toddlers chasing pigeons in a square' }, modelById('veo'));
+    expect(findings.find((f) => f.id === 'google-person-generation')).toBeDefined();
+  });
+
+  it('a real person as the subject is flagged for publicity, not style', () => {
+    const findings = compliance({ subject: 'a portrait of Taylor Swift on stage' }, modelById('gptimage'));
+    const f = findings.find((x) => x.id.startsWith('proper-noun'));
+    expect(f).toBeDefined();
+    expect(f?.detail).toContain('right of publicity');
+  });
+
+  it("a possessive name is one finding, not two", () => {
+    const findings = compliance({ mGenre: ["sounds like Adele's voice"] }, modelById('suno'));
+    expect(findings.filter((f) => f.id.startsWith('proper-noun'))).toHaveLength(1);
+  });
+
+  it('suno surfaces the ownership surprise AND the retroactive export cap', () => {
+    const findings = compliance({ subject: 'a folk song about tides' }, modelById('suno'));
+    expect(findings.find((f) => f.id === 'rights-surprise')).toBeDefined();
+    expect(findings.find((f) => f.id === 'rights-export')?.detail).toContain('retroactive');
+  });
+
+  it('a "without" construction is quoted as written, never misquoted as "no"', () => {
+    const findings = compliance({ subject: 'a field without weeds under a big sky' }, modelById('sdxl'));
+    const f = findings.find((x) => x.id.startsWith('negative'));
+    expect(f?.detail).toContain('"without weeds"');
+    expect(f?.detail).not.toContain('"no weeds"');
   });
 });

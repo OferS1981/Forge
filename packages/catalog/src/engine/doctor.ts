@@ -1,4 +1,4 @@
-import { deMeta, stripBanned, wordCount } from '../compose/text';
+import { cap, deMeta, stripBanned, wordCount } from '../compose/text';
 import type { Axes, Brief, Diagnosis, Model } from '../types';
 import { VOCAB } from '../vocab';
 import { clamp, weigh } from './score';
@@ -142,11 +142,54 @@ export function diagnose(text: string, m: Model): Diagnosis {
 
 /** Turn a pasted prompt back into a brief, filling the craft layer the prompt was missing. */
 export function rebuild(text: string, m: Model): Brief {
-  const t = stripBanned(text).text;
+  /*
+   * Anything in quotation marks is someone's words: a script to be spoken, text to appear in the
+   * image. It is lifted out before the dead-weight pass so the Doctor never misquotes a patient,
+   * which would be worse than any fault it was treating.
+   */
+  const quoted = /["\u201c]([^"\u201d]{2,400})["\u201d]/.exec(text)?.[1];
+  const stripped = stripBanned(text).text;
+  /*
+   * "With no music, not crowded, without any clutter" is three exclusions living inside the
+   * description, which is the one place they do harm: a negative construction plants the flagged
+   * word in the prompt. The Doctor lifts them out here, and the category branches put them where
+   * the model can actually use them.
+   */
+  const exclusions: string[] = [];
+  const t = stripped
+    .replace(
+      /(?:^|[,;]\s*)(?:with no|without any|without|not|no)\s+([a-z][\w -]{2,24}?)(?=\s*(?:[,.;]|$))/gi,
+      (_, w: string) => {
+        exclusions.push(w.trim());
+        return '';
+      },
+    )
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\s+([,.])/g, '$1')
+    .replace(/^[,.\s]+|[,.\s]+$/g, '');
   const b: Brief = {};
   const firstClause = deMeta((t.split(/[.\n,]/)[0] ?? '').trim());
   if (m.category === 'image' || m.category === 'video') {
-    b.subject = firstClause || deMeta(t.slice(0, 140));
+    /*
+     * A pasted prompt is usually a comma wall: subject words and craft words shuffled together.
+     * The craft belongs in craft fields; everything else is the subject, and it all survives.
+     * The old build kept only the first clause, which threw away "red hair, freckles" the moment
+     * "portrait" arrived first: content loss dressed as tidiness.
+     */
+    const craftLike = (c: string): boolean =>
+      LEX.camera.test(c) ||
+      LEX.light.test(c) ||
+      LEX.colour.test(c) ||
+      LEX.comp.test(c) ||
+      /\b\d{2,3}\s?mm\b|f\/\d|film grain|bokeh|anamorphic|golden hour|blue hour|8[05]mm|\bhdr\b|dslr|4k|footage|drone shot|slow motion/i.test(
+        c,
+      );
+    const clauses = t
+      .split(/[,.\n]/)
+      .map((c) => deMeta(c.trim()))
+      .filter((c) => c.length > 1);
+    const subjectClauses = clauses.filter((c) => !craftLike(c));
+    b.subject = subjectClauses.slice(0, 5).join(', ') || firstClause || deMeta(t.slice(0, 140));
     b.medium = /paint|illustration|drawing|render|3d|vector/i.test(t)
       ? (/oil painting|illustration|3D render|flat vector/i.exec(t)?.[0] ?? 'photograph')
       : 'photograph';
@@ -170,22 +213,56 @@ export function rebuild(text: string, m: Model): Brief {
     }
     const q = /["“]([^"”]{2,40})["”]/.exec(t);
     if (q?.[1] !== undefined) b.imgtext = q[1];
-    b.avoid = 'watermarks, text artefacts, extra limbs';
+    b.avoid =
+      exclusions.length > 0 ? exclusions.join(', ') : 'watermarks, text artefacts, extra limbs';
   } else if (m.category === 'voice') {
-    b.script = t;
+    /*
+     * A voice patient is usually delivery instructions wrapped around the words to say. The
+     * quoted words become the script, exactly as typed; whatever surrounds them was describing
+     * the voice, so it becomes the voice.
+     */
+    if (quoted !== undefined) {
+      b.script = quoted;
+      const around = deMeta(
+        text
+          .replace(/["\u201c][^"\u201d]*["\u201d]/, ' ')
+          .replace(/\b(reading|saying|says|read this)\b:?/gi, ' ')
+          .replace(/\s+/g, ' ')
+          .replace(/[,:;\s]+$/, '')
+          .trim(),
+      );
+      b.voiceChar =
+        around.length > 3 ? cap(stripBanned(around).text) : 'Neutral adult voice, unhurried';
+    } else {
+      /*
+       * Unquoted text is a script only when it reads like one: sentences with interior stops. A
+       * comma wall of short tokens, or "a warm narrator voiceover", is a description of a voice,
+       * and putting a description in the mouth is the one mistake a voice tool must never make.
+       */
+      const clauses = text.split(',').map((c) => c.trim());
+      const wallish = clauses.length >= 3 && clauses.every((c) => c.split(/\s+/).length <= 3);
+      const sentence = /[.!?]\s+\S/.test(text.trim()) || /[.!?]$/.test(text.trim());
+      if (wallish || (!sentence && wordCount(text) <= 10)) {
+        b.voiceChar = cap(stripBanned(text.trim()).text);
+      } else {
+        b.script = text.trim();
+        b.voiceChar = 'Neutral adult voice, unhurried';
+      }
+    }
     b.useCase = 'Corporate narration';
     b.vTone = ['warm'];
-    b.voiceChar = 'Neutral adult voice, unhurried';
   } else if (m.category === 'music') {
     b.mGenre = [VOCAB.genre.find((g) => t.toLowerCase().includes(g)) ?? 'ambient'];
     b.mMood = ['calm'];
     b.mBpm = '100';
     b.mVocal = 'Instrumental';
     b.mStruct = t;
+    if (exclusions.length > 0) b.mExclude = exclusions.join(', ');
   } else if (m.category === 'sfx') {
     b.sound = t;
     b.sfxKind = 'foley';
     b.room = 'treated booth';
+    if (exclusions.length > 0) b.avoid = exclusions.join(', ');
   } else if (m.category === 'code') {
     b.cTask = t;
     b.cCheck = 'the existing test suite passes';

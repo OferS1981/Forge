@@ -15,3 +15,4 @@ next-env.d.ts
 *.tsbuildinfo
 catalog-refresh
 battle-losses.txt
+doctor-losses.txt

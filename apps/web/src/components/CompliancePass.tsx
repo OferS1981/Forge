@@ -39,8 +39,8 @@ export interface CompliancePassProps {
   brief: Brief;
   model: Model;
   onOpenField: (field: FieldId) => void;
-  /** Replace a field's value with the composed attributes from the scaffold. */
-  onReplaceField: (field: FieldId, value: string) => void;
+  /** Replace a field's value with the chosen attributes: one string per filled axis. */
+  onReplaceField: (field: FieldId, values: string[]) => void;
 }
 
 export function CompliancePass({
@@ -123,8 +123,8 @@ export function CompliancePass({
               {scaffoldFor !== null && scaffoldFor.id === f.id && f.decompose !== undefined && (
                 <Scaffold
                   finding={f}
-                  onApply={(value) => {
-                    if (f.field !== undefined) onReplaceField(f.field, value);
+                  onApply={(values) => {
+                    if (f.field !== undefined) onReplaceField(f.field, values);
                     dismiss(f.id);
                   }}
                   onClose={() => {
@@ -150,7 +150,7 @@ function Scaffold({
   onClose,
 }: {
   finding: ComplianceFinding;
-  onApply: (value: string) => void;
+  onApply: (values: string[]) => void;
   onClose: () => void;
 }): React.ReactNode {
   const spec: AttributeScaffold | null = useMemo(
@@ -194,7 +194,7 @@ function Scaffold({
           size="sm"
           disabled={filled.length === 0}
           onClick={() => {
-            onApply(filled.join(', '));
+            onApply(filled);
           }}
         >
           Use these {String(filled.length)} dials

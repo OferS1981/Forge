@@ -76,7 +76,7 @@ export function stripBanned(t: string | null | undefined): Stripped {
   let out = t;
   const removed: string[] = [];
   for (const w of BANNED) {
-    const re = new RegExp('(^|[,;.\\s])' + escapeRegExp(w) + '(?=$|[,;.\\s])', 'gi');
+    const re = new RegExp('(^|[,;.!?:\\s(])' + escapeRegExp(w) + '(?=$|[,;.!?:\\s)])', 'gi');
     if (re.test(out)) {
       removed.push(w);
       out = out.replace(re, '$1');

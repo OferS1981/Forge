@@ -38,9 +38,9 @@ production era, genre, and genres are genres, not people.
 
 When a name slips into a brief anyway, the Compliance Pass offers this same scaffold in place:
 fill the axes you can see, and the prompt improves as the finding clears. If you want a consistent
-look across a set, the sanctioned mechanisms, your own reference images, a random style code ,
-do it with no name at all.
+look across a set, the sanctioned mechanisms do it with no name at all: your own reference
+images, or a random style code.
 
-Try it: the brief below is the fox, fully decomposed. Strike it, then change one axis at a time ,
-the palette, the crop, the line, and watch each dial move independently. That independence is the
+Try it: the brief below is the fox, fully decomposed. Strike it, then change one axis at a time
+(the palette, the crop, the line) and watch each dial move independently. That independence is the
 thing the name could never give you.

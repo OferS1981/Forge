@@ -68,3 +68,23 @@ describe('glossary coverage', () => {
     }
   });
 });
+
+describe('glossary quality', () => {
+  it('never defines a word with itself', () => {
+    // "Genre: the genre" teaches nothing. A label with a meaningful head word may not appear
+    // verbatim inside its own one-line definition.
+    for (const t of TERM_LIST) {
+      const label = t.label.toLowerCase();
+      const head = label.split(' ')[0] ?? '';
+      if (head.length <= 4) continue;
+      expect(t.short.toLowerCase().includes(label), `${t.id} defines "${t.label}" with itself`).toBe(false);
+    }
+  });
+
+  it('keeps every one-line definition one line', () => {
+    for (const t of TERM_LIST) {
+      expect(t.short.length, `${t.id} short is an essay`).toBeLessThanOrEqual(120);
+      expect(/[.!?]$/.test(t.short.trim()), `${t.id} short does not end`).toBe(true);
+    }
+  });
+});

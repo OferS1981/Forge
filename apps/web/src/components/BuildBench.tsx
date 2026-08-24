@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   CATEGORIES,
+  FIELDS,
   clarify,
   findModel,
   forge,
@@ -233,8 +234,10 @@ export function BuildBench(): React.ReactNode {
           brief={brief}
           model={model}
           onOpenField={openField}
-          onReplaceField={(field, value) => {
-            setField(model.id, field, value);
+          onReplaceField={(field, values) => {
+            // A chips field takes the axes as separate chips; a text field takes one sentence.
+            const def = FIELDS[field];
+            setField(model.id, field, def.type === 'chips' ? values : values.join(', '));
             openField(field);
           }}
         />

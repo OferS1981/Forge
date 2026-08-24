@@ -107,13 +107,17 @@ test('the refusal doctor reads a Vertex code and names the layer', async ({ page
   await page
     .locator('#refusal-error')
     .fill('The prompt could not be submitted. Support code: 58061214.');
+  // A prompt is supplied, so the bisect WOULD show; the hard-line gate is what keeps it away.
+  await page.locator('#refusal-prompt').fill('A child in a park. Golden light.');
   await page.getByRole('button', { name: 'Diagnose the refusal' }).click();
 
   const out = page.getByRole('region', { name: 'The refusal, diagnosed' });
   await expect(out).toContainText('58061214');
   await expect(out).toContainText('Child, blocked on the prompt');
-  await expect(out).toContainText('lexical and shallow');
-  await expect(out).toContainText('Change the word');
+  await expect(out).toContainText('hard line, not a phrasing problem');
+  await expect(out).toContainText('Do not rephrase around this one');
+  // And the bisect never offers itself against a hard-line category.
+  await expect(out.getByRole('button', { name: 'Start the bisect' })).toHaveCount(0);
 });
 
 test('the refusal doctor is honest where there is no appeal path', async ({ page }) => {

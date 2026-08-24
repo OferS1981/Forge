@@ -62,7 +62,10 @@ function properNouns(brief: Brief): Hit[] {
   const hits: Hit[] = [];
   const seen = new Set<string>();
   const push = (field: FieldId, name: string, construction: string): void => {
-    const clean = name.trim().replace(/[.,;:]+$/, '');
+    const clean = name
+      .trim()
+      .replace(/[.,;:]+$/, '')
+      .replace(/['\u2019]s$/, '');
     if (CRAFT_PHRASES.test(clean)) return;
     const key = clean.toLowerCase();
     if (seen.has(key)) return;
@@ -91,6 +94,20 @@ function properNouns(brief: Brief): Hit[] {
     for (const m of value.matchAll(bare))
       push(field, m[1] ?? '', 'a name where a description goes');
   }
+  /*
+   * A person named as the subject is the highest-exposure case of all: right of publicity, not
+   * copyright, and consent is the only clean path. Detected only behind a person-ish preposition
+   * ("a portrait of Taylor Swift"), so Tower Bridge in a wide shot stays unflagged; when a place
+   * does match, the finding's own copy says to dismiss it.
+   */
+  const asSubject = new RegExp(
+    String.raw`\b(?:of|featuring|as|starring|played by)\s+(${NAME})\b`,
+    'g',
+  );
+  for (const { field, value } of text(brief, SUBJECT_FIELDS)) {
+    for (const m of value.matchAll(asSubject))
+      push(field, m[1] ?? '', 'a real name as the subject');
+  }
   return hits;
 }
 
@@ -102,8 +119,15 @@ const NEGATIVE_IN_PROSE = /\b(?:no|without|don't show|do not show|never)\s+([a-z
 const INTENSIFIERS =
   /\b(horrific(?:ally)?|brutal(?:ly)?|gruesome(?:ly)?|massively|insanely|blood-soaked|ultra-violent|nightmarish|shocking(?:ly)?)\b/i;
 
+/*
+ * Words that mean a human child, and only that. "School" is out (a school of fish, art school),
+ * "family" is out (a family restaurant), "teen" alone is out, and "baby" only counts when it is
+ * not painting something baby blue or naming a baby grand. The rule of the whole pass is that a
+ * false flag interrupting a legitimate prompt is worse than a miss, and this finding is the one
+ * that says "no rewrite exists", so it earns the narrowest net in the file.
+ */
 const PEOPLE_WORDS =
-  /\b(child|children|kid|kids|toddler|baby|babies|teen(?:ager)?s?|school|family|families)\b/i;
+  /\b(child|children|kids?\b|toddlers?|teenagers?|schoolchildren|minors|bab(?:y|ies)(?!\s+(?:blue|pink|grand|steps)))\b/i;
 const DOMESTIC_TRIPS = /\b(shower(?:ing)?|bathtub|bathing|on the toilet|toilet|bathroom)\b/i;
 const FACE_WORDS =
   /\b(face|portrait|person|people|man|woman|presenter|close-up of (?:a|the) (?:man|woman|person))\b/i;
@@ -136,7 +160,7 @@ export function compliance(brief: Brief, model: Model): ComplianceFinding[] {
           ? 'caution'
           : 'note',
       title: `"${hit.name}" is one dial you cannot turn`,
-      detail: `You wrote ${hit.construction === 'a name where a description goes' ? `"${hit.name}" where the grammar expects a description` : `${hit.construction} "${hit.name}"`}. ${vendor} If ${hit.name} is a movement, a place or a technique, dismiss this. If it is a person, a studio or a song, the look it names is really eight or nine attributes, and each one is a dial you can turn.`,
+      detail: `You wrote ${hit.construction === 'a name where a description goes' ? `"${hit.name}" where the grammar expects a description` : hit.construction === 'a real name as the subject' ? `"${hit.name}" as the subject. If that is a real person, style is not the issue: a face or a voice is governed by the right of publicity, and consent is the only clean path` : `${hit.construction} "${hit.name}"`}. ${vendor} If ${hit.name} is a movement, a place or a technique, dismiss this. If it is a person, a studio or a song, the look it names is really eight or nine attributes, and each one is a dial you can turn.`,
       field: hit.field,
       decompose: { term: hit.name, category },
     });
@@ -168,7 +192,7 @@ export function compliance(brief: Brief, model: Model): ComplianceFinding[] {
         id: `negative:${field}`,
         severity: 'note',
         title: `"${m[0]}" says what is absent`,
-        detail: `A negative construction puts the flagged word in the prompt: "no ${m[1] ?? ''}" contains "${(m[1] ?? '').split(' ')[0] ?? ''}". Every vendor that publishes prompting guidance says the same thing for quality reasons: describe what is there instead. The avoid field exists for models with a real negative parameter.`,
+        detail: `A negative construction puts the flagged word in the prompt: "${m[0]}" contains "${(m[1] ?? '').split(' ')[0] ?? ''}". Every vendor that publishes prompting guidance says the same thing for quality reasons: describe what is there instead. The avoid field exists for models with a real negative parameter.`,
         rewrite: 'Replace it with a positive description of what should be there instead.',
         field,
       });
@@ -267,7 +291,10 @@ export function compliance(brief: Brief, model: Model): ComplianceFinding[] {
           : 'Who owns the output here is genuinely unclear',
       detail: rightsBlock.ownershipNote ?? rightsBlock.commercialUse,
     });
-  } else if (rightsBlock.exportEntitlement !== undefined) {
+  }
+  // Not an else: Suno is tier-dependent AND gates exports retroactively, and the export cap is
+  // exactly the surprise this pass exists to deliver before the work is made.
+  if (rightsBlock.exportEntitlement !== undefined) {
     findings.push({
       id: 'rights-export',
       severity: 'caution',

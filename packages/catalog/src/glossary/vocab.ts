@@ -107,13 +107,13 @@ export const VOCAB_COPY: Record<VocabBank, Copy> = {
     when: 'Always. Using the trained term is worth more than describing the shape in your own words.',
   },
   room: {
-    short: 'The space the sound happens in.',
+    short: 'The acoustic around the sound: a booth is dry and close, a cathedral answers back.',
     what: 'The acoustics, from a treated booth through to a cathedral or open air.',
     changes: 'The reflections and the tail, which is most of the sense of scale.',
     when: 'On sound effects and music. Never on voice design: that models the voice, and room words break it.',
   },
   mic: {
-    short: 'How the sound was captured.',
+    short: 'The microphone story: how close, how coloured, how clean.',
     what: 'The microphone and the distance, both of which are audible.',
     changes: 'Brightness, proximity and how present the source feels in a mix.',
     when: 'When it has to sit under something else rather than stand alone.',

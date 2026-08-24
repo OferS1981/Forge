@@ -329,6 +329,39 @@ export const VOCAB: Record<VocabBank, readonly string[]> = {
     'amazing',
     'perfect',
     'intricate details',
+    /*
+     * The quality pass of phase 13 added three classes the prototype never met, each learned from
+     * a doctor round. Conversational filler: words spoken to a human out of politeness, which a
+     * model reads as tokens. Empty amplifiers: adjectives that admire the result instead of
+     * describing it. Camera-bragging tokens: settings that belong in the settings, not the prompt.
+     * "Cool" and "epic" are deliberately absent: cool is a colour temperature and epic is a
+     * register a person can genuinely mean.
+     */
+    'please',
+    'thank you',
+    'thanks in advance',
+    'in advance',
+    'i would appreciate',
+    'would really appreciate',
+    'if possible',
+    'basically',
+    'kind of',
+    'sort of',
+    'you know',
+    'i guess',
+    'nice',
+    'breathtaking',
+    'jaw-dropping',
+    'insanely',
+    'absolutely',
+    'incredible',
+    'gorgeous',
+    'hdr',
+    'sharp focus',
+    'high resolution',
+    'high quality',
+    'professional quality',
+    'dslr',
   ],
 };
 

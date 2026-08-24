@@ -59,7 +59,7 @@ for (const theme of ['light', 'dark']) {
   test(`the refusal doctor has no axe violations: ${theme}`, async ({ page }) => {
     await page.goto('/doctor');
     await page.getByRole('tab', { name: 'Refusal Doctor' }).click();
-    await page.locator('#refusal-error').fill('Support code: 58061214.');
+    await page.locator('#refusal-error').fill('Support code: 61493863.');
     await page
       .locator('#refusal-prompt')
       .fill('A rubber duck on a white background. Soft studio light.');

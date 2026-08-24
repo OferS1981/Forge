@@ -10,12 +10,19 @@ export interface RaiCode {
   code: string;
   category: string;
   side: 'input' | 'output';
+  /**
+   * A category the vendor treats as a hard line with no adjustable setting: child safety and
+   * sexual content. For these, "change the word" is never the advice, because making a prohibited
+   * request illegible to a classifier is evasion, and the manual's section 0 is a product rule.
+   * The legitimate routes are the documented capability ones, so that is all the doctor offers.
+   */
+  hardLine?: true;
 }
 
 /** Vertex RAI codes, from the manual's section 2 table. Google is the only major platform that names what fired. */
 export const RAI_CODES: readonly RaiCode[] = [
-  { code: '58061214', category: 'Child', side: 'input' },
-  { code: '17301594', category: 'Child', side: 'output' },
+  { code: '58061214', category: 'Child', side: 'input', hardLine: true },
+  { code: '17301594', category: 'Child', side: 'output', hardLine: true },
   { code: '29310472', category: 'Celebrity', side: 'input' },
   { code: '15236754', category: 'Celebrity', side: 'output' },
   { code: '62263041', category: 'Dangerous content', side: 'input' },
@@ -26,14 +33,14 @@ export const RAI_CODES: readonly RaiCode[] = [
   { code: '89371032', category: 'Prohibited content', side: 'input' },
   { code: '49114662', category: 'Prohibited content', side: 'output' },
   { code: '72817394', category: 'Prohibited content', side: 'output' },
-  { code: '90789179', category: 'Sexual', side: 'input' },
-  { code: '63429089', category: 'Sexual', side: 'output' },
-  { code: '43188360', category: 'Sexual', side: 'output' },
+  { code: '90789179', category: 'Sexual', side: 'input', hardLine: true },
+  { code: '63429089', category: 'Sexual', side: 'output', hardLine: true },
+  { code: '43188360', category: 'Sexual', side: 'output', hardLine: true },
   { code: '78610348', category: 'Toxic', side: 'input' },
   { code: '61493863', category: 'Violence', side: 'input' },
   { code: '56562880', category: 'Violence', side: 'output' },
   { code: '32635315', category: 'Vulgar', side: 'input' },
-  { code: '64151117', category: 'Celebrity or child', side: 'input' },
+  { code: '64151117', category: 'Celebrity or child', side: 'input', hardLine: true },
   { code: '35561574', category: 'Third-party content', side: 'input' },
   { code: '35561575', category: 'Third-party content', side: 'input' },
 ];
@@ -91,20 +98,41 @@ export function diagnoseRefusal(
       fix: 'No rewrite fixes this. Check the regional rules and the supported settings, request allowlisting where a path exists, or use a different model.',
     };
   }
-  if (read.layer === 'input-classifier' || deterministic === true) {
+  /*
+   * A hard-line category never gets vocabulary advice. If the request is legitimate (a family
+   * photo, a paediatric illustration), the fix is the documented capability route; if it is not,
+   * there is no fix and this tool is not going to look for one. Section 0 of the manual is a
+   * product rule, and this is where it binds.
+   */
+  if (read.codes.some((c) => c.hardLine)) {
+    const cat = read.codes.find((c) => c.hardLine)?.category ?? 'this category';
     return {
-      layer: 'input-classifier',
-      name: 'The input classifier: lexical and shallow',
-      sees: 'Tokens, not meaning. It never had your context, so adding context does nothing.',
-      fix: 'Change the word. Bisect to find the one token with a second meaning, then replace it with a more precise synonym, which improves the prompt as well as unblocking it.',
+      layer: read.codes.some((c) => c.hardLine && c.side === 'input')
+        ? 'input-classifier'
+        : 'output-classifier',
+      name: `${cat}: a hard line, not a phrasing problem`,
+      sees: 'A category the vendor blocks unconditionally, with no adjustable setting.',
+      fix: 'Do not rephrase around this one. If the request is legitimate, the routes are the documented ones: personGeneration and its regional rules, project allowlisting, or a vendor whose policy permits the subject. Wordsmithing a blocked category is evasion, and this tool does not do that.',
     };
   }
+  /*
+   * An explicit code outranks the coarse "does it fail every time" answer: the vendor named the
+   * layer, and a deterministic output-side block is still an output-side block.
+   */
   if (read.layer === 'output-classifier') {
     return {
       layer: 'output-classifier',
       name: 'The output classifier: it saw the picture, not your prompt',
       sees: 'The generated result, sometimes alongside the input. Not your stated purpose.',
       fix: "Change the depiction or the settings: name the medium (illustration and painting are policy-different from photograph), state the register, and check the vendor's supported moderation setting.",
+    };
+  }
+  if (read.layer === 'input-classifier' || deterministic === true) {
+    return {
+      layer: 'input-classifier',
+      name: 'The input classifier: lexical and shallow',
+      sees: 'Tokens, not meaning. It never had your context, so adding context does nothing.',
+      fix: 'Change the word. Bisect to find the one token with a second meaning, then replace it with a more precise synonym, which improves the prompt as well as unblocking it.',
     };
   }
   if (deterministic === false) {

@@ -54,12 +54,37 @@ export function filledFields(brief: Brief): FieldId[] {
 const STRIPPED_WARNING =
   'These are SD1.5-era booru tags. On every 2026 model they consume tokens without steering, and on Midjourney they add style noise.';
 
+/**
+ * Fields whose text is someone's words to be performed, not a description to be tightened. A
+ * script saying "what a beautiful morning" means those words; stripping them is not editing, it
+ * is misquoting. Dead weight is removed from every descriptive field and never from these.
+ */
+const VERBATIM_FIELDS = new Set<FieldId>(['script', 'mLyrics']);
+
+/** Strip the dead-weight vocabulary from every descriptive field, before any grammar sees it. */
+function stripBrief(b: Brief): { brief: Brief; removed: string[] } {
+  const out: Brief = {};
+  const removed: string[] = [];
+  for (const [key, value] of Object.entries(b) as [FieldId, string | string[]][]) {
+    if (VERBATIM_FIELDS.has(key) || typeof value !== 'string') {
+      out[key] = value as never;
+      if (Array.isArray(value)) out[key] = value as never;
+      continue;
+    }
+    const clean = stripBanned(value);
+    out[key] = clean.text as never;
+    for (const w of clean.removed) if (!removed.includes(w)) removed.push(w);
+  }
+  return { brief: out, removed };
+}
+
 /** The strike. Deterministic, no I/O, same input gives the same prompt every time. */
 export function forge(brief: Brief, model: Model, mode: Mode = 'advanced'): ForgeResult {
-  const { brief: b, autoFilled } = applyAutoFill(brief, model, mode);
+  const { brief: filled, autoFilled } = applyAutoFill(brief, model, mode);
+  const { brief: b, removed } = stripBrief(filled);
   const composer = COMPOSERS[model.grammar];
   const composed = composer(b, model);
-  const clean = stripBanned(composed.flat);
+  const clean = { text: composed.flat, removed };
   const warnings = [...model.warnings];
   if (clean.removed.length)
     warnings.unshift(

@@ -122,7 +122,9 @@ test('a visited page answers offline, from the service worker', async ({ page, c
   // The worker's contract: what you used while online answers when you are not. Visit two pages,
   // cut the cord, and both still open, engine included.
   await page.goto('/');
-  await page.waitForFunction(() => navigator.serviceWorker.controller !== null || true);
+  await page.waitForFunction(() => navigator.serviceWorker.controller !== null, undefined, {
+    timeout: 10_000,
+  });
   await page.goto('/doctor');
   await page.waitForLoadState('networkidle');
   await page.goto('/');

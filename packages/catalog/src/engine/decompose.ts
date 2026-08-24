@@ -2,7 +2,7 @@ import type { CategoryId } from '../types';
 
 /**
  * The decomposition method, manual section 5.4: if you can only name the effect by naming a
- * person, you have not finished describing it yet. Given a name, return the attribute scaffold ,
+ * person, you have not finished describing it yet. Given a name, return the attribute scaffold,
  * the eight visual axes or the nine audio ones, so the person can answer the question the name
  * was hiding. The prompt gets better and the finding clears at the same time. This is the feature
  * that makes the Compliance Pass a craft tool rather than a compliance nag.

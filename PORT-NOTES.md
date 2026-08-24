@@ -236,3 +236,25 @@ and flips it to `false`, at which point a stub fails the build.
   differences. Shared objects, not copies, so a correction lands everywhere at once.
 - **deepresearch** is populated as "whichever lab ran it", not as a vendor sheet, and is exempt
   from the block-sources invariant alongside the wildcards.
+
+## Phase 13 rounds (the doctor's judge and the adversarial review)
+
+- **The Doctor gets a judge**: scripts/judge-doctor.mjs, ten hostile patients per category, 570
+  consultations a round. Its first run caught a real product bug latent since phase 1: dead-weight
+  stripping ran on the composed flat, scripts included, so "a beautiful day" spoken aloud became
+  "a day". Stripping now happens per-field before composing, and never on script or mLyrics.
+- **The banned bank grew 18 to 43**: conversational filler, empty amplifiers and camera-bragging
+  tokens, each learned from a doctor round. "Cool" and "epic" deliberately excluded (colour
+  temperature; a register someone can mean).
+- **rebuild() taught three things** (sanctioned deviation from the prototype, tests updated from
+  byte-parity to behaviour): a comma wall keeps all its subject words; quoted words become the
+  script verbatim; a voice description is never put in anyone's mouth; exclusions inside prose
+  ("with no music") move to the avoid/mExclude field.
+- **The adversarial review (fresh-context agent, phase-13 diff only) found 11; 10 accepted, 1
+  modified**: PEOPLE_WORDS narrowed (a school of fish is not a child); scaffold now applies chips
+  to chip fields; an explicit RAI output code outranks the "every time" answer; hard-line
+  categories (child, sexual) refuse wordsmithing outright and hide the bisect, which is section 0
+  binding in code; bare celebrity subjects flagged behind person-prepositions; possessives dedup;
+  the SW asset cache is bounded; the export-cap finding no longer masked by the ownership one; a
+  test that could not fail now can; misquotes and comma artifacts fixed. Rejected: removing the
+  bisect itself, which the manual and the plan both mandate; the guardrail was the right fix.

@@ -41,6 +41,12 @@ self.addEventListener('fetch', (event) => {
           const cache = await caches.open(ASSETS);
           try {
             await cache.put(event.request, fresh.clone());
+            // Hashed chunks change name every deploy, so the cache only ever grows. A janitor
+            // keeps it bounded: past 150 entries the oldest go, which after a few deploys means
+            // the chunks no page references any more.
+            const keys = await cache.keys();
+            for (const old of keys.slice(0, Math.max(0, keys.length - 150)))
+              await cache.delete(old);
           } catch {
             // A full or evicted cache is not a reason to fail the page.
           }

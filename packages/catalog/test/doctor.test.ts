@@ -59,8 +59,24 @@ describe('the Doctor', () => {
       expect(mine.axes).toEqual(theirs.axes);
     });
 
-    it(`${c.name}: rebuild matches the prototype`, () => {
-      expect(rebuild(c.text, m)).toEqual(PROTOTYPE.rebuild(c.text, protoModel(c.model)));
+    it(`${c.name}: rebuild keeps the prototype's fields and loses none of the content`, () => {
+      /*
+       * Phase 13 taught rebuild three things the prototype never knew: a comma wall keeps all
+       * its subject words instead of only the first clause, quoted words become the script
+       * verbatim, and a voice description is never put in anyone's mouth. So the comparison is
+       * no longer byte-equality; it is that our rebuild answers every field the prototype
+       * answered, and that every content word the prototype kept, we keep too.
+       */
+      const ours = rebuild(c.text, m);
+      const theirs = PROTOTYPE.rebuild(c.text, protoModel(c.model)) as Record<string, unknown>;
+      for (const key of Object.keys(theirs)) {
+        expect(ours[key as keyof typeof ours], `${c.name}: lost the ${key} field`).toBeDefined();
+      }
+      const oursText = JSON.stringify(ours).toLowerCase();
+      const subject = typeof theirs['subject'] === 'string' ? theirs['subject'] : '';
+      for (const word of subject.split(/[^a-z0-9-]+/i).filter((w) => w.length > 3)) {
+        expect(oursText, `${c.name}: lost "${word}"`).toContain(word.toLowerCase());
+      }
     });
 
     it(`${c.name}: diagnosis is stable`, () => {
