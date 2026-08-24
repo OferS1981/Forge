@@ -64,9 +64,10 @@ const SHOTLIST_FIXED = new Set(['kling', 'ltx']);
 /*
  * The JSON grammar worked its medium out twice with two different defaults, so a brief that named
  * no medium produced an object whose `style_description` said "photograph" and whose `art_style`
- * said "illustration", and it sent `palette` as an empty string. Ideogram reads that object
+ * said "illustration", and it sent two keys as empty strings. Ideogram reads that object
  * structurally, so the deviation is scoped to the object: it must still parse, still carry the same
- * description, and now name one medium instead of two.
+ * description, and now name one medium instead of two. Where the prototype sent an empty string,
+ * ours sends the same placeholder the prose grammars use.
  */
 const JSON_FIXED = new Set(['ideogram']);
 
@@ -137,7 +138,11 @@ describe('parity with the prototype', () => {
             const mineJson = JSON.parse(mine.flat) as JsonPrompt;
             const theirsJson = JSON.parse(theirs.flat) as JsonPrompt;
             // The description a person reads is untouched. Only the contradiction is gone.
-            expect(mineJson.high_level_description).toEqual(theirsJson.high_level_description);
+            expect(mineJson.high_level_description).toEqual(
+              theirsJson.high_level_description === ''
+                ? 'the subject'
+                : theirsJson.high_level_description,
+            );
             expect(mineJson.style_description).toEqual(theirsJson.style_description);
             expect(mineJson.compositional_deconstruction).toEqual(
               theirsJson.compositional_deconstruction,

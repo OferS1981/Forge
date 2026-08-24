@@ -251,5 +251,7 @@ describe('the JSON grammar', () => {
     };
     walk(parse({ subject: 'a boxer', setting: 'a gym' }), 'root');
     walk(parse({ subject: 'a boxer', medium: 'oil painting' }), 'root');
+    // Including the empty brief, which is where the last empty string was hiding.
+    walk(parse({}), 'root');
   });
 });

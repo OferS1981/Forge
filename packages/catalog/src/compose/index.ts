@@ -111,10 +111,15 @@ const json: Composer = (b) => {
    * slip: it is two contradictory instructions in one prompt.
    */
   const medium = has(b.medium) ? (b.medium ?? '') : 'photograph';
+  /*
+   * The same placeholder the prose grammars use rather than an empty string. An object key with
+   * nothing behind it is not a description, and Ideogram has to decide what to do with it.
+   */
+  const described = [stripDot(b.subject), has(b.setting) ? stripDot(b.setting) : '']
+    .filter(has)
+    .join(', ');
   const o: Record<string, unknown> = {
-    high_level_description: [stripDot(b.subject), has(b.setting) ? stripDot(b.setting) : '']
-      .filter(has)
-      .join(', '),
+    high_level_description: described.length > 0 ? described : 'the subject',
     style_description: [medium, camClause(b), lightClause(b), finishClause(b)]
       .filter(has)
       .join('. '),

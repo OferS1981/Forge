@@ -80,10 +80,36 @@ listed deviation or a note for a later phase.
     `photograph` while its `art_style.medium` defaulted to `illustration`, so one object carried two
     contradictory instructions, and it sent `palette` as an empty string. The medium is decided once
     now, and an empty key is left out.
+
 11. **Category colours moved to token names.** `categories.ts` stores `--cat-image` and so on. The
     hexes move into the `packages/ui` token file in phase 2, because no colour may live outside it.
 
 ## Things in the prototype I think are wrong, left as they are
+
+- **The intended-use clause is a label, not a sentence.** `imageSections` emits
+  `<purpose>: keep the focal subject clear of the outer eighth of the frame.` In a prose grammar
+  that lands mid-paragraph as `...austere in feeling. editorial: keep the focal subject clear of
+the outer eighth of the frame.`, which reads like a leaked internal note rather than a brief.
+  "For editorial use, so keep the focal subject clear of the outer eighth of the frame" would carry
+  the same instruction as prose. This is a wording disagreement rather than a defect, so it is here
+  rather than in the data.
+- **The sound-effects placeholder is not a sentence.** An empty brief gives
+  `The sound, calm, high-quality, professionally recorded, sound effects foley`. Every other
+  grammar's placeholder is a usable instruction: "Write the line you want spoken here", "State the
+  task here". "The sound," is neither a placeholder nor a description.
+- **The aspect ratio ignores the stated purpose.** A brief that says it is for editorial use still
+  gets `--ar 1:1`, where a person would reach for 4:5 or 3:2, and one that says Instagram story
+  still gets 1:1 rather than 9:16. `purpose` already changes the framing note, so the information
+  is there and unused. This is a missing auto-fill rather than a wrong one, so it is a feature.
+- **The mood follows the purpose and ignores the subject.** `purpose: social` auto-fills
+  `mood: playful` and `pacing: escalating`, which for "a retired boxer taping his hands, a basement
+  gym at 6am" produces "Playful in feeling. Escalating." A person would not write that. The
+  auto-fill reads one field where it needs two.
+- **Seven video models share one prompt, byte for byte.** Veo, Seedance, Runway, Luma, Higgsfield,
+  Wan and the wildcard all emit the same string, and four image models do the same. Sharing a
+  grammar is legitimate and the settings do differ, but the product's claim is that each is written
+  in its own model's grammar, and Runway and Veo document different orders. Splitting them needs
+  vendor sources, which is what the refresh pipeline is for.
 
 - **`el-tts` length warning names ElevenLabs by brand.** The under-250-character warning text says
   "ElevenLabs document that..." and it is emitted for Cartesia, Hume and the voice wildcard too.
