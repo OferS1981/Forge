@@ -198,6 +198,13 @@ export interface Model {
    * source.
    */
   structureTags?: true;
+  /**
+   * The vendor's documented content rules, one paragraph in the vendor's own terms, shown only
+   * when the person turns policy notes on. Never a filter and never a judgement: Forge does not
+   * scan anyone's brief, it repeats what the vendor's own page says and links it. Set only where
+   * a policy page was actually read, with that page in `sources`.
+   */
+  policy?: string;
   /** Warn when the spoken script is shorter than this many characters. */
   lengthWarningBelow?: number;
   /** Match: how this model does on vertical video. */

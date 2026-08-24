@@ -192,4 +192,13 @@ export function useInvite(): [boolean, (next: boolean) => void] {
   return usePersisted<boolean>('invite-dismissed', false, isBool);
 }
 
+/**
+ * Whether to show the vendor's documented content rules beside a forged prompt. Off by default:
+ * it is the vendor's page repeated with a link, never a scan of anyone's brief, and people who
+ * know the rules should not have to read them twice.
+ */
+export function usePolicyNotes(): [boolean, (next: boolean) => void] {
+  return usePersisted<boolean>('policy-notes', false, isBool);
+}
+
 const isBool = (v: unknown): v is boolean => typeof v === 'boolean';

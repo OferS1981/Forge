@@ -1689,3 +1689,43 @@ a {
   text-transform: uppercase;
   color: var(--ember-text);
 }
+
+/* The questions a senior would ask, above the strike. Phase: the good-to-great preparation. */
+.asks {
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--ember);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+.asks__title {
+  margin: 0 0 var(--sp-2);
+  font-family: var(--f-display);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.asks__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-2);
+}
+.asks__open {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ember-text);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  text-align: left;
+}
+.asks__why {
+  font-size: var(--t-xs);
+  color: var(--ink-dim);
+}

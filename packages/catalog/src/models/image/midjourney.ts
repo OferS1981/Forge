@@ -95,7 +95,14 @@ export const midjourney: Model = {
     { tag: 'photoreal', weight: 2 },
     { tag: 'character-consistency', weight: 2 },
   ],
+  policy:
+    "Midjourney's community guidelines require PG-13 content: no gore, which their page defines down to detached body parts and blood, no adult content, no imagery of real people that could harass, defame or harm, and nothing visually shocking. Some text and image inputs are blocked automatically, and violations can mean a time-out or a block.",
   sources: [
+    {
+      url: 'https://docs.midjourney.com/hc/en-us/articles/32013696484109-Community-Guidelines',
+      title: 'Community Guidelines',
+      publisher: 'Midjourney',
+    },
     {
       url: 'https://docs.midjourney.com/hc/en-us/articles/32859204029709-Parameter-List',
       title: 'Parameter List',

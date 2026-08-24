@@ -8,3 +8,5 @@ export { recommend, translate } from './recommend';
 export { AXES, clamp, score, weigh } from './score';
 export type { Axis } from './score';
 export { variations } from './variations';
+export { clarify } from './clarify';
+export type { Question } from './clarify';

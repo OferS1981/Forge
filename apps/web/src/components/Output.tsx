@@ -26,6 +26,8 @@ export interface OutputProps {
   onOpenField?: ((field: FieldId) => void) | undefined;
   /** Keeping and sharing, where a workspace has a brief behind the result to keep. */
   keep?: React.ReactNode | undefined;
+  /** Show the vendor's documented content rules, when the person turned them on. */
+  policyNotes?: boolean | undefined;
 }
 
 /** A settings row links to the explanation of the real parameter, per section 9. */
@@ -124,6 +126,7 @@ export function Output({
   showScore = true,
   onOpenField,
   keep,
+  policyNotes = false,
 }: OutputProps): React.ReactNode {
   const advanced = mode === 'advanced';
   const label = scoreLabel(result.score);
@@ -278,6 +281,18 @@ export function Output({
             )}
           </Billet>
         </div>
+      )}
+
+      {policyNotes && model.policy !== undefined && (
+        <Billet title="The vendor's content rules">
+          <p className="billet__note">{model.policy}</p>
+          {model.sources[0] !== undefined && (
+            <p className="billet__note">
+              Their own page: <a href={model.sources[0].url}>{model.sources[0].title}</a>,{' '}
+              {model.sources[0].publisher}.
+            </p>
+          )}
+        </Billet>
       )}
 
       {result.notes.length > 0 && (

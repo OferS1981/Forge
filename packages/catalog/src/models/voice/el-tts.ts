@@ -94,7 +94,14 @@ export const elTts: Model = {
     { tag: 'speed-cost', weight: 1 },
     { tag: 'non-english-text', weight: 2 },
   ],
+  policy:
+    "Cloned voices on ElevenLabs may only be of yourself: their voice-cloning page says that even with consent you cannot clone someone else's voice, and professional clones are verified by reading lines aloud. Stock and designed voices carry no such restriction.",
   sources: [
+    {
+      url: 'https://elevenlabs.io/docs/product-guides/voices/voice-cloning',
+      title: 'Voice cloning',
+      publisher: 'ElevenLabs',
+    },
     {
       url: 'https://elevenlabs.io/docs/best-practices/prompting/eleven-v3',
       title: 'Prompting Eleven v3',

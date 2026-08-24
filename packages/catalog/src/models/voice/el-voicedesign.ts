@@ -41,7 +41,14 @@ export const elVoicedesign: Model = {
   pairsWith: [],
   betterFor: [],
   strengthTags: [],
+  policy:
+    "ElevenLabs restricts professional voice cloning to your own voice: their page says that even with consent you cannot clone someone else's, and creation requires reading verification lines aloud so the recording can be matched to the samples. Voice Design describes an invented voice, which is the compliant route to a character.",
   sources: [
+    {
+      url: 'https://elevenlabs.io/docs/product-guides/voices/voice-cloning',
+      title: 'Voice cloning',
+      publisher: 'ElevenLabs',
+    },
     {
       url: 'https://elevenlabs.io/docs/eleven-creative/voices/voice-design',
       title: 'Voice design',

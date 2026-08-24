@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   CATEGORIES,
+  clarify,
   findModel,
   forge,
   modelById,
@@ -12,12 +13,19 @@ import {
   type FieldId,
   type ForgeResult,
 } from '@forge/catalog';
-import { Button, Segmented, toast } from '@forge/ui';
+import { Button, Segmented, Switch, toast } from '@forge/ui';
 import { Brief } from '@forge/workbench';
 import { Mark } from '../components/Mark';
 import { ModelHead, ModelRail } from '../components/ModelRail';
 import { Output } from '../components/Output';
-import { useBriefs, useForgeCount, useInvite, useMode, useModelId } from '../lib/store';
+import {
+  useBriefs,
+  useForgeCount,
+  useInvite,
+  useMode,
+  useModelId,
+  usePolicyNotes,
+} from '../lib/store';
 import { usePinnedModels } from '../lib/library';
 import { Keep } from '../components/Keep';
 import { EXAMPLE_BRIEF } from '../lib/walkthrough';
@@ -31,6 +39,7 @@ export default function BuildPage(): React.ReactNode {
   const { pins, toggle: togglePin } = usePinnedModels();
   const [forged, bumpForged] = useForgeCount();
   const [inviteDismissed, dismissInvite] = useInvite();
+  const [policyNotes, setPolicyNotes] = usePolicyNotes();
   const { briefFor, setField, setFields, clear } = useBriefs();
 
   const [result, setResult] = useState<ForgeResult | null>(null);
@@ -101,6 +110,12 @@ export default function BuildPage(): React.ReactNode {
   }, [model.id, setFields]);
 
   const advice = useMemo(() => recommend(brief, model), [brief, model]);
+  /*
+   * The questions a senior would ask before starting, from the engine, each opening its own field.
+   * Not a chat: three deterministic questions at most, shown only once there is a brief to ask
+   * about, gone as each is answered.
+   */
+  const questions = useMemo(() => clarify(brief, model), [brief, model]);
 
   return (
     <main className="bench">
@@ -164,6 +179,12 @@ export default function BuildPage(): React.ReactNode {
               ? 'Forge makes most of the choices. You give it the subject.'
               : 'You make most of the choices. Forge fills in nothing you have not asked for.'}
           </p>
+          <Switch
+            label="Policy notes"
+            hint="the model's own documented content rules, beside the prompt"
+            checked={policyNotes}
+            onChange={setPolicyNotes}
+          />
           {mode === 'simple' && forged >= 10 && (
             <p className="modebar__offer" role="status">
               You have forged {forged} prompts. Advanced mode opens the craft layer if you want it.
@@ -184,6 +205,28 @@ export default function BuildPage(): React.ReactNode {
             }}
           />
         </div>
+
+        {questions.length > 0 && (
+          <section className="asks" aria-label="Forge would ask">
+            <h2 className="asks__title">Before you strike, Forge would ask</h2>
+            <ul className="asks__list">
+              {questions.map((q) => (
+                <li key={q.field}>
+                  <button
+                    type="button"
+                    className="asks__open"
+                    onClick={() => {
+                      openField(q.field);
+                    }}
+                  >
+                    {q.ask}
+                  </button>
+                  <span className="asks__why"> {q.why}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         {advice.length > 0 && (
           <div className="advice" role="status">
@@ -248,6 +291,7 @@ export default function BuildPage(): React.ReactNode {
             mode={mode}
             onOpenField={openField}
             keep={<Keep brief={brief} model={model} mode={mode} result={result} />}
+            policyNotes={policyNotes}
           />
         )}
       </section>
