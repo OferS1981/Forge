@@ -1,20 +1,20 @@
 {
   "blocks": [
     {
-      "label": "Cinematography",
-      "body": "Slow dolly in, medium shot on a 35mm."
-    },
-    {
       "label": "Subject",
       "body": "A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows."
     },
     {
-      "label": "Action",
-      "body": "He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout."
+      "label": "Performance across the clip",
+      "body": "He finishes taping, flexes the fist, then looks up at the camera, paced to fill the full 10s. Steam rising throughout."
     },
     {
       "label": "Style & ambiance",
       "body": "Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate."
+    },
+    {
+      "label": "Camera",
+      "body": "Slow dolly in, medium shot on a 35mm."
     },
     {
       "label": "Audio",
@@ -25,7 +25,7 @@
       "body": "In the register of Roger Deakins night exteriors."
     }
   ],
-  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
+  "flat": "A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera, paced to fill the full 10s. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. Slow dolly in, medium shot on a 35mm. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -96,9 +96,9 @@
   ],
   "stripped": [],
   "autoFilled": [],
-  "score": 92,
+  "score": 93,
   "axes": {
-    "specificity": 95,
+    "specificity": 98,
     "technical": 100,
     "structure": 90,
     "constraints": 85,

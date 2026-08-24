@@ -71,25 +71,25 @@ Photograph of a matte black espresso machine, a concrete kitchen counter in soft
 # image-illustration  brief={"subject":"a fox reading a folded paper map","setting":"a mossy forest clearing","medium":"ink line art","mood":["playful"],"palette":"black ink with one red accent"}
 ####################################################################################################
 
-== image-illustration :: midjourney (score 64)
-Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot. Palette: black ink with one red accent. Leading lines, playful in feeling. --ar 1:1 --v 8.2 --stylize 250
+== image-illustration :: midjourney (score 67)
+Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot. Confident line weight with controlled hatching. Palette: black ink with one red accent. Leading lines, playful in feeling. --ar 1:1 --v 8.2 --stylize 250
 
-== image-illustration :: gptimage (score 70)
+== image-illustration :: gptimage (score 71)
 Goal: A single finished image.
 Scene: Ink line art set in a mossy forest clearing.
 Subject: A fox reading a folded paper map.
-Style: Wide shot. Palette: black ink with one red accent.
+Style: Wide shot. Confident line weight with controlled hatching. Palette: black ink with one red accent.
 Details: Leading lines, playful in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-illustration :: nanobanana (score 64)
-Ink line art of a fox reading a folded paper map, a mossy forest clearing. Framed as a wide shot. In a palette of black ink with one red accent. Composed using leading lines. The mood is playful.
+== image-illustration :: nanobanana (score 67)
+Ink line art of a fox reading a folded paper map, a mossy forest clearing. Framed as a wide shot. Confident line weight with controlled hatching. In a palette of black ink with one red accent. Composed using leading lines. The mood is playful.
 
-== image-illustration :: flux (score 64)
-Ink line art of a fox reading a folded paper map, a mossy forest clearing. Framed as a wide shot. In a palette of black ink with one red accent. Composed using leading lines. The mood is playful.
+== image-illustration :: flux (score 67)
+Ink line art of a fox reading a folded paper map, a mossy forest clearing. Framed as a wide shot. Confident line weight with controlled hatching. In a palette of black ink with one red accent. Composed using leading lines. The mood is playful.
 
 == image-illustration :: sdxl (score 59)
-ink line art, a fox reading a folded paper map, a mossy forest clearing, wide shot, leading lines, playful, black ink with one red accent
+ink line art, a fox reading a folded paper map, a mossy forest clearing, wide shot, confident line weight with controlled hatching, leading lines, playful, black ink with one red accent
 NEGATIVE: worst quality, low quality, jpeg artifacts, watermark, signature, text, bad anatomy, extra fingers, deformed hands, blurry, oversaturated
 
 == image-illustration :: ideogram (score 60)
@@ -106,11 +106,11 @@ NEGATIVE: worst quality, low quality, jpeg artifacts, watermark, signature, text
   }
 }
 
-== image-illustration :: firefly (score 70)
+== image-illustration :: firefly (score 71)
 Goal: A single finished image.
 Scene: Ink line art set in a mossy forest clearing.
 Subject: A fox reading a folded paper map.
-Style: Wide shot. Palette: black ink with one red accent.
+Style: Wide shot. Confident line weight with controlled hatching. Palette: black ink with one red accent.
 Details: Leading lines, playful in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
@@ -118,31 +118,31 @@ Constraints: No watermarks, no signatures, no borders. No text anywhere in the f
 Goal: A single finished image.
 Scene: Ink line art set in a mossy forest clearing.
 Subject: A fox reading a folded paper map.
-Style: Palette: black ink with one red accent.
+Style: Confident line weight with controlled hatching. Palette: black ink with one red accent.
 Details: Leading lines, playful in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-illustration :: seedream (score 70)
+== image-illustration :: seedream (score 71)
 Goal: A single finished image.
 Scene: Ink line art set in a mossy forest clearing.
 Subject: A fox reading a folded paper map.
-Style: Wide shot. Palette: black ink with one red accent.
+Style: Wide shot. Confident line weight with controlled hatching. Palette: black ink with one red accent.
 Details: Leading lines, playful in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-illustration :: qwenimage (score 70)
+== image-illustration :: qwenimage (score 71)
 Goal: A single finished image.
 Scene: Ink line art set in a mossy forest clearing.
 Subject: A fox reading a folded paper map.
-Style: Wide shot. Palette: black ink with one red accent.
+Style: Wide shot. Confident line weight with controlled hatching. Palette: black ink with one red accent.
 Details: Leading lines, playful in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-illustration :: leonardo (score 63)
-Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot. Palette: black ink with one red accent. Leading lines, playful in feeling.
+== image-illustration :: leonardo (score 66)
+Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot. Confident line weight with controlled hatching. Palette: black ink with one red accent. Leading lines, playful in feeling.
 
-== image-illustration :: generic-image (score 63)
-Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot. Palette: black ink with one red accent. Leading lines, playful in feeling.
+== image-illustration :: generic-image (score 66)
+Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot. Confident line weight with controlled hatching. Palette: black ink with one red accent. Leading lines, playful in feeling.
 
 ####################################################################################################
 # video-single  brief={"subject":"a barista in a linen apron","setting":"a sunlit cafe counter","action":"she pours a rosetta into a flat white, then slides it across the counter","purpose":"social"}
@@ -156,16 +156,16 @@ Shot 1: Medium close-up, slow dolly in. A barista in a linen apron. She pours a 
 Continuity: Single continuous shot, no cuts.
 
 == video-single :: seedance (score 64)
-Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
+A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating. Slow dolly in, medium close-up on an 85mm portrait.
 
-== video-single :: runway (score 64)
-Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
+== video-single :: runway (score 60)
+Slow dolly in, medium close-up on an 85mm portrait of a barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter, in a sunlit cafe counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
 == video-single :: hailuo (score 67)
 Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating. [zoom]
 
-== video-single :: luma (score 64)
-Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
+== video-single :: luma (score 65)
+Slow dolly in, framed as a medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
 == video-single :: ltx (score 60)
 Shot 1: Medium close-up, slow dolly in. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. A sunlit cafe counter. Warm highlights, cool shadows grade. 10 seconds.
@@ -174,8 +174,8 @@ Continuity: Single continuous shot, no cuts.
 == video-single :: higgsfield (score 64)
 Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
-== video-single :: wan (score 64)
-Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
+== video-single :: wan (score 65)
+Slow dolly in, framed as a medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
 == video-single :: mjvideo (score 56)
 Slow dolly in. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. Calm in feeling. --motion high --raw
@@ -189,7 +189,7 @@ Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, 
 ####################################################################################################
 
 == video-multishot :: veo (score 73)
-Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music.
+Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. SFX and ambience: Rain on tarmac, distant sirens. No music.
 (fields this model does not read: shots)
 
 == video-multishot :: kling (score 73)
@@ -198,20 +198,20 @@ Shot 2: Medium close-up, arc around subject. He cuts through an alley. 4 seconds
 Shot 3: Medium close-up, handheld follow. He hands over the parcel and nods. 4 seconds.
 Audio: Rain on tarmac, distant sirens. No music.
 
-== video-multishot :: seedance (score 73)
-Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music.
+== video-multishot :: seedance (score 74)
+A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods, paced to fill the full 12s. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Slow dolly in, medium close-up on an 85mm portrait. Rain on tarmac, distant sirens. No music.
 (fields this model does not read: shots)
 
-== video-multishot :: runway (score 70)
-Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
+== video-multishot :: runway (score 66)
+Slow dolly in, medium close-up on an 85mm portrait of a night courier on a cargo bike. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods, in wet London streets after midnight. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
 (fields this model does not read: shots, vaudio)
 
 == video-multishot :: hailuo (score 75)
 Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music. [zoom]
 (fields this model does not read: shots)
 
-== video-multishot :: luma (score 70)
-Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
+== video-multishot :: luma (score 71)
+Slow dolly in, framed as a medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
 (fields this model does not read: shots, vaudio)
 
 == video-multishot :: ltx (score 73)
@@ -224,8 +224,8 @@ Audio: Rain on tarmac, distant sirens. No music.
 Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music.
 (fields this model does not read: shots)
 
-== video-multishot :: wan (score 70)
-Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
+== video-multishot :: wan (score 71)
+Slow dolly in, framed as a medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
 (fields this model does not read: shots, vaudio)
 
 == video-multishot :: mjvideo (score 57)

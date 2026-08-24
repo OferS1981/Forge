@@ -18,14 +18,14 @@
     },
     {
       "label": "Audio",
-      "body": "He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
+      "body": "SFX and ambience: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic."
     },
     {
       "label": "Reference",
       "body": "In the register of Roger Deakins night exteriors."
     }
   ],
-  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
+  "flat": "Slow dolly in, medium shot on a 35mm. A retired boxer taping his hands in a basement gym, basement gym at 6am, condensation on the windows. He finishes taping, flexes the fist, then looks up at the camera. Steam rising throughout. Practical lamps only. Crushed blacks, high contrast grade. Tense in feeling, deliberate. SFX and ambience: He says, \"Last round.\" SFX: skipping rope on concrete. Ambient: distant traffic. In the register of Roger Deakins night exteriors.",
   "negative": "crowds, modern signage",
   "settings": [
     {
@@ -98,7 +98,7 @@
   "autoFilled": [],
   "score": 92,
   "axes": {
-    "specificity": 95,
+    "specificity": 97,
     "technical": 100,
     "structure": 90,
     "constraints": 85,

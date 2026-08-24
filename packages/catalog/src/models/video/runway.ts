@@ -11,6 +11,9 @@ export const runway: Model = {
     'Best-in-class prompt adherence on sequenced instructions and facial nuance, held back by a 720p, ten-second ceiling.',
   tags: ['Camera-first template', '2–10s', '720p', 'T2V is 16:9 only'],
   grammar: 'prose',
+  // Its own note, below: the vendor's template is [camera] shot of [subject] [action] in
+  // [environment], then supporting description. The shared order was ignoring that.
+  videoOrder: 'action-in-environment',
   length: [30, 90],
   core: ['subject', 'action', 'setting', 'purpose'],
   craft: ['camMove', 'shot', 'lens', 'light', 'motion', 'pacing', 'grade', 'mood', 'ref', 'avoid'],

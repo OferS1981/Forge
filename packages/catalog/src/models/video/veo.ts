@@ -11,6 +11,8 @@ export const veo: Model = {
     'Synced dialogue and native audio in one pass. Google publishes an exact prompt formula and it works.',
   tags: ['Cinematography-first', 'Native audio', '4 / 6 / 8s', '16:9 & 9:16 only'],
   grammar: 'prose',
+  // Its own note, below: SFX and ambience get their own labelled lines, the documented syntax.
+  audioLabels: true,
   length: [40, 120],
   core: ['subject', 'action', 'setting', 'purpose'],
   craft: ['camMove', 'shot', 'lens', 'light', 'motion', 'pacing', 'grade', 'mood', 'ref', 'avoid'],

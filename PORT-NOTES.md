@@ -133,7 +133,16 @@ the outer eighth of the frame.`, which reads like a leaked internal note rather 
   `mood: playful` and `pacing: escalating`, which for "a retired boxer taping his hands, a basement
   gym at 6am" produces "Playful in feeling. Escalating." A person would not write that. The
   auto-fill reads one field where it needs two.
-- **Seven video models share one prompt, byte for byte.** Veo, Seedance, Runway, Luma, Higgsfield,
+- ~~Seven video models share one prompt, byte for byte.~~ **Resolved in the round-four quality
+  pass, from the catalogue's own notes.** Runway now follows its own documented template, Seedance
+  its documented structure with the camera held until the performance is told, Veo labels its audio
+  line as its note calls the documented syntax, and Wan 2.7 and Luma Ray3 carry `prose: 'narrative'`
+  because their notes document reasoning modes that reward it. Each flag sits beside the note that
+  justifies it; parity holds the rest byte-still through word-containment with an allowed-words
+  list. The remaining prose models genuinely share a grammar until a vendor page says otherwise.
+- **Non-camera media now carry a technique clause**, one fixed sentence per medium: confident line
+  weight for ink, impasto for oil, misregistration for riso. Craft, not content: it speaks only of
+  the medium, so it can contradict no subject and no setting, and a test proves it. Veo, Seedance, Runway, Luma, Higgsfield,
   Wan and the wildcard all emit the same string, and four image models do the same. Sharing a
   grammar is legitimate and the settings do differ, but the product's claim is that each is written
   in its own model's grammar, and Runway and Veo document different orders. Splitting them needs

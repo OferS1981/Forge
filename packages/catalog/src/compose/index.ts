@@ -7,6 +7,7 @@ import {
   lightClause,
   markUpScript,
   splitBeats,
+  techniqueClause,
   videoSections,
 } from './shared';
 import { or } from '../models/shared';
@@ -44,7 +45,7 @@ const brief: Composer = (b, m) => {
       block('Scene', cap(med) + (has(b.setting) ? ' set in ' + stripDot(b.setting) : '') + '.'),
     );
     S.push(block('Subject', cap(stripDot(b.subject) || 'the subject') + '.'));
-    const style = [camClause(b), lightClause(b), finishClause(b)].filter(has);
+    const style = [camClause(b), techniqueClause(b), lightClause(b), finishClause(b)].filter(has);
     if (style.length) S.push(block('Style', sentences(style) + '.'));
     const det: string[] = [];
     if (has(b.comp)) det.push(b.comp ?? '');
@@ -75,6 +76,7 @@ const tags: Composer = (b) => {
   if (has(b.subject)) t.push(stripDot(b.subject));
   if (has(b.setting)) t.push(stripDot(b.setting));
   for (const x of arr(b.shot)) t.push(x);
+  if (techniqueClause(b)) t.push(techniqueClause(b));
   if (has(b.lens)) t.push(b.lens ?? '');
   if (has(b.aperture)) t.push(String(b.aperture).split(': ')[0] ?? '');
   for (const x of arr(b.light)) t.push('(' + x + ':1.2)');
@@ -120,7 +122,7 @@ const json: Composer = (b) => {
     .join(', ');
   const o: Record<string, unknown> = {
     high_level_description: described.length > 0 ? described : 'the subject',
-    style_description: [medium, camClause(b), lightClause(b), finishClause(b)]
+    style_description: [medium, camClause(b), techniqueClause(b), lightClause(b), finishClause(b)]
       .filter(has)
       .join('. '),
     compositional_deconstruction: [

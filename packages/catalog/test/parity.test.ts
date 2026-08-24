@@ -17,7 +17,7 @@ import { PROTOTYPE, protoModel } from './fixtures/prototype';
  *    claim the product did not keep. Those two are excluded from the composed-output comparison
  *    and covered by narrative.test.ts instead. Every other model is still compared byte for byte.
  */
-const NARRATIVE = new Set(['nanobanana', 'flux']);
+const NARRATIVE = new Set(['nanobanana', 'flux', 'luma', 'wan']);
 
 /*
  * The prototype's `stripBanned` collapsed every run of whitespace to a single space, and a newline
@@ -60,6 +60,28 @@ const LAYOUT_ONLY = new Set([
  * be missing from ours.
  */
 const SHOTLIST_FIXED = new Set(['kling', 'ltx']);
+
+/*
+ * Three video models now follow the order their own notes document the vendor asking for: Runway's
+ * template, Seedance's structure, Veo's labelled audio line. A reorder has no byte mapping, so the
+ * check is containment both ways at the word level: nothing the prototype said may be lost, and
+ * the only words gained are the documented framing ("of", "in", "paced", "SFX and ambience",
+ * "framed as").
+ */
+const ORDER_DOCUMENTED = new Set(['runway', 'seedance', 'veo']);
+const ORDER_WORDS_ALLOWED = new Set([
+  'framed',
+  'paced',
+  'fill',
+  'full',
+  'sfx',
+  'ambience',
+  'camera',
+  'performance',
+  'across',
+  'clip',
+  'shot',
+]);
 
 /*
  * The JSON grammar worked its medium out twice with two different defaults, so a brief that named
@@ -137,6 +159,20 @@ function rewriteOurs(id: string, text: string): string {
       (_, first: string, rest: string) => `in feeling. ${first.toUpperCase()}${rest}.`,
     );
   }
+  /*
+   * The technique clause is craft the prototype never wrote, one fixed sentence per non-camera
+   * medium, so it is stripped before the byte compare. The clause list lives in shared.ts and
+   * craft.test.ts proves it appears; this only proves nothing else changed around it.
+   */
+  out = out
+    .replace(
+      / ?(?:Confident line weight with controlled hatching|Visible brushwork, with impasto in the highlights|Matte layered washes with soft edges|Flat colour fills and crisp edges, no gradients|Limited ink layers with visible grain and slight misregistration|Painterly detail that holds up at full-frame scale|True isometric projection with no perspective distortion|Cut-paper edges and layered texture|Graphite shading with visible construction lines)\.\n?/g,
+      '',
+    )
+    .replace(
+      /(?:, )?(?:confident line weight with controlled hatching|visible brushwork, with impasto in the highlights|matte layered washes with soft edges|flat colour fills and crisp edges, no gradients|limited ink layers with visible grain and slight misregistration|painterly detail that holds up at full-frame scale|true isometric projection with no perspective distortion|cut-paper edges and layered texture|graphite shading with visible construction lines)(?:\. )?/g,
+      '',
+    );
   // Hailuo's inline token dropped the usage note that was being pasted as part of the prompt.
   if (id === 'hailuo') {
     out = out.replace(
@@ -162,7 +198,16 @@ const SFX_TAIL = ', high-quality, professionally recorded, sound effects foley';
  * were inflating specificity with words that told the model nothing. The prompt got better while
  * the number moved, in either direction, so for exactly these models the score is not compared.
  */
-const WORDING_SCORE = new Set(['hailuo', 'el-sfx', 'generic-sfx']);
+const WORDING_SCORE = new Set([
+  'hailuo',
+  'el-sfx',
+  'generic-sfx',
+  // The reordered and relabelled video models: same content, different joins, so the axis that
+  // counts words and sentence shapes moves a point or two in either direction.
+  'runway',
+  'seedance',
+  'veo',
+]);
 
 /** Symmetric: applied to both sides' 'What we are building' body. See rewriteOurs. */
 const dedot = (label: string, body: string): string =>
@@ -261,6 +306,14 @@ describe('parity with the prototype', () => {
             expect(mine.blocks.map((b) => [b.label, b.body.replace(trailing, '')])).toEqual(
               theirs.blocks.map(([label, body]) => [label, body.replace(trailing, '')]),
             );
+          } else if (ORDER_DOCUMENTED.has(m.id)) {
+            for (const word of words(theirs.flat)) {
+              expect(words(mine.flat), `${m.id} lost "${word}"`).toContain(word);
+            }
+            for (const word of words(mine.flat)) {
+              if (words(theirs.flat).includes(word) || ORDER_WORDS_ALLOWED.has(word)) continue;
+              throw new Error(`${m.id} gained the undocumented word "${word}"`);
+            }
           } else if (SHOTLIST_FIXED.has(m.id)) {
             // Everything the prototype said, and the subject it did not.
             for (const word of words(theirs.flat)) {

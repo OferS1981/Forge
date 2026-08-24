@@ -24,11 +24,16 @@ const BRIEF: Brief = {
 describe('narrative prose', () => {
   it('is set only where the model says it wants it', () => {
     const narrative = MODELS.filter((m) => m.prose === 'narrative').map((m) => m.id);
-    expect(narrative).toEqual(['nanobanana', 'flux']);
+    // Two images, and the two video models whose notes document reasoning or thinking modes that
+    // reward flowing narrative over stacked keywords.
+    expect(narrative).toEqual(['nanobanana', 'flux', 'luma', 'wan']);
     for (const id of narrative) {
       const notes = modelById(id).notes.join(' ').toLowerCase();
       expect(
-        notes.includes('paragraph') || notes.includes('detail is rewarded'),
+        notes.includes('paragraph') ||
+          notes.includes('detail is rewarded') ||
+          notes.includes('narrative prose') ||
+          notes.includes('narrative prompts'),
         `${id} carries no note supporting narrative prose`,
       ).toBe(true);
     }

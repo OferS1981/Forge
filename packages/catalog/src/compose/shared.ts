@@ -22,6 +22,29 @@ function aperture(b: Brief, narrative: boolean): string {
  * The same facts, written as a sentence rather than a list. Nothing is added that the brief does
  * not already say: a model that asks for paragraphs gets paragraphs, not inventions.
  */
+/**
+ * How each non-camera medium is actually worked, as one clause. This is craft the way "85mm
+ * portrait, f/2.8" is craft for a photograph: technique, not content, so it invents nothing about
+ * the subject and is safe in any setting. Camera media get the camera clauses instead, and a
+ * medium not listed here simply gets no technique line rather than a guessed one.
+ */
+const TECHNIQUE: Record<string, string> = {
+  'oil painting': 'visible brushwork, with impasto in the highlights',
+  'gouache illustration': 'matte layered washes with soft edges',
+  'ink line art': 'confident line weight with controlled hatching',
+  'flat vector': 'flat colour fills and crisp edges, no gradients',
+  'risograph print': 'limited ink layers with visible grain and slight misregistration',
+  'matte painting': 'painterly detail that holds up at full-frame scale',
+  'isometric diagram': 'true isometric projection with no perspective distortion',
+  collage: 'cut-paper edges and layered texture',
+  'pencil study': 'graphite shading with visible construction lines',
+};
+
+export function techniqueClause(b: Brief): string {
+  const medium = typeof b.medium === 'string' ? b.medium.toLowerCase().trim() : '';
+  return TECHNIQUE[medium] ?? '';
+}
+
 export function narrativeCamera(b: Brief): string {
   const shot = has(b.shot) ? join(b.shot) : '';
   // Several entries already end in the word, and "probe lens lens" is not a sentence.
@@ -97,6 +120,9 @@ export function imageSections(b: Brief, m?: Model): Block[] {
   );
   const cam = narrative ? narrativeCamera(b) : camClause(b);
   if (cam) S.push(block('Camera', cam + '.'));
+  // A non-camera medium gets its working method where a photograph gets its camera.
+  const technique = techniqueClause(b);
+  if (technique) S.push(block('Technique', cap(technique) + '.'));
   const li = narrative ? narrativeLight(b) : lightClause(b);
   if (li) S.push(block('Light', li + '.'));
   const fin = narrative ? narrativeFinish(b) : finishClause(b);
@@ -140,29 +166,77 @@ export function videoSections(b: Brief, m: Model): Block[] {
   const cam = [has(b.camMove) ? (b.camMove ?? '') : '', has(b.shot) ? first(b.shot) : '']
     .filter(has)
     .join(', ');
-  if (cam)
+  const camBody =
+    cap(cam) + (has(b.lens) ? ' on ' + artic(b.lens ?? '') + ' ' + (b.lens ?? '') : '') + '.';
+  const subjectBody =
+    cap(stripDot(b.subject) || 'the subject') +
+    (has(b.setting) ? ', ' + lc(stripDot(b.setting)) : '') +
+    '.';
+  const actionBody =
+    cap(stripDot(b.action) || 'the subject moves through the frame') +
+    '.' +
+    (has(b.motion) ? ' ' + cap(join(b.motion)) + ' throughout.' : '');
+
+  /*
+   * The order is the vendor's where the vendor has said one. The shared order, camera first, is
+   * Veo's documented order and a sound default; Runway's own template leads with the subject doing
+   * its action in its environment; Seedance's documented structure holds the camera back until the
+   * performance is told. Each flag sits beside the note in the model file that justifies it.
+   */
+  if (m.prose === 'narrative') {
+    /*
+     * Wan 2.7 and Luma Ray3 both document that they reward flowing narrative over stacked
+     * keywords, the same claim Nano Banana Pro and FLUX.2 carry for images, so the clip is told
+     * as sentences: what the camera does, who is there, what happens, and how it looks.
+     */
+    if (cam) {
+      const move = has(b.camMove) ? cap(b.camMove ?? '') : '';
+      const framed = has(b.shot)
+        ? (move ? ', framed as ' : 'Framed as ') + artic(first(b.shot)) + ' ' + first(b.shot)
+        : '';
+      S.push(
+        block(
+          'Cinematography',
+          move +
+            framed +
+            (has(b.lens) ? ' on ' + artic(b.lens ?? '') + ' ' + (b.lens ?? '') : '') +
+            '.',
+        ),
+      );
+    }
+    S.push(block('Subject', subjectBody));
+    S.push(block('Action', actionBody));
+  } else if (m.videoOrder === 'action-in-environment') {
+    // [camera] shot of [subject] [action] in [environment], then supporting description.
+    const lead =
+      (cam
+        ? cap(cam) +
+          (has(b.lens) ? ' on ' + artic(b.lens ?? '') + ' ' + (b.lens ?? '') : '') +
+          ' of '
+        : '') +
+      (cam ? stripDot(b.subject) || 'the subject' : cap(stripDot(b.subject) || 'the subject')) +
+      '. ' +
+      cap(stripDot(b.action) || 'the subject moves through the frame') +
+      (has(b.setting) ? ', in ' + lc(stripDot(b.setting)) : '') +
+      '.';
+    S.push(block('Shot', lead));
+    if (has(b.motion)) S.push(block('Motion', cap(join(b.motion)) + ' throughout.'));
+  } else if (m.videoOrder === 'performance-timeline') {
+    S.push(block('Subject', subjectBody));
     S.push(
       block(
-        'Cinematography',
-        cap(cam) + (has(b.lens) ? ' on ' + artic(b.lens ?? '') + ' ' + (b.lens ?? '') : '') + '.',
+        'Performance across the clip',
+        cap(stripDot(b.action) || 'the subject moves through the frame') +
+          (has(b.duration) ? ', paced to fill the full ' + stripDot(b.duration) : '') +
+          '.' +
+          (has(b.motion) ? ' ' + cap(join(b.motion)) + ' throughout.' : ''),
       ),
     );
-  S.push(
-    block(
-      'Subject',
-      cap(stripDot(b.subject) || 'the subject') +
-        (has(b.setting) ? ', ' + lc(stripDot(b.setting)) : '') +
-        '.',
-    ),
-  );
-  S.push(
-    block(
-      'Action',
-      cap(stripDot(b.action) || 'the subject moves through the frame') +
-        '.' +
-        (has(b.motion) ? ' ' + cap(join(b.motion)) + ' throughout.' : ''),
-    ),
-  );
+  } else {
+    if (cam) S.push(block('Cinematography', camBody));
+    S.push(block('Subject', subjectBody));
+    S.push(block('Action', actionBody));
+  }
   /*
    * The mood and the pacing are one thought, so they share a sentence: "Playful in feeling,
    * escalating." The old shape left the pacing as a one-word stub sentence on the end, which no
@@ -175,7 +249,19 @@ export function videoSections(b: Brief, m: Model): Block[] {
       : '';
   const amb = [lightClause(b), finishClause(b), feeling].filter(has);
   if (amb.length) S.push(block('Style & ambiance', sentences(amb) + '.'));
-  if (has(b.vaudio)) S.push(block('Audio', stripDot(b.vaudio) + '.'));
+  // Seedance's documented structure holds the camera until after the performance and ambience.
+  if (m.videoOrder === 'performance-timeline' && cam) S.push(block('Camera', camBody));
+  if (has(b.vaudio)) {
+    /*
+     * Veo documents that SFX and ambience get their own labelled line rather than being woven into
+     * the prose. For everyone else the audio stays a plain sentence.
+     */
+    S.push(
+      m.audioLabels === true
+        ? block('Audio', 'SFX and ambience: ' + stripDot(b.vaudio) + '.')
+        : block('Audio', stripDot(b.vaudio) + '.'),
+    );
+  }
   if (has(b.ref)) S.push(block('Reference', 'In the register of ' + stripDot(b.ref) + '.'));
   if (m.inlineCameraTokens && has(b.camMove)) {
     const mv = b.camMove ?? '';

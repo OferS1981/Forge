@@ -11,6 +11,9 @@ export const wan: Model = {
     'Two very different models under one name. 2.6 is open-weight and rewards keyword density; 2.7 is closed and rewards intent.',
   tags: ['2.6 open weights', '2.7 Thinking Mode', '12 languages', 'Slow'],
   grammar: 'prose',
+  // Its own note, below: 2.7's Thinking Mode rewards intent-level narrative prompts. The entry
+  // targets 2.7; the 2.6 note stays for anyone pinned there.
+  prose: 'narrative',
   length: [40, 140],
   core: ['subject', 'action', 'setting', 'purpose'],
   craft: ['camMove', 'shot', 'lens', 'light', 'motion', 'pacing', 'grade', 'mood', 'ref', 'avoid'],

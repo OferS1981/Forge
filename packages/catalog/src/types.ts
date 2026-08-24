@@ -164,6 +164,19 @@ export interface Model {
    * paragraphs rather than keyword lists. Set it only where a source says so.
    */
   prose?: 'narrative';
+  /**
+   * A documented section order that differs from the shared one. `action-in-environment` is
+   * Runway's own template, "[camera] shot of [subject] [action] in [environment], then supporting
+   * description". `performance-timeline` is Seedance's documented structure, "subject, performance
+   * across the full duration, ambience, camera, then audio". Set only where the model's own notes
+   * record the vendor saying so.
+   */
+  videoOrder?: 'action-in-environment' | 'performance-timeline';
+  /**
+   * The vendor documents that SFX and ambience belong on their own labelled line rather than woven
+   * into the prose. Veo's own note calls it the documented syntax.
+   */
+  audioLabels?: true;
   /** Warn when the spoken script is shorter than this many characters. */
   lengthWarningBelow?: number;
   /** Match: how this model does on vertical video. */

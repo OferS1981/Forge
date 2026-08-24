@@ -214,6 +214,89 @@ describe('the system prompt knows a writing task from a reading task', () => {
   });
 });
 
+describe('a model documented as different is written differently', () => {
+  const courier: Brief = {
+    subject: 'a night courier on a cargo bike',
+    setting: 'wet London streets after midnight',
+    action: 'he checks the address, then hands over the parcel',
+    duration: '10s',
+    vaudio: 'Rain on tarmac. No music.',
+  };
+
+  it('writes Runway in its own template: camera of subject, action, in environment', () => {
+    const out = forge(courier, modelById('runway'), 'simple');
+    expect(out.flat).toMatch(/of a night courier on a cargo bike\./i);
+    expect(out.flat).toMatch(/, in wet London streets after midnight\./);
+  });
+
+  it("holds Seedance's camera back until the performance is told", () => {
+    const out = forge(courier, modelById('seedance'), 'simple');
+    const camera = out.flat.indexOf('dolly');
+    const action = out.flat.indexOf('hands over the parcel');
+    expect(camera).toBeGreaterThan(action);
+    expect(out.flat).toContain('paced to fill the full');
+  });
+
+  it("labels Veo's audio line, which its own note calls the documented syntax", () => {
+    const out = forge(courier, modelById('veo'), 'simple');
+    expect(out.flat).toContain('SFX and ambience: Rain on tarmac. No music.');
+  });
+
+  it('writes Wan and Luma as narrative, which their own notes ask for', () => {
+    for (const id of ['wan', 'luma'] as const) {
+      const out = forge(courier, modelById(id), 'simple');
+      expect(out.flat, id).toMatch(/framed as a/i);
+    }
+  });
+
+  it('no longer emits one identical string across the prose video models', () => {
+    const flats = new Set(
+      (['veo', 'runway', 'seedance', 'luma', 'wan', 'higgsfield'] as const).map(
+        (id) => forge(courier, modelById(id), 'simple').flat,
+      ),
+    );
+    expect(flats.size).toBeGreaterThanOrEqual(4);
+  });
+});
+
+describe('a medium brings its own technique', () => {
+  it('gives ink line art its working method instead of a lens', () => {
+    const out = forge(fox, modelById('midjourney'), 'simple');
+    expect(out.flat).toContain('Confident line weight with controlled hatching');
+  });
+
+  it('gives every listed medium a technique and every camera medium none', () => {
+    for (const [medium, want] of [
+      ['oil painting', 'impasto'],
+      ['flat vector', 'no gradients'],
+      ['risograph print', 'misregistration'],
+      ['pencil study', 'construction lines'],
+    ] as const) {
+      const out = forge({ subject: 'a fox', medium }, modelById('midjourney'), 'simple');
+      expect(out.flat, medium).toContain(want);
+    }
+    const photo = forge(
+      { subject: 'a fox', medium: 'photograph' },
+      modelById('midjourney'),
+      'simple',
+    );
+    expect(photo.flat).not.toMatch(/line weight|impasto|misregistration/);
+  });
+
+  it('carries the technique into the tag and JSON grammars too', () => {
+    const tags = forge(fox, modelById('sdxl'), 'simple');
+    expect(tags.flat).toContain('confident line weight');
+    const json = forge(fox, modelById('ideogram'), 'simple');
+    expect(json.flat).toContain('confident line weight');
+  });
+
+  it('invents nothing about the scene: technique speaks of the medium only', () => {
+    const out = forge(fox, modelById('midjourney'), 'simple');
+    // No background colour, no paper, nothing that could contradict the mossy clearing.
+    expect(out.flat).not.toMatch(/white background|paper texture|canvas/i);
+  });
+});
+
 describe('small finish', () => {
   it('ends the app brief first line like the others', () => {
     const out = forge(

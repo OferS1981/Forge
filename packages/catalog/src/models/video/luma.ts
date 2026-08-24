@@ -11,6 +11,9 @@ export const luma: Model = {
     'Sixteen keyframes per clip and native 16-bit HDR with EXR export. The only model that drops into a colour-managed post pipeline.',
   tags: ['16 keyframes', 'HDR / ACES EXR', '20s at 1080p', 'Reasoning mode'],
   grammar: 'prose',
+  // Its own note, below: Ray3's reasoning mode favours narrative prose, X happens then Y, over
+  // dense keyword stacks.
+  prose: 'narrative',
   length: [40, 100],
   core: ['subject', 'action', 'setting', 'purpose'],
   craft: ['camMove', 'shot', 'lens', 'light', 'motion', 'pacing', 'grade', 'mood', 'ref', 'avoid'],

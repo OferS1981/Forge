@@ -11,6 +11,9 @@ export const seedance: Model = {
     'Thirty seconds in one take, the longest of any major model. Which means you have to write the whole timeline, not a tableau.',
   tags: ['Up to 30s', 'Omni reference', 'Native edit & extend', '4K on 2.0'],
   grammar: 'prose',
+  // Its own note, below: the documented structure is subject, performance across the full
+  // duration, ambience, camera, then audio and continuity cues.
+  videoOrder: 'performance-timeline',
   length: [80, 200],
   core: ['subject', 'action', 'setting', 'purpose'],
   craft: ['camMove', 'shot', 'lens', 'light', 'motion', 'pacing', 'grade', 'mood', 'ref', 'avoid'],
