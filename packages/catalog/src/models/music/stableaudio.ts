@@ -11,6 +11,9 @@ export const stableaudio: Model = {
     'Built for brand and production sound. Audio inpainting lets you regenerate a specific span of an existing track.',
   tags: ['Inpainting', 'Tempo bands', 'Production vocabulary', 'Enterprise'],
   grammar: 'music',
+  // Its own note, below: Stability's order is core style, key instruments, mood, specific
+  // details, then additional instructions.
+  musicOrder: ['genre', 'inst', 'mood', 'prod', 'bpm', 'key', 'vocal'],
   length: [0, 0],
   core: ['mGenre', 'mMood', 'mInst', 'mBpm'],
   craft: ['mKey', 'mProd', 'mVocal', 'mStruct', 'mExclude'],

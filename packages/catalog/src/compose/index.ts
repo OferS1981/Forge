@@ -279,14 +279,20 @@ const sfx: Composer = (b) => {
 };
 
 const music: Composer = (b, m) => {
-  const style: string[] = [];
-  if (has(b.mGenre)) style.push(join(b.mGenre));
-  if (has(b.mBpm)) style.push((b.mBpm ?? '') + ' BPM');
-  if (has(b.mKey)) style.push('in ' + (b.mKey ?? ''));
-  if (has(b.mInst)) style.push(join(b.mInst));
-  if (has(b.mVocal)) style.push(b.mVocal === 'Instrumental' ? 'instrumental' : 'vocals');
-  if (has(b.mProd)) style.push(join(b.mProd));
-  if (has(b.mMood)) style.push(join(b.mMood));
+  /*
+   * The same tokens, in the vendor's own published order where a note records one. Suno's
+   * documented order is the default, which is why it carries no flag.
+   */
+  const token: Record<string, string> = {};
+  if (has(b.mGenre)) token.genre = join(b.mGenre);
+  if (has(b.mBpm)) token.bpm = (b.mBpm ?? '') + ' BPM';
+  if (has(b.mKey)) token.key = 'in ' + (b.mKey ?? '');
+  if (has(b.mInst)) token.inst = join(b.mInst);
+  if (has(b.mVocal)) token.vocal = b.mVocal === 'Instrumental' ? 'instrumental' : 'vocals';
+  if (has(b.mProd)) token.prod = join(b.mProd);
+  if (has(b.mMood)) token.mood = join(b.mMood);
+  const order = m.musicOrder ?? ['genre', 'bpm', 'key', 'inst', 'vocal', 'prod', 'mood'];
+  const style = order.map((key) => token[key]).filter((v): v is string => v !== undefined);
   const styleLine = style.join(', ');
   const S = [block('Style', styleLine)];
   if (has(b.mStruct)) S.push(block('Arrangement', stripDot(b.mStruct) + '.'));

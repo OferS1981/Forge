@@ -12,6 +12,9 @@ export const elMusic: Model = {
     "Studio language moves real levers here. Sidechained, close-mic'd, bone-dry, tape saturation and plate reverb all produce audible change.",
   tags: ['Up to 5 minutes', 'Section editing', 'Composition plans', 'C2PA optional'],
   grammar: 'music',
+  // Its own note, below: the five dimensions to decide up front are genre, mood,
+  // instrumentation, tempo, and era.
+  musicOrder: ['genre', 'mood', 'inst', 'bpm', 'key', 'prod', 'vocal'],
   length: [0, 0],
   core: ['mGenre', 'mMood', 'mInst', 'mBpm'],
   craft: ['mKey', 'mProd', 'mVocal', 'mStruct', 'mLyrics', 'mExclude'],

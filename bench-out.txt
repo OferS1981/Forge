@@ -92,10 +92,10 @@ Ink line art of a fox reading a folded paper map, a mossy forest clearing. Frame
 ink line art, a fox reading a folded paper map, a mossy forest clearing, wide shot, confident line weight with controlled hatching, leading lines, playful, black ink with one red accent
 NEGATIVE: worst quality, low quality, jpeg artifacts, watermark, signature, text, bad anatomy, extra fingers, deformed hands, blurry, oversaturated
 
-== image-illustration :: ideogram (score 60)
+== image-illustration :: ideogram (score 61)
 {
   "high_level_description": "a fox reading a folded paper map, a mossy forest clearing",
-  "style_description": "ink line art. Wide shot. Palette: black ink with one red accent",
+  "style_description": "ink line art. Wide shot. confident line weight with controlled hatching. Palette: black ink with one red accent",
   "compositional_deconstruction": "leading lines, playful in feeling",
   "art_style": {
     "medium": "ink line art",

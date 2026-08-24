@@ -177,6 +177,12 @@ export interface Model {
    * into the prose. Veo's own note calls it the documented syntax.
    */
   audioLabels?: true;
+  /**
+   * The vendor's own published order for the style tokens. Google's formula for Lyria, Stability's
+   * for Stable Audio, ElevenLabs' five dimensions for its music model. Suno's documented order is
+   * the default one, so it carries no flag. Set only where a note records the vendor saying so.
+   */
+  musicOrder?: readonly ('genre' | 'mood' | 'inst' | 'bpm' | 'key' | 'vocal' | 'prod')[];
   /** Warn when the spoken script is shorter than this many characters. */
   lengthWarningBelow?: number;
   /** Match: how this model does on vertical video. */

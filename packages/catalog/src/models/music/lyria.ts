@@ -11,6 +11,9 @@ export const lyria: Model = {
     'Three-minute full-structure songs with timestamp prompting, and SynthID plus C2PA on everything it makes.',
   tags: ['Timestamp prompts', '3 min', 'Image & PDF input', 'SynthID + C2PA'],
   grammar: 'music',
+  // Its own note, below: Google's formula is genre and style, mood, instrumentation, tempo and
+  // rhythm, then vocal style.
+  musicOrder: ['genre', 'mood', 'inst', 'bpm', 'key', 'vocal', 'prod'],
   length: [0, 0],
   core: ['mGenre', 'mMood', 'mInst', 'mBpm'],
   craft: ['mKey', 'mProd', 'mVocal', 'mStruct', 'mLyrics'],

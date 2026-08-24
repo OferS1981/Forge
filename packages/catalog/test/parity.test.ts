@@ -69,6 +69,14 @@ const SHOTLIST_FIXED = new Set(['kling', 'ltx']);
  * "framed as").
  */
 const ORDER_DOCUMENTED = new Set(['runway', 'seedance', 'veo']);
+
+/*
+ * Three music models now order their style tokens the way their vendors publish, so the check is
+ * that the comma-separated tokens are the same multiset: order is the only thing allowed to move,
+ * and the score, which reads words not order, must not move at all.
+ */
+const MUSIC_ORDERED = new Set(['lyria', 'stableaudio', 'el-music']);
+const tokens = (text: string): string => text.split(', ').sort().join('|');
 const ORDER_WORDS_ALLOWED = new Set([
   'framed',
   'paced',
@@ -305,6 +313,19 @@ describe('parity with the prototype', () => {
             expect(mine.flat.replace(trailing, '')).toBe(theirs.flat.replace(trailing, ''));
             expect(mine.blocks.map((b) => [b.label, b.body.replace(trailing, '')])).toEqual(
               theirs.blocks.map(([label, body]) => [label, body.replace(trailing, '')]),
+            );
+          } else if (MUSIC_ORDERED.has(m.id)) {
+            /*
+             * The Style line carries the reordered tokens; everything after it is untouched. So
+             * the Style bodies must be the same multiset, and swapping ours for theirs inside the
+             * flat must give byte equality, which pins every other character in place.
+             */
+            const mineStyle = mine.blocks[0]?.body ?? '';
+            const theirsStyle = theirs.blocks[0]?.[1] ?? '';
+            expect(tokens(mineStyle)).toBe(tokens(theirsStyle));
+            expect(mine.flat.replace(mineStyle, theirsStyle)).toBe(theirs.flat);
+            expect(mine.blocks.map((b, i) => [b.label, i === 0 ? theirsStyle : b.body])).toEqual(
+              theirs.blocks,
             );
           } else if (ORDER_DOCUMENTED.has(m.id)) {
             for (const word of words(theirs.flat)) {
