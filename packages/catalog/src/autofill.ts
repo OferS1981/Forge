@@ -130,8 +130,14 @@ export const AUTO_FILL: Partial<Record<FieldId, Rule>> = {
   },
   comp: (b) => {
     const t = text(b);
-    if (PRODUCT.test(t))
+    if (PRODUCT.test(t)) {
+      /*
+       * A hero or banner purpose already carries its own negative-space guidance in the
+       * intended-use sentence, and a person does not say it twice.
+       */
+      if (/hero|banner|thumbnail|cover|header|landing/.test(t)) return undefined;
       return pick('generous negative space', 'product shots need room around the object');
+    }
     if (PORTRAIT.test(t))
       return pick('rule of thirds', 'it places a face where the eye expects it');
     if (LANDSCAPE.test(t)) return pick('leading lines', 'it pulls the eye into the place');

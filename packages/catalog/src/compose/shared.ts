@@ -163,12 +163,17 @@ export function videoSections(b: Brief, m: Model): Block[] {
         (has(b.motion) ? ' ' + cap(join(b.motion)) + ' throughout.' : ''),
     ),
   );
-  const amb = [
-    lightClause(b),
-    finishClause(b),
-    has(b.mood) ? join(b.mood) + ' in feeling' : '',
-    has(b.pacing) ? (b.pacing ?? '') : '',
-  ].filter(has);
+  /*
+   * The mood and the pacing are one thought, so they share a sentence: "Playful in feeling,
+   * escalating." The old shape left the pacing as a one-word stub sentence on the end, which no
+   * person writes.
+   */
+  const feeling = has(b.mood)
+    ? join(b.mood) + ' in feeling' + (has(b.pacing) ? ', ' + lc(b.pacing ?? '') : '')
+    : has(b.pacing)
+      ? (b.pacing ?? '')
+      : '';
+  const amb = [lightClause(b), finishClause(b), feeling].filter(has);
   if (amb.length) S.push(block('Style & ambiance', sentences(amb) + '.'));
   if (has(b.vaudio)) S.push(block('Audio', stripDot(b.vaudio) + '.'));
   if (has(b.ref)) S.push(block('Reference', 'In the register of ' + stripDot(b.ref) + '.'));

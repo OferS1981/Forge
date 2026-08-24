@@ -103,6 +103,8 @@ interface JsonPrompt {
  * must then be identical. If the mapping ever fails to produce equality, something other than the
  * sanctioned wording moved.
  */
+const VIDEO_IDS = new Set<string>(MODELS.filter((m) => m.category === 'video').map((m) => m.id));
+
 function rewriteOurs(id: string, text: string): string {
   let out = text;
   // The intended-use clause is a sentence now; the prototype wrote it as a label.
@@ -123,6 +125,18 @@ function rewriteOurs(id: string, text: string): string {
     /(What we are building: (?:(?!Data model:|This pass only:)[^\n])*?)\.(?=\s*(?:\n|Data model:|This pass only:|$))/,
     '$1',
   );
+  /*
+   * The pacing folded into the mood sentence: "Playful in feeling, escalating." was two stub
+   * sentences in the prototype. Mapped back by re-splitting and re-capitalising. Video only:
+   * pacing is a video field, and the image grammars legitimately write "in feeling, in the
+   * register of..." which this must not touch.
+   */
+  if (VIDEO_IDS.has(id)) {
+    out = out.replace(
+      /in feeling, ([a-z])([^.\n]*)\./g,
+      (_, first: string, rest: string) => `in feeling. ${first.toUpperCase()}${rest}.`,
+    );
+  }
   // Hailuo's inline token dropped the usage note that was being pasted as part of the prompt.
   if (id === 'hailuo') {
     out = out.replace(

@@ -152,6 +152,20 @@ describe('the stated purpose does real work', () => {
   });
 });
 
+describe('a person does not repeat themselves', () => {
+  it('says negative space once, not once from the composition and once from the purpose', () => {
+    const out = forge(espresso, modelById('midjourney'), 'simple');
+    expect(out.flat.toLowerCase().split('negative space').length - 1).toBe(1);
+  });
+
+  it('folds the pacing into the mood sentence instead of leaving a one-word stub', () => {
+    const out = forge(barista, modelById('veo'), 'simple');
+    // "Playful in feeling, escalating." rather than "Playful in feeling. Escalating."
+    expect(out.flat).not.toMatch(/in feeling\. [A-Z][a-z]+\.$/);
+    expect(out.flat).toMatch(/in feeling, [a-z]/);
+  });
+});
+
 describe('nothing but the prompt in the prompt', () => {
   it('keeps the Hailuo bracket token and drops the usage note', () => {
     const out = forge(barista, modelById('hailuo'), 'simple');

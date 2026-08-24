@@ -3,104 +3,99 @@
 # image-product  brief={"subject":"a matte black espresso machine","setting":"a concrete kitchen counter in soft morning light","medium":"photograph","purpose":"e-commerce hero image"}
 ####################################################################################################
 
-== image-product :: midjourney (score 75)
-Photograph of a matte black espresso machine, a concrete kitchen counter in soft morning light. Medium shot, 35mm, f/5.6. Softbox key camera-left. Warm highlights, cool shadows grade. Rule of thirds, triumphant in feeling. e-commerce hero image: keep the focal subject clear of the outer eighth of the frame. --ar 1:1 --v 8.2 --stylize 100 --raw
+== image-product :: midjourney (score 60)
+Photograph of a matte black espresso machine, a concrete kitchen counter in soft morning light. Close-up, 50mm normal, f/8. For e-commerce hero image, leave clean negative space around the subject for copy. --ar 16:9 --v 8.2 --stylize 100 --raw
 
-== image-product :: gptimage (score 75)
+== image-product :: gptimage (score 64)
 Goal: e-commerce hero image.
 Scene: Photograph set in a concrete kitchen counter in soft morning light.
 Subject: A matte black espresso machine.
-Style: Medium shot, 35mm, f/5.6. Softbox key camera-left. Warm highlights, cool shadows grade.
-Details: Rule of thirds, triumphant in feeling.
+Style: Close-up, 50mm normal, f/8.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-product :: nanobanana (score 75)
-Photograph of a matte black espresso machine, a concrete kitchen counter in soft morning light. Framed as a medium shot on a 35mm lens at f/5.6. Lit by softbox key camera-left. Graded warm highlights, cool shadows. Composed using rule of thirds. The mood is triumphant. e-commerce hero image: keep the focal subject clear of the outer eighth of the frame.
+== image-product :: nanobanana (score 60)
+Photograph of a matte black espresso machine, a concrete kitchen counter in soft morning light. Framed as a close-up on a 50mm normal lens at f/8, sharp throughout. For e-commerce hero image, leave clean negative space around the subject for copy.
 
-== image-product :: flux (score 75)
-Photograph of a matte black espresso machine, a concrete kitchen counter in soft morning light. Framed as a medium shot on a 35mm lens at f/5.6. Lit by softbox key camera-left. Graded warm highlights, cool shadows. Composed using rule of thirds. The mood is triumphant. e-commerce hero image: keep the focal subject clear of the outer eighth of the frame.
+== image-product :: flux (score 60)
+Photograph of a matte black espresso machine, a concrete kitchen counter in soft morning light. Framed as a close-up on a 50mm normal lens at f/8, sharp throughout. For e-commerce hero image, leave clean negative space around the subject for copy.
 
-== image-product :: sdxl (score 64)
-photograph, a matte black espresso machine, a concrete kitchen counter in soft morning light, medium shot, 35mm, f/5.6, (softbox key camera-left:1.2), warm highlights, cool shadows, rule of thirds, triumphant
+== image-product :: sdxl (score 56)
+photograph, a matte black espresso machine, a concrete kitchen counter in soft morning light, close-up, 50mm normal, f/8, sharp throughout
 NEGATIVE: worst quality, low quality, jpeg artifacts, watermark, signature, text, bad anatomy, extra fingers, deformed hands, blurry, oversaturated
 
-== image-product :: ideogram (score 63)
+== image-product :: ideogram (score 55)
 {
   "high_level_description": "a matte black espresso machine, a concrete kitchen counter in soft morning light",
-  "style_description": "photograph. Medium shot, 35mm, f/5.6. Softbox key camera-left. Warm highlights, cool shadows grade",
-  "compositional_deconstruction": "rule of thirds, triumphant in feeling",
+  "style_description": "photograph. Close-up, 50mm normal, f/8",
+  "compositional_deconstruction": "balanced composition",
   "photo": {
-    "lens": "35mm",
-    "lighting": "Softbox key camera-left"
+    "lens": "50mm normal",
+    "lighting": "natural light"
   }
 }
 
-== image-product :: firefly (score 75)
+== image-product :: firefly (score 64)
 Goal: e-commerce hero image.
 Scene: Photograph set in a concrete kitchen counter in soft morning light.
 Subject: A matte black espresso machine.
-Style: Medium shot, 35mm, f/5.6. Softbox key camera-left. Warm highlights, cool shadows grade.
-Details: Rule of thirds, triumphant in feeling.
+Style: Close-up, 50mm normal, f/8.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-product :: recraft (score 64)
+== image-product :: recraft (score 53)
 Goal: e-commerce hero image.
 Scene: Photograph set in a concrete kitchen counter in soft morning light.
 Subject: A matte black espresso machine.
-Details: Rule of thirds, triumphant in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-product :: seedream (score 75)
+== image-product :: seedream (score 64)
 Goal: e-commerce hero image.
 Scene: Photograph set in a concrete kitchen counter in soft morning light.
 Subject: A matte black espresso machine.
-Style: Medium shot, 35mm, f/5.6. Softbox key camera-left. Warm highlights, cool shadows grade.
-Details: Rule of thirds, triumphant in feeling.
+Style: Close-up, 50mm normal, f/8.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-product :: qwenimage (score 75)
+== image-product :: qwenimage (score 64)
 Goal: e-commerce hero image.
 Scene: Photograph set in a concrete kitchen counter in soft morning light.
 Subject: A matte black espresso machine.
-Style: Medium shot, 35mm, f/5.6. Softbox key camera-left. Warm highlights, cool shadows grade.
-Details: Rule of thirds, triumphant in feeling.
+Style: Close-up, 50mm normal, f/8.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-product :: leonardo (score 74)
-Photograph of a matte black espresso machine, a concrete kitchen counter in soft morning light. Medium shot, 35mm, f/5.6. Softbox key camera-left. Warm highlights, cool shadows grade. Rule of thirds, triumphant in feeling. e-commerce hero image: keep the focal subject clear of the outer eighth of the frame.
+== image-product :: leonardo (score 59)
+Photograph of a matte black espresso machine, a concrete kitchen counter in soft morning light. Close-up, 50mm normal, f/8. For e-commerce hero image, leave clean negative space around the subject for copy.
 
-== image-product :: generic-image (score 74)
-Photograph of a matte black espresso machine, a concrete kitchen counter in soft morning light. Medium shot, 35mm, f/5.6. Softbox key camera-left. Warm highlights, cool shadows grade. Rule of thirds, triumphant in feeling. e-commerce hero image: keep the focal subject clear of the outer eighth of the frame.
+== image-product :: generic-image (score 59)
+Photograph of a matte black espresso machine, a concrete kitchen counter in soft morning light. Close-up, 50mm normal, f/8. For e-commerce hero image, leave clean negative space around the subject for copy.
 
 ####################################################################################################
 # image-illustration  brief={"subject":"a fox reading a folded paper map","setting":"a mossy forest clearing","medium":"ink line art","mood":["playful"],"palette":"black ink with one red accent"}
 ####################################################################################################
 
-== image-illustration :: midjourney (score 73)
-Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot, 24mm wide, f/8. Golden hour. Warm highlights, cool shadows grade, palette: black ink with one red accent. Leading lines, playful in feeling. --ar 1:1 --v 8.2 --stylize 250
+== image-illustration :: midjourney (score 64)
+Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot. Palette: black ink with one red accent. Leading lines, playful in feeling. --ar 1:1 --v 8.2 --stylize 250
 
-== image-illustration :: gptimage (score 77)
+== image-illustration :: gptimage (score 70)
 Goal: A single finished image.
 Scene: Ink line art set in a mossy forest clearing.
 Subject: A fox reading a folded paper map.
-Style: Wide shot, 24mm wide, f/8. Golden hour. Warm highlights, cool shadows grade, palette: black ink with one red accent.
+Style: Wide shot. Palette: black ink with one red accent.
 Details: Leading lines, playful in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-illustration :: nanobanana (score 75)
-Ink line art of a fox reading a folded paper map, a mossy forest clearing. Framed as a wide shot on a 24mm wide lens at f/8, sharp throughout. Lit by golden hour. Graded warm highlights, cool shadows in a palette of black ink with one red accent. Composed using leading lines. The mood is playful.
+== image-illustration :: nanobanana (score 64)
+Ink line art of a fox reading a folded paper map, a mossy forest clearing. Framed as a wide shot. In a palette of black ink with one red accent. Composed using leading lines. The mood is playful.
 
-== image-illustration :: flux (score 75)
-Ink line art of a fox reading a folded paper map, a mossy forest clearing. Framed as a wide shot on a 24mm wide lens at f/8, sharp throughout. Lit by golden hour. Graded warm highlights, cool shadows in a palette of black ink with one red accent. Composed using leading lines. The mood is playful.
+== image-illustration :: flux (score 64)
+Ink line art of a fox reading a folded paper map, a mossy forest clearing. Framed as a wide shot. In a palette of black ink with one red accent. Composed using leading lines. The mood is playful.
 
-== image-illustration :: sdxl (score 66)
-ink line art, a fox reading a folded paper map, a mossy forest clearing, wide shot, 24mm wide, f/8, sharp throughout, (golden hour:1.2), warm highlights, cool shadows, leading lines, playful, black ink with one red accent
+== image-illustration :: sdxl (score 59)
+ink line art, a fox reading a folded paper map, a mossy forest clearing, wide shot, leading lines, playful, black ink with one red accent
 NEGATIVE: worst quality, low quality, jpeg artifacts, watermark, signature, text, bad anatomy, extra fingers, deformed hands, blurry, oversaturated
 
-== image-illustration :: ideogram (score 67)
+== image-illustration :: ideogram (score 60)
 {
   "high_level_description": "a fox reading a folded paper map, a mossy forest clearing",
-  "style_description": "ink line art. Wide shot, 24mm wide, f/8. Golden hour. Warm highlights, cool shadows grade, palette: black ink with one red accent",
+  "style_description": "ink line art. Wide shot. Palette: black ink with one red accent",
   "compositional_deconstruction": "leading lines, playful in feeling",
   "art_style": {
     "medium": "ink line art",
@@ -111,11 +106,11 @@ NEGATIVE: worst quality, low quality, jpeg artifacts, watermark, signature, text
   }
 }
 
-== image-illustration :: firefly (score 77)
+== image-illustration :: firefly (score 70)
 Goal: A single finished image.
 Scene: Ink line art set in a mossy forest clearing.
 Subject: A fox reading a folded paper map.
-Style: Wide shot, 24mm wide, f/8. Golden hour. Warm highlights, cool shadows grade, palette: black ink with one red accent.
+Style: Wide shot. Palette: black ink with one red accent.
 Details: Leading lines, playful in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
@@ -127,118 +122,118 @@ Style: Palette: black ink with one red accent.
 Details: Leading lines, playful in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-illustration :: seedream (score 77)
+== image-illustration :: seedream (score 70)
 Goal: A single finished image.
 Scene: Ink line art set in a mossy forest clearing.
 Subject: A fox reading a folded paper map.
-Style: Wide shot, 24mm wide, f/8. Golden hour. Warm highlights, cool shadows grade, palette: black ink with one red accent.
+Style: Wide shot. Palette: black ink with one red accent.
 Details: Leading lines, playful in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-illustration :: qwenimage (score 77)
+== image-illustration :: qwenimage (score 70)
 Goal: A single finished image.
 Scene: Ink line art set in a mossy forest clearing.
 Subject: A fox reading a folded paper map.
-Style: Wide shot, 24mm wide, f/8. Golden hour. Warm highlights, cool shadows grade, palette: black ink with one red accent.
+Style: Wide shot. Palette: black ink with one red accent.
 Details: Leading lines, playful in feeling.
 Constraints: No watermarks, no signatures, no borders. No text anywhere in the frame.
 
-== image-illustration :: leonardo (score 73)
-Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot, 24mm wide, f/8. Golden hour. Warm highlights, cool shadows grade, palette: black ink with one red accent. Leading lines, playful in feeling.
+== image-illustration :: leonardo (score 63)
+Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot. Palette: black ink with one red accent. Leading lines, playful in feeling.
 
-== image-illustration :: generic-image (score 73)
-Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot, 24mm wide, f/8. Golden hour. Warm highlights, cool shadows grade, palette: black ink with one red accent. Leading lines, playful in feeling.
+== image-illustration :: generic-image (score 63)
+Ink line art of a fox reading a folded paper map, a mossy forest clearing. Wide shot. Palette: black ink with one red accent. Leading lines, playful in feeling.
 
 ####################################################################################################
 # video-single  brief={"subject":"a barista in a linen apron","setting":"a sunlit cafe counter","action":"she pours a rosetta into a flat white, then slides it across the counter","purpose":"social"}
 ####################################################################################################
 
-== video-single :: veo (score 66)
-Slow dolly in, medium shot on a 35mm. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Softbox key camera-left. Warm highlights, cool shadows grade. Playful in feeling. Escalating.
+== video-single :: veo (score 64)
+Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
-== video-single :: kling (score 62)
-Shot 1: Medium shot, slow dolly in. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. A sunlit cafe counter. Softbox key camera-left. Warm highlights, cool shadows grade. 10 seconds.
+== video-single :: kling (score 60)
+Shot 1: Medium close-up, slow dolly in. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. A sunlit cafe counter. Warm highlights, cool shadows grade. 10 seconds.
 Continuity: Single continuous shot, no cuts.
 
-== video-single :: seedance (score 66)
-Slow dolly in, medium shot on a 35mm. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Softbox key camera-left. Warm highlights, cool shadows grade. Playful in feeling. Escalating.
+== video-single :: seedance (score 64)
+Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
-== video-single :: runway (score 66)
-Slow dolly in, medium shot on a 35mm. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Softbox key camera-left. Warm highlights, cool shadows grade. Playful in feeling. Escalating.
+== video-single :: runway (score 64)
+Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
-== video-single :: hailuo (score 70)
-Slow dolly in, medium shot on a 35mm. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Softbox key camera-left. Warm highlights, cool shadows grade. Playful in feeling. Escalating. [zoom]: Hailuo reads this bracket syntax. Strip it before pasting into any other model.
+== video-single :: hailuo (score 67)
+Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating. [zoom]
 
-== video-single :: luma (score 66)
-Slow dolly in, medium shot on a 35mm. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Softbox key camera-left. Warm highlights, cool shadows grade. Playful in feeling. Escalating.
+== video-single :: luma (score 64)
+Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
-== video-single :: ltx (score 62)
-Shot 1: Medium shot, slow dolly in. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. A sunlit cafe counter. Softbox key camera-left. Warm highlights, cool shadows grade. 10 seconds.
+== video-single :: ltx (score 60)
+Shot 1: Medium close-up, slow dolly in. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. A sunlit cafe counter. Warm highlights, cool shadows grade. 10 seconds.
 Continuity: Single continuous shot, no cuts.
 
-== video-single :: higgsfield (score 66)
-Slow dolly in, medium shot on a 35mm. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Softbox key camera-left. Warm highlights, cool shadows grade. Playful in feeling. Escalating.
+== video-single :: higgsfield (score 64)
+Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
-== video-single :: wan (score 66)
-Slow dolly in, medium shot on a 35mm. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Softbox key camera-left. Warm highlights, cool shadows grade. Playful in feeling. Escalating.
+== video-single :: wan (score 64)
+Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
 == video-single :: mjvideo (score 56)
 Slow dolly in. A barista in a linen apron. She pours a rosetta into a flat white, then slides it across the counter. Calm in feeling. --motion high --raw
 (fields this model does not read: setting, purpose)
 
-== video-single :: generic-video (score 66)
-Slow dolly in, medium shot on a 35mm. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Softbox key camera-left. Warm highlights, cool shadows grade. Playful in feeling. Escalating.
+== video-single :: generic-video (score 64)
+Slow dolly in, medium close-up on an 85mm portrait. A barista in a linen apron, a sunlit cafe counter. She pours a rosetta into a flat white, then slides it across the counter. Warm highlights, cool shadows grade. Playful in feeling, escalating.
 
 ####################################################################################################
 # video-multishot  brief={"subject":"a night courier on a cargo bike","setting":"wet London streets after midnight","action":"he checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods","shots":"3","duration":"12s","vaudio":"Rain on tarmac, distant sirens. No music."}
 ####################################################################################################
 
-== video-multishot :: veo (score 75)
-Slow dolly in, medium shot on a 35mm. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Softbox key camera-left. Warm highlights, cool shadows grade. Calm in feeling. Deliberate. Rain on tarmac, distant sirens. No music.
+== video-multishot :: veo (score 73)
+Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music.
 (fields this model does not read: shots)
 
-== video-multishot :: kling (score 75)
-Shot 1: Medium shot, slow dolly in. A night courier on a cargo bike. He checks the address under a streetlight. Wet London streets after midnight. Softbox key camera-left. Warm highlights, cool shadows grade. 4 seconds.
-Shot 2: Medium shot, arc around subject. He cuts through an alley. 4 seconds.
-Shot 3: Medium shot, handheld follow. He hands over the parcel and nods. 4 seconds.
+== video-multishot :: kling (score 73)
+Shot 1: Medium close-up, slow dolly in. A night courier on a cargo bike. He checks the address under a streetlight. Wet London streets after midnight. Warm highlights, cool shadows grade. 4 seconds.
+Shot 2: Medium close-up, arc around subject. He cuts through an alley. 4 seconds.
+Shot 3: Medium close-up, handheld follow. He hands over the parcel and nods. 4 seconds.
 Audio: Rain on tarmac, distant sirens. No music.
 
-== video-multishot :: seedance (score 75)
-Slow dolly in, medium shot on a 35mm. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Softbox key camera-left. Warm highlights, cool shadows grade. Calm in feeling. Deliberate. Rain on tarmac, distant sirens. No music.
+== video-multishot :: seedance (score 73)
+Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music.
 (fields this model does not read: shots)
 
-== video-multishot :: runway (score 72)
-Slow dolly in, medium shot on a 35mm. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Softbox key camera-left. Warm highlights, cool shadows grade. Calm in feeling. Deliberate.
+== video-multishot :: runway (score 70)
+Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
 (fields this model does not read: shots, vaudio)
 
-== video-multishot :: hailuo (score 79)
-Slow dolly in, medium shot on a 35mm. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Softbox key camera-left. Warm highlights, cool shadows grade. Calm in feeling. Deliberate. Rain on tarmac, distant sirens. No music. [zoom]: Hailuo reads this bracket syntax. Strip it before pasting into any other model.
+== video-multishot :: hailuo (score 75)
+Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music. [zoom]
 (fields this model does not read: shots)
 
-== video-multishot :: luma (score 72)
-Slow dolly in, medium shot on a 35mm. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Softbox key camera-left. Warm highlights, cool shadows grade. Calm in feeling. Deliberate.
+== video-multishot :: luma (score 70)
+Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
 (fields this model does not read: shots, vaudio)
 
-== video-multishot :: ltx (score 75)
-Shot 1: Medium shot, slow dolly in. A night courier on a cargo bike. He checks the address under a streetlight. Wet London streets after midnight. Softbox key camera-left. Warm highlights, cool shadows grade. 4 seconds.
-Shot 2: Medium shot, arc around subject. He cuts through an alley. 4 seconds.
-Shot 3: Medium shot, handheld follow. He hands over the parcel and nods. 4 seconds.
+== video-multishot :: ltx (score 73)
+Shot 1: Medium close-up, slow dolly in. A night courier on a cargo bike. He checks the address under a streetlight. Wet London streets after midnight. Warm highlights, cool shadows grade. 4 seconds.
+Shot 2: Medium close-up, arc around subject. He cuts through an alley. 4 seconds.
+Shot 3: Medium close-up, handheld follow. He hands over the parcel and nods. 4 seconds.
 Audio: Rain on tarmac, distant sirens. No music.
 
-== video-multishot :: higgsfield (score 75)
-Slow dolly in, medium shot on a 35mm. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Softbox key camera-left. Warm highlights, cool shadows grade. Calm in feeling. Deliberate. Rain on tarmac, distant sirens. No music.
+== video-multishot :: higgsfield (score 73)
+Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music.
 (fields this model does not read: shots)
 
-== video-multishot :: wan (score 72)
-Slow dolly in, medium shot on a 35mm. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Softbox key camera-left. Warm highlights, cool shadows grade. Calm in feeling. Deliberate.
+== video-multishot :: wan (score 70)
+Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate.
 (fields this model does not read: shots, vaudio)
 
 == video-multishot :: mjvideo (score 57)
-Slow dolly in. A night courier on a cargo bike. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Calm in feeling. --motion high --raw
+Slow dolly in. A night courier on a cargo bike. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Austere in feeling. --motion high --raw
 (fields this model does not read: setting, shots, duration, vaudio)
 
-== video-multishot :: generic-video (score 75)
-Slow dolly in, medium shot on a 35mm. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Softbox key camera-left. Warm highlights, cool shadows grade. Calm in feeling. Deliberate. Rain on tarmac, distant sirens. No music.
+== video-multishot :: generic-video (score 73)
+Slow dolly in, medium close-up on an 85mm portrait. A night courier on a cargo bike, wet London streets after midnight. He checks the address under a streetlight. He cuts through an alley. He hands over the parcel and nods. Warm highlights, cool shadows grade. Austere in feeling, deliberate. Rain on tarmac, distant sirens. No music.
 (fields this model does not read: shots)
 
 ####################################################################################################
@@ -289,11 +284,11 @@ bossa nova, 120 BPM, nylon-string guitar, muted trumpet, instrumental, vinyl cra
 # sfx-ambience  brief={"sound":"rain starting on a tin roof, sparse drops building to a steady downpour","sfxKind":"ambience bed","sfxLen":"20","sfxLoop":"Yes"}
 ####################################################################################################
 
-== sfx-ambience :: el-sfx (score 48)
-Rain starting on a tin roof, sparse drops building to a steady downpour, ambience bed, calm, high-quality, professionally recorded, sound effects foley
+== sfx-ambience :: el-sfx (score 41)
+Rain starting on a tin roof, sparse drops building to a steady downpour, ambience bed
 
-== sfx-ambience :: generic-sfx (score 48)
-Rain starting on a tin roof, sparse drops building to a steady downpour, ambience bed, calm, high-quality, professionally recorded, sound effects foley
+== sfx-ambience :: generic-sfx (score 41)
+Rain starting on a tin roof, sparse drops building to a steady downpour, ambience bed
 
 ####################################################################################################
 # text-email  brief={"goal":"Write a cold outreach email to a CFO introducing expense-management software","context":"We are a 12-person startup. The CFO runs finance at a 400-person logistics firm. No prior contact.","format":"Plain prose","role":"copywriter","length":"Under 120 words","rules":"No buzzwords, no exclamation marks, one specific number, one clear ask"}
@@ -301,7 +296,7 @@ Rain starting on a tin roof, sparse drops building to a steady downpour, ambienc
 
 == text-email :: claude (score 77)
 <!-- system prompt -->
-You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Answer from the material provided. If something is not in it, say so rather than filling the gap.
+You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Keep every fact you were given exactly as given, and invent freely where the brief is silent.
 
 <context>
 We are a 12-person startup. The CFO runs finance at a 400-person logistics firm. No prior contact
@@ -317,7 +312,7 @@ Format: Plain prose. Length: Under 120 words. No preamble and no summary of the 
 
 == text-email :: gpt (score 77)
 ## System prompt
-You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Answer from the material provided. If something is not in it, say so rather than filling the gap.
+You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Keep every fact you were given exactly as given, and invent freely where the brief is silent.
 
 ## Context
 We are a 12-person startup. The CFO runs finance at a 400-person logistics firm. No prior contact
@@ -330,7 +325,7 @@ Format: Plain prose. Length: Under 120 words. No preamble and no summary of the 
 
 == text-email :: gemini (score 77)
 ## System prompt
-You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Answer from the material provided. If something is not in it, say so rather than filling the gap.
+You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Keep every fact you were given exactly as given, and invent freely where the brief is silent.
 
 ## Context
 We are a 12-person startup. The CFO runs finance at a 400-person logistics firm. No prior contact
@@ -343,7 +338,7 @@ Format: Plain prose. Length: Under 120 words. No preamble and no summary of the 
 
 == text-email :: grok (score 77)
 ## System prompt
-You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Answer from the material provided. If something is not in it, say so rather than filling the gap.
+You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Keep every fact you were given exactly as given, and invent freely where the brief is silent.
 
 ## Context
 We are a 12-person startup. The CFO runs finance at a 400-person logistics firm. No prior contact
@@ -356,7 +351,7 @@ Format: Plain prose. Length: Under 120 words. No preamble and no summary of the 
 
 == text-email :: deepseek (score 77)
 ## System prompt
-You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Answer from the material provided. If something is not in it, say so rather than filling the gap.
+You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Keep every fact you were given exactly as given, and invent freely where the brief is silent.
 
 ## Context
 We are a 12-person startup. The CFO runs finance at a 400-person logistics firm. No prior contact
@@ -369,7 +364,7 @@ Format: Plain prose. Length: Under 120 words. No preamble and no summary of the 
 
 == text-email :: generic-text (score 77)
 ## System prompt
-You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Answer from the material provided. If something is not in it, say so rather than filling the gap.
+You are a copywriter. No buzzwords, no exclamation marks, one specific number, one clear ask. Keep every fact you were given exactly as given, and invent freely where the brief is silent.
 
 ## Context
 We are a 12-person startup. The CFO runs finance at a 400-person logistics firm. No prior contact
@@ -485,7 +480,7 @@ Explore the relevant files first and tell me the plan before you edit anything. 
 ####################################################################################################
 
 == app-invoices :: v0 (score 52)
-What we are building: an invoice-chasing tool for freelancers that sends polite reminder emails on a schedule
+What we are building: an invoice-chasing tool for freelancers that sends polite reminder emails on a schedule.
 
 Data model: Client, Invoice, Reminder, EmailTemplate.
 
@@ -496,7 +491,7 @@ Look: calm, dense, keyboard-first, no marketing fluff.
 Before you build: Restate what you are about to build in three bullets and wait for me to confirm.
 
 == app-invoices :: lovable (score 52)
-What we are building: an invoice-chasing tool for freelancers that sends polite reminder emails on a schedule
+What we are building: an invoice-chasing tool for freelancers that sends polite reminder emails on a schedule.
 
 Data model: Client, Invoice, Reminder, EmailTemplate.
 
@@ -507,7 +502,7 @@ Look: calm, dense, keyboard-first, no marketing fluff.
 Before you build: Restate what you are about to build in three bullets and wait for me to confirm.
 
 == app-invoices :: bolt (score 52)
-What we are building: an invoice-chasing tool for freelancers that sends polite reminder emails on a schedule
+What we are building: an invoice-chasing tool for freelancers that sends polite reminder emails on a schedule.
 
 Data model: Client, Invoice, Reminder, EmailTemplate.
 
@@ -518,7 +513,7 @@ Look: calm, dense, keyboard-first, no marketing fluff.
 Before you build: Restate what you are about to build in three bullets and wait for me to confirm.
 
 == app-invoices :: base44 (score 52)
-What we are building: an invoice-chasing tool for freelancers that sends polite reminder emails on a schedule
+What we are building: an invoice-chasing tool for freelancers that sends polite reminder emails on a schedule.
 
 Data model: Client, Invoice, Reminder, EmailTemplate.
 
@@ -529,7 +524,7 @@ Look: calm, dense, keyboard-first, no marketing fluff.
 Before you build: Restate what you are about to build in three bullets and wait for me to confirm.
 
 == app-invoices :: generic-app (score 52)
-What we are building: an invoice-chasing tool for freelancers that sends polite reminder emails on a schedule
+What we are building: an invoice-chasing tool for freelancers that sends polite reminder emails on a schedule.
 
 Data model: Client, Invoice, Reminder, EmailTemplate.
 
